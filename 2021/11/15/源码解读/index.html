@@ -6,7 +6,7 @@
   <meta http-equiv="content-type" content="text/html; charset=utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
   
-  <title>Tags : db - 技术、生活、思考</title>
+  <title>技术、生活、思考</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
   
   <meta name="keywords" content=生活,博客,前端,游戏>
@@ -55,25 +55,33 @@
     </ul>
   </nav>
 </header>
-<section class="archive">
-  <h1 class="article-title">Posts</h1>
-  <ul class="post-archive">
-    
-      <li class="post-item">
-        <a class="post-title" href="/2022/01/22/test/">test</a>
-        <time class="post-date">2022-01-22</time>
-      </li>
-    
-  </ul>
-</section>
+<article class="post">
+  <div class="post-title">
+    <h1 class="article-title"></h1>
+  </div>
+   <div class="post-meta">
+    <span class="post-time">2021-11-15</span>
+  </div>
+  <div class="post-content">
+    <h2 id="HashMap"><a href="#HashMap" class="headerlink" title="HashMap"></a>HashMap</h2><ol>
+<li>优化点1:<code>(n - 1) &amp; hash</code> 代替hash值对length的取模运算，速度快；</li>
+<li><code> hash ^ (hash &gt;&gt;&gt; 4)</code> hash=key.hashCode()，java中hashCode产生的是int类型，32位。如果不进行高16位与低16位的或运算，那么就只有低16位参与了<br>取模运算，会加大hash值的冲突；通过这种操作，可以让高位数据和低位数据参与到计算中，以此提高hash值的随机性，让key分布更加的均匀；</li>
+<li></li>
+</ol>
 
+  </div>
+  <div class="post-footer">
+    
+
+    <a href="#top" class="top">Back to Top</a>
+  </div>
+</article>
 <footer>
   &copy; 2022
   <span class="author">
     chenyusharp
   </span>
 </footer>
-
     </div>
   </body>
 </html>

@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html>
+  <!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+  
+  <title>技术、生活、思考</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+  
+  <meta name="keywords" content=生活,博客,前端,游戏>
+  
+  
+    <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=1.02">
+  
+  
+    <link rel="alternate" href="/atom.xml " title="技术、生活、思考" type="application/atom+xml">
+  
+
+  
+<link rel="stylesheet" href="/css/style.css">
+
+<meta name="generator" content="Hexo 5.4.0"></head>
+  <body>
+    <div class="container">
+      <header class="header">
+  <div class="blog-title">
+    <a href="/" class="logo">技术、生活、思考</a>
+    <div class="subtitle"></div>
+  </div>
+  <nav class="navbar">
+    <ul class="menu">
+      
+        <li class="menu-item">
+          <a href="/" class="menu-item-link">Home</a>
+        </li>
+      
+        <li class="menu-item">
+          <a href="/archives" class="menu-item-link">Archives</a>
+        </li>
+      
+        <li class="menu-item">
+          <a href="/about" class="menu-item-link">About</a>
+        </li>
+      
+        <li class="menu-item">
+          <a href="/categories/" class="menu-item-link">Categories</a>
+        </li>
+      
+        <li class="menu-item">
+          <a href="/tags/" class="menu-item-link">Tags</a>
+        </li>
+      
+    </ul>
+  </nav>
+</header>
+<article class="post">
+  <div class="post-title">
+    <h1 class="article-title"></h1>
+  </div>
+   <div class="post-meta">
+    <span class="post-time">2021-10-03</span>
+  </div>
+  <div class="post-content">
+    <h2 id="MySQL"><a href="#MySQL" class="headerlink" title="MySQL"></a>MySQL</h2><p>[TOC]</p>
+<h3 id="Mysql的架构"><a href="#Mysql的架构" class="headerlink" title="Mysql的架构"></a>Mysql的架构</h3><p>Server层</p>
+<ul>
+<li>链接层<br>负责客户端和数据库的链接，权限验证；</li>
+<li>语法分析层<br>对要执行的sql语句进行分析，校验是否符合sql语法规范；</li>
+<li>优化器层<br>对要执行的sql，生成执行计划，索引选择；</li>
+<li>执行层<br>具体的sql查询执行部分，有InnoDB和MyISAM两个最常用的引擎。</li>
+</ul>
+<p>引擎层（InnoDB和MyISAM）</p>
+<ul>
+<li><p>InnoDB和MyISAM的区别：</p>
+<ol>
+<li>InnoDB支持事务，而MyISAM不支持事务；</li>
+<li>MyISAM只支持表级锁，而InnoDB是支持行级锁（默认）；</li>
+<li>InnoDB的索引文件和数据文件是一起的，而MyISAM的索引文件和数据文件是分开的。MyISAM的索引的叶子节点存放的是数据的物理地址，这样的话，即便是根据主键进行查询我们仍然需要一次磁盘的IO操作才可以拿到数据。</li>
+<li>MyISAM不支持外键，而InnoDB支持；</li>
+<li>是否支持MVCC；</li>
+</ol>
+<p>MyISAM适用于读密集型场景，比如报表等业务；</p>
+</li>
+</ul>
+<h3 id="Mysql的索引"><a href="#Mysql的索引" class="headerlink" title="Mysql的索引"></a>Mysql的索引</h3><p>索引的分类：哈希表、有序数组、BST；</p>
+<p>索引的结构：B+树索引（平衡的N叉树）。 减少树的高度，可以有效的减少对磁盘的IO操作。</p>
+<p>主键索引（聚簇索引）；父节点存放主键数据，叶子节点存放对应行的完整的数据。</p>
+<p>二级索引（非聚簇索引）： 父节点存放的是索引数据，叶子节点存放的是主键索引数据。这样根据二级索引进行查询的时候，会有一次根据叶子节点的主键的值重新查询一边主键索引树的操作（回表操作）。</p>
+<p>覆盖索引：索引的叶子节点存储的正是我们查询的结果；</p>
+<p>索引能支持最左匹配原则，是和二叉查找树的索引结构有关的：从左到右是有序的，对于联合索引，是先按照第一个字段排序，再按照第二个字段排序，以此类推；</p>
+<p>PS：在表设计的时候，不建议使用过长的字段作为主键（这样容易造成二级索引叶子节点存储占用空间大），也不建议使用非单调的字段作为主键，这样会造成主键索引频繁的分裂。<br>数据页：</p>
+<p><img src="https://xiazhenyu.oss-cn-hangzhou.aliyuncs.com/common/InnoDB%E4%B8%AD%E7%9A%84%E6%95%B0%E6%8D%AE%E9%A1%B5.jpeg" alt="InnoDB中的数据页"></p>
+<p>页分裂：</p>
+<p><em><strong>join的优化：</strong></em></p>
+<ol>
+<li>驱动表为小表；</li>
+<li>对被驱动表添加索引（在关联的字段上），不好添加索引的，可以引入中间表；</li>
+<li>MRR优化；</li>
+</ol>
+<h4 id="索引失效的场景？"><a href="#索引失效的场景？" class="headerlink" title="索引失效的场景？"></a>索引失效的场景？</h4><ol>
+<li>使用了like操作，且%在字符串的右侧；</li>
+<li>对于符合索引，不满足最左匹配原则，查询的字段没有从最左边的字段开始查起；</li>
+</ol>
+<h3 id="mysql-的log日志分类"><a href="#mysql-的log日志分类" class="headerlink" title="mysql 的log日志分类"></a>mysql 的log日志分类</h3><ul>
+<li><p>binlog<br>作用： </p>
+<ol>
+<li><p>记录的是数据库的写入操作。有server层进行开发，所以说任何存储引擎都支持。通过追加的方式来写入。</p>
+</li>
+<li><p>应用场景：主从复制/数据恢复。</p>
+</li>
+<li><p>binlog的刷盘时机：<br>0：不去强制要求，由系统自行判断何时写入磁盘；<br>1：每次 commit 的时候都要将 binlog 写入磁盘；<br>N：每N个事务，才会将 binlog 写入磁盘</p>
+</li>
+<li><p>格式：</p>
+<p>2.1  statement<br>binlog中存放的是原始的sql语句；优点是日志占用空间小，缺点是容易造成主从同步的不一致；</p>
+<p>2.2  row格式<br>binlog中存放的是每一行的数据，优点是可以保证主从同步的一致，另外也便于回滚操作，缺点是日志量大；</p>
+<p>2.3 mixed格式<br>mysql会根据sql的语句进行分析，如果不会造成主从同步的不一致，就采用statement格式，反之则采用row格式；<br>举例：sql中带有条件的delete、update语句容易造成主从同步的不一致，因为主库和从库在执行的时候，又可能选择了不同的索引；</p>
+</li>
+</ol>
+</li>
+<li><p>redolog<br>作用：</p>
+<ol>
+<li><p>用于崩溃恢复数据的执行。对于DML语句，mysql首先是先写到redolog中，然后返回执行结果。后续在把redolog中的日志回放写入到磁盘中；<br><img src="https://xiazhenyu.oss-cn-hangzhou.aliyuncs.com/common/redolog%E7%9A%84%E5%88%B7%E7%9B%98%E6%97%B6%E6%9C%BA%EF%BC%88undolog%E4%B8%80%E6%A0%B7%EF%BC%89.png" alt="redolog的刷盘时机（undolog一样）"></p>
+</li>
+<li><p>记录形式<code>redo log</code></p>
+<p>实现上采用了大小固定，循环写入的方式，当写到结尾时，会回到开头循环写日志。<br><img src="https://xiazhenyu.oss-cn-hangzhou.aliyuncs.com/common/redo%20log%E8%AE%B0%E5%BD%95%E5%BD%A2%E5%BC%8F.png" alt="redo log记录形式"></p>
+<p>LSN：逻辑序列号。就是上面的write pos和check point的位置。</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>redo log</th>
+<th>binlog</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>文件大小</td>
+<td><code>redo log </code>的大小是固定的。</td>
+<td><code>binlog </code>可通过配置参数 <code>max_binlog_size </code>设置每个<code>binlog</code>文件的大小。</td>
+</tr>
+<tr>
+<td>实现方式</td>
+<td><code>redo log </code>是 <code>InnoDB </code>引擎层实现的，并不是所有引擎都有。</td>
+<td><code>binlog </code>是 <code>Server</code> 层实现的，所有引擎都可以使用 <code>binlog </code>日志</td>
+</tr>
+<tr>
+<td>记录方式</td>
+<td>redo log 采用循环写的方式记录，当写到结尾时，会回到开头循环写日志。</td>
+<td>binlog通过追加的方式记录，当文件大小大于给定值后，后续的日志会记录到新的文件上</td>
+</tr>
+<tr>
+<td>适用场景</td>
+<td><code>redo log </code>适用于崩溃恢复(crash-safe)</td>
+<td><code>binlog </code>适用于主从复制和数据恢复</td>
+</tr>
+</tbody></table>
+</li>
+</ol>
+</li>
+<li><p>undolog<br>作用：</p>
+<ol>
+<li>用于数据的回滚。会根据undolog中的日志回滚数据。原子性的保证，MVCC中也使用到了</li>
+</ol>
+</li>
+<li><p>relaylog<br>作用：</p>
+<ol>
+<li>中转日志。主要用于主从同步。主库会在备库第一次连接的时候，生成一个relaylog日志传递给备库，备库会启动一个io_thread线程回放这个日志到本地。</li>
+</ol>
+</li>
+</ul>
+<h3 id="mysql的主从同步，双M结构，"><a href="#mysql的主从同步，双M结构，" class="headerlink" title="mysql的主从同步，双M结构，"></a>mysql的主从同步，双M结构，</h3><p>数据库A和数据B互为主备关系。</p>
+<h3 id="mySql的事务隔离级别？"><a href="#mySql的事务隔离级别？" class="headerlink" title="mySql的事务隔离级别？"></a>mySql的事务隔离级别？</h3><p>ACID</p>
+<ul>
+<li><p>脏读</p>
+<ol>
+<li>读到了未提交的事务修改的数据；</li>
+</ol>
+</li>
+<li><p>不可重复读</p>
+<ol>
+<li>事务A对某一行记录前后两次的读取的信息不一致。</li>
+</ol>
+</li>
+<li><p>幻读</p>
+<ol>
+<li>事务A对根据条件查询数据库，第一次查询出两行记录；然后另一个事务插入了一行数据，当事务A再次查询的时候，发现读取到了三条记录，这个时候就发生了幻读。</li>
+</ol>
+<p>事务的隔离级别：<br>一、 读未提交。可造成脏读、幻读、不可重复读；</p>
+<p>二、 读已提交。可解决脏读的问题，不能解决不可重复读和幻读的问题；</p>
+<p>三、 可重复读。可解决脏读、不可重复读的问题。但仍有可能幻读发生；（默认的，利用MVCC实现）。</p>
+<p>四、串行化读。可解决脏读、幻读、不可重复读；</p>
+</li>
+</ul>
+<h3 id="锁"><a href="#锁" class="headerlink" title="锁"></a>锁</h3><p><em><strong>乐观锁和悲观锁</strong></em>。</p>
+<ul>
+<li>乐观锁认为数据会被多个线程同时修改的，在执行sql的时候，会先给这行数据加锁，执行完之后再把锁释放；</li>
+<li>乐观锁认为数据是不会被修改的，只是在修改的时候，回去判断下要修改的数据的是否和期望的一致，一致则允许修改，不一致则拒绝。</li>
+</ul>
+<p><em><strong>间隙锁（Gap Lock）</strong></em><br>锁住行的间隙，防止对数据行之间进行插入操作。这个锁可以解决幻读问题。所以我们说InnoDB默认的REPEATABLE_READ<br>这个事务隔离级别是完全保证了事务的隔离型要求。</p>
+<p><a target="_blank" rel="noopener" href="https://www.jianshu.com/p/d1aba64b5c03">间隙锁和next-key lock</a></p>
+<h3 id="mysql的除了DB，还在哪些业务上会被使用到？"><a href="#mysql的除了DB，还在哪些业务上会被使用到？" class="headerlink" title="mysql的除了DB，还在哪些业务上会被使用到？"></a>mysql的除了DB，还在哪些业务上会被使用到？</h3><p>分布式锁；<br>发号服务；</p>
+<h3 id="优化方式？"><a href="#优化方式？" class="headerlink" title="优化方式？"></a>优化方式？</h3><h4 id="Explain"><a href="#Explain" class="headerlink" title="Explain"></a>Explain</h4><p>MySQL 提供了一个 EXPLAIN 命令，它可以对 SELECT 语句进行分析，并输出 SELECT 执行的详细信 息，供开发人员有针对性的优化。</p>
+<p><img src="https://xiazhenyu.oss-cn-hangzhou.aliyuncs.com/common/Mysql%20Explain%E6%A0%BC%E5%BC%8F.png" alt="Mysql Explain格式"></p>
+<ul>
+<li><p>select_type<br>表示查询的类型，常用的有：<br>SIMPLE : 表示查询语句不包含子查询或union<br>PRIMARY:表示此查询是最外层的查询<br>UNION:表示此查询是UNION的第二个或后续的查询<br>DEPENDENT UNION:UNION中的第二个或后续的查询语句，使用了外面查询结果<br>UNION RESULT:UNION的结果<br>SUBQUERY:SELECT子查询语句<br>DEPENDENT SUBQUERY:SELECT子查询语句依赖外层查询的结果。</p>
+</li>
+<li><p>*** type***<br>表示存储引擎查询数据时采用的方式。通过它可以判断出查询是全表扫描还是基于索引的部分扫描。<br>ALL:表示全表扫描，性能最差。<br>index:表示基于索引的全表扫描，先扫描索引再扫描全表数据。<br>range:表示使用索引范围查询。使用&gt;、&gt;=、&lt;、&lt;=、in等等。<br>ref:表示使用非唯一索引进行单值查询。<br>eq_ref:一般情况下出现在多表join查询，表示前面表的每一个记录，都只能匹配后面表的一 行结果。</p>
+<p>const:表示使用主键或唯一索引做等值查询，常量查询。</p>
+<p>NULL:表示不用访问表，速度最快。</p>
+</li>
+<li><p>possible_keys</p>
+<p>表示查询时能够使用到的索引。注意并不一定会真正使用到。显示的是索引名称；</p>
+</li>
+<li><p>key<br>表示查询时真正使用到的索引，显示的是索引名称；</p>
+</li>
+<li><p>rows<br>估算SQL要查询到结果需要扫描多少行记录。</p>
+</li>
+<li><p>key_len</p>
+</li>
+<li><p>表示查询使用了索引的字节数量，可以判断是否全部使用了组合索引。</p>
+</li>
+<li><p>Extra<br>表示很多额外的信息，各种操作会在Extra中提示相关信息。<br>Using where：表示查询需要通过索引回表查询数据；<br>Using index：表示查询通过索引，索引就可以满足所需数据；<br>Using filesort:  表示查询出来的结果需要额外排序，数据量小在内存，大的话在磁盘。<br>Using temprorary： 查询使用到了临时表，一半出现于去重、分组操作。</p>
+</li>
+</ul>
+<h3 id="MVCC"><a href="#MVCC" class="headerlink" title="MVCC"></a>MVCC</h3><ul>
+<li>概念：<br>MVCC(Multi Version Concurrency Control)被称为多版本控制，是指在数据库中为了实现高并发的 数据访问，对数据进行多版本处理，并通过事务的可见性来保证事务能看到自己应该看到的数据版本。 多版本控制很巧妙地将稀缺资源的独占互斥转换为并发，大大提高了数据库的吞吐量及读写性能。如何生成的多版本?每次事务修改操作之前，都会在Undo日志中记录修改之前的数据状态和事务号， 该备份记录可以用于其他事务的读取，也可以进行必要时的数据回滚。</li>
+<li>MVCC只在 Read Commited 和 Repeatable Read 两种隔离级别下工作</li>
+<li>原理：<br>用排他锁锁定该行;记录 Redo log;<br>把该行修改前的值复制到 Undo log，即图中下面的行;<br>修改当前行的值，填写事务编号，使回滚指针指向 Undo log 中修改前的行。</li>
+</ul>
+<p><img src="https://xiazhenyu.oss-cn-hangzhou.aliyuncs.com/common/MVCC%E5%8E%9F%E7%90%86%E5%9B%BE.png" alt="MVCC原理图"></p>
+<p><em><strong>一致性读：</strong></em><br>一种读取操作，该操作使用基于某个时间点的快照信息来显示查询结果，而不介意并发中其他事务对数据进行的修改。RR事务隔离级别的就是一致性读。</p>
+<p>*** 当前读：***<br>读取最新的数据。==更新数据时==，先读取数据，而这个数据是当前已经提交的数据（可理解为读已提交），然后在进行数据的写入。也就是说，在执行</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">insert、update、delete</span><br></pre></td></tr></table></figure>
+
+<p>操作时，会先去取下最新的数据，然后在执行DML语句。<br>另外，select xxx for update 也是当前读。</p>
+<p>*** 快照读：***<br>每次读取都是基于快照来读。<br>使用RR隔离级别时，快照基于执行第一次读取操作的时间，在RC隔离级别下，快照将重置为每次一致性读取操作的时间。也就是说，RC下，每次读取都会取最新的快照。在RR级别下，开启事务并不会创建快照，而是在第一次读取数据时创建快照。所以从这里，我们可以看出MVCC在RR级别和RC级别下实现的区别。<br>需要注意的是，这个快照是个逻辑结构，依托于已经存在的undolog日志+DB_TRX_ID+DB+ROLL+PT。具体可结合下面的一致性视图来理解。</p>
+<p>*** 一致性视图***<br>InnoDB为每个事务构造了一个数组，用来保存这个事务启动瞬间，当前正在活跃的所有事务ID。“活跃”指的就是，启动了但还没有提交。数组里面事务ID的最小值标记为低水位，当前系统里面已经创建过的事务ID的最大值加1标记为高水位。视图数组和高水位，构成了当前事务的一致性视图。</p>
+<h2 id="ShardingJDBC"><a href="#ShardingJDBC" class="headerlink" title="ShardingJDBC"></a>ShardingJDBC</h2><p>shardingJdbc的分库分表原理？<br>shardingJdbc的分布式事务怎么实现？<br>ShardingJDBC配置事务类型:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">TransactionTypeHolder.set(TransactionType.XA);</span><br><span class="line">TransactionTypeHolder.set(TransactionType.BASE);</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h2 id="参考文档"><a href="#参考文档" class="headerlink" title="参考文档"></a>参考文档</h2><p><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/149318688">数据页</a>；</p>
+<p><a target="_blank" rel="noopener" href="https://juejin.cn/post/6944729863550926885%EF%BC%9B">https://juejin.cn/post/6944729863550926885；</a></p>
+<p><a target="_blank" rel="noopener" href="https://juejin.cn/post/6985751855426977800">https://juejin.cn/post/6985751855426977800</a></p>
+
+  </div>
+  <div class="post-footer">
+    
+
+    <a href="#top" class="top">Back to Top</a>
+  </div>
+</article>
+<footer>
+  &copy; 2022
+  <span class="author">
+    chenyusharp
+  </span>
+</footer>
+    </div>
+  </body>
+</html>

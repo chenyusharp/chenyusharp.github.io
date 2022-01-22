@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html>
+  <!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+  
+  <title>技术、生活、思考</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+  
+  <meta name="keywords" content=生活,博客,前端,游戏>
+  
+  
+    <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=1.02">
+  
+  
+    <link rel="alternate" href="/atom.xml " title="技术、生活、思考" type="application/atom+xml">
+  
+
+  
+<link rel="stylesheet" href="/css/style.css">
+
+<meta name="generator" content="Hexo 5.4.0"></head>
+  <body>
+    <div class="container">
+      <header class="header">
+  <div class="blog-title">
+    <a href="/" class="logo">技术、生活、思考</a>
+    <div class="subtitle"></div>
+  </div>
+  <nav class="navbar">
+    <ul class="menu">
+      
+        <li class="menu-item">
+          <a href="/" class="menu-item-link">Home</a>
+        </li>
+      
+        <li class="menu-item">
+          <a href="/archives" class="menu-item-link">Archives</a>
+        </li>
+      
+        <li class="menu-item">
+          <a href="/about" class="menu-item-link">About</a>
+        </li>
+      
+        <li class="menu-item">
+          <a href="/categories/" class="menu-item-link">Categories</a>
+        </li>
+      
+        <li class="menu-item">
+          <a href="/tags/" class="menu-item-link">Tags</a>
+        </li>
+      
+    </ul>
+  </nav>
+</header>
+<article class="post">
+  <div class="post-title">
+    <h1 class="article-title"></h1>
+  </div>
+   <div class="post-meta">
+    <span class="post-time">2021-10-09</span>
+  </div>
+  <div class="post-content">
+    <p>[TOC]</p>
+<h3 id="为什么需要网关？"><a href="#为什么需要网关？" class="headerlink" title="为什么需要网关？"></a>为什么需要网关？</h3><ol>
+<li>什么是服务网关？<br>服务网关=路由转发+ 过滤器；<br>路由转发：将外界请求，转发到后端的微服务上，这里面包含了负载均衡；<br>过滤器：增加一系列的横切功能，例如权限校验、限流、以及监控，API日志统一收集；</li>
+<li>为什么需要服务网关？<br>将一系列的横切功能写在网关中，后端服务无须关注这些功能点，也不需要引入多余的jar包；<br>如果想修改权限校验的逻辑等，只需要在网关中进行修改，而不需要升级所有已存在的微服务；</li>
+<li>流程<ul>
+<li>网关、其他微服务启动时注册到注册中心上去；</li>
+<li>用户直接请求网关，网关做智能路由转发；</li>
+<li>微服务把结果返回给网关，网关再返回给用户；</li>
+</ul>
+</li>
+<li>注意点：<ul>
+<li>增加了网关，相当于多了一层转发，性能会下降一些（通常不大，网关机器很好，而且是<br>和其他系统是在内网）；</li>
+<li>网关的单点问题：建议将网关部署在一台性能非常好的机器上。</li>
+</ul>
+</li>
+</ol>
+<h3 id="哪些常见的网关系统？"><a href="#哪些常见的网关系统？" class="headerlink" title="哪些常见的网关系统？"></a>哪些常见的网关系统？</h3><ul>
+<li>spring cloud gateway</li>
+<li>ZUUL</li>
+<li>KONG</li>
+</ul>
+<h3 id="限流的算法有哪些？"><a href="#限流的算法有哪些？" class="headerlink" title="限流的算法有哪些？"></a>限流的算法有哪些？</h3><p>固定窗口计数器、滑动窗口计数器、漏桶算法、令牌桶算法</p>
+<h3 id="为什么需要分布式id？"><a href="#为什么需要分布式id？" class="headerlink" title="为什么需要分布式id？"></a>为什么需要分布式id？</h3><p> 随着数据量的增大，单表已经不能支撑数据的存储查询，需要进行分库分表，由于不同的表生成的id会有重复，就需要一个分布式id来生成器来生成全局的唯一的id。</p>
+<h3 id="分布式id生成策略有哪些？"><a href="#分布式id生成策略有哪些？" class="headerlink" title="分布式id生成策略有哪些？"></a>分布式id生成策略有哪些？</h3><h4 id="数据库自增主键id："><a href="#数据库自增主键id：" class="headerlink" title="数据库自增主键id："></a>数据库自增主键id：</h4><p>优点：实现起来比较简单，id有序递增，存储空间消耗小；<br>缺点： 支持的并发量不大，存在数据库单点问题，id没有具体的业务含义，<br>安全问题（可推算出订单量）、每次都需要访问数据库（可通过提前生成一批id放到内存队列中解决）。</p>
+<h4 id="数据库号段模式："><a href="#数据库号段模式：" class="headerlink" title="数据库号段模式："></a>数据库号段模式：</h4><p>一个业务类型只需要表中的一行记录就可以了。</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> `sequence_id_generator` (</span><br><span class="line">  `id` <span class="type">int</span>(<span class="number">10</span>) <span class="keyword">NOT</span> <span class="keyword">NULL</span>,</span><br><span class="line">  `current_max_id` <span class="type">bigint</span>(<span class="number">20</span>) <span class="keyword">NOT</span> <span class="keyword">NULL</span> COMMENT <span class="string">&#x27;当前最大id&#x27;</span>,</span><br><span class="line">  `step` <span class="type">int</span>(<span class="number">10</span>) <span class="keyword">NOT</span> <span class="keyword">NULL</span> COMMENT <span class="string">&#x27;号段的长度&#x27;</span>,</span><br><span class="line">  `version` <span class="type">int</span>(<span class="number">20</span>) <span class="keyword">NOT</span> <span class="keyword">NULL</span> COMMENT <span class="string">&#x27;版本号&#x27;</span>,</span><br><span class="line">  `biz_type`    <span class="type">int</span>(<span class="number">20</span>) <span class="keyword">NOT</span> <span class="keyword">NULL</span> COMMENT <span class="string">&#x27;业务类型&#x27;</span>,</span><br><span class="line">   <span class="keyword">PRIMARY</span> KEY (`id`)</span><br><span class="line">) ENGINE<span class="operator">=</span>InnoDB <span class="keyword">DEFAULT</span> CHARSET<span class="operator">=</span>utf8mb4;</span><br></pre></td></tr></table></figure>
+
+<p><code>current_max_id</code> 字段和<code>step</code>字段主要用于获取批量 ID，获取的批量 id 为： <code>current_max_id ~ current_max_id+step</code>。<br><code>version</code> 字段主要用于解决并发问题（乐观锁）,<code>biz_type</code> 主要用于表示业余类型。<br>提前获取的current_max_id会在代码中有一个变量进行存储，一般是Automic类型的，获取的时候是对这个变量进行自增获取；</p>
+<p><img src="/Users/xiazhenyu/Desktop/typora%E6%96%87%E4%BB%B6%E9%9B%86%E5%90%88/%E6%96%87%E6%A1%A3%E5%90%88%E9%9B%86/%E5%88%86%E5%B8%83%E5%BC%8FID%E7%94%9F%E6%88%90%E7%AD%96%E7%95%A5%E4%B8%AD%E7%9A%84%E5%8F%B7%E6%AE%B5%E6%A8%A1%E5%BC%8F.png" alt="分布式ID生成策略中的号段模式"></p>
+<p>优点：id有序自增，存储消耗空间小；<br>缺点：，存在数据库单点问题，id没有具体的业务含义，安全问题（可推算出订单量）</p>
+<h4 id="NoSQL："><a href="#NoSQL：" class="headerlink" title="NoSQL："></a>NoSQL：</h4><p>Redis 的 <code>incr</code> 命令即可实现对 id 原子顺序递增。</p>
+<p>优点： 性能不错，id有序<br>缺点：同数据库自增主键方式类似；</p>
+<h4 id="UUID"><a href="#UUID" class="headerlink" title="UUID"></a>UUID</h4><p>优点：生成速度快，简单易用<br>缺点：消耗空间大，不安全（MAC地址）、没有具体的业务含义，需要解决重复id的问题（时钟回拨）。</p>
+<h4 id="snowflake"><a href="#snowflake" class="headerlink" title="snowflake"></a>snowflake</h4><p>优点：生成速度比较快，生成的id有序递增，比较灵活（可以对算法改造加入业务id）<br>缺点：需要解决重复id的问题（依赖时间，时钟回拨问题）。</p>
+<h4 id="Leaf"><a href="#Leaf" class="headerlink" title="Leaf"></a>Leaf</h4><p>提供了snowflake算法，同时还提供了数据库双号段的模式。双号段：一个号段还没有使用完之前，主动获取下一个号段。</p>
+<h3 id="怎么设计一个限流器？"><a href="#怎么设计一个限流器？" class="headerlink" title="怎么设计一个限流器？"></a>怎么设计一个限流器？</h3><p>答：见分布式</p>
+<h3 id="怎么设计一个分布式ID生成器？"><a href="#怎么设计一个分布式ID生成器？" class="headerlink" title="怎么设计一个分布式ID生成器？"></a>怎么设计一个分布式ID生成器？</h3><p>答：参考数据库号段模式；</p>
+<p>常用的序列化协议有哪些？dubbo的序列化协议是什么？<br>答：grpc、hession、java自带的序列化、json/xml</p>
+<h3 id="JVM优化做过吗？"><a href="#JVM优化做过吗？" class="headerlink" title="JVM优化做过吗？"></a>JVM优化做过吗？</h3><h3 id="二阶段、三阶段提交要能说出来？"><a href="#二阶段、三阶段提交要能说出来？" class="headerlink" title="二阶段、三阶段提交要能说出来？"></a>二阶段、三阶段提交要能说出来？</h3><p>答：见分布式</p>
+<p>如何实现分布式锁？Redisson的使用？</p>
+<p>MQ的作用，设计MQ，如何解决MQ与事务的关系？</p>
+<p>Java中的句柄？</p>
+<h3 id="ES中的倒排索引与正排索引"><a href="#ES中的倒排索引与正排索引" class="headerlink" title="ES中的倒排索引与正排索引"></a>ES中的倒排索引与正排索引</h3><h3 id="Es中的主从分片机制以及一个索引是怎么路由到具体的分片的？"><a href="#Es中的主从分片机制以及一个索引是怎么路由到具体的分片的？" class="headerlink" title="Es中的主从分片机制以及一个索引是怎么路由到具体的分片的？"></a>Es中的主从分片机制以及一个索引是怎么路由到具体的分片的？</h3><h3 id="计数器如何实现？"><a href="#计数器如何实现？" class="headerlink" title="计数器如何实现？"></a>计数器如何实现？</h3><p>可以看下之前写的代码</p>
+
+  </div>
+  <div class="post-footer">
+    
+
+    <a href="#top" class="top">Back to Top</a>
+  </div>
+</article>
+<footer>
+  &copy; 2022
+  <span class="author">
+    chenyusharp
+  </span>
+</footer>
+    </div>
+  </body>
+</html>
