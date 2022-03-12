@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html>
+  <!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+  
+  <title>MQ - 技术、生活、思考</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+  
+  <meta name="keywords" content=MQ>
+  
+  
+    <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=1.02">
+  
+  
+    <link rel="alternate" href="/atom.xml " title="技术、生活、思考" type="application/atom+xml">
+  
+
+  
+<link rel="stylesheet" href="/css/style.css">
+
+<meta name="generator" content="Hexo 5.4.0"></head>
+  <body>
+    <div class="container">
+      <header class="header">
+  <div class="blog-title">
+    <a href="/" class="logo">技术、生活、思考</a>
+    <div class="subtitle"></div>
+  </div>
+  <nav class="navbar">
+    <ul class="menu">
+      
+        <li class="menu-item">
+          <a href="/" class="menu-item-link">Home</a>
+        </li>
+      
+        <li class="menu-item">
+          <a href="/archives" class="menu-item-link">Archives</a>
+        </li>
+      
+        <li class="menu-item">
+          <a href="/about" class="menu-item-link">About</a>
+        </li>
+      
+        <li class="menu-item">
+          <a href="/categories" class="menu-item-link">Categories</a>
+        </li>
+      
+        <li class="menu-item">
+          <a href="/tags" class="menu-item-link">Tags</a>
+        </li>
+      
+    </ul>
+  </nav>
+</header>
+<article class="post">
+  <div class="post-title">
+    <h1 class="article-title">MQ</h1>
+  </div>
+   <div class="post-meta">
+    <span class="post-time">2022-01-22</span>
+  </div>
+  <div class="post-content">
+    <p>[TOC]</p>
+<h2 id="MQ"><a href="#MQ" class="headerlink" title="MQ"></a>MQ</h2><h3 id="什么是MQ"><a href="#什么是MQ" class="headerlink" title="什么是MQ"></a>什么是MQ</h3><h3 id="mq的作用？"><a href="#mq的作用？" class="headerlink" title="mq的作用？"></a>mq的作用？</h3><ol>
+<li>系统解耦</li>
+<li>流量削峰填谷</li>
+<li>异步处理</li>
+<li>最终一致性<ol>
+<li>开启事务；</li>
+<li>业务操作，比如说订单进行持久化等等操作；</li>
+<li>生成消息，并存储，这个和业务操作在同一个事务中；</li>
+<li>提交事务；</li>
+<li>发送消息，发送成功则将消息表中的消息删除，发送失败则不删除。同时写一个定时任务查询消息表，查询没有被删除的消息并发送。</li>
+</ol>
+</li>
+</ol>
+<h3 id="mq的幂等性保证"><a href="#mq的幂等性保证" class="headerlink" title="mq的幂等性保证"></a>mq的幂等性保证</h3><p>消息表，什么是消息表</p>
+<h3 id="pulsar的架构？为什么使用pulsar？"><a href="#pulsar的架构？为什么使用pulsar？" class="headerlink" title="pulsar的架构？为什么使用pulsar？"></a>pulsar的架构？为什么使用pulsar？</h3><p>优势：</p>
+<ol>
+<li>pulsar的单个实例原生支持多个集群，可跨机房在集群间无缝地完成消息的复制；</li>
+<li>极低的发布延迟和端到端延迟；</li>
+<li>可无缝扩展超过100万个topic；</li>
+<li>简单的API；</li>
+<li>支持多种topic订阅模式；</li>
+<li>使用Apache BookKeeper提供的持久化消息存储机制保证消息的传递；</li>
+</ol>
+<p><img src="https://xiazhenyu.oss-cn-hangzhou.aliyuncs.com/common/pulsar%E6%9E%B6%E6%9E%84%E5%9B%BE.png" alt="pulsar架构图"></p>
+<p>组成部分： </p>
+<ul>
+<li>broker：负责分发消息；</li>
+<li>bookie：负责消息的存储</li>
+<li>zk：负责节点的协调。</li>
+</ul>
+<p>pulsar的三种消费模式：</p>
+<ol>
+<li><p>共享式：多个client可以订阅同一个topic。消息以轮训的方式分布在各个client之间，任何给定的消息仅传递给一个client。当client断开链接的时候，会将未消费的消息发送给其他的消费者。</p>
+</li>
+<li><p>独占式（exclusive）：近允许单个消费者订阅Topic；</p>
+</li>
+<li><p>故障转移模式:<br>多个client可以订阅同一个topic。为主消费者选择非分区主题或分区主题的每个分区，并接受消息。当主使用者断开连接时，所有消息<br>将被传递到排队的下一个使用者。<br>对于分区主题，代理将按优先级和消费者的名字的字典顺序对消费者进行消费。然后，代理将尝试将主题平均分配给优先级最高的消费者；<br>对于非分区主题，代理将按订阅非分区主题的顺序选择消费者；</p>
+</li>
+</ol>
+<h3 id="自己设计一个MQ需要考虑哪些点？"><a href="#自己设计一个MQ需要考虑哪些点？" class="headerlink" title="自己设计一个MQ需要考虑哪些点？"></a>自己设计一个MQ需要考虑哪些点？</h3><ol>
+<li>队列的选择，可以考虑使用BlockingQueue</li>
+<li>高可用选择： </li>
+</ol>
+<h3 id="队列的相关知识点"><a href="#队列的相关知识点" class="headerlink" title="队列的相关知识点"></a>队列的相关知识点</h3>
+  </div>
+  <div class="post-footer">
+    
+      <ul class="post-tag-list" itemprop="keywords"><li class="post-tag-list-item"><a class="post-tag-list-link" href="/tags/MQ/" rel="tag">MQ</a></li></ul>
+    
+
+    <a href="#top" class="top">Back to Top</a>
+  </div>
+</article>
+<footer>
+  &copy; 2022
+  <span class="author">
+    chenyusharp
+  </span>
+</footer>
+    </div>
+  </body>
+</html>

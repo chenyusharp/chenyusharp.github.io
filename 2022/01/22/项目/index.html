@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html>
+  <!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+  
+  <title>项目 - 技术、生活、思考</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+  
+  <meta name="keywords" content=面试>
+  
+  
+    <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=1.02">
+  
+  
+    <link rel="alternate" href="/atom.xml " title="技术、生活、思考" type="application/atom+xml">
+  
+
+  
+<link rel="stylesheet" href="/css/style.css">
+
+<meta name="generator" content="Hexo 5.4.0"></head>
+  <body>
+    <div class="container">
+      <header class="header">
+  <div class="blog-title">
+    <a href="/" class="logo">技术、生活、思考</a>
+    <div class="subtitle"></div>
+  </div>
+  <nav class="navbar">
+    <ul class="menu">
+      
+        <li class="menu-item">
+          <a href="/" class="menu-item-link">Home</a>
+        </li>
+      
+        <li class="menu-item">
+          <a href="/archives" class="menu-item-link">Archives</a>
+        </li>
+      
+        <li class="menu-item">
+          <a href="/about" class="menu-item-link">About</a>
+        </li>
+      
+        <li class="menu-item">
+          <a href="/categories" class="menu-item-link">Categories</a>
+        </li>
+      
+        <li class="menu-item">
+          <a href="/tags" class="menu-item-link">Tags</a>
+        </li>
+      
+    </ul>
+  </nav>
+</header>
+<article class="post">
+  <div class="post-title">
+    <h1 class="article-title">项目</h1>
+  </div>
+   <div class="post-meta">
+    <span class="post-time">2022-01-22</span>
+  </div>
+  <div class="post-content">
+    <p>[TOC]</p>
+<h2 id="项目介绍"><a href="#项目介绍" class="headerlink" title="项目介绍"></a>项目介绍</h2><h3 id="一、总结商品项目的历次迭代"><a href="#一、总结商品项目的历次迭代" class="headerlink" title="一、总结商品项目的历次迭代"></a>一、总结商品项目的历次迭代</h3><p><img src="/Users/xiazhenyu/Desktop/typora%E6%96%87%E4%BB%B6%E9%9B%86%E5%90%88/%E6%96%87%E6%A1%A3%E5%90%88%E9%9B%86/%E5%95%86%E5%93%81%E8%BF%AD%E4%BB%A3%E5%9B%BE.png" alt="商品迭代图"></p>
+<p>第一代</p>
+<p>第二代</p>
+<p>第三代</p>
+<p>商品的领域模型是什么样子的？</p>
+<p>基数数据product（品牌、类目、属性、价签模版）+ 销售商品（item）（merchant_item） +供应领货品(goods) (merchant_goods)</p>
+<p>每次迭代解决了什么问题？<br>优点是什么？<br>做的不好的地方是哪里？<br>怎么解决不好的地方？</p>
+<h3 id="二、说一个自己做的比较满意的项目（titan）"><a href="#二、说一个自己做的比较满意的项目（titan）" class="headerlink" title="二、说一个自己做的比较满意的项目（titan）"></a>二、说一个自己做的比较满意的项目（titan）</h3><p>要能知道自己这个项目不足的地方，怎么改进？</p>
+<p>ypsx-titan 。这个项目是负责接受数据库的bing然后 同步数据到es的。</p>
+<h3 id="三、作为小组负责人，怎么担好这个职责？"><a href="#三、作为小组负责人，怎么担好这个职责？" class="headerlink" title="三、作为小组负责人，怎么担好这个职责？"></a>三、作为小组负责人，怎么担好这个职责？</h3><h1 id="自研ERP项目"><a href="#自研ERP项目" class="headerlink" title="自研ERP项目"></a>自研ERP项目</h1><h3 id="项目的起因-amp-项目的背景？"><a href="#项目的起因-amp-项目的背景？" class="headerlink" title="项目的起因&amp;项目的背景？"></a>项目的起因&amp;项目的背景？</h3><p>公司目前有两套ERP系统和一套自研中台，用以支持谊品生鲜和到家业务，其中ERP承载了：</p>
+<ol>
+<li>供应链（采购、库存）业务；</li>
+<li>总部经营管理（供应商、商品类、机构类基础数据管理和经营报表）</li>
+<li>门店销售及经营报表</li>
+<li>财务业务（富集）</li>
+</ol>
+<p>但是，2套ERP存在下面的问题：</p>
+<ol>
+<li>2套商品主数据、2套模型，通过中台商品映射erp商品编码完成；但是缺少有效的校验，导致毛利错误、仓库作业困难；</li>
+<li>两套ERP未对谊品生鲜、到家业务进行隔离，无法相互兼容，影响业务深度展开；</li>
+<li>业务需求响应慢，无法及时满足业务需求；</li>
+<li>深度定制费用高；</li>
+</ol>
+<p>涉及的工程：ypshop项目（门店端）、ypsx-matrix、ypsx-titan、</p>
+<p>涉及的表：</p>
+<h3 id="达成了什么目标？"><a href="#达成了什么目标？" class="headerlink" title="达成了什么目标？"></a>达成了什么目标？</h3><p>重新设计了谊品自己的商品模型，其中包括基础资料（主档），完成了主档的创建、修改以及分档创建商家商品、地点商品，另外增加了对于生鲜商品的支持：PLU码的管理、价签模版管理、BOM物料管理、生鲜品调价、商品生命周期管理等功能。<br>通过这些功能，可以实现自主商品建档、分档，商品售价/进价管理、商品生命周期管理、支持多形态商品销售（BOM）等，打通了主档、货品、销售商品的创建、维护，可以有效的支持谊品自己的进销存结（进货、销售、库存、结算）核心业务；</p>
+<h3 id="遇到了哪些困难？怎么克服的？最终取得了什么样的结果？"><a href="#遇到了哪些困难？怎么克服的？最终取得了什么样的结果？" class="headerlink" title="遇到了哪些困难？怎么克服的？最终取得了什么样的结果？"></a>遇到了哪些困难？怎么克服的？最终取得了什么样的结果？</h3><ol>
+<li>为了更好的支持商品的创建，我们对部分商品的表进行了分库分表的设计，根据门店id和商品的编码；</li>
+<li>各个业务的查询逻辑复杂，不能做到和模型相对应，对此，增加了多个ES索引，用以支持不同场景的查询；</li>
+<li>针对上传、下载的场景比较多，比较消耗系统资源，开发出了独立的人task模块；</li>
+<li>针对分库分表主键id需要全局唯一的问题，引入了分布式id的生成；（具体参考分布式id的生成）；</li>
+</ol>
+<h3 id="自己承担了什么职责？"><a href="#自己承担了什么职责？" class="headerlink" title="自己承担了什么职责？"></a>自己承担了什么职责？</h3><p>核心能力技术方案的输出与开发，包括分档、调价、BOM管理、ES等模块；协调商品接口与外域的联调等。对技术难点进行攻关与测试，以及项目的开发排期。<br>收获：</p>
+<ol>
+<li>对谊品的业务模式，尤其是生鲜中涉及的业务场景有了更加深入的了解；</li>
+<li>增加了系统设计的能力，认识到技术方案的设计需要结合业务场景来看（可以举下调价单中sg_price_modify_docs这个索引设计中遇到的坑）；</li>
+<li>大型项目中团队协作开发经验，系统之间的联调、沟通能力的都增强；</li>
+</ol>
+<p>架构图（可以看下面试的时候）：</p>
+<p><img src="/Users/xiazhenyu/Desktop/typora%E6%96%87%E4%BB%B6%E9%9B%86%E5%90%88/%E6%96%87%E6%A1%A3%E5%90%88%E9%9B%86/%E8%87%AA%E7%A0%94ERP%E5%95%86%E5%93%81%E6%9E%B6%E6%9E%84%E5%9B%BE.png" alt="自研ERP商品架构图"></p>
+
+  </div>
+  <div class="post-footer">
+    
+      <ul class="post-tag-list" itemprop="keywords"><li class="post-tag-list-item"><a class="post-tag-list-link" href="/tags/%E9%9D%A2%E8%AF%95/" rel="tag">面试</a></li></ul>
+    
+
+    <a href="#top" class="top">Back to Top</a>
+  </div>
+</article>
+<footer>
+  &copy; 2022
+  <span class="author">
+    chenyusharp
+  </span>
+</footer>
+    </div>
+  </body>
+</html>

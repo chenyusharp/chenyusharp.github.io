@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html>
+  <!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+  
+  <title>ES - 技术、生活、思考</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+  
+  <meta name="keywords" content=db>
+  
+  
+    <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=1.02">
+  
+  
+    <link rel="alternate" href="/atom.xml " title="技术、生活、思考" type="application/atom+xml">
+  
+
+  
+<link rel="stylesheet" href="/css/style.css">
+
+<meta name="generator" content="Hexo 5.4.0"></head>
+  <body>
+    <div class="container">
+      <header class="header">
+  <div class="blog-title">
+    <a href="/" class="logo">技术、生活、思考</a>
+    <div class="subtitle"></div>
+  </div>
+  <nav class="navbar">
+    <ul class="menu">
+      
+        <li class="menu-item">
+          <a href="/" class="menu-item-link">Home</a>
+        </li>
+      
+        <li class="menu-item">
+          <a href="/archives" class="menu-item-link">Archives</a>
+        </li>
+      
+        <li class="menu-item">
+          <a href="/about" class="menu-item-link">About</a>
+        </li>
+      
+        <li class="menu-item">
+          <a href="/categories" class="menu-item-link">Categories</a>
+        </li>
+      
+        <li class="menu-item">
+          <a href="/tags" class="menu-item-link">Tags</a>
+        </li>
+      
+    </ul>
+  </nav>
+</header>
+<article class="post">
+  <div class="post-title">
+    <h1 class="article-title">ES</h1>
+  </div>
+   <div class="post-meta">
+    <span class="post-time">2022-01-22</span>
+  </div>
+  <div class="post-content">
+    <p>[TOC]</p>
+<h2 id="正排索引与倒排索引"><a href="#正排索引与倒排索引" class="headerlink" title="正排索引与倒排索引"></a>正排索引与倒排索引</h2><h2 id="ES的分片"><a href="#ES的分片" class="headerlink" title="ES的分片"></a>ES的分片</h2><h3 id="基本概念"><a href="#基本概念" class="headerlink" title="基本概念"></a>基本概念</h3><p>基本的存储单元是shard，一个index可能分为多个shard，每个shard可以分布在不同的机器上。然后一个shad是有多个Segment组成，每个Segment是一些倒排索引的集合。然后每次创建一个新的Document或更新一个Document，都会归属于一个新的Segment（同样会被记录到commit point里面），而不是去修改原来的Segment。每次文档的删除操作，会仅仅标记Segment中该文档为删除状态，而不是真正的立马删除。</p>
+<p><img src="https://xiazhenyu.oss-cn-hangzhou.aliyuncs.com/common/ES%E7%9A%84index%E7%BB%93%E6%9E%84.png" alt="ES的index结构"></p>
+<p>几个重要的概念：<br>Memory Buffer与Translog、commit point（记录着所有的segemnt信息，es在启动或重新打开一个索引的过程中使用这个提交点来判断哪些段隶属于当前分片）</p>
+<p>原因：每次commit操作意味着将Segment合并，并写入磁盘。但是这样做是很重的IO操作，所以为了提升机器性能和近实时搜索，新文档会被首先写入到内存Buffer和translog文件中，每个shard对应一个translog文件。<br>translog的作用：</p>
+<ol>
+<li>保证文件缓存中的文档不丢失；</li>
+<li>系统重启时，从translog中年恢复；</li>
+<li>新的segment收录到commit point中；</li>
+</ol>
+<p><img src="https://xiazhenyu.oss-cn-hangzhou.aliyuncs.com/common/ES%20Shard%E7%9A%84%E7%BB%84%E6%88%90%E9%83%A8%E5%88%86.png" alt="ES Shard的组成部分"></p>
+<p>*** write/refresh/flush过程*** </p>
+<p><img src="https://xiazhenyu.oss-cn-hangzhou.aliyuncs.com/common/ES%20write:refresh:flush%E6%80%BB%E4%BD%93%E6%B5%81%E7%A8%8B%E5%9B%BE.png" alt="ES write:refresh:flush总体流程图"></p>
+<h3 id="write过程"><a href="#write过程" class="headerlink" title="write过程"></a>write过程</h3><p>当写请求发送到es后，es将数据暂存写入memory buffer中，同时会写入到translog文件中；<br>如下图：<br><img src="https://xiazhenyu.oss-cn-hangzhou.aliyuncs.com/common/ES%20write%E6%93%8D%E4%BD%9C.png" alt="ES write操作"></p>
+<h3 id="refresh过程"><a href="#refresh过程" class="headerlink" title="refresh过程"></a>refresh过程</h3><ol>
+<li>将内存缓冲区的文档写入到新的Segment中，同时这个段被打开，使其可以被搜索到。这个时候Segment是存储在文件缓存系统中的。</li>
+<li>内存缓冲区被清空，但translog没有被清空，是为了后面的flush操作；</li>
+</ol>
+<p><img src="https://xiazhenyu.oss-cn-hangzhou.aliyuncs.com/common/ES%20refresh%E6%93%8D%E4%BD%9C.png" alt="ES refresh操作"></p>
+<h3 id="flush过程"><a href="#flush过程" class="headerlink" title="flush过程"></a>flush过程</h3><p>触发机制：translog变得越来越大、索引被刷新；</p>
+<ol>
+<li>所有内存缓冲区的文档都会被写入一个新的段中；</li>
+<li>缓冲区被清空；</li>
+<li>一个提交点被写入硬盘（记录被flush到磁盘的段）；</li>
+<li>文件系统缓存通过fsync被刷新到磁盘（flush）；</li>
+<li>老的translog被删除；</li>
+</ol>
+<p><img src="https://xiazhenyu.oss-cn-hangzhou.aliyuncs.com/common/ES%20flush%E8%BF%87%E7%A8%8B.png" alt="ES flush过程"></p>
+<p>PS：当es重新启动的时候或索引重新打开的时候，他会从磁盘中使用最后一个提交点去恢复已知的段，并且会重放translog中所有在最后一次提交后发生的变更操作。</p>
+<h3 id="merger过程"><a href="#merger过程" class="headerlink" title="merger过程"></a>merger过程</h3><ol>
+<li>合并进程选择一小部分大小相似的段，并且在后台将他们合并到更大的段中。这并不会中断索引和搜索；</li>
+<li>新的段被打开用来搜索；</li>
+<li>老的段被删除；</li>
+</ol>
+<p><img src="https://xiazhenyu.oss-cn-hangzhou.aliyuncs.com/common/image-20211018065648999.png" alt="image-20211018065648999"></p>
+<h2 id="常见问题排查"><a href="#常见问题排查" class="headerlink" title="常见问题排查"></a>常见问题排查</h2><h3 id="高CPU场景"><a href="#高CPU场景" class="headerlink" title="高CPU场景"></a>高CPU场景</h3><ol>
+<li> 查看节点hot thread</li>
+</ol>
+   <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">GET _nodes/hot_threads</span><br><span class="line">GET _nodes/&lt;node_name&gt;/hot_threads</span><br></pre></td></tr></table></figure>
+
+<ol start="2">
+<li><p>查看线程池</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">GET _cat/thread_pool</span><br><span class="line">GET _cat/thread_pool/force_merge?v&amp;s=name</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>查看线程池使用的情况可快速定位当前集群线程池使用情况；</li>
+<li>可查看具体节点的某个线程池的使用情况；</li>
+</ul>
+</li>
+<li><p>查看当前任务</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">GET _cat/tasks?detailed</span><br><span class="line">GET _tasks?actions=*bulk&amp;detailed</span><br><span class="line">GET _tasks?actions=*search&amp;detailed</span><br></pre></td></tr></table></figure></li>
+<li><p>取消任务</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">POST _tasks/&lt;taskId&gt;/_cancel</span><br></pre></td></tr></table></figure>
+
+<p>根据上一步拿到的任务id进行取消操作</p>
+</li>
+<li><p>查看索引的迁移进度</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">GET _cat/recovery/&lt;index_name&gt;?v</span><br></pre></td></tr></table></figure></li>
+</ol>
+<h3 id="高内存场景"><a href="#高内存场景" class="headerlink" title="高内存场景"></a>高内存场景</h3><p>Es的高JVM内存压力可能是以下原因造成的：</p>
+<ul>
+<li>集群的请求数量激增；</li>
+<li>聚合、通配符以及在查询中选择了较宽的时间范围；</li>
+<li>各节点间的分区分配不均衡或者一个集群中的分区太多；</li>
+<li>字段数据或索引映射激增；</li>
+<li>无法处理传入负载的实例类型；</li>
+</ul>
+<ol>
+<li><p>查看缓存</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">GET /_stats/query_cache</span><br><span class="line">GET /_stats/fielddata_cache</span><br><span class="line">GET /_stats/request_cache</span><br></pre></td></tr></table></figure></li>
+<li><p>清理缓存</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">POST /&lt;index_name&gt;/_cache/clear</span><br><span class="line">POST /&lt;index_name&gt;/_cache/clear?fileddata=true</span><br><span class="line">POST /&lt;index_name&gt;/_cache/clear?query=true</span><br><span class="line">POST /&lt;index_name&gt;/_cache/clear?request=true</span><br></pre></td></tr></table></figure></li>
+</ol>
+<h3 id="慢查询定位"><a href="#慢查询定位" class="headerlink" title="慢查询定位"></a>慢查询定位</h3><h3 id="分页"><a href="#分页" class="headerlink" title="分页"></a>分页</h3><table>
+<thead>
+<tr>
+<th>分页方式</th>
+<th>性能</th>
+<th>优点</th>
+<th>缺点</th>
+<th>场景</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>from+size</td>
+<td>低</td>
+<td>灵活性好，实现简单</td>
+<td>存在深度分页问题</td>
+<td>数据量比较小，能容内深度分页的问题</td>
+</tr>
+<tr>
+<td>Scroll</td>
+<td>中</td>
+<td>解决了深度分页问题</td>
+<td>无法反映数据的实时性（快照版本），维护成本高，<br />需要维护一个scroll_id</td>
+<td>海量数据的导出</td>
+</tr>
+<tr>
+<td>Search_after</td>
+<td>高</td>
+<td>性能最好，不存在深度分页问题，<br />能够反映数据的实时性</td>
+<td>实现比较复杂，每一次查询都需要上次查询的结果</td>
+<td>海量数据的分页</td>
+</tr>
+</tbody></table>
+<h2 id="集群规划"><a href="#集群规划" class="headerlink" title="集群规划"></a>集群规划</h2><ol>
+<li><p>怎么规划？<br>需要从以下两个方面考虑：</p>
+<ul>
+<li>当前的数据量有多大？数据增长情况如何？</li>
+<li>机器规格，cpu、多大内存、多大硬盘容量？</li>
+</ul>
+<p>es的JVM heap最大可以设置==32G==。如果机器的内存很大，可以考虑在一台机器上运行多个es节点实例。<br>集群规划满足当前数据规模+适量增长规模即可，后续可按需扩展；</p>
+<p>场景分析：<br>A 对于业务搜索功能模块，且多是垂直领域的搜索。数据量级几千万到数十亿级别，一般是2-4台机器的规模。</p>
+<p>B 大规模的OLAP，需要几十到几百的节点的规模。</p>
+</li>
+<li><p>节点角色<br>ES节点有Master、DataNode（默认是数据节点）、Coordinate node三种。<br>Coordinate Node: 协调节点，一个节点只接收请求、转发请求到其他节点、汇总各个节点返回数据等功能的节点。一个节点可以充当一个或者多个角色，默认三个都有。对于中大规模的集群，应当考虑角色分开。这样不会因为协调节点负载过高而影响数据节点的能力。</p>
+</li>
+</ol>
+<ol start="3">
+<li><p>脑裂问题</p>
+<p>6.x和之前版本：</p>
+<p><strong>discovery.zen.minimum_master_nodes:</strong> (有master资格节点数/2) + 1 这个参数控制的是，选举主节点时需要看到最少多少个具有master资格的活节点，才能进行选举。官方 的推荐值是(N/2)+1，其中N是具有master资格的节点的数量。</p>
+<p>7.x以后：<br>集群自己控制，启动的一个新的集群的时候需要有cluster.inital_master_nodes初始化集群列表。</p>
+<p>常用做法（中大规模集群）：：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">1)Master 和 dataNode 角色分开，配置奇数个master，如3 </span><br><span class="line">2)单播发现机制，配置master资格节点(5.0之前): </span><br><span class="line">discovery.zen.ping.multicast.enabled: false —— 关闭多播发现机制，默认是关闭的 </span><br><span class="line">3)延长ping master的等待时长</span><br><span class="line">discovery.zen.ping_timeout: 30(默认值是3秒)——其他节点ping主节点多久时间没有响应就认</span><br><span class="line">为主节点不可用了。</span><br><span class="line">es7中换成了 discovery.request_peers_timeout</span><br></pre></td></tr></table></figure></li>
+<li><p>分片设置：</p>
+<p>ElasticSearch推荐的最大JVM堆空间是30<del>32G, 所以把你的分片最大容量限制为30GB, 然后再对分片数量做合理估算. 例如, 你认为你的数据能达到200GB, 推荐你最多分配7到8个分片。<br>在开始阶段, 一个好的方案是根据你的节点数量按照1.5</del>3倍的原则来创建分片. 例如,如果你有3个节点, 则推荐你创建的分片数最多不超过9(3x3)个。当性能下降时，增加节点，ES会平衡分片的放置。<br>副本：为保证高可用性，副本数设置2即可。要求集群至少有3个节点，来分开存放主分片、副本。并发量大时，查询性能会下降，可增加副本数，来提升并发查询能力。</p>
+</li>
+<li><p>集群调优<br><em><strong>写:</strong></em></p>
+<ul>
+<li><p>首次向集群中灌入数据，可以将副本数设置为0，写入完再调整回去，这样副本分片只需要拷贝，节省了索引的过程；</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">PUT /&lt;index_name&gt;/_settings </span><br><span class="line">&#123;</span><br><span class="line"><span class="attr">&quot;number_of_replicas&quot;</span>: <span class="number">0</span> </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<li><p>自动生成doc ID<br>如果写入doc时指定了id，es会尝试读取原来的doc版本号，以判断是否需要更新。这回设计一次读取磁盘的操作。</p>
+</li>
+<li><p>设置合理的mapping</p>
+<ol>
+<li>将不需要建立索引的字段index属性设置为not_analyzed或no；</li>
+<li>减少字段内容长度；</li>
+<li>使用不同的分词器；</li>
+</ol>
+</li>
+<li><p>调整_source字段</p>
+</li>
+<li><p>对analyzed的字段禁用norms;</p>
+</li>
+<li><p>调整索引的刷新间隔，如果对实时性要求不高的话；</p>
+</li>
+<li><p>批处理；</p>
+</li>
+<li><p>Document的路由处理（设置合理的分片）</p>
+<p>ES默认的路由是根据id，也可以在发送请求时手动指定一个routing value，例如：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">PUT /index/doc/id?routing=user_id</span><br></pre></td></tr></table></figure></li>
+</ul>
+<p><em><strong>读:</strong></em></p>
+<ul>
+<li>数据分组<br>对数据进行基于天来建立索引，一个例子，日志系统；</li>
+<li>ID字段类型定义为keyword<br>一般情况下，id字段不会被用作range类型搜索。keyword会被优化，以便进行terms查询。性能大约会提升30%。</li>
+<li>限制用户的输入的条件；</li>
+</ul>
+</li>
+</ol>
+
+  </div>
+  <div class="post-footer">
+    
+      <ul class="post-tag-list" itemprop="keywords"><li class="post-tag-list-item"><a class="post-tag-list-link" href="/tags/db/" rel="tag">db</a></li></ul>
+    
+
+    <a href="#top" class="top">Back to Top</a>
+  </div>
+</article>
+<footer>
+  &copy; 2022
+  <span class="author">
+    chenyusharp
+  </span>
+</footer>
+    </div>
+  </body>
+</html>

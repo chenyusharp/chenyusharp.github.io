@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+  <!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+  
+  <title>高并发下库存扣减问题的解决方案 - 技术、生活、思考</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+  
+  <meta name="keywords" content=面试>
+  
+  
+    <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=1.02">
+  
+  
+    <link rel="alternate" href="/atom.xml " title="技术、生活、思考" type="application/atom+xml">
+  
+
+  
+<link rel="stylesheet" href="/css/style.css">
+
+<meta name="generator" content="Hexo 5.4.0"></head>
+  <body>
+    <div class="container">
+      <header class="header">
+  <div class="blog-title">
+    <a href="/" class="logo">技术、生活、思考</a>
+    <div class="subtitle"></div>
+  </div>
+  <nav class="navbar">
+    <ul class="menu">
+      
+        <li class="menu-item">
+          <a href="/" class="menu-item-link">Home</a>
+        </li>
+      
+        <li class="menu-item">
+          <a href="/archives" class="menu-item-link">Archives</a>
+        </li>
+      
+        <li class="menu-item">
+          <a href="/about" class="menu-item-link">About</a>
+        </li>
+      
+        <li class="menu-item">
+          <a href="/categories" class="menu-item-link">Categories</a>
+        </li>
+      
+        <li class="menu-item">
+          <a href="/tags" class="menu-item-link">Tags</a>
+        </li>
+      
+    </ul>
+  </nav>
+</header>
+<article class="post">
+  <div class="post-title">
+    <h1 class="article-title">高并发下库存扣减问题的解决方案</h1>
+  </div>
+   <div class="post-meta">
+    <span class="post-time">2022-01-22</span>
+  </div>
+  <div class="post-content">
+    <p>[TOC]</p>
+<h2 id="库存扣减问题"><a href="#库存扣减问题" class="headerlink" title="库存扣减问题"></a>库存扣减问题</h2><h3 id="常见的库存扣减模式："><a href="#常见的库存扣减模式：" class="headerlink" title="常见的库存扣减模式："></a>常见的库存扣减模式：</h3><ul>
+<li><p>下单扣减库存（谊品模式）：<br>优点：实时扣减库存，避免付款时因库存不足支付失败的问题；</p>
+<p>缺点：恶意买家大量下单，讲库存用完，但是不付款，就会导致真正想买的人买不了。</p>
+</li>
+<li><p>支付扣减库存<br>优点：防止恶意买家大量下单</p>
+<p>缺点：容易出现下单数超过库存数，若支付的订单超过了库存数，则会出现支付失败。<br>怎么解决呢？<br>可以对商品增加备用库存，如果商品库存用完，还有用户支付，则直接扣减备用库存。</p>
+</li>
+<li><p>预扣库存：下单页面显示最新的库存，实时减库存，下单后保留这个库存一段时间，超过保留时间后，</p>
+<p>库存释放。若超过保留时间内后再支付，如果没有库存，则失败！</p>
+<p>优点：兼容下单减库存的优点，且缓解了恶意买家大量下单的问题，保留支付时间内没有支付，则释放库存；<br>缺点：保留时间内，恶意买家如果大量下单讲库存用完，并发量很高的时候，仍然会出现下单数超过库存数。</p>
+</li>
+</ul>
+<h3 id="高并发下的库存扣减问题？"><a href="#高并发下的库存扣减问题？" class="headerlink" title="高并发下的库存扣减问题？"></a>高并发下的库存扣减问题？</h3><p><code>UPDATE [库存表] SET 库存数 - 1 WHERE 库存数 - 1 &gt; 0</code></p>
+<p>如果影响条数大于1，则表示扣减库存成功，否则扣减失败</p>
+<p><img src="/Users/xiazhenyu/Desktop/typora%E6%96%87%E4%BB%B6%E9%9B%86%E5%90%88/%E6%96%87%E6%A1%A3%E5%90%88%E9%9B%86/%E5%95%86%E5%93%81%E5%BA%93%E5%AD%98%E6%89%A3%E5%87%8F%E4%BC%98%E5%8C%96%E4%B9%8B%E5%90%8E%E7%9A%84%E5%93%8D%E5%BA%94%E6%97%B6%E9%97%B4.png" alt="商品库存扣减优化之后的响应时间"></p>
+<p><img src="/Users/xiazhenyu/Desktop/typora%E6%96%87%E4%BB%B6%E9%9B%86%E5%90%88/%E6%96%87%E6%A1%A3%E5%90%88%E9%9B%86/%E5%95%86%E5%93%81%E5%BA%93%E5%AD%98%E6%89%A3%E5%87%8FQPS.png" alt="商品库存扣减QPS"></p>
+<h3 id="如何解决秒杀场景下的库存扣减？"><a href="#如何解决秒杀场景下的库存扣减？" class="headerlink" title="如何解决秒杀场景下的库存扣减？"></a>如何解决秒杀场景下的库存扣减？</h3><ul>
+<li>采用下单扣减库存</li>
+<li>Redis缓存<br>将缓存存放在缓存中，直接在缓存中扣减库存。并发很高的时候，采用分布式锁。</li>
+<li>限流<br>增加限流之后（前端的限流和后端的令牌桶限流），真正扣减库存的时候，请求量比较少了。</li>
+</ul>
+<p><img src="/Users/xiazhenyu/Desktop/typora%E6%96%87%E4%BB%B6%E9%9B%86%E5%90%88/%E6%96%87%E6%A1%A3%E5%90%88%E9%9B%86/%E5%95%86%E5%93%81%E7%A7%92%E6%9D%80%E8%AE%BE%E8%AE%A1%E6%96%B9%E6%A1%88.png" alt="商品秒杀设计方案"></p>
+<h3 id="谊品的库存模型"><a href="#谊品的库存模型" class="headerlink" title="谊品的库存模型"></a>谊品的库存模型</h3><h3 id="参考文件："><a href="#参考文件：" class="headerlink" title="参考文件："></a>参考文件：</h3><p><a target="_blank" rel="noopener" href="https://juejin.cn/post/6969964751619112996">秒杀</a></p>
+<p><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/370408386">如何设计秒杀系统</a></p>
+
+  </div>
+  <div class="post-footer">
+    
+      <ul class="post-tag-list" itemprop="keywords"><li class="post-tag-list-item"><a class="post-tag-list-link" href="/tags/%E9%9D%A2%E8%AF%95/" rel="tag">面试</a></li></ul>
+    
+
+    <a href="#top" class="top">Back to Top</a>
+  </div>
+</article>
+<footer>
+  &copy; 2022
+  <span class="author">
+    chenyusharp
+  </span>
+</footer>
+    </div>
+  </body>
+</html>

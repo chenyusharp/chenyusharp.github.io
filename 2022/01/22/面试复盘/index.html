@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html>
+  <!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+  
+  <title>面试复盘 - 技术、生活、思考</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+  
+  <meta name="keywords" content=面试>
+  
+  
+    <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=1.02">
+  
+  
+    <link rel="alternate" href="/atom.xml " title="技术、生活、思考" type="application/atom+xml">
+  
+
+  
+<link rel="stylesheet" href="/css/style.css">
+
+<meta name="generator" content="Hexo 5.4.0"></head>
+  <body>
+    <div class="container">
+      <header class="header">
+  <div class="blog-title">
+    <a href="/" class="logo">技术、生活、思考</a>
+    <div class="subtitle"></div>
+  </div>
+  <nav class="navbar">
+    <ul class="menu">
+      
+        <li class="menu-item">
+          <a href="/" class="menu-item-link">Home</a>
+        </li>
+      
+        <li class="menu-item">
+          <a href="/archives" class="menu-item-link">Archives</a>
+        </li>
+      
+        <li class="menu-item">
+          <a href="/about" class="menu-item-link">About</a>
+        </li>
+      
+        <li class="menu-item">
+          <a href="/categories" class="menu-item-link">Categories</a>
+        </li>
+      
+        <li class="menu-item">
+          <a href="/tags" class="menu-item-link">Tags</a>
+        </li>
+      
+    </ul>
+  </nav>
+</header>
+<article class="post">
+  <div class="post-title">
+    <h1 class="article-title">面试复盘</h1>
+  </div>
+   <div class="post-meta">
+    <span class="post-time">2022-01-22</span>
+  </div>
+  <div class="post-content">
+    <h2 id="主要复习内容"><a href="#主要复习内容" class="headerlink" title="主要复习内容"></a>主要复习内容</h2><p>他好像比较喜欢问Redis，kafka，数据库索引什么的<br>什么Redis数据结构，分布式锁，穿透、击穿，二级缓存什么的</p>
+<h3 id="Redis的数据结构："><a href="#Redis的数据结构：" class="headerlink" title="Redis的数据结构："></a>Redis的数据结构：</h3><p>分布式锁、穿透、击穿、二级缓存</p>
+<p><a href="/Users/xiazhenyu/Desktop/typora%E6%96%87%E4%BB%B6%E9%9B%86%E5%90%88/%E6%8B%89%E9%92%A9/Redis.md">见Redis部分</a></p>
+<h2 id="乐其电商的面试复盘："><a href="#乐其电商的面试复盘：" class="headerlink" title="乐其电商的面试复盘："></a>乐其电商的面试复盘：</h2><p>乐观锁和悲观锁的区别以及使用场景；</p>
+<p>hashmap的插入过程；</p>
+<p>CMS以及G1的区别；</p>
+<p>logback与slf4j的关系：<br>slf4j是一系列的日志接口，而logback是具体实现了的日志框架，和log4j一样，都是具体的实现层；</p>
+<p>The Simple Logging Facade for Java;</p>
+<p>Logback的优势：直接调用slf4j的接口，是不消耗内存和计算开销的。</p>
+<p>log4j不是对slf4j的原生支持，所以slf4j api在调用log4j时需要一个适配层；</p>
+<p>Detail：</p>
+<ol>
+<li>更快的执行速度；</li>
+<li>充分的测试；</li>
+<li>Logback-classic 非常自然的实现了slf4j；</li>
+<li>丰富的扩展文档；</li>
+<li>可以使用XML配置文件或者Groovy；</li>
+<li>自动重新载入配置文件；</li>
+<li>优雅地从I/O错误中恢复；</li>
+<li>自动清除旧的日志归档文件；</li>
+<li>自动压缩归档日志文件；</li>
+</ol>
+<h2 id="滴滴面试复盘"><a href="#滴滴面试复盘" class="headerlink" title="滴滴面试复盘"></a>滴滴面试复盘</h2><p>最近项目</p>
+<p>QPS</p>
+<p>降级</p>
+<p>限流</p>
+<p>redis</p>
+<ul>
+<li>hash扩容</li>
+<li>跳表和红黑树</li>
+<li>redis单线程 和多线程</li>
+</ul>
+<p>TCP和HTTP</p>
+<p>Double和GRPC</p>
+<p>消息队列</p>
+<p>数据库</p>
+<ul>
+<li>数据库引擎</li>
+<li>间隙锁</li>
+<li>B树和B+树</li>
+</ul>
+<p>ZK</p>
+<p>线上问题</p>
+<p>多线程</p>
+<ul>
+<li>sync 和 reentrantLock</li>
+<li>Wait 和 notifyall</li>
+<li>AQS 实现自己的锁</li>
+</ul>
+<p>1月12号面试复盘：</p>
+<ol>
+<li><p>redis中list查询很慢，可能是什么原因？</p>
+<ul>
+<li>一方面有可能是大key导致的，写入的key比较大，redis在分配内存时就会比较耗时；</li>
+<li>集中过期。这个就需要结合过期策略来讲；</li>
+<li>使用了过度复杂的指令；</li>
+<li>实例内存达到上限；</li>
+<li>Fork 耗时严重，开启了自动生成RDB和AOF重写功能；</li>
+<li>绑定CPU（进程绑定CPU），为什么？redis在进行RDB和AOF时，会Fork子进程</li>
+<li>开启AOF，因为这个功能会有刷盘机制，具体可参考Redis的AOF复制部分；</li>
+<li>使用Swap，这个就需要我们最好内存和Swap的监控；</li>
+<li>网卡负载过高，需要我们从运维层面，对机器的各项指标进行监控；</li>
+</ul>
+<p>参考文档：<a target="_blank" rel="noopener" href="https://cloud.tencent.com/developer/article/1683803">https://cloud.tencent.com/developer/article/1683803</a></p>
+</li>
+<li><p>Spring中AOP用到了哪些设计模式？</p>
+<p>代理模式、AOP的增强或通知使用到了适配器模式；</p>
+</li>
+<li><p>IOC容器中的存放context的名称是什么？</p>
+</li>
+<li><p>beanfactory和factorybean有什么不同？</p>
+</li>
+<li><p>设计一个程序，统计一千万数据量的前10条记录，内存只有1G；</p>
+</li>
+<li><p>mybatis中的#和$有什么区别？</p>
+</li>
+</ol>
+
+  </div>
+  <div class="post-footer">
+    
+      <ul class="post-tag-list" itemprop="keywords"><li class="post-tag-list-item"><a class="post-tag-list-link" href="/tags/%E9%9D%A2%E8%AF%95/" rel="tag">面试</a></li></ul>
+    
+
+    <a href="#top" class="top">Back to Top</a>
+  </div>
+</article>
+<footer>
+  &copy; 2022
+  <span class="author">
+    chenyusharp
+  </span>
+</footer>
+    </div>
+  </body>
+</html>
