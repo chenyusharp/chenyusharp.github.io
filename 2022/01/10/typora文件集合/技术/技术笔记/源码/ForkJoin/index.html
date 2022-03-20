@@ -1,0 +1,718 @@
+<!DOCTYPE html>
+<html lang=zh>
+<head>
+  <meta charset="utf-8">
+  
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
+  <meta name="renderer" content="webkit">
+  <meta http-equiv="Cache-Control" content="no-transform" />
+  <meta http-equiv="Cache-Control" content="no-siteapp" />
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="format-detection" content="telephone=no,email=no,adress=no">
+  <!-- Color theme for statusbar -->
+  <meta name="theme-color" content="#000000" />
+  <!-- 强制页面在当前窗口以独立页面显示,防止别人在框架里调用页面 -->
+  <meta http-equiv="window-target" content="_top" />
+  
+  
+  <title>Hexo</title>
+  <meta name="description" content="ForkJoin框架解读模块： 任务对象： ForkJoinTask（RecursiveTask、RecursiveAction、CountedCompleter） 执行Fork&#x2F;Join任务的线程：ForkJoinWorkerThread 线程池：ForkJoinPool  核心思想work-stealing（工作窃取）算法每一个ForkJoinWorkerThread 都对应一个WorkQue">
+<meta property="og:type" content="article">
+<meta property="og:title" content="技术、生活、思考">
+<meta property="og:url" content="http://example.com/2022/01/10/typora%E6%96%87%E4%BB%B6%E9%9B%86%E5%90%88/%E6%8A%80%E6%9C%AF/%E6%8A%80%E6%9C%AF%E7%AC%94%E8%AE%B0/%E6%BA%90%E7%A0%81/ForkJoin/index.html">
+<meta property="og:site_name" content="技术、生活、思考">
+<meta property="og:description" content="ForkJoin框架解读模块： 任务对象： ForkJoinTask（RecursiveTask、RecursiveAction、CountedCompleter） 执行Fork&#x2F;Join任务的线程：ForkJoinWorkerThread 线程池：ForkJoinPool  核心思想work-stealing（工作窃取）算法每一个ForkJoinWorkerThread 都对应一个WorkQue">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://example.com/Users/xiazhenyu/Desktop/typora%E6%96%87%E4%BB%B6%E9%9B%86%E5%90%88/%E6%96%87%E6%A1%A3%E5%90%88%E9%9B%86/ForkJoin%E6%89%A7%E8%A1%8C%E6%B5%81%E7%A8%8B.png">
+<meta property="og:image" content="https://pdai-1257820000.cos.ap-beijing.myqcloud.com/pdai.tech/public/_images/thread/java-thread-x-forkjoin-1.png">
+<meta property="og:image" content="https://pdai-1257820000.cos.ap-beijing.myqcloud.com/pdai.tech/public/_images/thread/java-thread-x-forkjoin-4.png">
+<meta property="og:image" content="https://pdai-1257820000.cos.ap-beijing.myqcloud.com/pdai.tech/public/_images/thread/java-thread-x-forkjoin-6.png">
+<meta property="article:published_time" content="2022-01-10T03:59:52.474Z">
+<meta property="article:modified_time" content="2022-01-10T16:18:45.490Z">
+<meta property="article:author" content="chenyusharp">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/Users/xiazhenyu/Desktop/typora%E6%96%87%E4%BB%B6%E9%9B%86%E5%90%88/%E6%96%87%E6%A1%A3%E5%90%88%E9%9B%86/ForkJoin%E6%89%A7%E8%A1%8C%E6%B5%81%E7%A8%8B.png">
+  <!-- Canonical links -->
+  <link rel="canonical" href="http://example.com/2022/01/10/typora%E6%96%87%E4%BB%B6%E9%9B%86%E5%90%88/%E6%8A%80%E6%9C%AF/%E6%8A%80%E6%9C%AF%E7%AC%94%E8%AE%B0/%E6%BA%90%E7%A0%81/ForkJoin/index.html">
+  
+    <link rel="alternate" href="/atom.xml" title="技术、生活、思考" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png" type="image/x-icon">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+  
+  
+  
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+
+<body class="main-center" itemscope itemtype="http://schema.org/WebPage">
+  <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+  <div class="slimContent">
+    <div class="navbar-header">
+      
+      
+      <div class="profile-block text-center">
+        <a id="avatar" href="https://github.com/chenyusharp" target="_blank">
+          <img class="img-circle img-rotate" src="https://xiazhenyu.oss-cn-hangzhou.aliyuncs.com/common/36723748-0889-481D-AD81-B036124EBE2E_1_105_c.jpeg" width="200" height="200">
+        </a>
+        <h2 id="name" class="hidden-xs hidden-sm">chenyusharp</h2>
+        <h3 id="title" class="hidden-xs hidden-sm hidden-md">Java Developer</h3>
+        <small id="location" class="text-muted hidden-xs hidden-sm"><i class="icon icon-map-marker"></i> Hangzhou, China</small>
+      </div>
+      
+      <div class="search" id="search-form-wrap">
+
+    <form class="search-form sidebar-form">
+        <div class="input-group">
+            <input type="text" class="search-form-input form-control" placeholder="搜索" />
+            <span class="input-group-btn">
+                <button type="submit" class="search-form-submit btn btn-flat" onclick="return false;"><i class="icon icon-search"></i></button>
+            </span>
+        </div>
+    </form>
+    <div class="ins-search">
+  <div class="ins-search-mask"></div>
+  <div class="ins-search-container">
+    <div class="ins-input-wrapper">
+      <input type="text" class="ins-search-input" placeholder="想要查找什么..." x-webkit-speech />
+      <button type="button" class="close ins-close ins-selectable" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+    </div>
+    <div class="ins-section-wrapper">
+      <div class="ins-section-container"></div>
+    </div>
+  </div>
+</div>
+
+
+</div>
+      <button class="navbar-toggle collapsed" type="button" data-toggle="collapse" data-target="#main-navbar" aria-controls="main-navbar" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+    </div>
+    <nav id="main-navbar" class="collapse navbar-collapse" itemscope itemtype="http://schema.org/SiteNavigationElement" role="navigation">
+      <ul class="nav navbar-nav main-nav ">
+        
+        
+        <li class="menu-item menu-item-home">
+          <a href="/.">
+            
+            <i class="icon icon-home-fill"></i>
+            
+            <span class="menu-title">首页</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives">
+            
+            <i class="icon icon-archives-fill"></i>
+            
+            <span class="menu-title">归档</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories">
+            
+            <i class="icon icon-folder"></i>
+            
+            <span class="menu-title">分类</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags">
+            
+            <i class="icon icon-tags"></i>
+            
+            <span class="menu-title">标签</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-repository">
+          <a href="/repository">
+            
+            <i class="icon icon-project"></i>
+            
+            <span class="menu-title">项目</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-books">
+          <a href="/books">
+            
+            <i class="icon icon-book-fill"></i>
+            
+            <span class="menu-title">书单</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-links">
+          <a href="/links">
+            
+            <i class="icon icon-friendship"></i>
+            
+            <span class="menu-title">友链</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about">
+            
+            <i class="icon icon-cup-fill"></i>
+            
+            <span class="menu-title">关于</span>
+          </a>
+        </li>
+        
+      </ul>
+      
+	
+    <ul class="social-links">
+    	
+        <li><a href="https://github.com/chenyusharp" target="_blank" title="Github" data-toggle=tooltip data-placement=top><i class="icon icon-github"></i></a></li>
+        
+    </ul>
+
+    </nav>
+  </div>
+</header>
+
+  
+    <aside class="sidebar" itemscope itemtype="http://schema.org/WPSideBar">
+  <div class="slimContent">
+    
+      <div class="widget">
+    <h3 class="widget-title">公告</h3>
+    <div class="widget-body">
+        <div id="board">
+            <div class="content">
+                <p>欢迎交流与分享经验!</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">分类</h3>
+    <div class="widget-body">
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/DDD/">DDD</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/linux/">linux</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/redis/">redis</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/typora/">typora</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/wholee/">wholee</a><span class="category-list-count">10</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%8A%80%E6%9C%AF/">技术</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%8A%80%E8%83%BD/">技能</a><span class="category-list-count">1</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%8A%80%E8%83%BD/%E5%B7%A5%E4%BD%9C/">工作</a><span class="category-list-count">1</span></li></ul></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">标签</h3>
+    <div class="widget-body">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/DDD/" rel="tag">DDD</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/linux/" rel="tag">linux</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/redis/" rel="tag">redis</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/wholee/" rel="tag">wholee</a><span class="tag-list-count">10</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%B7%A5%E4%BD%9C%E5%AE%89%E6%8E%92/" rel="tag">工作安排</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%8A%80%E8%83%BD/" rel="tag">技能</a><span class="tag-list-count">1</span></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">标签云</h3>
+    <div class="widget-body tagcloud">
+      <a href="/tags/DDD/" style="font-size: 13px;">DDD</a> <a href="/tags/linux/" style="font-size: 13.33px;">linux</a> <a href="/tags/redis/" style="font-size: 13px;">redis</a> <a href="/tags/wholee/" style="font-size: 14px;">wholee</a> <a href="/tags/%E5%B7%A5%E4%BD%9C%E5%AE%89%E6%8E%92/" style="font-size: 13.67px;">工作安排</a> <a href="/tags/%E6%8A%80%E8%83%BD/" style="font-size: 13px;">技能</a>
+    </div>
+  </div>
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">归档</h3>
+    <div class="widget-body">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/03/">三月 2022</a><span class="archive-list-count">12</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/02/">二月 2022</a><span class="archive-list-count">21</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/01/">一月 2022</a><span class="archive-list-count">30</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/12/">十二月 2021</a><span class="archive-list-count">8</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/11/">十一月 2021</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/10/">十月 2021</a><span class="archive-list-count">38</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/09/">九月 2021</a><span class="archive-list-count">10</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/08/">八月 2021</a><span class="archive-list-count">24</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/07/">七月 2021</a><span class="archive-list-count">18</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/06/">六月 2021</a><span class="archive-list-count">13</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/05/">五月 2021</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/03/">三月 2021</a><span class="archive-list-count">1</span></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget-body">
+      <ul class="recent-post-list list-unstyled no-thumbnail">
+        
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/%E6%8A%80%E6%9C%AF/">技术</a>
+              </p>
+              <p class="item-title">
+                <a href="/2022/03/20/typora%E6%96%87%E4%BB%B6%E9%9B%86%E5%90%88/%E6%8A%80%E6%9C%AF/%E5%B8%B8%E8%A7%81%E7%9A%84%E9%9D%A2%E8%AF%95%E6%8A%80%E6%9C%AF%E9%97%AE%E9%A2%98/%E5%88%A9%E7%94%A8JVM%E5%91%BD%E4%BB%A4%E8%A1%8C%E5%B7%A5%E5%85%B7%E6%8E%92%E6%9F%A5%E7%BA%BF%E4%B8%8A%E9%97%AE%E9%A2%98/" class="title">利用JVM命令行工具排查线上问题</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2022-03-20T05:19:39.297Z" itemprop="datePublished">2022-03-20</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/%E6%8A%80%E6%9C%AF/">技术</a>
+              </p>
+              <p class="item-title">
+                <a href="/2022/03/20/typora%E6%96%87%E4%BB%B6%E9%9B%86%E5%90%88/%E6%8A%80%E6%9C%AF/%E5%B8%B8%E8%A7%81%E7%9A%84%E9%9D%A2%E8%AF%95%E6%8A%80%E6%9C%AF%E9%97%AE%E9%A2%98/%E5%A6%82%E4%BD%95%E5%AE%9E%E7%8E%B0%E4%B8%80%E4%B8%AARPC%E6%A1%86%E6%9E%B6/" class="title">如何实现一个RPC框架</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2022-03-19T18:29:15.439Z" itemprop="datePublished">2022-03-20</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/linux/">linux</a>
+              </p>
+              <p class="item-title">
+                <a href="/2022/03/20/typora%E6%96%87%E4%BB%B6%E9%9B%86%E5%90%88/%E6%8A%80%E6%9C%AF/%E6%8A%80%E6%9C%AF%E7%AC%94%E8%AE%B0/%E6%9C%8D%E5%8A%A1%E5%99%A8/%E5%B8%B8%E7%94%A8%E7%9A%84linux%E5%91%BD%E4%BB%A4/" class="title">常用的linux命令</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2022-03-19T18:23:26.102Z" itemprop="datePublished">2022-03-20</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/redis/">redis</a>
+              </p>
+              <p class="item-title">
+                <a href="/2022/03/20/typora%E6%96%87%E4%BB%B6%E9%9B%86%E5%90%88/%E6%8A%80%E6%9C%AF/redis/redis%E6%BA%90%E7%A0%81%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/" class="title">redis源码环境搭建</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2022-03-19T16:29:16.300Z" itemprop="datePublished">2022-03-20</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                
+              </p>
+              <p class="item-title">
+                <a href="/2022/03/19/typora%E6%96%87%E4%BB%B6%E9%9B%86%E5%90%88/%E6%8A%80%E6%9C%AF/%E5%B8%B8%E8%A7%81%E7%9A%84%E9%9D%A2%E8%AF%95%E6%8A%80%E6%9C%AF%E9%97%AE%E9%A2%98/Spring%20AOP%E6%98%AF%E6%80%8E%E4%B9%88%E5%AE%9E%E7%8E%B0%E7%9A%84/" class="title">(no title)</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2022-03-18T17:03:12.253Z" itemprop="datePublished">2022-03-19</time>
+              </p>
+            </div>
+          </li>
+          
+      </ul>
+    </div>
+  </div>
+  
+
+    
+  </div>
+</aside>
+
+  
+  
+<main class="main" role="main">
+  <div class="content">
+  <article id="post-typora文件集合/技术/技术笔记/源码/ForkJoin" class="article article-type-post" itemscope itemtype="http://schema.org/BlogPosting">
+    
+    <div class="article-header">
+      
+      <div class="article-meta">
+        <span class="article-date">
+    <i class="icon icon-calendar-check"></i>
+	<a href="/2022/01/10/typora%E6%96%87%E4%BB%B6%E9%9B%86%E5%90%88/%E6%8A%80%E6%9C%AF/%E6%8A%80%E6%9C%AF%E7%AC%94%E8%AE%B0/%E6%BA%90%E7%A0%81/ForkJoin/" class="article-date">
+	  <time datetime="2022-01-10T03:59:52.474Z" itemprop="datePublished">2022-01-10</time>
+	</a>
+</span>
+        
+        
+
+        
+
+        <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2022/01/10/typora%E6%96%87%E4%BB%B6%E9%9B%86%E5%90%88/%E6%8A%80%E6%9C%AF/%E6%8A%80%E6%9C%AF%E7%AC%94%E8%AE%B0/%E6%BA%90%E7%A0%81/ForkJoin/#comments" class="article-comment-link">评论</a></span>
+        
+      </div>
+    </div>
+    <div class="article-entry marked-body" itemprop="articleBody">
+      
+        <h2 id="ForkJoin框架解读"><a href="#ForkJoin框架解读" class="headerlink" title="ForkJoin框架解读"></a>ForkJoin框架解读</h2><h3 id="模块："><a href="#模块：" class="headerlink" title="模块："></a>模块：</h3><ul>
+<li>任务对象： ForkJoinTask（RecursiveTask、RecursiveAction、CountedCompleter）</li>
+<li>执行Fork/Join任务的线程：ForkJoinWorkerThread</li>
+<li>线程池：ForkJoinPool</li>
+</ul>
+<h3 id="核心思想"><a href="#核心思想" class="headerlink" title="核心思想"></a>核心思想</h3><p>work-stealing（工作窃取）算法<br>每一个ForkJoinWorkerThread 都对应一个WorkQueue，工作线程优先处理来自自身队列的任务（LIFO或FIFO顺序，参数mode决定），然后以==FIFO==的顺序随机窃取其他任务队列中的任务。</p>
+<ul>
+<li>每一个线程都有自己的一个workQueue，该工作队列是一个双端队列；</li>
+<li>队列支持三个功能：push（向队列中添加一个任务）、pop（从队列中弹出一个任务）、poll（返回队列的头部元素，并从队列中移除）；</li>
+<li>push/pop只能被队列的所有者线程调用，而poll可以被其他线程调用；</li>
+<li>划分的子任务调用fork时，都会被push到自己的队列中；</li>
+<li>默认情况下，工作线程从自己的双端队列获取任务并执行；</li>
+<li>当自己的队列为空时，线程随机从另一个线程的队列末尾调用poll方法窃取任务；</li>
+</ul>
+<p>执行流程：<br><img src="/Users/xiazhenyu/Desktop/typora%E6%96%87%E4%BB%B6%E9%9B%86%E5%90%88/%E6%96%87%E6%A1%A3%E5%90%88%E9%9B%86/ForkJoin%E6%89%A7%E8%A1%8C%E6%B5%81%E7%A8%8B.png" alt="ForkJoin执行流程"></p>
+<p>内部类介绍：</p>
+<ul>
+<li>workQueue：是一个work-stealing模式的双端任务队列，内部存放ForkJoinTask对象任务，使用@Contented注解修饰防止伪共享。</li>
+</ul>
+<p>什么是伪共享状态？<br>缓存系统中是以缓存行（cache line）为单位存储的。缓存行是2的整数幂个连续的字节，一般是32～256个字节。最常见的缓存行大小是64个字节。当多线程修改相互独立的变量时。如果这些变量共享同一个缓存行，就会无意中影响彼此的性能，这就是伪共享。</p>
+<h3 id="源码解析："><a href="#源码解析：" class="headerlink" title="源码解析："></a>源码解析：</h3><h4 id="ForkJoinPool继承关系"><a href="#ForkJoinPool继承关系" class="headerlink" title="ForkJoinPool继承关系"></a>ForkJoinPool继承关系</h4><p><img src="https://pdai-1257820000.cos.ap-beijing.myqcloud.com/pdai.tech/public/_images/thread/java-thread-x-forkjoin-1.png" alt="img"></p>
+<h4 id="ForkJoinTask继承关系"><a href="#ForkJoinTask继承关系" class="headerlink" title="ForkJoinTask继承关系"></a>ForkJoinTask继承关系</h4><p><img src="https://pdai-1257820000.cos.ap-beijing.myqcloud.com/pdai.tech/public/_images/thread/java-thread-x-forkjoin-4.png" alt="img"></p>
+<h4 id="ForkJoinPool"><a href="#ForkJoinPool" class="headerlink" title="ForkJoinPool"></a>ForkJoinPool</h4><p>ForkJoinPool的内部状态是通过一个64位的long型变量ctl来存储。它有四个16位的子域组成：</p>
+<ol>
+<li>AC：正在运行工作线程数减去目标并行度，高16位；</li>
+<li>TC：总工作线程数减去目标并行度，中高16位；</li>
+<li>SS： 栈顶等待线程的版本计数和状态，中低16位；</li>
+<li>栈顶workQueue在池中的索引（poolIndex），低16位。</li>
+</ol>
+<h5 id="构造参数："><a href="#构造参数：" class="headerlink" title="构造参数："></a>构造参数：</h5><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="title">ForkJoinPool</span><span class="params">(<span class="keyword">int</span> parallelism,</span></span></span><br><span class="line"><span class="params"><span class="function">                    ForkJoinWorkerThreadFactory factory,</span></span></span><br><span class="line"><span class="params"><span class="function">                    UncaughtExceptionHandler handler,</span></span></span><br><span class="line"><span class="params"><span class="function">                    <span class="keyword">boolean</span> asyncMode)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">this</span>(checkParallelism(parallelism),</span><br><span class="line">            checkFactory(factory),</span><br><span class="line">            handler,</span><br><span class="line">            asyncMode ? FIFO_QUEUE : LIFO_QUEUE,</span><br><span class="line">            <span class="string">&quot;ForkJoinPool-&quot;</span> + nextPoolId() + <span class="string">&quot;-worker-&quot;</span>);</span><br><span class="line">    checkPermission();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>说明：</p>
+<ul>
+<li>parallelism：并行度，默认是CPU数，最小为1；</li>
+<li>factory：工作线程工厂；</li>
+<li>handler：处理工作线程运行任务时的异常情况类，默认为null；</li>
+<li>ayncModel：处理工作线程运行任务时的异常情况类，默认为null；</li>
+</ul>
+<p>ForkJoinPool.commonPool()方法的构造：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">static</span> ForkJoinPool <span class="title">makeCommonPool</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> parallelism = -<span class="number">1</span>;</span><br><span class="line">    ForkJoinWorkerThreadFactory factory = <span class="keyword">null</span>;</span><br><span class="line">    UncaughtExceptionHandler handler = <span class="keyword">null</span>;</span><br><span class="line">    <span class="keyword">try</span> &#123;  <span class="comment">// ignore exceptions in accessing/parsing</span></span><br><span class="line">        String pp = System.getProperty</span><br><span class="line">                (<span class="string">&quot;java.util.concurrent.ForkJoinPool.common.parallelism&quot;</span>);<span class="comment">//并行度</span></span><br><span class="line">        String fp = System.getProperty</span><br><span class="line">                (<span class="string">&quot;java.util.concurrent.ForkJoinPool.common.threadFactory&quot;</span>);<span class="comment">//线程工厂</span></span><br><span class="line">        String hp = System.getProperty</span><br><span class="line">                (<span class="string">&quot;java.util.concurrent.ForkJoinPool.common.exceptionHandler&quot;</span>);<span class="comment">//异常处理类</span></span><br><span class="line">        <span class="keyword">if</span> (pp != <span class="keyword">null</span>)</span><br><span class="line">            parallelism = Integer.parseInt(pp);</span><br><span class="line">        <span class="keyword">if</span> (fp != <span class="keyword">null</span>)</span><br><span class="line">            factory = ((ForkJoinWorkerThreadFactory) ClassLoader.</span><br><span class="line">                    getSystemClassLoader().loadClass(fp).newInstance());</span><br><span class="line">        <span class="keyword">if</span> (hp != <span class="keyword">null</span>)</span><br><span class="line">            handler = ((UncaughtExceptionHandler) ClassLoader.</span><br><span class="line">                    getSystemClassLoader().loadClass(hp).newInstance());</span><br><span class="line">    &#125; <span class="keyword">catch</span> (Exception ignore) &#123;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> (factory == <span class="keyword">null</span>) &#123;</span><br><span class="line">        <span class="keyword">if</span> (System.getSecurityManager() == <span class="keyword">null</span>)</span><br><span class="line">            factory = defaultForkJoinWorkerThreadFactory;</span><br><span class="line">        <span class="keyword">else</span> <span class="comment">// use security-managed default</span></span><br><span class="line">            factory = <span class="keyword">new</span> InnocuousForkJoinWorkerThreadFactory();</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> (parallelism &lt; <span class="number">0</span> &amp;&amp; <span class="comment">// default 1 less than #cores</span></span><br><span class="line">            (parallelism = Runtime.getRuntime().availableProcessors() - <span class="number">1</span>) &lt;= <span class="number">0</span>) <span class="comment">//可以看出，对于多core的CPU，并行度等于CPU核数-1</span></span><br><span class="line">        parallelism = <span class="number">1</span>;<span class="comment">//默认并行度为1</span></span><br><span class="line">    <span class="keyword">if</span> (parallelism &gt; MAX_CAP)</span><br><span class="line">        parallelism = MAX_CAP;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> ForkJoinPool(parallelism, factory, handler, LIFO_QUEUE,</span><br><span class="line">            <span class="string">&quot;ForkJoinPool.commonPool-worker-&quot;</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h5 id="任务的提交："><a href="#任务的提交：" class="headerlink" title="任务的提交："></a>任务的提交：</h5><ul>
+<li><p>外部任务的提交<br>有两种方式：external/submissions task提交<br>向FJP中提交任务有三种方式：</p>
+<ul>
+<li>invoke()会等待任务执行完毕并返回计算结果；</li>
+<li>execute() 是直接向池中提交一个任务来异步执行，没有返回结果；</li>
+<li>submit() 也是异步执行，但是会返回提交的任务，在适当的时候可以通过task.get()获取支执行结果；</li>
+</ul>
+<p>这三种提交方式都是调用externalPush()方法来完成的。<br>externalPush()的执行流程：</p>
+<ul>
+<li>先找到一个随机偶数槽位的workQueue；</li>
+<li>把任务放入这个workQueue的任务数组中，并更新top位。</li>
+<li>如果队列的剩余任务数小于1，则尝试创建或激活一个工作线程来运行任务。</li>
+</ul>
+<p>externalSubmit()是externalPush()的完整版本，具体的执行流程如下：</p>
+<ul>
+<li>如果线程池为终止状态（runState&lt;0），调用tryTerminate来终止线程池，并抛出任务拒绝异常；</li>
+<li>如果尚未初始化，就为FJP来执行初始化操作：初始化stealCounter、创建workQueues，然后自旋；</li>
+<li>初始化完成后，执行在externalPush中相同的操作：获取workQueue，放入指定任务。任务提交成功后调用signalWork方法创建或激活线程；</li>
+<li>如果在上一步中获取到的workQueue为null，会在这一步中创建一个workQueue，创建成功继续自旋执行第三步操作；</li>
+<li>如果非上述情况，或者有线程争用资源导致获取锁失败，就重新获取线程探针值继续自旋。</li>
+</ul>
+</li>
+</ul>
+<p>createWorker()</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">boolean</span> <span class="title">createWorker</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    ForkJoinWorkerThreadFactory fac = factory;</span><br><span class="line">    Throwable ex = <span class="keyword">null</span>;</span><br><span class="line">    ForkJoinWorkerThread wt = <span class="keyword">null</span>;</span><br><span class="line">    <span class="keyword">try</span> &#123;</span><br><span class="line">        <span class="keyword">if</span> (fac != <span class="keyword">null</span> &amp;&amp; (wt = fac.newThread(<span class="keyword">this</span>)) != <span class="keyword">null</span>) &#123;<span class="comment">//创建线程并启动</span></span><br><span class="line">            wt.start();</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125; <span class="keyword">catch</span> (Throwable rex) &#123;</span><br><span class="line">        ex = rex;</span><br><span class="line">    &#125;</span><br><span class="line">    deregisterWorker(wt, ex);<span class="comment">//线程创建失败处理</span></span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<p>ForkJoinWorkerThread 构造函数：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">protected</span> <span class="title">ForkJoinWorkerThread</span><span class="params">(ForkJoinPool pool)</span> </span>&#123;</span><br><span class="line">    <span class="comment">// Use a placeholder until a useful name can be set in registerWorker</span></span><br><span class="line">    <span class="keyword">super</span>(<span class="string">&quot;aForkJoinWorkerThread&quot;</span>);</span><br><span class="line">    <span class="keyword">this</span>.pool = pool;</span><br><span class="line">    <span class="keyword">this</span>.workQueue = pool.registerWorker(<span class="keyword">this</span>); <span class="comment">//注册生成workQueue,线程执行该workQueue中的任务</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>PS:为工作线程创建的WorkQueue是放在奇数索引上的。</p>
+<ul>
+<li><p>子任务的提交<br>ForkJoinTask.fork()</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">final</span> ForkJoinTask&lt;V&gt; <span class="title">fork</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    Thread t;</span><br><span class="line">    <span class="keyword">if</span> ((t = Thread.currentThread()) <span class="keyword">instanceof</span> ForkJoinWorkerThread) <span class="comment">//判断是不是Worker线程，是的话，说明是当前任务fork出的子任务</span></span><br><span class="line">        ((ForkJoinWorkerThread)t).workQueue.push(<span class="keyword">this</span>); <span class="comment">//把任务直接放到自己的等待队列中；</span></span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">        ForkJoinPool.common.externalPush(<span class="keyword">this</span>); <span class="comment">//不是当前woker线程fork出的子任务，提交到一个随机等待的队列中去。</span></span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">this</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>ForkJoinPool.WorkQueue.push()</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">final</span> <span class="keyword">void</span> <span class="title">push</span><span class="params">(ForkJoinTask&lt;?&gt; task)</span> </span>&#123;</span><br><span class="line">    ForkJoinTask&lt;?&gt;[] a;</span><br><span class="line">    ForkJoinPool p;</span><br><span class="line">    <span class="keyword">int</span> b = base, s = top, n;</span><br><span class="line">    <span class="keyword">if</span> ((a = array) != <span class="keyword">null</span>) &#123;    <span class="comment">// ignore if queue removed</span></span><br><span class="line">        <span class="keyword">int</span> m = a.length - <span class="number">1</span>;     <span class="comment">// fenced write for task visibility</span></span><br><span class="line">        U.putOrderedObject(a, ((m &amp; s) &lt;&lt; ASHIFT) + ABASE, task);</span><br><span class="line">        U.putOrderedInt(<span class="keyword">this</span>, QTOP, s + <span class="number">1</span>);</span><br><span class="line">        <span class="keyword">if</span> ((n = s - b) &lt;= <span class="number">1</span>) &#123;<span class="comment">//首次提交，创建或唤醒一个工作线程</span></span><br><span class="line">            <span class="keyword">if</span> ((p = pool) != <span class="keyword">null</span>)</span><br><span class="line">                p.signalWork(p.workQueues, <span class="keyword">this</span>);</span><br><span class="line">        &#125; <span class="keyword">else</span> <span class="keyword">if</span> (n &gt;= m) <span class="comment">//任务数组容量过小，进行扩容</span></span><br><span class="line">            growArray();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h5 id="执行流程"><a href="#执行流程" class="headerlink" title="执行流程"></a>执行流程</h5><p>ForkJoinWorkerThread.run()方法</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (workQueue.array == <span class="keyword">null</span>) &#123; <span class="comment">// only run once</span></span><br><span class="line">        Throwable exception = <span class="keyword">null</span>;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            onStart();<span class="comment">//钩子方法，可自定义扩展</span></span><br><span class="line">            pool.runWorker(workQueue);</span><br><span class="line">        &#125; <span class="keyword">catch</span> (Throwable ex) &#123;</span><br><span class="line">            exception = ex;</span><br><span class="line">        &#125; <span class="keyword">finally</span> &#123;</span><br><span class="line">            <span class="keyword">try</span> &#123;</span><br><span class="line">                onTermination(exception);<span class="comment">//钩子方法，可自定义扩展</span></span><br><span class="line">            &#125; <span class="keyword">catch</span> (Throwable ex) &#123;</span><br><span class="line">                <span class="keyword">if</span> (exception == <span class="keyword">null</span>)</span><br><span class="line">                    exception = ex;</span><br><span class="line">            &#125; <span class="keyword">finally</span> &#123;</span><br><span class="line">                pool.deregisterWorker(<span class="keyword">this</span>, exception);<span class="comment">//处理异常</span></span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>ForkJoinPool.runWorker(WorkQueue w)</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">final</span> <span class="keyword">void</span> <span class="title">runWorker</span><span class="params">(WorkQueue w)</span> </span>&#123;</span><br><span class="line">    w.growArray();                   <span class="comment">// allocate queue</span></span><br><span class="line">    <span class="keyword">int</span> seed = w.hint;               <span class="comment">// initially holds randomization hint</span></span><br><span class="line">    <span class="keyword">int</span> r = (seed == <span class="number">0</span>) ? <span class="number">1</span> : seed;  <span class="comment">// avoid 0 for xorShift</span></span><br><span class="line">    <span class="keyword">for</span> (ForkJoinTask&lt;?&gt; t; ; ) &#123;</span><br><span class="line">        <span class="keyword">if</span> ((t = scan(w, r)) != <span class="keyword">null</span>)<span class="comment">//扫描任务执行</span></span><br><span class="line">            w.runTask(t);</span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">if</span> (!awaitWork(w, r))</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        r ^= r &lt;&lt; <span class="number">13</span>;</span><br><span class="line">        r ^= r &gt;&gt;&gt; <span class="number">17</span>;</span><br><span class="line">        r ^= r &lt;&lt; <span class="number">5</span>; <span class="comment">// xorshift</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>说明: runWorker是 ForkJoinWorkerThread 的主运行方法，用来依次执行当前工作线程中的任务。函数流程很简单: 调用scan方法依次获取任务，然后调用WorkQueue .runTask运行任务；如果未扫描到任务，则调用awaitWork等待，直到工作线程/线程池终止或等待超时。</p>
+<p> scan函数的执行流程：</p>
+<ul>
+<li>取随机位置的一个WorkQueue;</li>
+<li>获取base位的ForkJoinTask，成功取到后更新base位并返回任务；如果取到的WorkQueue中任务数大于1，则调用signalWork创建或唤醒其他工作线程；</li>
+<li>如果当前工作线程处于不活跃状态（INACTIVE），则调用tryRelease尝试唤醒栈顶工作线程来执行；</li>
+<li>如果base位任务为空或发生偏移，则对索引位进行随机移位，然后重新扫描；</li>
+<li>如果扫描整个workQueues之后没有获取到任务，则设置当前工作线程为INACTIVE;然后重置checksum，再次扫描一圈后如果还没有任务则跳出循环返回null；</li>
+</ul>
+<p>WorkQueue.runTask()</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">final</span> <span class="keyword">void</span> <span class="title">runTask</span><span class="params">(ForkJoinTask&lt;?&gt; task)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (task != <span class="keyword">null</span>) &#123;</span><br><span class="line">        scanState &amp;= ~SCANNING; <span class="comment">// mark as busy</span></span><br><span class="line">        (currentSteal = task).doExec();<span class="comment">//更新currentSteal并执行任务</span></span><br><span class="line">        U.putOrderedObject(<span class="keyword">this</span>, QCURRENTSTEAL, <span class="keyword">null</span>); <span class="comment">// release for GC</span></span><br><span class="line">        execLocalTasks();<span class="comment">//依次执行本地任务</span></span><br><span class="line">        ForkJoinWorkerThread thread = owner;</span><br><span class="line">        <span class="keyword">if</span> (++nsteals &lt; <span class="number">0</span>)      <span class="comment">// collect on overflow</span></span><br><span class="line">            transferStealCount(pool);<span class="comment">//增加偷取任务数</span></span><br><span class="line">        scanState |= SCANNING;</span><br><span class="line">        <span class="keyword">if</span> (thread != <span class="keyword">null</span>)</span><br><span class="line">            thread.afterTopLevelExec();<span class="comment">//执行钩子函数</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>大概流程如下：</p>
+<ul>
+<li><p>标记scanState为正在执行状态；</p>
+</li>
+<li><p>更新currentSteal为当前获取到的任务并执行它，任务的执行调用了ForkJoinTask.doExec()方法；</p>
+</li>
+<li><p>调用execLocalTasks依次执行当前WorkQueue中的任务，会判断是按照FIFO模式还是按照LIFO模式；<br>代码如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//执行并移除所有本地任务</span></span><br><span class="line"><span class="function"><span class="keyword">final</span> <span class="keyword">void</span> <span class="title">execLocalTasks</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> b = base, m, s;</span><br><span class="line">    ForkJoinTask&lt;?&gt;[] a = array;</span><br><span class="line">    <span class="keyword">if</span> (b - (s = top - <span class="number">1</span>) &lt;= <span class="number">0</span> &amp;&amp; a != <span class="keyword">null</span> &amp;&amp;</span><br><span class="line">            (m = a.length - <span class="number">1</span>) &gt;= <span class="number">0</span>) &#123;</span><br><span class="line">        <span class="keyword">if</span> ((config &amp; FIFO_QUEUE) == <span class="number">0</span>) &#123;<span class="comment">//FIFO模式</span></span><br><span class="line">            <span class="keyword">for</span> (ForkJoinTask&lt;?&gt; t; ; ) &#123;</span><br><span class="line">                <span class="keyword">if</span> ((t = (ForkJoinTask&lt;?&gt;) U.getAndSetObject</span><br><span class="line">                        (a, ((m &amp; s) &lt;&lt; ASHIFT) + ABASE, <span class="keyword">null</span>)) == <span class="keyword">null</span>)<span class="comment">//FIFO执行，取top任务</span></span><br><span class="line">                    <span class="keyword">break</span>;</span><br><span class="line">                U.putOrderedInt(<span class="keyword">this</span>, QTOP, s);</span><br><span class="line">                t.doExec();<span class="comment">//执行</span></span><br><span class="line">                <span class="keyword">if</span> (base - (s = top - <span class="number">1</span>) &gt; <span class="number">0</span>)</span><br><span class="line">                    <span class="keyword">break</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125; <span class="keyword">else</span></span><br><span class="line">            pollAndExecAll();<span class="comment">//LIFO模式执行，取base任务</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<li><p>更新偷取任务数；</p>
+</li>
+<li><p>还原scanState并执行钩子函数；</p>
+</li>
+</ul>
+<h5 id="获取任务结果"><a href="#获取任务结果" class="headerlink" title="获取任务结果"></a>获取任务结果</h5><p>join() 方法</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//合并任务结果</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">final</span> V <span class="title">join</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> s;</span><br><span class="line">    <span class="keyword">if</span> ((s = doJoin() &amp; DONE_MASK) != NORMAL)</span><br><span class="line">        reportException(s);</span><br><span class="line">    <span class="keyword">return</span> getRawResult();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//join, get, quietlyJoin的主实现方法</span></span><br><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">int</span> <span class="title">doJoin</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> s; Thread t; ForkJoinWorkerThread wt; ForkJoinPool.WorkQueue w;</span><br><span class="line">    <span class="keyword">return</span> (s = status) &lt; <span class="number">0</span> ? s :</span><br><span class="line">        ((t = Thread.currentThread()) <span class="keyword">instanceof</span> ForkJoinWorkerThread) ?</span><br><span class="line">        (w = (wt = (ForkJoinWorkerThread)t).workQueue).</span><br><span class="line">        tryUnpush(<span class="keyword">this</span>) &amp;&amp; (s = doExec()) &lt; <span class="number">0</span> ? s :</span><br><span class="line">        wt.pool.awaitJoin(w, <span class="keyword">this</span>, <span class="number">0L</span>) :</span><br><span class="line">        externalAwaitDone();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>ForkJoinTask的join()方法和invoke()方法都是可以用来获取任务的执行结果，他们对外部提交任务的执行方式一致，都是通过externalAwaitDone方法等待执行结果。不同的是invoke()方法会直接执行当前任务；而join()方法则是在当前任务在队列top位时(通过tryUnpush方法判断)才能执行，如果当前任务不在top位或者任务执行失败调用ForkJoinPool.awaitJoin()方法帮助执行或阻塞当前join任务。</p>
+<p><img src="https://pdai-1257820000.cos.ap-beijing.myqcloud.com/pdai.tech/public/_images/thread/java-thread-x-forkjoin-6.png" alt="img"></p>
+<h3 id="注意事项"><a href="#注意事项" class="headerlink" title="注意事项"></a>注意事项</h3><ul>
+<li>避免不必要的fork()。</li>
+</ul>
+<p>划分成两个子任务以后，不要同时调用两个子任务的fork()方法。<br>一个例子（这个可以实现两个任务是并行执行的）：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">right.fork(); <span class="comment">// 计算右边的任务</span></span><br><span class="line"><span class="keyword">long</span> leftAns = left.compute(); <span class="comment">// 计算左边的任务(同时右边任务也在计算)</span></span><br><span class="line"><span class="keyword">long</span> rightAns = right.join(); <span class="comment">// 等待右边的结果</span></span><br><span class="line"><span class="keyword">return</span> leftAns + rightAns;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>选择合适的子任务粒度<br>使用ForkJoin框架并不一定比顺序执行任务的效率高；如果任务太大，则无法提高并行的吞吐量；如果任务太小，子任务的调度开销可能会大于并行计算的性能提升，我们还需要考虑创建子任务、fork()子任务、线程调度以及合并子任务处理结果的耗时以及相应的内存消耗。</li>
+<li>避免重量级任务划分与结果合并（类似System.arraycopy）；</li>
+</ul>
+<p>NQ模型</p>
+<p>N是数据元素数量，Q是为每个元素执行的工作量。乘积N*Q越大，就越有可能获得并行提速。那么对于特定的规模的数据N，如果Q值越大，则执行并行化处理带来的提速就越是明显的。</p>
+
+      
+    </div>
+    <div class="article-footer">
+      <blockquote class="mt-2x">
+  <ul class="post-copyright list-unstyled">
+    
+    <li class="post-copyright-link hidden-xs">
+      <strong>本文链接：</strong>
+      <a href="http://example.com/2022/01/10/typora%E6%96%87%E4%BB%B6%E9%9B%86%E5%90%88/%E6%8A%80%E6%9C%AF/%E6%8A%80%E6%9C%AF%E7%AC%94%E8%AE%B0/%E6%BA%90%E7%A0%81/ForkJoin/" title="" target="_blank" rel="external">http://example.com/2022/01/10/typora文件集合/技术/技术笔记/源码/ForkJoin/</a>
+    </li>
+    
+    <li class="post-copyright-license">
+      <strong>版权声明： </strong> 本博客所有文章除特别声明外，均采用 <a href="http://creativecommons.org/licenses/by/4.0/deed.zh" target="_blank" rel="external">CC BY 4.0 CN协议</a> 许可协议。转载请注明出处！
+    </li>
+  </ul>
+</blockquote>
+
+
+<div class="panel panel-default panel-badger">
+  <div class="panel-body">
+    <figure class="media">
+      <div class="media-left">
+        <a href="https://github.com/chenyusharp" target="_blank" class="img-burn thumb-sm visible-lg">
+          <img src="https://xiazhenyu.oss-cn-hangzhou.aliyuncs.com/common/36723748-0889-481D-AD81-B036124EBE2E_1_105_c.jpeg" class="img-rounded w-full" alt="">
+        </a>
+      </div>
+      <div class="media-body">
+        <h3 class="media-heading"><a href="https://github.com/chenyusharp" target="_blank"><span class="text-dark">chenyusharp</span><small class="ml-1x">Java Developer</small></a></h3>
+        <div>个人简介。</div>
+      </div>
+    </figure>
+  </div>
+</div>
+
+
+    </div>
+  </article>
+  
+    
+  <section id="comments">
+  	
+      <div id="vcomments"></div>
+    
+  </section>
+
+
+  
+</div>
+
+  <nav class="bar bar-footer clearfix" data-stick-bottom>
+  <div class="bar-inner">
+  
+  <ul class="pager pull-left">
+    
+    <li class="prev">
+      <a href="/2022/01/10/typora%E6%96%87%E4%BB%B6%E9%9B%86%E5%90%88/%E6%8A%80%E6%9C%AF/%E6%8A%80%E6%9C%AF%E7%AC%94%E8%AE%B0/%E6%BA%90%E7%A0%81/Stream/" title="(no title)"><i class="icon icon-angle-left" aria-hidden="true"></i><span>&nbsp;&nbsp;上一篇</span></a>
+    </li>
+    
+    
+    <li class="next">
+      <a href="/2022/01/09/typora%E6%96%87%E4%BB%B6%E9%9B%86%E5%90%88/%E6%8B%89%E9%92%A9/JVM/1%E6%9C%889%E5%8F%B7%E7%9B%B4%E6%92%AD/" title="(no title)"><span>下一篇&nbsp;&nbsp;</span><i class="icon icon-angle-right" aria-hidden="true"></i></a>
+    </li>
+    
+    
+  </ul>
+  
+  
+  <!-- Button trigger modal -->
+  <button type="button" class="btn btn-fancy btn-donate pop-onhover bg-gradient-warning" data-toggle="modal" data-target="#donateModal"><span>赏</span></button>
+  <!-- <div class="wave-icon wave-icon-danger btn-donate" data-toggle="modal" data-target="#donateModal">
+    <div class="wave-circle"><span class="icon"><i class="icon icon-bill"></i></span></div>
+  </div> -->
+  
+  
+  <div class="bar-right">
+    
+    <div class="share-component" data-sites="weibo,qq,wechat,facebook,twitter" data-mobile-sites="weibo,qq,qzone"></div>
+    
+  </div>
+  </div>
+</nav>
+  
+<!-- Modal -->
+<div class="modal modal-center modal-small modal-xs-full fade" id="donateModal" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content donate">
+      <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+      <div class="modal-body">
+        <div class="donate-box">
+          <div class="donate-head">
+            <p>感谢您的支持，我会继续努力的!</p>
+          </div>
+          <div class="tab-content">
+            <div role="tabpanel" class="tab-pane fade active in" id="alipay">
+              <div class="donate-payimg">
+                <img src="/images/donate/alipayimg.png" alt="扫码支持" title="扫一扫" />
+              </div>
+              <p class="text-muted mv">扫码打赏，你说多少就多少</p>
+              <p class="text-grey">打开支付宝扫一扫，即可进行扫码打赏哦</p>
+            </div>
+            <div role="tabpanel" class="tab-pane fade" id="wechatpay">
+              <div class="donate-payimg">
+                <img src="/images/donate/wechatpayimg.png" alt="扫码支持" title="扫一扫" />
+              </div>
+              <p class="text-muted mv">扫码打赏，你说多少就多少</p>
+              <p class="text-grey">打开微信扫一扫，即可进行扫码打赏哦</p>
+            </div>
+          </div>
+          <div class="donate-footer">
+            <ul class="nav nav-tabs nav-justified" role="tablist">
+              <li role="presentation" class="active">
+                <a href="#alipay" id="alipay-tab" role="tab" data-toggle="tab" aria-controls="alipay" aria-expanded="true"><i class="icon icon-alipay"></i> 支付宝</a>
+              </li>
+              <li role="presentation" class="">
+                <a href="#wechatpay" role="tab" id="wechatpay-tab" data-toggle="tab" aria-controls="wechatpay" aria-expanded="false"><i class="icon icon-wepay"></i> 微信支付</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+</main>
+
+  <footer class="footer" itemscope itemtype="http://schema.org/WPFooter">
+	
+	
+    <ul class="social-links">
+    	
+        <li><a href="https://github.com/chenyusharp" target="_blank" title="Github" data-toggle=tooltip data-placement=top><i class="icon icon-github"></i></a></li>
+        
+    </ul>
+
+    <div class="copyright">
+    	
+        <div class="publishby">
+        	Theme by <a href="https://github.com/cofess" target="_blank"> cofess </a>base on <a href="https://github.com/cofess/hexo-theme-pure" target="_blank">pure</a>.
+        </div>
+    </div>
+</footer>
+  <script src="//cdn.jsdelivr.net/npm/jquery@1.12.4/dist/jquery.min.js"></script>
+<script>
+window.jQuery || document.write('<script src="js/jquery.min.js"><\/script>')
+</script>
+
+<script src="/js/plugin.min.js"></script>
+
+
+<script src="/js/application.js"></script>
+
+
+    <script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: '文章',
+            PAGES: '页面',
+            CATEGORIES: '分类',
+            TAGS: '标签',
+            UNTITLED: '(未命名)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+
+<script src="/js/insight.js"></script>
+
+
+
+
+
+
+   
+
+
+
+
+   
+    
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/valine"></script>
+  <script type="text/javascript">
+  var GUEST = ['nick', 'mail', 'link'];
+  var meta = 'nick,mail,link';
+  meta = meta.split(',').filter(function(item) {
+    return GUEST.indexOf(item) > -1;
+  });
+  new Valine({
+    el: '#vcomments',
+    verify: false,
+    notify: false,
+    appId: '',
+    appKey: '',
+    placeholder: 'Just go go',
+    avatar: 'mm',
+    meta: meta,
+    pageSize: '10' || 10,
+    visitor: false
+  });
+  </script>
+
+     
+
+
+
+
+
+
+
+</body>
+</html>

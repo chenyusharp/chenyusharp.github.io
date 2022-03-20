@@ -1,0 +1,510 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title>技术、生活、思考</title>
+  
+  
+  <link href="http://example.com/atom.xml" rel="self"/>
+  
+  <link href="http://example.com/"/>
+  <updated>2022-03-20T06:17:33.697Z</updated>
+  <id>http://example.com/</id>
+  
+  <author>
+    <name>chenyusharp</name>
+    
+  </author>
+  
+  <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>利用JVM命令行工具排查线上问题</title>
+    <link href="http://example.com/2022/03/20/typora%E6%96%87%E4%BB%B6%E9%9B%86%E5%90%88/%E6%8A%80%E6%9C%AF/%E5%B8%B8%E8%A7%81%E7%9A%84%E9%9D%A2%E8%AF%95%E6%8A%80%E6%9C%AF%E9%97%AE%E9%A2%98/%E5%88%A9%E7%94%A8JVM%E5%91%BD%E4%BB%A4%E8%A1%8C%E5%B7%A5%E5%85%B7%E6%8E%92%E6%9F%A5%E7%BA%BF%E4%B8%8A%E9%97%AE%E9%A2%98/"/>
+    <id>http://example.com/2022/03/20/typora%E6%96%87%E4%BB%B6%E9%9B%86%E5%90%88/%E6%8A%80%E6%9C%AF/%E5%B8%B8%E8%A7%81%E7%9A%84%E9%9D%A2%E8%AF%95%E6%8A%80%E6%9C%AF%E9%97%AE%E9%A2%98/%E5%88%A9%E7%94%A8JVM%E5%91%BD%E4%BB%A4%E8%A1%8C%E5%B7%A5%E5%85%B7%E6%8E%92%E6%9F%A5%E7%BA%BF%E4%B8%8A%E9%97%AE%E9%A2%98/</id>
+    <published>2022-03-20T05:19:39.297Z</published>
+    <updated>2022-03-20T06:17:33.697Z</updated>
+    
+    <content type="html"><![CDATA[<table><thead><tr><th>名称</th><th>主要作用</th></tr></thead><tbody><tr><td>jps</td><td>查看正在运行的java进程</td></tr><tr><td>jstack</td><td>打印线程快照</td></tr><tr><td>jmap</td><td>导出堆内存映射文件</td></tr><tr><td>jstat</td><td>查看jvm统计信息</td></tr><tr><td>jinfo</td><td>实时查看和修改jvm配置参数</td></tr><tr><td>jhat</td><td>用于分析heapdump文件</td></tr></tbody></table><h3 id="jps：查看正在运行的java进程"><a href="#jps：查看正在运行的java进程" class="headerlink" title="jps：查看正在运行的java进程"></a>jps：查看正在运行的java进程</h3><table><thead><tr><th>选项</th><th>作用</th></tr></thead><tbody><tr><td>-q</td><td>只输出进程id</td></tr><tr><td>-m</td><td>输出传递给主类main函数的参数</td></tr><tr><td>-l</td><td>输出主类全类名，如果进程执行的是jar包，输出jar包的名字。</td></tr><tr><td>-v</td><td>程序启动时制定的jvm参数</td></tr></tbody></table><p>ex：</p><img src="/Users/xiazhenyu/Library/Application Support/typora-user-images/image-20220320134743825.png" alt="image-20220320134743825" style="zoom:50%;" /><h3 id="jstack-打印线程快照"><a href="#jstack-打印线程快照" class="headerlink" title="jstack :打印线程快照"></a>jstack :打印线程快照</h3><p>查看某个java进程中所有线程的状态。一般用来定位线程出现长时间停顿的原因，如发生死循环、死锁、请求外部资源长时间等待等。</p><p>执行jstack的效果：</p><img src="/Users/xiazhenyu/Library/Application Support/typora-user-images/image-20220320135157763.png" alt="image-20220320135157763" style="zoom:50%;" /><h3 id="jmap：导出堆内存映射文件"><a href="#jmap：导出堆内存映射文件" class="headerlink" title="jmap：导出堆内存映射文件"></a>jmap：导出堆内存映射文件</h3><p>jmap主要用来导出堆内存映射文件，看是否发生内存泄漏等；</p><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">jmap -dump:file=文件名.dump 进程id</span><br></pre></td></tr></table></figure><img src="/Users/xiazhenyu/Library/Application Support/typora-user-images/image-20220320135611486.png" alt="image-20220320135611486" style="zoom:50%;" /><h3 id="jstat-查看jvm统计信息"><a href="#jstat-查看jvm统计信息" class="headerlink" title="jstat:查看jvm统计信息"></a>jstat:查看jvm统计信息</h3><p>jstat可以显示本地或者远程虚拟机进程中的类装载、内存、垃圾收集、JIT编译等运行数据。</p><p><img src="https://xiazhenyu.oss-cn-hangzhou.aliyuncs.com/common/image-20220320141238863.png" alt="image-20220320141238863"></p><table><thead><tr><th>Loaded</th><th>解释</th></tr></thead><tbody><tr><td>Loaded</td><td>加载类的个数</td></tr><tr><td>Bytes</td><td>加载类的字节数</td></tr><tr><td>Unloaded</td><td>卸载类的个数</td></tr><tr><td>Bytes</td><td>卸载类的字节数</td></tr><tr><td>Time</td><td>花费的时间</td></tr></tbody></table><h3 id="jinfo：实时查看和修改jvm参数"><a href="#jinfo：实时查看和修改jvm参数" class="headerlink" title="jinfo：实时查看和修改jvm参数"></a>jinfo：实时查看和修改jvm参数</h3><p><img src="https://xiazhenyu.oss-cn-hangzhou.aliyuncs.com/common/2021070716373839.jpg" alt="在这里插入图片描述"></p><p>ex：</p><img src="https://xiazhenyu.oss-cn-hangzhou.aliyuncs.com/common/image-20220320134304798.png" alt="image-20220320134304798" style="zoom:50%;" />]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;名称&lt;/th&gt;
+&lt;th&gt;主要作用&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;&lt;tr&gt;
+&lt;td&gt;jps&lt;/td&gt;
+&lt;td&gt;查看正在运行的java进程&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;jstack&lt;/td&gt;
+&lt;td</summary>
+      
+    
+    
+    
+    <category term="技术" scheme="http://example.com/categories/%E6%8A%80%E6%9C%AF/"/>
+    
+    
+    <category term="工作安排" scheme="http://example.com/tags/%E5%B7%A5%E4%BD%9C%E5%AE%89%E6%8E%92/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>如何实现一个RPC框架</title>
+    <link href="http://example.com/2022/03/20/typora%E6%96%87%E4%BB%B6%E9%9B%86%E5%90%88/%E6%8A%80%E6%9C%AF/%E5%B8%B8%E8%A7%81%E7%9A%84%E9%9D%A2%E8%AF%95%E6%8A%80%E6%9C%AF%E9%97%AE%E9%A2%98/%E5%A6%82%E4%BD%95%E5%AE%9E%E7%8E%B0%E4%B8%80%E4%B8%AARPC%E6%A1%86%E6%9E%B6/"/>
+    <id>http://example.com/2022/03/20/typora%E6%96%87%E4%BB%B6%E9%9B%86%E5%90%88/%E6%8A%80%E6%9C%AF/%E5%B8%B8%E8%A7%81%E7%9A%84%E9%9D%A2%E8%AF%95%E6%8A%80%E6%9C%AF%E9%97%AE%E9%A2%98/%E5%A6%82%E4%BD%95%E5%AE%9E%E7%8E%B0%E4%B8%80%E4%B8%AARPC%E6%A1%86%E6%9E%B6/</id>
+    <published>2022-03-19T18:29:15.439Z</published>
+    <updated>2022-03-20T05:20:22.016Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="一个RPC调用的过程如下"><a href="#一个RPC调用的过程如下" class="headerlink" title="一个RPC调用的过程如下"></a>一个RPC调用的过程如下</h2><ol><li>调用方发送请求后由代理类将调用的方法，参数组装成能进行网络传输的消息体</li><li>调用方将消息体发送到提供方</li><li>提供方将消息进行解码，得到调用的参数</li><li>提供方反射执行相应的方法，并将结果返回</li></ol><h2 id="生成代理类"><a href="#生成代理类" class="headerlink" title="生成代理类"></a>生成代理类</h2><p>fb的Thrift和Google的gRPC都是定义一个schema文件，然后执行程序，帮你生成客户端代理类以及接口。调用方直接用生成的代理类来请求，提供方继承生成的接口即可。</p><p>优点：支持多语言通信。</p><p>在Java中生成代理类的方式：</p><p>1.JDK动态代理；</p><p>2.字节码操作类库（cglib，Javassist）。</p><h2 id="协议"><a href="#协议" class="headerlink" title="协议"></a>协议</h2><p>为什么需要协议？</p><p>数据在网络中是以二进制的形式在网络中传播的，RPC的请求数据不是以一个整体发送到提供方的，而是可能被拆分成多个数据包发送出去。定义协议，可以有效的保证通信的双方进行交流。</p><p>都有哪些种类的协议呢？</p><ul><li>定长协议：协议内容固定；</li><li>特殊结束符：定义一个消息结束的分割符，如读\n，表示一个数据读取完毕了，没有就一直读；</li><li>变长协议（协议头+协议体）：用一个定长表示消息体的长度，剩下的内容表示消息体。？</li></ul><p>我们以dubbo的协议来进行说明，dubbo采用的协议被称为dubbo协议。协议的头格式如下：</p><p><img src="https://xiazhenyu.oss-cn-hangzhou.aliyuncs.com/common/image-20220320030901386.png" alt="image-20220320030901386"></p><p>解释：</p><p><img src="https://xiazhenyu.oss-cn-hangzhou.aliyuncs.com/common/202010301351057.png" alt="在这里插入图片描述"></p><p>为什么要自定义协议？ 关键字：高性能</p><ol><li>Http协议的请求包比较大，有很多无用的内容，自定义协议可以精简很多的内容；</li><li>Http协议是无状态的，每次都要重新建立链接，响应完毕以后链接关闭。</li></ol><h2 id="序列化"><a href="#序列化" class="headerlink" title="序列化"></a>序列化</h2><p>常用的序列化方式：</p><ol><li>JDK原生序列化；</li><li>JSON；</li><li>Protobuf；</li><li>Kryo；</li><li>Hessian2；</li><li>MessagePack；</li></ol><p>选择序列化时，需要考虑的因素：</p><ol><li>效率；</li><li>空间开销；</li><li>通用性和兼容性；</li><li>安全性。</li></ol><h2 id="通讯"><a href="#通讯" class="headerlink" title="通讯"></a>通讯</h2><p>这个主要指的是IO模型；</p><ol><li>BIO</li><li>NIO</li><li>IO多路复用；（Netty）</li><li>异步IO</li></ol><h2 id="注册中心"><a href="#注册中心" class="headerlink" title="注册中心"></a>注册中心</h2><p>我们可以使用ZK、Redis、Nacos等多种方式实现；</p><h2 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h2><p>路由策略、异常重试、监控、异步调用</p>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;h2 id=&quot;一个RPC调用的过程如下&quot;&gt;&lt;a href=&quot;#一个RPC调用的过程如下&quot; class=&quot;headerlink&quot; title=&quot;一个RPC调用的过程如下&quot;&gt;&lt;/a&gt;一个RPC调用的过程如下&lt;/h2&gt;&lt;ol&gt;
+&lt;li&gt;调用方发送请求后由代理类将调用的方法，参数组装成</summary>
+      
+    
+    
+    
+    <category term="技术" scheme="http://example.com/categories/%E6%8A%80%E6%9C%AF/"/>
+    
+    
+    <category term="工作安排" scheme="http://example.com/tags/%E5%B7%A5%E4%BD%9C%E5%AE%89%E6%8E%92/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>常用的linux命令</title>
+    <link href="http://example.com/2022/03/20/typora%E6%96%87%E4%BB%B6%E9%9B%86%E5%90%88/%E6%8A%80%E6%9C%AF/%E6%8A%80%E6%9C%AF%E7%AC%94%E8%AE%B0/%E6%9C%8D%E5%8A%A1%E5%99%A8/%E5%B8%B8%E7%94%A8%E7%9A%84linux%E5%91%BD%E4%BB%A4/"/>
+    <id>http://example.com/2022/03/20/typora%E6%96%87%E4%BB%B6%E9%9B%86%E5%90%88/%E6%8A%80%E6%9C%AF/%E6%8A%80%E6%9C%AF%E7%AC%94%E8%AE%B0/%E6%9C%8D%E5%8A%A1%E5%99%A8/%E5%B8%B8%E7%94%A8%E7%9A%84linux%E5%91%BD%E4%BB%A4/</id>
+    <published>2022-03-19T18:23:26.102Z</published>
+    <updated>2022-03-19T18:27:30.427Z</updated>
+    
+    <content type="html"><![CDATA[<table><thead><tr><th>编号</th><th>命令</th><th>释义</th></tr></thead><tbody><tr><td>1</td><td>ps  aux | grep redis-server</td><td>查看某个服务是否启动</td></tr><tr><td>2</td><td></td><td></td></tr><tr><td>3</td><td></td><td></td></tr></tbody></table><p><img src="https://xiazhenyu.oss-cn-hangzhou.aliyuncs.com/common/image-20220320022723660.png" alt="image-20220320022723660"></p>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;编号&lt;/th&gt;
+&lt;th&gt;命令&lt;/th&gt;
+&lt;th&gt;释义&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;&lt;tr&gt;
+&lt;td&gt;1&lt;/td&gt;
+&lt;td&gt;ps  aux | grep redis-server&lt;/td&gt;
+&lt;td&gt;查看某个</summary>
+      
+    
+    
+    
+    <category term="linux" scheme="http://example.com/categories/linux/"/>
+    
+    
+    <category term="linux" scheme="http://example.com/tags/linux/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>redis源码环境搭建</title>
+    <link href="http://example.com/2022/03/20/typora%E6%96%87%E4%BB%B6%E9%9B%86%E5%90%88/%E6%8A%80%E6%9C%AF/redis/redis%E6%BA%90%E7%A0%81%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/"/>
+    <id>http://example.com/2022/03/20/typora%E6%96%87%E4%BB%B6%E9%9B%86%E5%90%88/%E6%8A%80%E6%9C%AF/redis/redis%E6%BA%90%E7%A0%81%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/</id>
+    <published>2022-03-19T16:29:16.300Z</published>
+    <updated>2022-03-19T18:19:49.413Z</updated>
+    
+    <content type="html"><![CDATA[<ul><li><p>make和cmake 的区别</p><p>make，是一个自动化编译工具，使用一条命令实现完全编译。</p><p>makefile，是一个文件，里面定义了make需要使用到的规则，make依据makefile文件中的规则来进行编译。</p><p>cmakefile，用来自动生成makefile文件的工具。它能够输出各种各样的makefile或者是project文件。</p><p>参考博文：<a href="https://blog.csdn.net/weixin_42491857/article/details/80741060">https://blog.csdn.net/weixin_42491857/article/details/80741060</a></p><p><img src="https://xiazhenyu.oss-cn-hangzhou.aliyuncs.com/common/70.png" alt="img"></p></li></ul><p>进行编译：</p><img src="/Users/xiazhenyu/Library/Application Support/typora-user-images/image-20220320021758778.png" alt="image-20220320021758778" style="zoom:25%;" /><p>配置execute：</p><img src="/Users/xiazhenyu/Library/Application Support/typora-user-images/image-20220320021452228.png" alt="image-20220320021452228" style="zoom:25%;" /><p>参考博文：<a href="https://cxybb.com/article/u011225266/116017675">https://cxybb.com/article/u011225266/116017675</a></p>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;make和cmake 的区别&lt;/p&gt;
+&lt;p&gt;make，是一个自动化编译工具，使用一条命令实现完全编译。&lt;/p&gt;
+&lt;p&gt;makefile，是一个文件，里面定义了make需要使用到的规则，make依据makefile文件中的规则来进行编译。&lt;/p&gt;
+&lt;p&gt;cm</summary>
+      
+    
+    
+    
+    <category term="redis" scheme="http://example.com/categories/redis/"/>
+    
+    
+    <category term="redis" scheme="http://example.com/tags/redis/"/>
+    
+  </entry>
+  
+  <entry>
+    <title></title>
+    <link href="http://example.com/2022/03/19/typora%E6%96%87%E4%BB%B6%E9%9B%86%E5%90%88/%E6%8A%80%E6%9C%AF/%E5%B8%B8%E8%A7%81%E7%9A%84%E9%9D%A2%E8%AF%95%E6%8A%80%E6%9C%AF%E9%97%AE%E9%A2%98/Spring%20AOP%E6%98%AF%E6%80%8E%E4%B9%88%E5%AE%9E%E7%8E%B0%E7%9A%84/"/>
+    <id>http://example.com/2022/03/19/typora%E6%96%87%E4%BB%B6%E9%9B%86%E5%90%88/%E6%8A%80%E6%9C%AF/%E5%B8%B8%E8%A7%81%E7%9A%84%E9%9D%A2%E8%AF%95%E6%8A%80%E6%9C%AF%E9%97%AE%E9%A2%98/Spring%20AOP%E6%98%AF%E6%80%8E%E4%B9%88%E5%AE%9E%E7%8E%B0%E7%9A%84/</id>
+    <published>2022-03-18T17:03:12.253Z</published>
+    <updated>2022-03-18T17:03:23.832Z</updated>
+    
+    
+    
+    
+    
+  </entry>
+  
+  <entry>
+    <title>http报文的常见的错误码</title>
+    <link href="http://example.com/2022/03/18/typora%E6%96%87%E4%BB%B6%E9%9B%86%E5%90%88/%E6%8A%80%E6%9C%AF/%E5%B8%B8%E8%A7%81%E7%9A%84%E9%9D%A2%E8%AF%95%E6%8A%80%E6%9C%AF%E9%97%AE%E9%A2%98/http%E6%8A%A5%E6%96%87%E7%9A%84%E5%B8%B8%E8%A7%81%E7%9A%84%E9%94%99%E8%AF%AF%E7%A0%81/"/>
+    <id>http://example.com/2022/03/18/typora%E6%96%87%E4%BB%B6%E9%9B%86%E5%90%88/%E6%8A%80%E6%9C%AF/%E5%B8%B8%E8%A7%81%E7%9A%84%E9%9D%A2%E8%AF%95%E6%8A%80%E6%9C%AF%E9%97%AE%E9%A2%98/http%E6%8A%A5%E6%96%87%E7%9A%84%E5%B8%B8%E8%A7%81%E7%9A%84%E9%94%99%E8%AF%AF%E7%A0%81/</id>
+    <published>2022-03-18T15:59:18.287Z</published>
+    <updated>2022-03-19T18:53:28.785Z</updated>
+    
+    <content type="html"><![CDATA[<p>Http请求报文和响应报文的格式</p><p><img src="https://xiazhenyu.oss-cn-hangzhou.aliyuncs.com/common/20190822223354538.PNG" alt="在这里插入图片描述"></p><p><img src="https://xiazhenyu.oss-cn-hangzhou.aliyuncs.com/common/20190822223707561.PNG" alt="在这里插入图片描述"></p><p>常见的首部如下：</p><p><strong>通用首部字段（请求报文与响应报文都会使用的首部字段）</strong></p><p>Date：创建报文时间 </p><p>Connection：连接的管理 </p><p>Cache-Control：缓存的控制 </p><p>Transfer-Encoding：报文主体的传输编码方式</p><p><strong>请求首部字段（请求报文会使用的首部字段）</strong></p><p>Host：请求资源所在服务器 </p><p>Accept：可处理的媒体类型 </p><p>Accept-Charset：可接收的字符集 </p><p>Accept-Encoding：可接受的内容编码 </p><p>Accept-Language：可接受的自然语言</p><p><strong>响应首部字段（响应报文会使用的首部字段）</strong></p><p>Accept-Ranges：可接受的字节范围 </p><p>Location：令客户端重新定向到的URI </p><p>Server：HTTP服务器的安装信息</p><p><strong>实体首部字段（请求报文与响应报文的的实体部分使用的首部字段）</strong></p><p>Allow：资源可支持的HTTP方法 </p><p>Content-Type：实体主类的类型 </p><p>Content-Encoding：实体主体适用的编码方式 </p><p>Content-Language：实体主体的自然语言 </p><p>Content-Length：实体主体的的字节数 </p><p>Content-Range：实体主体的位置范围，一般用于发出部分请求时使用。</p><p>==状态码的识别==</p><table><thead><tr><th></th><th>类别</th><th>原因短语</th></tr></thead><tbody><tr><td>1xx</td><td>信息性状态码</td><td>收到的请求正在处理</td></tr><tr><td>2xx</td><td>成功状态码</td><td>请求正常处理完毕</td></tr><tr><td>3xx</td><td>重定向状态码</td><td>需要进行附加操作以完成请求</td></tr><tr><td>4xx</td><td>客户端错误状态码</td><td>服务器无法处理请求</td></tr><tr><td>5xx</td><td>服务端错误状态码</td><td>服务器处理请求出错</td></tr><tr><td></td><td></td><td></td></tr></tbody></table><p>2xx成功：</p><table><thead><tr><th>状态码</th><th>英文</th><th>解释</th></tr></thead><tbody><tr><td>200</td><td>OK</td><td>表示从客户端发来的请求在服务端被正确处理</td></tr><tr><td>204</td><td>No content</td><td>表示请求成功，但响应报文不含实体的主体部分</td></tr><tr><td>206</td><td>Partial Content</td><td>进行范围请求</td></tr></tbody></table><p>3xx 重定向</p><table><thead><tr><th>状态码</th><th>英文</th><th>解释</th></tr></thead><tbody><tr><td>301</td><td>moved permanently</td><td>永久性重定向，表示资源已被分配了新的URL</td></tr><tr><td>302</td><td>found</td><td>临时性重定向，表示资源临时被分配了新的URL</td></tr><tr><td>303</td><td>see other</td><td>表示资源存在着另一个URL，应使用GET方法定向获取资源</td></tr><tr><td>304</td><td>not modified</td><td>表示服务器允许访问资源，但发生请求未满足条件的情况</td></tr><tr><td>307</td><td>temporary redirect</td><td>临时重定向，和302含义相同</td></tr></tbody></table><p>4xx客户端错误</p><table><thead><tr><th>状态码</th><th>英文</th><th>解释</th></tr></thead><tbody><tr><td>400</td><td>bad request</td><td>请求报文存在语法错误</td></tr><tr><td>401</td><td>unauthorized</td><td>表示发送的请求需要有通过HTTP认证的信息</td></tr><tr><td>403</td><td>Forbidden</td><td>表示对请求资源的访问被服务器拒绝</td></tr><tr><td>404</td><td>not found</td><td>表示在服务器上没有找到请求的资源</td></tr></tbody></table><p>5xx 服务器错误</p><table><thead><tr><th>状态码</th><th>英文</th><th>解释</th></tr></thead><tbody><tr><td>500</td><td>internal server error</td><td>表示服务器在执行请求时发生了错误</td></tr><tr><td>503</td><td>service unavalibale</td><td>表示服务器暂时处于超负荷或正在停机维护，无法处理请求。</td></tr></tbody></table>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;p&gt;Http请求报文和响应报文的格式&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;https://xiazhenyu.oss-cn-hangzhou.aliyuncs.com/common/20190822223354538.PNG&quot; alt=&quot;在这里插入图片描述&quot;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;i</summary>
+      
+    
+    
+    
+    <category term="技术" scheme="http://example.com/categories/%E6%8A%80%E6%9C%AF/"/>
+    
+    
+    <category term="工作安排" scheme="http://example.com/tags/%E5%B7%A5%E4%BD%9C%E5%AE%89%E6%8E%92/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>如何排查CPU飙高的问题</title>
+    <link href="http://example.com/2022/03/18/typora%E6%96%87%E4%BB%B6%E9%9B%86%E5%90%88/%E6%8A%80%E6%9C%AF/%E5%B8%B8%E8%A7%81%E7%9A%84%E9%9D%A2%E8%AF%95%E6%8A%80%E6%9C%AF%E9%97%AE%E9%A2%98/%E5%A6%82%E4%BD%95%E6%8E%92%E6%9F%A5CPU%E9%A3%99%E9%AB%98%E7%9A%84%E9%97%AE%E9%A2%98/"/>
+    <id>http://example.com/2022/03/18/typora%E6%96%87%E4%BB%B6%E9%9B%86%E5%90%88/%E6%8A%80%E6%9C%AF/%E5%B8%B8%E8%A7%81%E7%9A%84%E9%9D%A2%E8%AF%95%E6%8A%80%E6%9C%AF%E9%97%AE%E9%A2%98/%E5%A6%82%E4%BD%95%E6%8E%92%E6%9F%A5CPU%E9%A3%99%E9%AB%98%E7%9A%84%E9%97%AE%E9%A2%98/</id>
+    <published>2022-03-18T15:20:20.450Z</published>
+    <updated>2022-03-19T18:54:02.518Z</updated>
+    
+    <content type="html"><![CDATA[<p>如何排查CPU飙高的问题？</p><ol><li>先执行top命令，找到CPU占用比较高的进程；</li><li>jstak 进程id &gt; loop.txt（文件名可以自定义）；</li><li>找到进程中CPU占用比较高的线程，线程id转为16进制；</li><li>到show.txt文件中根据线程id查看线程的具体状态即可；</li></ol><p>Top 命令运行图：</p><img src="/Users/xiazhenyu/Library/Application Support/typora-user-images/image-20220318233143850.png" alt="image-20220318233143850" style="zoom:25%;" /><p>参数介绍：</p><p>第一行：基本信息：</p><p><img src="https://xiazhenyu.oss-cn-hangzhou.aliyuncs.com/common/20200901231648401.png" alt="在这里插入图片描述"></p><p>第二行：任务信息</p><p><img src="https://xiazhenyu.oss-cn-hangzhou.aliyuncs.com/common/20200901231702290.png" alt="在这里插入图片描述"></p><p>第三行：CPU使用情况</p><p><img src="https://xiazhenyu.oss-cn-hangzhou.aliyuncs.com/common/20200901231715782.png" alt="在这里插入图片描述"></p><p>第四行：物理内存使用情况</p><p><img src="https://xiazhenyu.oss-cn-hangzhou.aliyuncs.com/common/20200901231739883.png" alt="在这里插入图片描述"></p><p>buffer/cache</p><p>buffer 和 cache都是内存中存放的数据，不同的是，buffer存放的是准备写入磁盘的数据，而cache存放的是从磁盘中读取的数据。</p><p>在linux中，有一个守护进程（daemon）会定期把buffers中的数据写入磁盘，也可以使用sync命令手动把buffer中的数据写入磁盘。使用buffer可以把分散的I/O操作集中起来，减少了磁盘寻道的时间和磁盘碎片。</p><p>cache是linux把读取频率高的数据，放到内存中，减少I/O。linux中cache没有固定大小，根据使用情况自动增加或删除。</p><p>top中使用的参数：</p><table><thead><tr><th align="center">参数选项名称</th><th align="center">含义</th></tr></thead><tbody><tr><td align="center">p</td><td align="center">通过指定进程ID（PID）来仅仅监控某个进程的状态。可以指定多个，-pN1 -pN2 … （-p N1 -p N2…也可）或者 -pN1,N2,N3 …（-p N1,N2…也可）</td></tr><tr><td align="center">H</td><td align="center">显示所有线程的运行状态指标。如果没有该参数，会显示一个进程中所有线程的总和。在运行过程中，可以通过H命令进行交互控制</td></tr></tbody></table><p>第一步：执行top命令。</p><p><img src="https://xiazhenyu.oss-cn-hangzhou.aliyuncs.com/common/2019010317460292.PNG" alt="在这里插入图片描述"></p><p>第二步：看到pid为23757的进程CPU占用较高，执行如下命令：</p><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">jstack 23757 &gt; loop.txt</span><br></pre></td></tr></table></figure><p>第三步：查看线程的具体执行情况；</p><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">top -p 23757 -H</span><br></pre></td></tr></table></figure><p><img src="https://xiazhenyu.oss-cn-hangzhou.aliyuncs.com/common/20190103174921118.PNG" alt="在这里插入图片描述"></p><p>可以看到PID为23772,23773和23774的线程占用CPU较高。这里注意，PID不是特指进程的ID，线程的ID也可以叫做PID；</p><p>第四步：将10进制23772转为16进制，因为jstack中PID使用的是16进制：</p><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">printf &quot;%x&quot; 23772</span><br><span class="line">输出5cdc</span><br></pre></td></tr></table></figure><p>第五步：打开loop.txt文件，搜5cdc。</p><p><img src="https://xiazhenyu.oss-cn-hangzhou.aliyuncs.com/common/20190103175859431.png" alt="在这里插入图片描述"></p><p>即可以定位到有问题的代码。</p>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;p&gt;如何排查CPU飙高的问题？&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;先执行top命令，找到CPU占用比较高的进程；&lt;/li&gt;
+&lt;li&gt;jstak 进程id &amp;gt; loop.txt（文件名可以自定义）；&lt;/li&gt;
+&lt;li&gt;找到进程中CPU占用比较高的线程，线程id转为16进制；&lt;/li</summary>
+      
+    
+    
+    
+    <category term="技术" scheme="http://example.com/categories/%E6%8A%80%E6%9C%AF/"/>
+    
+    
+    <category term="工作安排" scheme="http://example.com/tags/%E5%B7%A5%E4%BD%9C%E5%AE%89%E6%8E%92/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>系统监控与告警</title>
+    <link href="http://example.com/2022/03/17/wholee/%E7%B3%BB%E7%BB%9F%E7%9B%91%E6%8E%A7%E4%B8%8E%E5%91%8A%E8%AD%A6/"/>
+    <id>http://example.com/2022/03/17/wholee/%E7%B3%BB%E7%BB%9F%E7%9B%91%E6%8E%A7%E4%B8%8E%E5%91%8A%E8%AD%A6/</id>
+    <published>2022-03-17T09:29:56.686Z</published>
+    <updated>2022-03-19T13:58:29.564Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="Grafana监控大盘地址：https-monitor-huoli101-com-orgId-1"><a href="#Grafana监控大盘地址：https-monitor-huoli101-com-orgId-1" class="headerlink" title="Grafana监控大盘地址：https://monitor.huoli101.com/?orgId=1"></a>Grafana监控大盘地址：<a href="https://monitor.huoli101.com/?orgId=1">https://monitor.huoli101.com/?orgId=1</a></h2><p>应用机器监控：</p><img src="https://xiazhenyu.oss-cn-hangzhou.aliyuncs.com/common/image-20220317173810783.png" alt="image-20220317173810783" style="zoom: 25%;" /><p>例如：product-center的线上机器监控：</p><img src="https://xiazhenyu.oss-cn-hangzhou.aliyuncs.com/common/image-20220317173854433.png" alt="image-20220317173854433" style="zoom: 25%;" /><p>中间件Redis的监控，在Redis Overview中：</p><img src="https://xiazhenyu.oss-cn-hangzhou.aliyuncs.com/common/image-20220317174058037.png" alt="image-20220317174058037" style="zoom:25%;" /><p>中间件MySQL的监控，地址：<a href="https://monitor.huoli101.com/d/MQWgroiiz/mysql-overview?orgId=1&amp;var-dataSource=%E7%BE%8E%E8%A5%BF&amp;var-interval=$__auto_interval_interval&amp;var-nodeName=product-odoo-new-mysql&amp;var-resource=product-odoo-new&amp;var-service=product-center&amp;var-jumpNode=%E5%95%86%E5%93%81%E4%B8%AD%E5%BF%83&amp;var-dataCenter=&amp;from=now-7d&amp;to=now%E3%80%82">https://monitor.huoli101.com/d/MQWgroiiz/mysql-overview?orgId=1&amp;var-dataSource=%E7%BE%8E%E8%A5%BF&amp;var-interval=$__auto_interval_interval&amp;var-nodeName=product-odoo-new-mysql&amp;var-resource=product-odoo-new&amp;var-service=product-center&amp;var-jumpNode=%E5%95%86%E5%93%81%E4%B8%AD%E5%BF%83&amp;var-dataCenter=&amp;from=now-7d&amp;to=now。</a></p><img src="https://xiazhenyu.oss-cn-hangzhou.aliyuncs.com/common/image-20220317175040266.png" alt="image-20220317175040266" style="zoom:25%;" /><p>PS：MySQL监控中需要关注的指标：</p><ul><li>内存使用率；</li><li>QPS：</li><li>满查询sql：</li><li>客户端连接进程数；</li><li>CPU使用率：</li></ul>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;h2 id=&quot;Grafana监控大盘地址：https-monitor-huoli101-com-orgId-1&quot;&gt;&lt;a href=&quot;#Grafana监控大盘地址：https-monitor-huoli101-com-orgId-1&quot; class=&quot;headerlink&quot; tit</summary>
+      
+    
+    
+    
+    <category term="wholee" scheme="http://example.com/categories/wholee/"/>
+    
+    
+    <category term="wholee" scheme="http://example.com/tags/wholee/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>dubbo接口调用</title>
+    <link href="http://example.com/2022/03/17/wholee/dubbo%E6%8E%A5%E5%8F%A3%E8%B0%83%E7%94%A8/"/>
+    <id>http://example.com/2022/03/17/wholee/dubbo%E6%8E%A5%E5%8F%A3%E8%B0%83%E7%94%A8/</id>
+    <published>2022-03-17T08:54:48.561Z</published>
+    <updated>2022-03-19T13:53:29.949Z</updated>
+    
+    <content type="html"><![CDATA[<p>第一步：通过跳板机登录到test或者是预发、线上的机器上；</p><p>第二步：telnet+IP地址 +20988端口，访问dubbo服务，例如：</p><p><img src="https://xiazhenyu.oss-cn-hangzhou.aliyuncs.com/common/image-20220317165739124.png" alt="image-20220317165739124"></p><p>然后通过ls命令可以查看有那些已经注册的服务，如下图所示：</p><img src="/Users/xiazhenyu/Library/Application Support/typora-user-images/image-20220317165830962.png" alt="image-20220317165830962" style="zoom:50%;" /><p>第三步：通过invoke 命令调用dubbo服务</p><p>例如：</p><p><code>invoke com.clubfactory.product.center.client.service.product.readonly.IProductReadOnlyAPI.getByIds([20440305])，</code></p><p>会得到如下的结果：</p><p><img src="https://xiazhenyu.oss-cn-hangzhou.aliyuncs.com/common/image-20220317170105865.png" alt="image-20220317170105865"></p><p>最下面会有一个耗时的统计。</p><p>PS:</p><p>可用的开源工具：<a href="https://www.cxybb.com/article/qq_31091589/98056271%EF%BC%9B">https://www.cxybb.com/article/qq_31091589/98056271；</a></p>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;p&gt;第一步：通过跳板机登录到test或者是预发、线上的机器上；&lt;/p&gt;
+&lt;p&gt;第二步：telnet+IP地址 +20988端口，访问dubbo服务，例如：&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;https://xiazhenyu.oss-cn-hangzhou.aliyuncs.c</summary>
+      
+    
+    
+    
+    <category term="wholee" scheme="http://example.com/categories/wholee/"/>
+    
+    
+    <category term="wholee" scheme="http://example.com/tags/wholee/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>宝塔相关知识</title>
+    <link href="http://example.com/2022/03/12/typora%E6%96%87%E4%BB%B6%E9%9B%86%E5%90%88/%E6%8A%80%E6%9C%AF/%E6%8A%80%E6%9C%AF%E7%AC%94%E8%AE%B0/%E6%9C%8D%E5%8A%A1%E5%99%A8/%E5%AE%9D%E5%A1%94%E7%9B%B8%E5%85%B3%E7%9F%A5%E8%AF%86/"/>
+    <id>http://example.com/2022/03/12/typora%E6%96%87%E4%BB%B6%E9%9B%86%E5%90%88/%E6%8A%80%E6%9C%AF/%E6%8A%80%E6%9C%AF%E7%AC%94%E8%AE%B0/%E6%9C%8D%E5%8A%A1%E5%99%A8/%E5%AE%9D%E5%A1%94%E7%9B%B8%E5%85%B3%E7%9F%A5%E8%AF%86/</id>
+    <published>2022-03-12T14:38:16.285Z</published>
+    <updated>2022-03-19T18:24:54.279Z</updated>
+    
+    <content type="html"><![CDATA[<p>1.查看面板入口：/etc/init.d/bt default</p><p>2.关闭安全入口：rm -f /www/server/panel/data/admin_path.pl</p><p>输入命令后，会得到对应的登录信息：</p><p><img src="https://xiazhenyu.oss-cn-hangzhou.aliyuncs.com/common/image-20220312223939647.png" alt="image-20220312223939647"></p>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;p&gt;1.查看面板入口：/etc/init.d/bt default&lt;/p&gt;
+&lt;p&gt;2.关闭安全入口：rm -f /www/server/panel/data/admin_path.pl&lt;/p&gt;
+&lt;p&gt;输入命令后，会得到对应的登录信息：&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;http</summary>
+      
+    
+    
+    
+    <category term="linux" scheme="http://example.com/categories/linux/"/>
+    
+    
+    <category term="linux" scheme="http://example.com/tags/linux/"/>
+    
+  </entry>
+  
+  <entry>
+    <title></title>
+    <link href="http://example.com/2022/03/12/typora%E6%96%87%E4%BB%B6%E9%9B%86%E5%90%88/%E6%80%9D%E7%BB%B4/%E5%A6%82%E4%BD%95%E6%8F%90%E9%AB%98%E8%AE%B0%E5%BF%86%E5%8A%9B/"/>
+    <id>http://example.com/2022/03/12/typora%E6%96%87%E4%BB%B6%E9%9B%86%E5%90%88/%E6%80%9D%E7%BB%B4/%E5%A6%82%E4%BD%95%E6%8F%90%E9%AB%98%E8%AE%B0%E5%BF%86%E5%8A%9B/</id>
+    <published>2022-03-12T08:24:12.484Z</published>
+    <updated>2022-03-18T17:07:13.843Z</updated>
+    
+    <content type="html"><![CDATA[<ol><li>保持充足的睡眠。思维按摩：用拇指和食指从上到下轻轻地按摩整个耳朵，用两只手的手指触摸位于发际和眉毛之间的两个穴位。促进血液流动，消除记忆障碍和增强记忆力。</li><li>经常咀嚼。</li><li>合理饮食：<ul><li>多吃大豆和豆制品。</li><li>多吃鱼；</li><li>多吃桔子和香蕉；</li><li>多吃猪脑和鸡；</li><li>多吃蔬菜、胡萝卜、菠菜。</li></ul></li></ol>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;ol&gt;
+&lt;li&gt;保持充足的睡眠。思维按摩：用拇指和食指从上到下轻轻地按摩整个耳朵，用两只手的手指触摸位于发际和眉毛之间的两个穴位。促进血液流动，消除记忆障碍和增强记忆力。&lt;/li&gt;
+&lt;li&gt;经常咀嚼。&lt;/li&gt;
+&lt;li&gt;合理饮食：&lt;ul&gt;
+&lt;li&gt;多吃大豆和豆制品。&lt;/li&gt;
+</summary>
+      
+    
+    
+    
+    
+  </entry>
+  
+  <entry>
+    <title>日志查看规范</title>
+    <link href="http://example.com/2022/03/11/wholee/%E6%97%A5%E5%BF%97%E6%9F%A5%E7%9C%8B%E8%A7%84%E8%8C%83/"/>
+    <id>http://example.com/2022/03/11/wholee/%E6%97%A5%E5%BF%97%E6%9F%A5%E7%9C%8B%E8%A7%84%E8%8C%83/</id>
+    <published>2022-03-11T02:09:44.082Z</published>
+    <updated>2022-03-19T13:54:58.184Z</updated>
+    
+    <content type="html"><![CDATA[<p>product-message-consumer：</p><p>日志目录：/root/logs/product-message-consumer;</p><p>发送的消息日志在kafka_producer.log中，消费的消息日志在kafka_consumer.log中；</p><p>日志的查找：</p><p>日志上报：</p><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Cat.logEvent(MESSAGE_COUNT_FOR_GROUP, chatId, Message.SUCCESS, msg);</span><br></pre></td></tr></table></figure>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;p&gt;product-message-consumer：&lt;/p&gt;
+&lt;p&gt;日志目录：/root/logs/product-message-consumer;&lt;/p&gt;
+&lt;p&gt;发送的消息日志在kafka_producer.log中，消费的消息日志在kafka_consumer.log中</summary>
+      
+    
+    
+    
+    <category term="wholee" scheme="http://example.com/categories/wholee/"/>
+    
+    
+    <category term="wholee" scheme="http://example.com/tags/wholee/"/>
+    
+  </entry>
+  
+  <entry>
+    <title></title>
+    <link href="http://example.com/2022/02/27/typora%E6%96%87%E4%BB%B6%E9%9B%86%E5%90%88/%E6%8B%89%E9%92%A9/%E4%B8%AD%E9%97%B4%E4%BB%B6/Redis/%E4%BD%9C%E4%B8%9A/"/>
+    <id>http://example.com/2022/02/27/typora%E6%96%87%E4%BB%B6%E9%9B%86%E5%90%88/%E6%8B%89%E9%92%A9/%E4%B8%AD%E9%97%B4%E4%BB%B6/Redis/%E4%BD%9C%E4%B8%9A/</id>
+    <published>2022-02-27T14:15:54.619Z</published>
+    <updated>2022-03-12T16:38:05.759Z</updated>
+    
+    <content type="html"><![CDATA[<table><thead><tr><th>编号</th><th>编码常量</th><th>对应的底层数据结构</th></tr></thead><tbody><tr><td>1</td><td>REDIS_ENCODING_INT</td><td>long类型的整数</td></tr><tr><td>2</td><td>REDIS_ENCODING_EMBSTR</td><td>embstr编码的简单动态字符串</td></tr><tr><td>3</td><td>REDIS_ENCODING_RAW</td><td>简单动态字符串</td></tr><tr><td>4</td><td>REDIS_ENCODING_HT</td><td>字典</td></tr><tr><td>5</td><td>REDIS_ENCODING_LINKEDLIST</td><td>双端链表</td></tr><tr><td>6</td><td>REDIS_ENCODING_ZIPLIST</td><td>压缩链表</td></tr><tr><td>7</td><td>REDIS_ENCODING_INTSET</td><td>整数集合</td></tr><tr><td>8</td><td>REDIS_ENCODING_SKIPLIST</td><td>跳跃表和字典</td></tr></tbody></table><p>不同类型、编码的对象</p><table><thead><tr><th>类型</th><th>编码</th><th>对象</th></tr></thead><tbody><tr><td>REDIS_STRING</td><td>REDIS_ENCODING_INT</td><td>使用整数值实现的字符串对象</td></tr><tr><td>REDIS_STRING</td><td>REDIS_ENCODING_EMBSTR</td><td>使用embstr编码的简单动态字符串实现的字符串对象</td></tr><tr><td>REDIS_STRING</td><td>REDIS_ENCODING_RAW</td><td>使用简单动态字符串实现的字符串对象</td></tr><tr><td>REDIS_LIST</td><td>REDIS_ENCODING_ZIPLIST</td><td>使用压缩列表实现的列表对象</td></tr><tr><td>REDIS_LIST</td><td>REDIS_ENCODING_LINKEDLIST</td><td>使用双端链表是想的列表对象</td></tr><tr><td>REDIS_HASH</td><td>REDIS_ENCODING_ZIPLIST</td><td>使用压缩列表实现的哈希对象</td></tr><tr><td>REDIS_HASH</td><td>REDIS_ENCODING_HT</td><td>使用字典实现的哈希对象</td></tr><tr><td>REDIS_SET</td><td>REDIS_ENCODING_INTSET</td><td>使用整数集合实现的集合对象</td></tr><tr><td>REDIS_SET</td><td>REDIS_ENCODING_HT</td><td>使用字典实现的集合对象</td></tr><tr><td>REDIS_ZSET</td><td>REDIS_ENCODING_ZIPLIST</td><td>使用压缩列表实现的有序集合对象</td></tr><tr><td>REDIS_ZSET</td><td>REDIS_ENCODING_SKIPLIST</td><td>使用跳跃表和字典实现的有序集合对象</td></tr></tbody></table>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;编号&lt;/th&gt;
+&lt;th&gt;编码常量&lt;/th&gt;
+&lt;th&gt;对应的底层数据结构&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;&lt;tr&gt;
+&lt;td&gt;1&lt;/td&gt;
+&lt;td&gt;REDIS_ENCODING_INT&lt;/td&gt;
+&lt;td&gt;long</summary>
+      
+    
+    
+    
+    
+  </entry>
+  
+  <entry>
+    <title></title>
+    <link href="http://example.com/2022/02/27/typora%E6%96%87%E4%BB%B6%E9%9B%86%E5%90%88/%E6%8B%89%E9%92%A9/%E4%B8%AD%E9%97%B4%E4%BB%B6/Redis/%E4%BD%BF%E7%94%A8Clion%E5%AF%BC%E5%85%A5%E3%80%81%E8%B0%83%E8%AF%95Redis/"/>
+    <id>http://example.com/2022/02/27/typora%E6%96%87%E4%BB%B6%E9%9B%86%E5%90%88/%E6%8B%89%E9%92%A9/%E4%B8%AD%E9%97%B4%E4%BB%B6/Redis/%E4%BD%BF%E7%94%A8Clion%E5%AF%BC%E5%85%A5%E3%80%81%E8%B0%83%E8%AF%95Redis/</id>
+    <published>2022-02-26T16:57:42.873Z</published>
+    <updated>2022-02-26T16:57:57.782Z</updated>
+    
+    
+    
+    
+    
+  </entry>
+  
+  <entry>
+    <title></title>
+    <link href="http://example.com/2022/02/26/typora%E6%96%87%E4%BB%B6%E9%9B%86%E5%90%88/%E6%8A%80%E6%9C%AF/%E6%8A%80%E6%9C%AF%E7%AC%94%E8%AE%B0/C%E8%AF%AD%E8%A8%80%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/"/>
+    <id>http://example.com/2022/02/26/typora%E6%96%87%E4%BB%B6%E9%9B%86%E5%90%88/%E6%8A%80%E6%9C%AF/%E6%8A%80%E6%9C%AF%E7%AC%94%E8%AE%B0/C%E8%AF%AD%E8%A8%80%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/</id>
+    <published>2022-02-26T15:42:46.691Z</published>
+    <updated>2022-02-26T16:53:18.600Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="C"><a href="#C" class="headerlink" title="C"></a>C</h2><h3 id="函数："><a href="#函数：" class="headerlink" title="函数："></a>函数：</h3><p>在C语言中，有的语句使用时不能带括号，有的语句必须带括号。带括号的称为函数（Function）。</p><p>C语言自带的函数称为库函数（Library Function）。库（Library）是编程中的一个基本概念，可以简单地认为它是一些列函数的集合，在磁盘上往往是一个文件夹。C语言自带的库称为标准库（S<a href="http://c.biancheng.net/ref/tan.html">tan</a>dard Library），其他公司或个人开发的库称为第三方库（Third-Party Library）。</p><p>C语言规定，一个程序必须有且只有一个 main 函数。main 被称为主函数，是程序的入口函数，程序运行时从 main 函数开始，直到 main 函数结束（遇到 return 或者执行到函数末尾时，函数才结束）</p><h3 id="头文件"><a href="#头文件" class="headerlink" title="头文件"></a>头文件</h3><p>C语言开发者们编写了很多常用函数，并分门别类的放在了不同的文件，这些文件就称为头文件（header file）。每个头文件中都包含了若干个功能类似的函数，调用某个函数时，要引入对应的头文件，否则编译器找不到函数。</p><p>较早的C语言标准库包含了15个头文件，stdio.h 和 stdlib.h 是最常用的两个：</p><ul><li>stdio 是 standard input output 的缩写，stdio.h 被称为“标准输入输出文件”，包含的函数大都和输入输出有关，puts() 就是其中之一。</li><li>stdlib 是 standard library 的缩写，stdlib.h 被称为“标准库文件”，包含的函数比较杂乱，多是一些通用工具型函数，system() 就是其中之一。</li></ul><h3 id="空白符"><a href="#空白符" class="headerlink" title="空白符"></a>空白符</h3><p>空格、制表符、换行符等统称为空白符（space character），它们只用来占位，并没有实际的内容，也显示不出具体的字符。</p><h3 id="数据类型："><a href="#数据类型：" class="headerlink" title="数据类型："></a>数据类型：</h3><h4 id="常用的数据类型"><a href="#常用的数据类型" class="headerlink" title="常用的数据类型"></a>常用的数据类型</h4><table><thead><tr><th>说  明</th><th>字符型</th><th>短整型</th><th>整型</th><th>长整型</th><th>单精度浮点型</th><th>双精度浮点型</th><th>无类型</th></tr></thead><tbody><tr><td>数据类型</td><td>char</td><td>short</td><td>int</td><td>long</td><td>float</td><td>double</td><td>void</td></tr></tbody></table><h4 id="数据类型对应的长度（字节）："><a href="#数据类型对应的长度（字节）：" class="headerlink" title="数据类型对应的长度（字节）："></a>数据类型对应的长度（字节）：</h4><table><thead><tr><th>说  明</th><th>字符型</th><th>短整型</th><th>整型</th><th>长整型</th><th>单精度浮点型</th><th>双精度浮点型</th></tr></thead><tbody><tr><td>数据类型</td><td>char</td><td>short</td><td>int</td><td>long</td><td>float</td><td>double</td></tr><tr><td>长  度</td><td>1</td><td>2</td><td>4</td><td>4</td><td>4</td><td>8</td></tr></tbody></table><p>sizeof 用来获取某个数据类型或变量所占用的字节数，如果后面跟的是变量名称，那么可以省略<code>( )</code>，如果跟的是数据类型，就必须带上<code>( )</code>。</p><p>%d称为格式控制符。</p><ul><li>%d 输出一个数字。</li></ul><ul><li><p>%c：输出一个字符。c 是 character 的简写。</p></li><li><p>%s：输出一个字符串。s 是 string 的简写。</p></li><li><p>%f：输出一个小数。f 是 float 的简写。</p></li><li><p><code>%hd</code>用来输出 short int 类型，hd 是 short decimal 的简写；</p></li><li><p><code>%d</code>用来输出 int 类型，d 是 decimal 的简写；</p></li><li><p><code>%ld</code>用来输出 long int 类型，ld 是 long decimal 的简写。</p></li></ul><p>在数据前面加上unsigned关键字，表示数字是无符号数，所有位上都可以表示数字。</p><h4 id="无符号数的输出："><a href="#无符号数的输出：" class="headerlink" title="无符号数的输出："></a>无符号数的输出：</h4><table><thead><tr><th></th><th>short</th><th>int</th><th>long</th><th>unsigned short</th><th>unsigned int</th><th>unsigned long</th></tr></thead><tbody><tr><td>八进制</td><td>–</td><td>–</td><td>–</td><td>%ho</td><td>%o</td><td>%lo</td></tr><tr><td>十进制</td><td>%hd</td><td>%d</td><td>%ld</td><td>%hu</td><td>%u</td><td>%lu</td></tr><tr><td>十六进制</td><td>–</td><td>–</td><td>–</td><td>%hx 或者 %hX</td><td>%x 或者 %X</td><td>%lx 或者 %lX</td></tr></tbody></table><h4 id="小数"><a href="#小数" class="headerlink" title="小数"></a>小数</h4><p>C语言中常用的小数有两种类型，分别是 float 或 double；float 称为单精度浮点型，double 称为双精度浮点型。</p><p>输出：</p><ul><li>%f 以十进制形式输出 float 类型；</li><li>%lf 以十进制形式输出 double 类型；</li><li>%e 以指数形式输出 float 类型，输出结果中的 e 小写；</li><li>%E 以指数形式输出 float 类型，输出结果中的 E 大写；</li><li>%le 以指数形式输出 double 类型，输出结果中的 e 小写；</li><li>%lE 以指数形式输出 double 类型，输出结果中的 E 大写。</li></ul><h3 id="转义字符"><a href="#转义字符" class="headerlink" title="转义字符"></a>转义字符</h3><p>转义字符以<code>\</code>或者<code>\x</code>开头，以<code>\</code>开头表示后跟八进制形式的编码值，以<code>\x</code>开头表示后跟十六进制形式的编码值。对于转义字符来说，只能使用八进制或者十六进制。</p><p>转义字符的初衷是用于 ASCII 编码，所以它的取值范围有限：</p><ul><li>八进制形式的转义字符最多后跟三个数字，也即<code>\ddd</code>，最大取值是<code>\177</code>；</li><li>十六进制形式的转义字符最多后跟两个数字，也即<code>\xdd</code>，最大取值是<code>\x7f</code>。</li></ul><p>完整列表：</p><table><thead><tr><th>转义字符</th><th>意义</th><th>ASCII码值（十进制）</th></tr></thead><tbody><tr><td>\a</td><td>响铃(BEL)</td><td>007</td></tr><tr><td>\b</td><td>退格(BS) ，将当前位置移到前一列</td><td>008</td></tr><tr><td>\f</td><td>换页(FF)，将当前位置移到下页开头</td><td>012</td></tr><tr><td>\n</td><td>换行(LF) ，将当前位置移到下一行开头</td><td>010</td></tr><tr><td>\r</td><td>回车(CR) ，将当前位置移到本行开头</td><td>013</td></tr><tr><td>\t</td><td>水平制表(HT)</td><td>009</td></tr><tr><td>\v</td><td>垂直制表(VT)</td><td>011</td></tr><tr><td>&#39;</td><td>单引号</td><td>039</td></tr><tr><td>&quot;</td><td>双引号</td><td>034</td></tr><tr><td>\\</td><td>反斜杠</td><td>092</td></tr></tbody></table><h3 id="关键字"><a href="#关键字" class="headerlink" title="关键字"></a>关键字</h3>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;h2 id=&quot;C&quot;&gt;&lt;a href=&quot;#C&quot; class=&quot;headerlink&quot; title=&quot;C&quot;&gt;&lt;/a&gt;C&lt;/h2&gt;&lt;h3 id=&quot;函数：&quot;&gt;&lt;a href=&quot;#函数：&quot; class=&quot;headerlink&quot; title=&quot;函数：&quot;&gt;&lt;/a&gt;函数：&lt;/h3&gt;&lt;p&gt;在C语</summary>
+      
+    
+    
+    
+    
+  </entry>
+  
+  <entry>
+    <title></title>
+    <link href="http://example.com/2022/02/25/typora%E6%96%87%E4%BB%B6%E9%9B%86%E5%90%88/%E6%8A%80%E6%9C%AF/%E6%8A%80%E6%9C%AF%E7%AC%94%E8%AE%B0/%E6%BA%90%E7%A0%81/lombok/"/>
+    <id>http://example.com/2022/02/25/typora%E6%96%87%E4%BB%B6%E9%9B%86%E5%90%88/%E6%8A%80%E6%9C%AF/%E6%8A%80%E6%9C%AF%E7%AC%94%E8%AE%B0/%E6%BA%90%E7%A0%81/lombok/</id>
+    <published>2022-02-25T01:30:37.202Z</published>
+    <updated>2022-02-25T02:32:59.969Z</updated>
+    
+    <content type="html"><![CDATA[<p>lombok简介：<a href="https://projectlombok.org/">https://projectlombok.org/</a></p><h2 id="有关使用lombok以后对象转换失效的问题"><a href="#有关使用lombok以后对象转换失效的问题" class="headerlink" title="有关使用lombok以后对象转换失效的问题"></a>有关使用lombok以后对象转换失效的问题</h2><p>Lombok使用@Builder注解以后，使用BeanUtils.copyProperties对象转换失效的问题。</p><p>这个其实就要追根溯源的去看lombok背后的机制，我们拿一个使用了@Data+@Builder组合注解的例子来看，</p><p><img src="https://xiazhenyu.oss-cn-hangzhou.aliyuncs.com/common/image-20220225094148483.png" alt="image-20220225094148483"></p><p>1.0</p><p><img src="https://xiazhenyu.oss-cn-hangzhou.aliyuncs.com/common/image-20220225094051983.png" alt="image-20220225094051983"></p><p>1.1</p><p><img src="https://xiazhenyu.oss-cn-hangzhou.aliyuncs.com/common/image-20220225093933286.png" alt="image-20220225093933286"></p><p>1.2</p><p><img src="https://xiazhenyu.oss-cn-hangzhou.aliyuncs.com/common/image-20220225095018535.png" alt="image-20220225095018535"></p><p>1.3</p><p><img src="https://xiazhenyu.oss-cn-hangzhou.aliyuncs.com/common/image-20220225100305805.png" alt="image-20220225100305805"></p><p>1.4</p><p><img src="https://xiazhenyu.oss-cn-hangzhou.aliyuncs.com/common/image-20220225100747836.png" alt="image-20220225100747836"></p><p>1.5</p><p>上面的图1.1是图1.0的Java Bean添加了@Data注解之后，对生成的class文件反编译得到的类文件，可以看出，反编译得到的ShippingRuleDTO对象是有一个无参的构造函数的；图1.2是添加了@Data+@Builder组合注解以后，反编译得到的类文件，这个时候发现重新生成的ShippingRuleDTO对象已经没有了无参的构造函数了，取而代之的是一个带有参数的构造函数，这个其实是和@Builder这个注解有关系的，@Builder注解是采用了建造者设计模式，原始对象的构建是通过Builder对象的build方法创建的，而Buider对象的build方法内部其实是调用了原始对象的带有参数的构造函数,如图1.3所示。</p><p>当采用图1.4这种经过封装的对象copy方法的时候，会发现dest对象的构建需要调用对应的类的instance方法。这个方法采用无参构造器进行创建对象的实例，如图1.5所示。</p><p>解决方法，在类上添加@NoArgsConstructor、@AllArgsConstructor两个注解，注意，这两个注解必须同时添加。</p><p>延伸阅读：为什么不能单独添加@Builder+@NoArgsConstructor注解？</p><p></p>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;p&gt;lombok简介：&lt;a href=&quot;https://projectlombok.org/&quot;&gt;https://projectlombok.org/&lt;/a&gt;&lt;/p&gt;
+&lt;h2 id=&quot;有关使用lombok以后对象转换失效的问题&quot;&gt;&lt;a href=&quot;#有关使用lombok以后对象转</summary>
+      
+    
+    
+    
+    
+  </entry>
+  
+  <entry>
+    <title></title>
+    <link href="http://example.com/2022/02/24/typora%E6%96%87%E4%BB%B6%E9%9B%86%E5%90%88/%E6%8B%89%E9%92%A9/%E5%A4%9A%E7%BA%BF%E7%A8%8B/%E5%A4%9A%E7%BA%BF%E7%A8%8B/"/>
+    <id>http://example.com/2022/02/24/typora%E6%96%87%E4%BB%B6%E9%9B%86%E5%90%88/%E6%8B%89%E9%92%A9/%E5%A4%9A%E7%BA%BF%E7%A8%8B/%E5%A4%9A%E7%BA%BF%E7%A8%8B/</id>
+    <published>2022-02-24T01:55:47.803Z</published>
+    <updated>2022-02-24T01:55:47.803Z</updated>
+    
+    <content type="html"><![CDATA[<p>[TOC]</p><h2 id="多线程和锁"><a href="#多线程和锁" class="headerlink" title="多线程和锁"></a>多线程和锁</h2><p>多线程的目的：充分利用多核CPU的并行处理的能力，加快程序的处理速度；</p><p>锁的存在的意义：控制资源的并发访问，使操作串行话；</p><h3 id="JUC相关的（AQS）"><a href="#JUC相关的（AQS）" class="headerlink" title="JUC相关的（AQS）"></a>JUC相关的（AQS）</h3><p>AQS是一个用来构建锁合同步器的框架。</p><p>原理：<br>如果被请求的共享资源空闲，则将当前请求资源的线程设置为有效的工作线程，并且将共享资源设置为锁定状态。如果被请求的共享资源被占有，<br>那么就需要一套线程阻塞等待以及被唤醒时锁分配的机制，这个机制AQS是用CLH队列实现的，即将暂时获取不到锁的线程加入到队列中。</p><ul><li>CLH队列：是一个虚拟的双向队列（虚拟的双向队列即不存在队列实例，仅存在节点之间的关联关系）。AQS是将每条请求共享资源的线程封装成一个CLH<br>锁队列的一个结点来实现锁的分配。</li></ul><p>两种资源共享方式：</p><ol><li>Exclusive：公平锁和非公平锁。</li><li>Share：</li></ol><h3 id="锁相关"><a href="#锁相关" class="headerlink" title="锁相关"></a>锁相关</h3><ol><li><p>锁（Synchronized、ReentrantLock的区别）、MarkWord</p><p><em><strong>Synchronized、ReentrantLock的区别</strong></em></p><ul><li>两者都是可重入锁，什么是可重入锁？已获得锁的对象，可以再次获取锁；</li><li>Synchronized是JVM实现的，使用起来简单；ReentrantLock是一个Java提供的API，比较灵活；</li><li>Synchronized是非公平锁，ReentrantLock可以提供非公平锁和公平锁两种，利用fair参数可以控制；</li><li>都提供了等待、通知机制；<ol><li>Synchronized是利用了Obejct对象的notify和wait方法；</li><li>ReentrantLock需要借助于condition、newCondition方法</li></ol></li><li>ReentrantLock提供了中断等待机制；<code>lock.lockInterruptibly()</code></li></ul><ol start="2"><li>Java对象头的结构：</li></ol><p>MarkWord ：存储对象的hashcode、分代年龄、gc标记、同步状态、锁标志位等</p><p>kClassPointer：对象的类型指针，指向类元数据（类class文件信息，metaspace空间的方法区）</p><p><em><strong>Synchronized的优化&amp;Mark word 的结构</strong></em><br><img src="/Users/xiazhenyu/Desktop/typora%E6%96%87%E4%BB%B6%E9%9B%86%E5%90%88/%E6%96%87%E6%A1%A3%E5%90%88%E9%9B%86/MarkWord%E7%9A%84%E7%BB%93%E6%9E%84.png" alt="MarkWord的结构"></p><p>2.1 无锁（01），所有线程均可以修改某一个资源的值，但同时只能由一个线程修改成功，其他会循环尝试；<br>2.2 偏向锁（01）：在对象头MarkWord中存放有对应的线程的id，如果发现请求线程是同一个的话，再次请求的时候，直接获取锁；<br>偏向锁的一个撤销 ：全局安全点（没有字节码在执行），暂停拥有偏向锁的线程，并判断对象是否处于被锁定的状态，如果没有的话，则把对象置为无锁状态，并撤销偏向锁，恢复到无锁或者轻量级锁状态；<br>2.3 轻量级锁（00）：如果在偏向锁的过程中，有其他的线程进行请求的话，就会转化为轻量级锁，或者是关闭偏向锁功能的时候（即2.2种描述的）。线程的栈帧中有一个Lock record的区域，拷贝一份Mark word到这个区域。线程会通过CAS操作，尝试讲Mark word 更新为这个栈帧中锁记录的指针，同时，LockRecord 中的owner指针也会指向Mark word。更新成功，线程就拥有对象的锁。如果CAS失败，判断Mark word是否指向当前线程的指针，是的话，就直接进入同步代码块继续执行。</p><p>另一个线程会自旋，当自旋超过一定次数之后，会膨胀为重量级锁。（自适应自旋）；另一个升级为重量级锁的原因是这个时候有另外的线程<br>来争抢对象的锁；<br>2.4 重量级锁（10）：每一个对象都有一个ObjectMonitor锁对象。重量级锁的时候，mark word中存储的是这个monitor锁的指针，<br>另外monitor中，有一个owner指针，指向拥有锁的线程。ObjectMonitor对象内部结构：<br>entryList： 在进入或者重新进入时被阻塞的线程；<br>waitSet：在改Monitor上等待的线程；<br>owner： monitor的所有者（线程）；<br>这个monitor里面表示count（计数器），用于CAS操作。一次CAS操作成功，owner就会置换为指向对应最线程的指针；<br>利用Mutex Lock这个系统提供的来实现，来进行加锁，缺点：需要从内核态切换到用户态，比较消耗性能；</p><p>同时，每一个线程都有一个monitor record列表。<br><img src="/Users/xiazhenyu/Desktop/typora%E6%96%87%E4%BB%B6%E9%9B%86%E5%90%88/%E6%96%87%E6%A1%A3%E5%90%88%E9%9B%86/ObjectMonitor%E5%8A%A0%E9%94%81%E6%B5%81%E7%A8%8B.png" alt="ObjectMonitor加锁流程"></p><p>2.5 GC标记（11）</p><ol start="3"><li>如何避免线程死锁？</li></ol><p>线程死锁的四个条件：</p><ul><li>互斥条件： 改资源任一时刻只能由一个线程占有；</li><li>请求与保持条件： 一个线程因请求资源而阻塞时，对已获得资源保持不放；</li><li>不剥夺条件：线程已获得的资源在未使用完之前不能被其他线程强行剥夺，只有自己使用完毕之后才能释放资源；</li><li>循环等待条件：若干进程之间形成一种头尾相接的循环等待资源的关系；</li></ul><p>破坏死锁的话，需要从2至4三个点来进行考虑。</p><ol><li>一次申请所有资源；</li><li>占用部分资源的线程进一步申请其他资源失败时，可以主动释放掉自己占有的资源；</li><li>按照某一个顺序申请资源，释放的时候，反序释放；</li></ol><h3 id="线程池：常用的线程池；优缺点；常用参数"><a href="#线程池：常用的线程池；优缺点；常用参数" class="headerlink" title="线程池：常用的线程池；优缺点；常用参数"></a>线程池：常用的线程池；优缺点；常用参数</h3><ul><li><p>常用线程池：</p><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//创建一个固定大小（核心线程数、最大线程数）的线程池，队列是LinkedBlockingQueue。缺点：容易造成OOM；</span></span><br><span class="line">ExecutorService fixedThreadPool = Executors.newFixedThreadPool(<span class="number">3</span>);</span><br><span class="line"><span class="comment">//核心线程数是0，最大线程数是Integer.MAX_VALUE，队列是SynchronousQueue的线程池。SynchronousQueue不进行线程的保存，直接进行转发。容易造成OOM；</span></span><br><span class="line">ExecutorService cachedThreadPool = Executors.newCachedThreadPool();</span><br><span class="line"><span class="comment">//核心线程是是1个、最大线程是1个，队列是LinkedBlockingQueue（无限大）的线程池，容易造成OOM；</span></span><br><span class="line">ExecutorService newSingleThreadExecutor = Executors.newSingleThreadExecutor();</span><br><span class="line"><span class="comment">//核心线程数固定大小的延迟执行的一个线程池，最大线程池大小是Integer.MAX_VALUE,队列是延迟队列：DelayedWorkQueue。缺点：容易造成OOM；</span></span><br><span class="line">Executors.newScheduledThreadPool(<span class="number">5</span>);</span><br><span class="line"><span class="comment">//自定义线程池,IO密集型和CPU密集型的区别</span></span><br><span class="line"><span class="keyword">int</span> coreThreads = <span class="number">10</span>;</span><br><span class="line"><span class="keyword">int</span> maxThreads = <span class="number">100</span>;</span><br><span class="line">ThreadPoolExecutor threadPoolExecutor = <span class="keyword">new</span> ThreadPoolExecutor(coreThreads, maxThreads,</span><br><span class="line"><span class="number">0L</span>, TimeUnit.MILLISECONDS,<span class="keyword">new</span> ArrayBlockingQueue(<span class="number">500</span>));</span><br></pre></td></tr></table></figure></li></ul></li></ol><pre><code> 建议的方法：自定义一个线程池:</code></pre><ul><li><p>线程池的执行流程</p><p><img src="/Users/xiazhenyu/Desktop/typora%E6%96%87%E4%BB%B6%E9%9B%86%E5%90%88/%E6%96%87%E6%A1%A3%E5%90%88%E9%9B%86/%E7%BA%BF%E7%A8%8B%E6%B1%A0%E7%9A%84%E6%89%A7%E8%A1%8C%E6%B5%81%E7%A8%8B.png" alt="线程池的执行流程"></p></li></ul><h3 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h3><h4 id="什么事OOM？如何理解？怎么排查OOM？内存泄漏和OOM的区别？"><a href="#什么事OOM？如何理解？怎么排查OOM？内存泄漏和OOM的区别？" class="headerlink" title="什么事OOM？如何理解？怎么排查OOM？内存泄漏和OOM的区别？"></a>什么事OOM？如何理解？怎么排查OOM？内存泄漏和OOM的区别？</h4><p>见JVM。</p><h4 id="队列-amp-常用多线程工具"><a href="#队列-amp-常用多线程工具" class="headerlink" title="队列&amp;常用多线程工具"></a>队列&amp;常用多线程工具</h4><ol><li>ForkJoin</li><li>队列</li></ol><h4 id="上下文切换，"><a href="#上下文切换，" class="headerlink" title="上下文切换，"></a>上下文切换，</h4><p>Linux操作系统的上下文切换时间为什么很少？零拷贝。</p><p>零拷贝技术，sendfile！只需要2次切换、2次拷贝</p><p><img src="/Users/xiazhenyu/Desktop/typora%E6%96%87%E4%BB%B6%E9%9B%86%E5%90%88/%E6%96%87%E6%A1%A3%E5%90%88%E9%9B%86/%E9%9B%B6%E6%8B%B7%E8%B4%9D.png" alt="零拷贝"></p><p>mmap技术： 4次切换、3次拷贝</p><p><img src="/Users/xiazhenyu/Desktop/typora%E6%96%87%E4%BB%B6%E9%9B%86%E5%90%88/%E6%96%87%E6%A1%A3%E5%90%88%E9%9B%86/mmap.png" alt="mmap"></p><h3 id="ThreadLocal"><a href="#ThreadLocal" class="headerlink" title="ThreadLocal"></a>ThreadLocal</h3><ol><li>ThreadLocalMap是ThreadLocal的静态内部类</li></ol><p><img src="/Users/xiazhenyu/Desktop/typora%E6%96%87%E4%BB%B6%E9%9B%86%E5%90%88/%E6%96%87%E6%A1%A3%E5%90%88%E9%9B%86/ThreadLocal%E7%BB%93%E6%9E%84.png" alt="ThreadLocal结构"></p><ol start="2"><li><p>内存泄漏：</p><p>ThreadLocalMap中key为ThreadLocal的弱引用，而value是强引用。所以，如果ThreadLocal没有被引用的话，在gc时，key会被清理掉，而value不会。</p><p>那么这个时候，就会出现key为null的entry，发生内存泄漏。<br>解决方法：手动调用remove方法，看源码可以发现，在执行set、get方法之后，顺便把路上无效的entry用线性清扫清除掉，也可以起到一定的解决内存泄漏的问题。但是get、set方法发起无效key的清理都是有触发条件的，一般都是发现key匹配不到，</p><p>set方法：</p><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">set</span><span class="params">(ThreadLocal&lt;?&gt; key, Object value)</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// We don&#x27;t use a fast path as with get() because it is at</span></span><br><span class="line">    <span class="comment">// least as common to use set() to create new entries as</span></span><br><span class="line">    <span class="comment">// it is to replace existing ones, in which case, a fast</span></span><br><span class="line">    <span class="comment">// path would fail more often than not.</span></span><br><span class="line"></span><br><span class="line">    Entry[] tab = table;</span><br><span class="line">    <span class="keyword">int</span> len = tab.length;</span><br><span class="line">    <span class="keyword">int</span> i = key.threadLocalHashCode &amp; (len-<span class="number">1</span>);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> (Entry e = tab[i];</span><br><span class="line">         e != <span class="keyword">null</span>;</span><br><span class="line">         e = tab[i = nextIndex(i, len)]) &#123;</span><br><span class="line">        ThreadLocal&lt;?&gt; k = e.get();</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (k == key) &#123;</span><br><span class="line">            e.value = value;</span><br><span class="line">            <span class="keyword">return</span>;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (k == <span class="keyword">null</span>) &#123;</span><br><span class="line">            replaceStaleEntry(key, value, i);</span><br><span class="line">            <span class="keyword">return</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    tab[i] = <span class="keyword">new</span> Entry(key, value);</span><br><span class="line">    <span class="keyword">int</span> sz = ++size;</span><br><span class="line">    <span class="keyword">if</span> (!cleanSomeSlots(i, sz) &amp;&amp; sz &gt;= threshold)</span><br><span class="line">        rehash();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p>get 方法：</p><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">private</span> Entry <span class="title">getEntry</span><span class="params">(ThreadLocal&lt;?&gt; key)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> i = key.threadLocalHashCode &amp; (table.length - <span class="number">1</span>);</span><br><span class="line">    Entry e = table[i];</span><br><span class="line">    <span class="keyword">if</span> (e != <span class="keyword">null</span> &amp;&amp; e.get() == key)</span><br><span class="line">        <span class="keyword">return</span> e;</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">        <span class="keyword">return</span> getEntryAfterMiss(key, i, e);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Version of getEntry method for use when key is not found in</span></span><br><span class="line"><span class="comment"> * its direct hash slot.</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span>  key the thread local object</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span>  i the table index for key&#x27;s hash code</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span>  e the entry at table[i]</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@return</span> the entry associated with key, or null if no such</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="function"><span class="keyword">private</span> Entry <span class="title">getEntryAfterMiss</span><span class="params">(ThreadLocal&lt;?&gt; key, <span class="keyword">int</span> i, Entry e)</span> </span>&#123;</span><br><span class="line">    Entry[] tab = table;</span><br><span class="line">    <span class="keyword">int</span> len = tab.length;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">while</span> (e != <span class="keyword">null</span>) &#123;</span><br><span class="line">        ThreadLocal&lt;?&gt; k = e.get();</span><br><span class="line">        <span class="keyword">if</span> (k == key)</span><br><span class="line">            <span class="keyword">return</span> e;</span><br><span class="line">        <span class="keyword">if</span> (k == <span class="keyword">null</span>)</span><br><span class="line">            expungeStaleEntry(i);</span><br><span class="line">        <span class="keyword">else</span></span><br><span class="line">            i = nextIndex(i, len);</span><br><span class="line">        e = tab[i];</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p><a href="https://cloud.tencent.com/developer/article/1706127">get、set方法是否确定可以解决内存泄漏问题？</a>，这个看了，感觉因该是可以的，只不过是在特定的条件下。</p></li></ol><h2 id="JMM-内存模型"><a href="#JMM-内存模型" class="headerlink" title="JMM 内存模型"></a>JMM 内存模型</h2><h3 id="JMM与happen-before"><a href="#JMM与happen-before" class="headerlink" title="JMM与happen-before"></a>JMM与happen-before</h3><p>L1、L2、L3和主内存之间是同步的，有缓存一致性MESI协议的保证，但是Store Buffer、Load Buffer和L1之间却是异步的。内存中写入一个变量，这个变量会保存在Store Buffer中，稍后才异步的写入L1中，同时同步写入主内存中。</p><h4 id="重排序与内存可见性的关系："><a href="#重排序与内存可见性的关系：" class="headerlink" title="重排序与内存可见性的关系："></a>重排序与内存可见性的关系：</h4><p>Store Buffer的延迟写入是重排序的一种，我们称之为内存重排序（Memory Ordering）。除此之外，还有编译器和CPU指令的重排序。</p><p>重排序类型：</p><ol><li>编译器重排序：对于没有先后依赖关系的语句，编译器可以重新调整语句的执行顺序；</li><li>CPU指令重排序：在指令级别，让没有依赖关系的多条执行并行；</li><li>CPU内存重排序：CPU有自己的缓存，指令的执行顺序和写入主内存的顺序不完全一致。</li></ol><p><em><strong>PS：第三种重排序是造成内存可见性问题的主因；</strong></em></p><h4 id="内存屏障："><a href="#内存屏障：" class="headerlink" title="内存屏障："></a>内存屏障：</h4><p>为了禁止编译器重排序和CPU重排序，在编译器和CPU层面都有对应的指令，也就是内存屏障（Memory Barrier）。这也正是JMM和happen-before规则的底层实现原理。</p><p>四种CPU内存屏障：</p><ol><li>LoadLoad：禁止读和读的重排序；</li><li>StoreStore：禁止写和写的重排序；</li><li>LoadStore：禁止读和写的重排序；</li><li>StoreLoad：禁止写和读的重排序；</li></ol><p>As-if-serial语义： 只要操作之间没有数据的依赖性，编译器和CPU都可以任意重排序，因为执行结果不会改变，代码看起来像是完全串行地一行一行从头执行到尾，这也就是as-if-serial语义。</p><p>编译器和CPU只能保证每一个线程的as-if-serial语义。线程之间的数据依赖和影响，需要编译器和CPU的上层来确定。</p><h4 id="happen-before定义："><a href="#happen-before定义：" class="headerlink" title="happen-before定义："></a>happen-before定义：</h4><p>描述了两个操作之间的内存可见性。</p><p>如果A happen before B，意味着A的执行结果必须对B可见，也就是保证跨线程的内存可见性。</p><p>A happen before B不代表A一定能在B之前执行，只确保如果A在B之前执行，则A的执行结果必须对B可见。<br>JMM对开发者作出的一系列的承诺：</p><ol><li>单线程中的每个操作，happen-before 对应线程中任意后续的操作（as-if-serial语义保证）；</li><li>对volatile变量的写入，happen-before对应后续对这个变量的读取；</li><li>对synchronized的解锁，happen-before对应后续对这个锁的加锁；</li><li>对final变量的写，happen-before于final域对象的读，happen-before于后续对final变量的读；</li></ol><h4 id="volatile"><a href="#volatile" class="headerlink" title="volatile"></a>volatile</h4><p>volatile的三重功效：64位写入的原子性保障、内存可见性、禁止重排序；</p><p>实现原理：</p>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;p&gt;[TOC]&lt;/p&gt;
+&lt;h2 id=&quot;多线程和锁&quot;&gt;&lt;a href=&quot;#多线程和锁&quot; class=&quot;headerlink&quot; title=&quot;多线程和锁&quot;&gt;&lt;/a&gt;多线程和锁&lt;/h2&gt;&lt;p&gt;多线程的目的：充分利用多核CPU的并行处理的能力，加快程序的处理速度；&lt;/p&gt;
+&lt;p&gt;锁的</summary>
+      
+    
+    
+    
+    
+  </entry>
+  
+  <entry>
+    <title></title>
+    <link href="http://example.com/2022/02/24/typora%E6%96%87%E4%BB%B6%E9%9B%86%E5%90%88/%E6%8B%89%E9%92%A9/%E4%B8%AD%E9%97%B4%E4%BB%B6/%E5%88%86%E5%B8%83%E5%BC%8F/"/>
+    <id>http://example.com/2022/02/24/typora%E6%96%87%E4%BB%B6%E9%9B%86%E5%90%88/%E6%8B%89%E9%92%A9/%E4%B8%AD%E9%97%B4%E4%BB%B6/%E5%88%86%E5%B8%83%E5%BC%8F/</id>
+    <published>2022-02-24T01:55:09.588Z</published>
+    <updated>2022-02-24T01:55:09.588Z</updated>
+    
+    <content type="html"><![CDATA[<p>[TOC]</p><h2 id="分布式"><a href="#分布式" class="headerlink" title="分布式"></a>分布式</h2><h3 id="特性："><a href="#特性：" class="headerlink" title="特性："></a>特性：</h3><ul><li>分布性，机器分布在不同的机房、城市、国家；</li><li>对等性：没有主从之分，所有节点都是对等的；</li><li>并发性：不同的节点可能会并发的访问相同的资源，如数据库；</li><li>缺乏全局时钟：很难定义两件事情的发生的先后顺序；</li><li>故障总会发生；</li><li>单点故障：如果一个服务只有一台机器提供服务，在这台机器上发上的故障就叫做单点故障；</li></ul><p>面临的问题：</p><ul><li>通信问题：不可避免的会发生通信故障；</li><li>数据一致性：备份数据和主数据不同步；</li><li>网络分区：也是由于网络不通导致的；</li><li>节点故障：</li><li>三态：成功、失败、超时；</li><li>重发：出现失败和超时，就需要重新发送；</li><li>幂等：多次请求，结果保持一致；</li></ul><h3 id="CAP"><a href="#CAP" class="headerlink" title="CAP"></a>CAP</h3><ul><li>一致性<br>所有节点访问都是同一份最新的数据副本；<br>一致性分类：<pre><code>1. 强一致性； 2. 弱一致性； 3. 最终一致性（弱一致性的一种）。 ![分布式系统一致性分类](/Users/xiazhenyu/Desktop/typora文件集合/文档合集/分布式系统一致性分类.png)</code></pre></li><li>可用性<br>每次请求都能获取到不错的响应，但是不能保证获取的数据为最新的数据；</li><li>分区容错性<br>分布式系统在遇到任何网络分区故障的时候，仍然能够对外提供满足一致性和可用性的服务，除非整个网络环境都发生了故障；</li></ul><p>CAP三者不能同时满足的论证<br>AP满足的情况下，两个节点之间因为网路等原因断开了链接，就会导致不同的节点数据是不一致的。</p><h3 id=""><a href="#" class="headerlink" title=""></a><img src="/Users/xiazhenyu/Desktop/typora%E6%96%87%E4%BB%B6%E9%9B%86%E5%90%88/%E6%96%87%E6%A1%A3%E5%90%88%E9%9B%86/CAP%E7%90%86%E8%AE%BA%E6%A8%A1%E5%9E%8B.png" alt="CAP理论模型"></h3><h3 id="BASE"><a href="#BASE" class="headerlink" title="BASE"></a>BASE</h3><ul><li><p>基本可用<br>假设系统出现了不可预知的故障，但是还可以使用。</p></li><li><p>软状态<br>允许系统中的数据存在中间状态，并认为该状态不会影响系统的整体可用性。即允许系统在多个不同节点的数据副本存在数据延时；</p></li><li><p>最终一致性<br>系统不可能是一直是软状态的，必须有个时间限制。在期限过后，应当保证所有副本保持数据一致性，从而达到数据的最终一致性。</p><p>这个期限取决于网络延时、系统负载、数据复制方案设计等因素；</p></li></ul><h2 id="6种常见的分布式解决方案"><a href="#6种常见的分布式解决方案" class="headerlink" title="6种常见的分布式解决方案"></a>6种常见的分布式解决方案</h2><h3 id="TCC补偿事务；-业务层面的分布式事务"><a href="#TCC补偿事务；-业务层面的分布式事务" class="headerlink" title="TCC补偿事务；-业务层面的分布式事务"></a>TCC补偿事务；-业务层面的分布式事务</h3><p><img src="/Users/xiazhenyu/Desktop/typora%E6%96%87%E4%BB%B6%E9%9B%86%E5%90%88/%E6%96%87%E6%A1%A3%E5%90%88%E9%9B%86/TCC.png" alt="TCC"></p><p>Try- Confirm - Cancel </p><ul><li>Try： 预留，即资源的预留和锁定，注意的是预留；</li><li>Confirm： 确认操作，这一步就是真正的执行了；</li><li>Cancel： 撤销操作，可以理解为把预留阶段的动作撤销了；</li></ul><p>TCC有个事务管理者的角色，用来记录TCC全局事务状态并提交或者回滚事务；</p><p>缺点：</p><ul><li>对于业务上的每个操作，都需要定义三个动作，分别对应Try-Confirm-Cancel。</li><li>对于业务的侵入较大和业务紧耦合，需要根据特定的场景和业务逻辑来设计相应的操作；</li><li>另外，撤销和确认操作的执行可能需要重试，因此需要保证幂等；</li></ul><p>优点：可以跨数据库、跨不同的业务系统来实现事务；</p><h3 id="本地消息表（异步确保）"><a href="#本地消息表（异步确保）" class="headerlink" title="本地消息表（异步确保）"></a>本地消息表（异步确保）</h3><p>利用了各系统本地事务来实现分布式事务。将业务的执行和将消息放入消息表中的操作放在同一个事务中，<br>这样就能保证消息放入本地消息表中的时候业务肯定是执行成功的。<br>然后调用下一个操作，如果成功了，消息表的状态可以直接改为已成功；<br>失败的话，定时任务定时读取本地消息表，筛选出还未成功的消息再调用对应的服务，服务更新成功了再变更消息的状态；（需要保证幂等）；</p><p><em><strong>最终一致性</strong></em></p><h3 id="MQ事务"><a href="#MQ事务" class="headerlink" title="MQ事务"></a>MQ事务</h3><p>第一步：发送给Broker事务消息即半消息，半消息不是说一半的消息，而是指这个消息对消费者来说不可见；</p><p>第二步：发送成功以后，执行本地的事务；</p><p>第三步：根据本地事务的执行结果向Broker发送Commit和RollBack命令；</p><p>同时：MQ的发送方需要提供一个反查事务状态的接口，如果一段时间内半消息没有收到任何操作请求，那么Broker会通过这个<br>反查接口得知发送方事务是否执行成功，然后执行Commit或者RollBack命令；<br>Commit命令：订阅方就能收到这个消息，然后执行对应的本地事务，然后ACK这个消息；<br>RollBack：订阅方收不到这个消息，等于事务没有执行过；</p><p><em><strong>最终一致性</strong></em></p><p><img src="/Users/xiazhenyu/Desktop/typora%E6%96%87%E4%BB%B6%E9%9B%86%E5%90%88/%E6%96%87%E6%A1%A3%E5%90%88%E9%9B%86/MQ%E4%BA%8B%E5%8A%A1%E6%B6%88%E6%81%AF.png" alt="MQ事务消息"></p><h3 id="最大努力通知"><a href="#最大努力通知" class="headerlink" title="最大努力通知"></a>最大努力通知</h3><p>最大努力通知其实只是表明了一种柔性事务的思想：我已经尽自己最大的努力想达成事务的最终一致性了。本地消息表和事务消息都是最大努力通知的一种。适用于对时间不敏感的业务，例如短信通知；</p><h3 id="2PC-两阶段提交协议"><a href="#2PC-两阶段提交协议" class="headerlink" title="2PC 两阶段提交协议"></a>2PC 两阶段提交协议</h3><h3 id="-1"><a href="#-1" class="headerlink" title=""></a><img src="/Users/xiazhenyu/Desktop/typora%E6%96%87%E4%BB%B6%E9%9B%86%E5%90%88/%E6%96%87%E6%A1%A3%E5%90%88%E9%9B%86/2PC%E6%B5%81%E7%A8%8B%E5%9B%BE.jpg" alt="2PC流程图"></h3><p>两阶段提交的问题：</p><ol><li>同步阻塞<br>参与者在提交过程中，一直处于阻塞状态，占用着系统资源，其他节点请求的时候就会阻塞；</li><li>单点问题<br>过于依赖于事务协调者，如果事务协调者发生宕机或者超时。事务就没有办法继续执行下去。如果问题出现在阶段二，各个事务参与者将会一直处于锁定事务资源的过程中，从而无法继续完成事务。</li><li>数据不一致<br>如果在事务协调者发送commit请求的过程中出现了宕机，就会导致一部分事务参与者执行了commit请求、一部分没有执行，就会导致数据在各个执行者是不一样的。</li><li>过于保守<br>由于协调者是在接受到所有执行者的commit询问通知反馈之后，才发起的执行提交通知。当任意一个执行者失败或者等待超时之后。协调者就只能依靠自身的中断机制进行事务的中断。这样的策略过于保守，即没有完善的容错机制，任意节点的失败都会导致整个事务的失败。</li></ol><h3 id="3PC三阶段提交协议"><a href="#3PC三阶段提交协议" class="headerlink" title="3PC三阶段提交协议"></a>3PC三阶段提交协议</h3><p><img src="/Users/xiazhenyu/Desktop/typora%E6%96%87%E4%BB%B6%E9%9B%86%E5%90%88/%E6%96%87%E6%A1%A3%E5%90%88%E9%9B%86/3PC%E6%B5%81%E7%A8%8B%E5%9B%BE.jpg" alt="3PC流程图"></p><p>三阶段提交协议的升级点（基于二阶段）</p><ul><li>三阶段提交协议引入了超时机制；<br>对于协调者和参与者都设置了超时机制（2PC中，只有协调者拥有超时机制），主要是避免了参与者在长时间无法与协调者节点通讯（协调者挂掉了）的情况下，无法释放资源的问题。因为参与者自身拥有超时机制，会在超时之后，自动进行本地的commit从而释放资源。这种机制也侧面降低了整个事务的阻塞时间和范围。</li><li>在第一阶段和第二阶段，引入了一个缓冲阶段（PreCommit）。保证了在最后提交阶段之前各参与节点的状态是一致的。</li></ul><p>PS：3PC协议并没有完全解决数据一致性问题。</p><h3 id="XA-强一致性"><a href="#XA-强一致性" class="headerlink" title="XA(强一致性)"></a>XA(强一致性)</h3><p>X/Open组织提出的分布式事务规范，是基于两阶段提交协议。XA规范主要定义了全局事务管理器（TM）和局部资源管理器（RM）之间的接口。是目前主流的关系型数据库的实现方式。<img src="/Users/xiazhenyu/Desktop/typora%E6%96%87%E4%BB%B6%E9%9B%86%E5%90%88/%E6%96%87%E6%A1%A3%E5%90%88%E9%9B%86/%E5%85%A8%E5%B1%80%E4%BA%8B%E5%8A%A1%E7%AE%A1%E7%90%86%E6%A8%A1%E5%9E%8B.png" alt="全局事务管理模型"><br>为什么需要TM？<br>在分布式系统中，从理论上讲两台机器无法达到一致的状态，需要引入一个单点进行协调。由全局事务管理器管理和协调事务，可以跨越多个资源和进程。事务管理器用来保证所有的事务参与者都完成了准备工作（第一阶段)。如果事务管理器收到所有参与者都准备好的消息，会通知所有的事务都可以提交了（第二阶段)。</p><h3 id="Sega模式"><a href="#Sega模式" class="headerlink" title="Sega模式"></a>Sega模式</h3><h2 id="NWR协议"><a href="#NWR协议" class="headerlink" title="NWR协议"></a>NWR协议</h2><p>是一种在分布式存储系统中用于控制一致性级别的一种策略。</p><ul><li>N： 在分布式存储中，有多少备份数据；</li><li>W： 代表一次成功的更新操作要求至少有w份数据写入成功；</li><li>R：代表一次成功的读数据操作要至少有R份数据成功读取；</li></ul><ol><li><p>当W+R&gt;N的时候，整个系统对于客户端来讲能保证强一致性；</p></li><li><p>当R+W&lt;=N时，无法保证数据的强一致性；</p></li></ol><h2 id="服务治理"><a href="#服务治理" class="headerlink" title="服务治理"></a>服务治理</h2><h3 id="服务协调"><a href="#服务协调" class="headerlink" title="服务协调"></a>服务协调</h3><p>分布式锁：</p><ol><li>基于缓存（Redis）实现分布式锁，扩展是使用Redisson；</li><li>Zookeeper实现分布式锁；原理：全局临时顺序节点；</li></ol><h3 id="流量销峰"><a href="#流量销峰" class="headerlink" title="流量销峰"></a>流量销峰</h3><p>方案：</p><ol><li>消息队列削峰；</li><li>流量削峰漏斗：层层削峰，如下图</li></ol><p><img src="/Users/xiazhenyu/Desktop/typora%E6%96%87%E4%BB%B6%E9%9B%86%E5%90%88/%E6%96%87%E6%A1%A3%E5%90%88%E9%9B%86/%E6%B5%81%E9%87%8F%E9%94%80%E5%B3%B0%E6%BC%8F%E6%96%97.png" alt="流量销峰漏斗"></p><h3 id="服务降级"><a href="#服务降级" class="headerlink" title="服务降级"></a>服务降级</h3><p>整个架构整体的负载超过了预设的上限阀值或即将到来的流量预计将会超过预设的阀值时，为了保证重要或基本的服务能正常运行，我们可以将一些不重要或不紧急的服务或任务进行延迟或暂停使用；<br>策略：</p><ol><li>页面降级；</li><li>延迟服务（MQ）；</li><li>写降级（限流）；</li><li>读降级（限流）；</li><li>缓存降级</li></ol><p>后端代码：</p><ul><li>抛异常；</li><li>返回NULL；</li><li>调用Mock数据；</li><li>调用Fallback处理逻辑；</li></ul><h3 id="服务限流"><a href="#服务限流" class="headerlink" title="服务限流"></a>服务限流</h3><p>限流的目的是通过对并发访问请求进行限速或者一个时间窗口内的请求数量进行限速来保护系统，一旦达到了限制速率则可以拒绝服务、排队或等待；</p><p><img src="/Users/xiazhenyu/Desktop/typora%E6%96%87%E4%BB%B6%E9%9B%86%E5%90%88/%E6%96%87%E6%A1%A3%E5%90%88%E9%9B%86/%E5%A4%9A%E7%BB%B4%E5%BA%A6%E9%99%90%E6%B5%81.png" alt="多维度限流"></p><p>备注：tomcat的处理请求的参数设置：<br>tomcat的并发数有以下两个参数控制：<br>maxThreads：tomcat启动的最大线程数，即同时处理的任务个数，默认值是200；<br>acceptCount：当tomcat启动的线程数达到最大时，接受排队的请求个数，默认值为100；<br>另外还有支持的最大链接数：maxConnections：tomcat在任意时刻接受和处理的最大连接数。当接收的连接数达到maxConnections时，Acceptor线程不会读取<br>accept队列中的连接；这时accept队列中的线程会一直阻塞着，直到Tomacat接收的连接数小于maxConnections。默认的最大连接数为10000。</p><p>参考博文：<a href="https://www.cnblogs.com/sunfie/p/12295945.html">https://www.cnblogs.com/sunfie/p/12295945.html</a></p><h4 id="限流算法"><a href="#限流算法" class="headerlink" title="限流算法"></a>限流算法</h4><ul><li><p>固定窗口计数器<br>计数器限制每一分钟或者每一秒内请求不能超过一定的次数，在下一秒钟（下一分钟）计数器清零重新计算。</p><p>问题：容易形成流量突刺</p></li><li><p>滑动窗口计数器<br>滑动窗口其实是细分后的计数器，它将每个时间窗口又细分成若干个时间片段，每过一个时间片段，整个时间窗口就会往右移动一格。</p></li><li><p>漏桶<br>通过一个固定大小的FIFO队列+定时取队列元素的方式实现，请求进入队列后会被匀速的取出处理，当队列被占满后，后来的请求会被直接拒绝。<br>优点：可以销峰填谷，不论请求多快多大，都只会匀速的发给后端，不会出现突刺现象，保证下游服务正常运行，<br>缺点：队列中的请求会被排队，影响时间被拉长。</p><p><img src="/Users/xiazhenyu/Desktop/typora%E6%96%87%E4%BB%B6%E9%9B%86%E5%90%88/%E6%96%87%E6%A1%A3%E5%90%88%E9%9B%86/%E6%BC%8F%E6%A1%B6%E7%AE%97%E6%B3%95.png" alt="漏桶算法"></p></li><li><p>令牌桶算法<br>令牌痛算法是以一个固定速率往桶中放置令牌（如果桶中的令牌满了就丢弃），每进来一个请求就去桶中找令牌，有的话就拿走令牌继续处理，没有的就拒绝请求。</p><p>优点：可以应对突发流量，当桶中有令牌时可以快速的响应，也不会产生漏桶算法中的等待时间；<br>缺点：相比较漏桶算法，一定程度上减少了对下游服务的保护；</p></li></ul><p><img src="/Users/xiazhenyu/Desktop/typora%E6%96%87%E4%BB%B6%E9%9B%86%E5%90%88/%E6%96%87%E6%A1%A3%E5%90%88%E9%9B%86/%E4%BB%A4%E7%89%8C%E6%A1%B6%E7%AE%97%E6%B3%95.png" alt="令牌桶算法"></p><p>基于Guava的令牌桶算法的设计参考博文：<a href="https://juejin.cn/post/6961815018488725541">https://juejin.cn/post/6961815018488725541</a></p><h4 id="怎么实现一个限流器？"><a href="#怎么实现一个限流器？" class="headerlink" title="怎么实现一个限流器？"></a>怎么实现一个限流器？</h4><p><strong>基于Redis限流</strong></p><p>基于Redis做限流操作，使用lua脚本保证命令原子性，比如qps设置为10，如果key不存在，就设置key过期时间1s，value=1；如果value小于10，则自增value；value达到10触发流控。示例lua代码如下：</p><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//获取令牌Token， 参数规则Id，获取令牌数，优先级 </span></span><br><span class="line"><span class="function">TokenResult <span class="title">requestToken</span><span class="params">(Long ruleId, <span class="keyword">int</span> acquireCount, <span class="keyword">boolean</span> prioritized)</span></span>; </span><br><span class="line">local key = <span class="string">&quot;rate.limit:&quot;</span> .. KEYS[<span class="number">1</span>]</span><br><span class="line">local limit = tonumber(ARGV[<span class="number">1</span>])</span><br><span class="line">local expire_time = ARGV[<span class="number">2</span>]</span><br><span class="line"></span><br><span class="line">local is_exists = redis.call(<span class="string">&quot;EXISTS&quot;</span>, key)</span><br><span class="line"><span class="keyword">if</span> is_exists == <span class="number">1</span> then</span><br><span class="line">    <span class="keyword">if</span> redis.call(<span class="string">&quot;INCR&quot;</span>, key) &gt; limit then</span><br><span class="line">        <span class="keyword">return</span> <span class="number">0</span></span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">        <span class="keyword">return</span> <span class="number">1</span></span><br><span class="line">    end</span><br><span class="line"><span class="keyword">else</span></span><br><span class="line">    redis.call(<span class="string">&quot;SET&quot;</span>, key, <span class="number">1</span>)</span><br><span class="line">    redis.call(<span class="string">&quot;EXPIRE&quot;</span>, key, expire_time)</span><br><span class="line">    <span class="keyword">return</span> <span class="number">1</span></span><br><span class="line">end</span><br></pre></td></tr></table></figure><h3 id="服务熔断"><a href="#服务熔断" class="headerlink" title="服务熔断"></a>服务熔断</h3><p>当下游服务因访问压力过大而响应变慢或失败，上游服务为了保护系统的整体可用性，可以暂时切断对下游服务的调用，这种牺牲局部，保全整体的措施叫做熔断。<br>熔断机制：</p><ul><li>开启熔断：在固定的时间窗口内，接口调用超时比率达到一个阀值，会开启熔断；进入熔断后，后续对该服务接口的调用不再经过网络，直接执行本地的默认方法，达到服务降级的效果。</li><li>熔断恢复：熔断不可能是永久的。当经过了规定时间以后，服务将从熔断状态恢复过来，再次调用下游服务。</li></ul><p>实现：</p><p>spring cloud hystrix</p><p>三种状态：</p><ol><li>熔断关闭状态（Closed）</li><li>熔断开启状态（Open） 10秒中50%的出错比率</li><li>半熔断状态（Half-Open）</li></ol><p><img src="/Users/xiazhenyu/Desktop/typora%E6%96%87%E4%BB%B6%E9%9B%86%E5%90%88/%E6%96%87%E6%A1%A3%E5%90%88%E9%9B%86/%E7%86%94%E6%96%AD%E7%8A%B6%E6%80%81%E6%B5%81%E8%BD%AC%E5%9B%BE.png" alt="熔断状态流转图"></p>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;p&gt;[TOC]&lt;/p&gt;
+&lt;h2 id=&quot;分布式&quot;&gt;&lt;a href=&quot;#分布式&quot; class=&quot;headerlink&quot; title=&quot;分布式&quot;&gt;&lt;/a&gt;分布式&lt;/h2&gt;&lt;h3 id=&quot;特性：&quot;&gt;&lt;a href=&quot;#特性：&quot; class=&quot;headerlink&quot; title=&quot;特性</summary>
+      
+    
+    
+    
+    
+  </entry>
+  
+  <entry>
+    <title></title>
+    <link href="http://example.com/2022/02/24/typora%E6%96%87%E4%BB%B6%E9%9B%86%E5%90%88/%E6%8B%89%E9%92%A9/%E4%B8%AD%E9%97%B4%E4%BB%B6/RPC/RPC/"/>
+    <id>http://example.com/2022/02/24/typora%E6%96%87%E4%BB%B6%E9%9B%86%E5%90%88/%E6%8B%89%E9%92%A9/%E4%B8%AD%E9%97%B4%E4%BB%B6/RPC/RPC/</id>
+    <published>2022-02-24T01:54:52.536Z</published>
+    <updated>2022-02-24T01:54:52.536Z</updated>
+    
+    <content type="html"><![CDATA[<p>[TOC]</p><h3 id="了解rpc吗？"><a href="#了解rpc吗？" class="headerlink" title="了解rpc吗？"></a>了解rpc吗？</h3><p>RPC远程过程调用，借助RPC可以做到像本地调用一样调用远程服务，是一种进程间的通讯方式。</p><p>RPC的架构（组成部分）：</p><ul><li>客户端（client），服务的调用方；</li><li>客户端存根（stub），存放服务端地址消息，再将客户端的请求参数打包成网络消息，然后通过网络远程调用发送给服务方；</li><li>服务端（server）：真正的服务提供者；</li><li>服务端存根（server stub）：解析客户端发送过来的数据包，调用本地方法；有哪些常见的rpc框架？</li></ul><h3 id="如何自己设计一个rpc框架？"><a href="#如何自己设计一个rpc框架？" class="headerlink" title="如何自己设计一个rpc框架？"></a>如何自己设计一个rpc框架？</h3><ol><li>服务注册与发现：注册中心只需要能存储服务信息即可，并且一定要保证高可用性；不要服务中心挂掉了，所有的服务都用不了了。<br>常用的软件：</li></ol><ul><li>zookeeper</li><li>Etcd</li><li>Consul</li><li>Nacos（阿里的Nacos可以实现动态服务配置、服务发现、服务元数据以及流量管理等）</li></ul><ol start="2"><li>服务入口<br>在Java中，远程调用，我们不可能把每个服务接口都暴露在外面，而是一个入口接受参数，再由这个入口分发到系统内部的某个服务，调用后返回结果。</li><li>序列化<ul><li>grpc</li><li>hession</li><li>java自带的序列化</li><li>json/xml</li></ul></li><li>负载均衡算法<ul><li>轮训</li><li>随机</li><li>权重</li><li>最少连接</li><li>ip_hash</li></ul></li></ol><h3 id="Dubbo了解吗？"><a href="#Dubbo了解吗？" class="headerlink" title="Dubbo了解吗？"></a>Dubbo了解吗？</h3><h3 id="Dubbo-提供了哪些负载均衡策略？"><a href="#Dubbo-提供了哪些负载均衡策略？" class="headerlink" title="Dubbo 提供了哪些负载均衡策略？"></a>Dubbo 提供了哪些负载均衡策略？</h3><ol><li>基于hash一致性的ConsistentHashLoadBalance；</li><li>基于权重随机算法的RandomLoadBalance；</li><li>基于最少活跃调用算法的LeastActiveLoadBalance;</li><li>基于加权轮询算法的RoundRobinLoadBalance；</li><li>基于最短响应时间的ShortestResponseLoadBalance;</li></ol><h3 id="如何设计一个网关"><a href="#如何设计一个网关" class="headerlink" title="如何设计一个网关"></a>如何设计一个网关</h3><h4 id="核心设计："><a href="#核心设计：" class="headerlink" title="核心设计："></a>核心设计：</h4><ul><li>请求路由</li><li>服务注册</li><li>负责均衡</li><li>弹力设计： 增加异步、重试、幂等、流控、降级、熔断、监视等功能；</li><li>安全方面：权限控制、数据校验、SSL加密及证书管理</li><li>灰度发布：测试版本在某些服务器上进行发布；</li><li>API聚合/API编排</li></ul><h4 id="重点："><a href="#重点：" class="headerlink" title="重点："></a>重点：</h4><ul><li>高性能：使用异步非阻塞的通信框架Netty；</li><li>高可用：集群化设计，并且不同的节点之间需要同步数据；</li><li>服务化：提供一个Admin  API来在运行时修改自己的配置；</li><li>高扩展性：网关或多或少会有一些业务逻辑，而业务是多变的，因此网关需要有扩展性；</li></ul><h4 id="运维方面："><a href="#运维方面：" class="headerlink" title="运维方面："></a>运维方面：</h4><ul><li>业务送耦合、协议紧耦合；</li><li>应用监控，提供分析数据；分布式链路追踪</li><li>DevOps；</li></ul><h4 id="架构："><a href="#架构：" class="headerlink" title="架构："></a>架构：</h4><ul><li>不要在网关中内置聚合后端服务的功能，采用plugin的方式；</li><li>网关应该靠近后端服务，并合后端服务使用同一个内网，这样可以保证通信的低延迟；</li><li>要支持容量扩展，所以需要成为一个集群来分担前端带来的流量；</li><li>服务发现可以有缓存；</li><li>校验用户请求：用户是否已经登陆，token验证；</li><li>监控，比如说检测异常访问；</li></ul><h3 id="谈谈对微服务的认识？"><a href="#谈谈对微服务的认识？" class="headerlink" title="谈谈对微服务的认识？"></a>谈谈对微服务的认识？</h3><h3 id="网络"><a href="#网络" class="headerlink" title="网络"></a>网络</h3><p>http/http2</p>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;p&gt;[TOC]&lt;/p&gt;
+&lt;h3 id=&quot;了解rpc吗？&quot;&gt;&lt;a href=&quot;#了解rpc吗？&quot; class=&quot;headerlink&quot; title=&quot;了解rpc吗？&quot;&gt;&lt;/a&gt;了解rpc吗？&lt;/h3&gt;&lt;p&gt;RPC远程过程调用，借助RPC可以做到像本地调用一样调用远程服务，是一种进</summary>
+      
+    
+    
+    
+    
+  </entry>
+  
+  <entry>
+    <title></title>
+    <link href="http://example.com/2022/02/24/typora%E6%96%87%E4%BB%B6%E9%9B%86%E5%90%88/%E6%8B%89%E9%92%A9/%E4%B8%AD%E9%97%B4%E4%BB%B6/Redis/Redis/"/>
+    <id>http://example.com/2022/02/24/typora%E6%96%87%E4%BB%B6%E9%9B%86%E5%90%88/%E6%8B%89%E9%92%A9/%E4%B8%AD%E9%97%B4%E4%BB%B6/Redis/Redis/</id>
+    <published>2022-02-24T01:54:19.369Z</published>
+    <updated>2022-02-24T01:54:19.369Z</updated>
+    
+    <content type="html"><![CDATA[<p>[TOC]</p><h2 id="Redis的基本数据结构"><a href="#Redis的基本数据结构" class="headerlink" title="Redis的基本数据结构"></a>Redis的基本数据结构</h2><ol><li>Hash、Set 、Sorted Set、List、Geo、String等数据类型</li></ol><p><img src="/Users/xiazhenyu/Desktop/typora%E6%96%87%E4%BB%B6%E9%9B%86%E5%90%88/%E6%96%87%E6%A1%A3%E5%90%88%E9%9B%86/Redis%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E6%80%BB%E4%BD%93.png" alt="Redis数据结构总体"></p><p>数据库由redis.h中的RedisDb定义，初始化的时候，会预先分配16个数据库；<br>所有的数据库保存到结构RedisServer的一个成员RedisServer.db 数组中。<br>redisClient中存在一个名叫db的指针指向当前使用的数据库。</p><p>RedisObject结构：<br>value是一个对象，包含字符串、列表、哈希对象、集合对象和有序集合对象；</p><h3 id="字符串："><a href="#字符串：" class="headerlink" title="字符串："></a>字符串：</h3><p>Redis使用SDS（Simple Dynamic String）用于存储字符串和整型数据； 优势：</p><ol><li>SDS在C语言字符串的基础上加入了free和len字段，获取字符串长度的时间复杂度是O(1)，C是O(n);</li><li>SDS由于记录了长度，在可能造成缓冲区溢出时会自动重新分配内存，杜绝了缓冲区的溢出；</li><li>可以存取二进制数据，以字符串长度len来作为结束标识；</li></ol><p>使用场景：存储字符串和整型数据、存储key、AOF缓冲区和用户输入缓冲；</p><h3 id="有序集合"><a href="#有序集合" class="headerlink" title="有序集合"></a>有序集合</h3><p><em><strong>跳表</strong></em> ：</p><p>将有序链表中的部分节点分层，每一层都是一个有序链表；</p><ol><li>查找过程：在查找时优先从最高层开始向后查找，当达到某个节点时，如果next节点值大于要查找的值或next指针指向null，则从==当前节点==下降一层继续向后查找。<br><img src="/Users/xiazhenyu/Desktop/typora%E6%96%87%E4%BB%B6%E9%9B%86%E5%90%88/%E6%96%87%E6%A1%A3%E5%90%88%E9%9B%86/%E8%B7%B3%E8%A1%A8%E7%9A%84%E7%BB%93%E6%9E%84%E7%A4%BA%E4%BE%8B.png" alt="跳表的结构示例"></li><li>插入：通过抛硬币（概率1/2）的方式来决定新插入结点跨越的层数；<br>正面：插入上层；<br>背面：不插入</li><li>删除：找到指定元素并删除每层的该元素即可；</li><li>特点：<ol><li>每层都是一个有序链表；</li><li>查找的次数近似等于层数（1/2）；</li><li>底层包含所有元素；</li><li>空间复杂度O(n)扩充了一倍；</li></ol></li><li>实现：<br>利用zskiplist实现；</li><li>优势：<ol><li>可以快速查找需要的节点O(logn);</li><li>可以在O(1)的时间复杂度下，快速获得跳跃表的头节点、尾节点、长度和高度；（zskiplist存储了这些信息）；</li></ol></li></ol><h3 id="字典（hash散列表）"><a href="#字典（hash散列表）" class="headerlink" title="字典（hash散列表）"></a>字典（hash散列表）</h3><p>hash冲突：采用单链表在相同的下标位置存储原始的key和value；</p><ul><li>实现：<br>包括：字典（dict）、Hash表（dictht）、Hash表节点（dictEntry）；</li><li>用途：出了可以存储K-V数据以外，还可以用于：散列表对象、哨兵模式中的主从节点管理；</li><li>扩容：存储上限：阀值0.75，需要rehash（扩容）</li></ul><p><img src="/Users/xiazhenyu/Desktop/typora%E6%96%87%E4%BB%B6%E9%9B%86%E5%90%88/%E6%96%87%E6%A1%A3%E5%90%88%E9%9B%86/Redis%E7%9A%84%E5%AD%97%E5%85%B8%E6%89%A9%E5%AE%B9%E6%B5%81%E7%A8%8B.png" alt="Redis的字典扩容流程"></p><p>说明：</p><ol><li>初次申请默认容量为4个dictEntry，非初次申请为当前hash表容量的一倍；</li><li>rehashidx，rehash标识。=0表示要进行rehash操作；</li><li>新增加的数据在新的hash表h[1]；</li><li>修改、删除、查询都在老的hash表h[0]、新hash表h[1]中（reshash中）；</li><li>将老的hash表h[0]的数据重新计算索引值后全部迁移到新的hash表h[1]中，这个过程称为rehash。</li></ol><p>渐进式hash：服务器忙的时候，则只对一个节点进rehash，服务器闲，可批量rehash（100节点）； </p><h3 id="压缩列表（ziplist）"><a href="#压缩列表（ziplist）" class="headerlink" title="压缩列表（ziplist）"></a>压缩列表（ziplist）</h3><p>压缩列表(ziplist)是由一系列特殊编码的连续内存块组成的顺序型数据结构</p><h3 id="快速列表"><a href="#快速列表" class="headerlink" title="快速列表"></a>快速列表</h3><p>快速列表（quicklist）是Redis底层重要的数据结构，是<em><strong>列表</strong></em>的底层实现；<br>快速列表是一个双向链表，链表中的每个节点是一个ziplist结构。quicklist中的每个节点ziplist都能够存储多个数据元素；<br>双向链表的优势:</p><ol><li>双向:链表具有前置节点和后置节点的引用，获取这两个节点时间复杂度都为O(1)。</li><li>普通链表(单链表):节点类保留下一节点的引用。链表类只保留头节点的引用，只能从头节点插 入删除；</li><li>无环:表头节点的 prev 指针和表尾节点的 next 指针都指向 NULL,对链表的访问都是以 NULL 结 束。<br>环状:头的前一个节点指向尾节点</li><li>带链表长度计数器:通过 len 属性获取链表长度的时间复杂度为 O(1)。</li><li>多态:链表节点使用 void* 指针来保存节点值，可以保存各种不同类型的值。</li></ol><h3 id="10中encoding"><a href="#10中encoding" class="headerlink" title="10中encoding"></a>10中encoding</h3><p>encoding 表示对象的内部编码，占 4 位。<br>Redis通过 encoding 属性为对象设置不同的编码。</p><p>String的有三个：int（int类型的整数）、embstr（编码的简单动态字符串，长度小于44字节）、raw（简单动态字符串，长度大于44字节）；</p><p>list的是quicklist（快速列表）；</p><p>hash的是字典和压缩列表；dict（字典，散列表元素个数比较多或元素不是小整数或短字符串时），ziplist（当散列表的元素个数比较少，且元素都是小整型或短字符串时）</p><p>set的是整型集合（intSet 都是整数并且在64位有符号整数范围内）和字典（非整数或在64位有符号整数范围以外）；</p><p>zset的是：压缩列表和跳表+字典；</p><h2 id="和memcache的区别："><a href="#和memcache的区别：" class="headerlink" title="和memcache的区别："></a>和memcache的区别：</h2><p><img src="/Users/xiazhenyu/Desktop/typora%E6%96%87%E4%BB%B6%E9%9B%86%E5%90%88/%E6%96%87%E6%A1%A3%E5%90%88%E9%9B%86/redis%E5%92%8Cmemcache%E7%9A%84%E5%8C%BA%E5%88%AB.png" alt="redis和memcache的区别"></p><h2 id="Redis的淘汰策略"><a href="#Redis的淘汰策略" class="headerlink" title="Redis的淘汰策略"></a>Redis的淘汰策略</h2><p>LRU：最近最少使用方式；</p><p>LFU：最不经常使用方式；</p><p>LEU:当内存满的时候，直接丢弃新的key值的写入；</p><p>Redis的过期策略：<br>主动过期+惰性过期两种；<br>主动过期：redis默认每隔100ms就随机抽取一些设置了过期的key，检查是否过期，如果过期了就删除。<br>惰性过期：过期的key，没有及时删除，那么在查询的时候，redis才会删除。</p><h2 id="Redis的高可用性"><a href="#Redis的高可用性" class="headerlink" title="Redis的高可用性"></a>Redis的高可用性</h2><h3 id="为什么是高性能的？"><a href="#为什么是高性能的？" class="headerlink" title="为什么是高性能的？"></a>为什么是高性能的？</h3><p>redis内部使用文件事件处理器 file event handler，这个文件事件处理器是单线程的，所以redis是单线程模型。它采用IO多路复用机制同时监听多个socket，<br>根据socket上的事件来选择对应的事件处理器进行处理。<br>文件事件处理器包含4个部分：</p><ol><li>多个socket；</li><li>IO多路复用程序；</li><li>文件事件派发器；</li><li>事件处理器（连接应答处理器、命令请求处理器、命令回复处理器）</li></ol><p>多个socket会产生不同的操作，每个操作对应不同的文件事件。但是IO多路复用程序会监听多个socket，并将这些事件放到一个队列中去。文件事件派发器会从队列中取出一个事件，派发给对应的事件处理器进行处理。</p><h3 id="持久化方式"><a href="#持久化方式" class="headerlink" title="持久化方式"></a>持久化方式</h3><p>RDB复制和AOF复制</p><ol><li>RDB复制<br>全量复制。<br><img src="/Users/xiazhenyu/Desktop/typora%E6%96%87%E4%BB%B6%E9%9B%86%E5%90%88/%E6%96%87%E6%A1%A3%E5%90%88%E9%9B%86/RDB%E5%A4%8D%E5%88%B6%E6%B5%81%E7%A8%8B%E5%9B%BE.png" alt="RDB复制流程图"></li><li>AOF复制<br>增量同步复制。<br>原理：AOF文件中存储的是redis的命令，同步命令到 AOF 文件的整个过程可以分为三个阶段:<ul><li>命令传播:Redis 将执行完的命令、命令的参数、命令的参数个数等信息发送到 AOF 程序中。</li><li> 缓存追加:AOF 程序根据接收到的命令数据，将命令转换为网络通讯协议的格式，然后将协议内容追加 到服务器的 AOF 缓存中。*</li><li> 文件写入和保存:AOF 缓存中的内容被写入到 AOF 文件末尾，如果设定的 AOF 保存条件被满足的话， fsync 函数或者 fdatasync 函数会被调用，将写入的内容真正地保存到磁盘中。</li></ul>AOF的3种刷盘机制：<ul><li>Appendfsync always:每次写入磁盘都刷盘，对性能影响最大，占用IO比较高，数据安全型最高；</li><li>appendfsync everysec：1秒刷一次盘，对性能影响最小，数据安全性低，节点宕机时最多丢失1秒数据；</li><li>appendfsync no：按照操作系统机制刷盘，对性能影响最小，但是数据安全性低；</li></ul></li></ol><h3 id="主从同步"><a href="#主从同步" class="headerlink" title="主从同步"></a>主从同步</h3><h3 id="性能指标"><a href="#性能指标" class="headerlink" title="性能指标"></a>性能指标</h3><h2 id="Redis的常用问题"><a href="#Redis的常用问题" class="headerlink" title="Redis的常用问题"></a>Redis的常用问题</h2><h3 id="DB和缓存数据的不一致性"><a href="#DB和缓存数据的不一致性" class="headerlink" title="DB和缓存数据的不一致性"></a>DB和缓存数据的不一致性</h3><p>不一致一方面有可能是更新db和redis的时候失败了，导致不一致，还有一种情况就是两者更新的中间某一时刻，其他线程进行请求，这个时候就会请求到老的数据，造成数据的不一致。</p><p>优先采用：先更新数据库、再删除缓存的策略。</p><p>怎么解决不一致问题？延迟删除？<br>答：强一致性很难，追求最终一致性（需要时间）；</p><ol><li>利用Redis的缓存淘汰策略被动更新 LRU 、LFU；</li><li> 利用TTL被动更新；</li><li> 在更新数据库时主动更新 (先更数据库再删缓存—-延时双删)；</li><li> 异步更新 定时任务 数据不保证时时一致 不穿DB；</li></ol><h3 id="缓存穿透、击穿、雪崩"><a href="#缓存穿透、击穿、雪崩" class="headerlink" title="缓存穿透、击穿、雪崩"></a>缓存穿透、击穿、雪崩</h3><ul><li>缓存穿透：<br>客户端发起了大量的不存在的key的请求，这个时候缓存查询不到，就去请求数据库。相当于直接穿透缓存打到DB。<br>怎么解决：</li></ul><ol><li>布隆过滤器；</li><li>缓存无效的key，并设置过期时间。key值的设计 表明名:列名:主键值</li></ol><ul><li><p>缓存击穿</p><p>户端同一个key短时间内有大量的请求，然后恰好这个时候，这个key的缓存失效了，导致大并发全部打在数据库上，导致数据库压力剧增。这种现象就叫做缓存击穿。</p><p>怎么解决：</p><ol><li>对于热点key可以不用设置过期时间；</li><li>使用互斥锁。如果缓存失效，只有拿到锁才可以查询数据库，降低了在同一时刻打在数据库上的请求，防止数据库被打死。</li></ol></li><li><p>缓存雪崩： redis大量的key失效，造成缓存功能失效，请求直接打到db，造成数据库压力增大。<br>怎么解决：</p><ol><li>事前：尽量保证整个redis集群的高可用性，发现机器宕机尽快补上。选择合适的内存淘汰策略；</li><li>事中： 本地ehcache缓存+hystrix限流&amp;降级，避免MySQL崩掉；</li><li>事后：利用redis持久化机制保存的数据库尽恢复缓存。<br><img src="/Users/xiazhenyu/Desktop/typora%E6%96%87%E4%BB%B6%E9%9B%86%E5%90%88/%E6%96%87%E6%A1%A3%E5%90%88%E9%9B%86/redis%E7%BC%93%E5%AD%98%E9%9B%AA%E5%B4%A9%E7%9A%84%E5%A4%84%E7%90%86%E6%96%B9%E5%BC%8F.png" alt="redis缓存雪崩的处理方式"></li></ol></li></ul><h3 id="怎么处理热点缓存"><a href="#怎么处理热点缓存" class="headerlink" title="怎么处理热点缓存"></a>怎么处理热点缓存</h3><p>提前预热：把热点数据提前加载到缓存中。</p><h3 id="MySQL⾥有2000w数据，Redis中只存20w的数据，如何保证Redis中的数据都是热点数据"><a href="#MySQL⾥有2000w数据，Redis中只存20w的数据，如何保证Redis中的数据都是热点数据" class="headerlink" title="MySQL⾥有2000w数据，Redis中只存20w的数据，如何保证Redis中的数据都是热点数据?"></a>MySQL⾥有2000w数据，Redis中只存20w的数据，如何保证Redis中的数据都是热点数据?</h3><ul><li>保留热点数据。淘汰策略使用allkeys-lru.</li><li>保证Redis中只存20W的数据。</li></ul><h3 id="分布式锁的使用情况、和Redission的区别"><a href="#分布式锁的使用情况、和Redission的区别" class="headerlink" title="分布式锁的使用情况、和Redission的区别"></a>分布式锁的使用情况、和Redission的区别</h3><p>redis分布式锁：setNx命令；<br>Redission框架：<a href="https://www.jianshu.com/p/e9b26c743cae">参考地址</a></p><p>​                         <img src="/Users/xiazhenyu/Desktop/typora%E6%96%87%E4%BB%B6%E9%9B%86%E5%90%88/%E6%96%87%E6%A1%A3%E5%90%88%E9%9B%86/Redisson%E7%BB%AD%E7%A7%9F%E6%9C%BA%E5%88%B6.png" alt="Redisson续租机制"></p><p>加锁：如果客户端面临的是一个redis cluster 集群，首先会根据hash节点选择一台机器；</p><ol><li>发送lua脚本到redis服务器上；</li><li>使用<code>exists myLock</code> 命令判断一下，如果key不存在的话，就进行加锁，使用<code>hset myLock</code>命令，需要注意的是value是客户端的Id（UUID）+线程id,并设置过期时间；</li><li>如果了另一个客户端请求，会发现key已经存在，然后判断hash数据结构中是否包含客户端2的id，没有的话，返回key的剩余生存时间；这个时候，客户端2会继续尝试获取；</li><li>一旦加锁成功，就会启动一个watch dog看门狗，他是一个后台线程，会每个10s检查下，如果客户端1还持有锁，就会不断延长key的生存时间；</li><li>重入：如果客户端1再次加锁，就会将hash数据结构中的值加一；</li></ol><p>解锁：每次对myLock数据结构中的那个加锁次数减1。如果发现是0了，说明这个客户端已经不再持有锁了，那么这个时候就可以删除这个key了，同时会发布一个redis解锁的消息给其他的客户端；如果不是0，就会继续延长这个锁的超时时间；</p><h3 id="利用redis还可以实现哪些常用的功能？"><a href="#利用redis还可以实现哪些常用的功能？" class="headerlink" title="利用redis还可以实现哪些常用的功能？"></a>利用redis还可以实现哪些常用的功能？</h3><h3 id="怎么解决库存超卖问题？"><a href="#怎么解决库存超卖问题？" class="headerlink" title="怎么解决库存超卖问题？"></a>怎么解决库存超卖问题？</h3><p>答：见高并发下库存扣减；</p><h3 id="大key问题"><a href="#大key问题" class="headerlink" title="大key问题"></a>大key问题</h3><ul><li>string类型的big key，不要放到redis中；</li><li>单个简单的key存储的value很大，可以尝试将对象拆分成几个key-value，使用mget的方式获取值，这样的话，分拆单次操作的压力，将整个压力平摊到多次操作中，降低对redis的IO影响。</li><li>hash、</li></ul>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;p&gt;[TOC]&lt;/p&gt;
+&lt;h2 id=&quot;Redis的基本数据结构&quot;&gt;&lt;a href=&quot;#Redis的基本数据结构&quot; class=&quot;headerlink&quot; title=&quot;Redis的基本数据结构&quot;&gt;&lt;/a&gt;Redis的基本数据结构&lt;/h2&gt;&lt;ol&gt;
+&lt;li&gt;Hash、Set 、S</summary>
+      
+    
+    
+    
+    
+  </entry>
+  
+</feed>

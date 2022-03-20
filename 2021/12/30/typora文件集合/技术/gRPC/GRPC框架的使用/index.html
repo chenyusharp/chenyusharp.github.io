@@ -1,0 +1,663 @@
+<!DOCTYPE html>
+<html lang=zh>
+<head>
+  <meta charset="utf-8">
+  
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
+  <meta name="renderer" content="webkit">
+  <meta http-equiv="Cache-Control" content="no-transform" />
+  <meta http-equiv="Cache-Control" content="no-siteapp" />
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="format-detection" content="telephone=no,email=no,adress=no">
+  <!-- Color theme for statusbar -->
+  <meta name="theme-color" content="#000000" />
+  <!-- 强制页面在当前窗口以独立页面显示,防止别人在框架里调用页面 -->
+  <meta http-equiv="window-target" content="_top" />
+  
+  
+  <title>Hexo</title>
+  <meta name="description" content="GRPC框架的使用：1ClientInterceptor  拦截器的作用？轮询策略：![image-20211230113255423](&#x2F;Users&#x2F;xiazhenyu&#x2F;Library&#x2F;Application Support&#x2F;typora-user-images&#x2F;image-20211230113255423.png) Grpc的设计理念： 服务而非对对象、消息而非引用。grpc的诞生就是为了适">
+<meta property="og:type" content="article">
+<meta property="og:title" content="技术、生活、思考">
+<meta property="og:url" content="http://example.com/2021/12/30/typora%E6%96%87%E4%BB%B6%E9%9B%86%E5%90%88/%E6%8A%80%E6%9C%AF/gRPC/GRPC%E6%A1%86%E6%9E%B6%E7%9A%84%E4%BD%BF%E7%94%A8/index.html">
+<meta property="og:site_name" content="技术、生活、思考">
+<meta property="og:description" content="GRPC框架的使用：1ClientInterceptor  拦截器的作用？轮询策略：![image-20211230113255423](&#x2F;Users&#x2F;xiazhenyu&#x2F;Library&#x2F;Application Support&#x2F;typora-user-images&#x2F;image-20211230113255423.png) Grpc的设计理念： 服务而非对对象、消息而非引用。grpc的诞生就是为了适">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2021-12-30T03:22:37.281Z">
+<meta property="article:modified_time" content="2022-01-12T09:11:33.341Z">
+<meta property="article:author" content="chenyusharp">
+<meta name="twitter:card" content="summary">
+  <!-- Canonical links -->
+  <link rel="canonical" href="http://example.com/2021/12/30/typora%E6%96%87%E4%BB%B6%E9%9B%86%E5%90%88/%E6%8A%80%E6%9C%AF/gRPC/GRPC%E6%A1%86%E6%9E%B6%E7%9A%84%E4%BD%BF%E7%94%A8/index.html">
+  
+    <link rel="alternate" href="/atom.xml" title="技术、生活、思考" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png" type="image/x-icon">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+  
+  
+  
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+
+<body class="main-center" itemscope itemtype="http://schema.org/WebPage">
+  <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+  <div class="slimContent">
+    <div class="navbar-header">
+      
+      
+      <div class="profile-block text-center">
+        <a id="avatar" href="https://github.com/chenyusharp" target="_blank">
+          <img class="img-circle img-rotate" src="https://xiazhenyu.oss-cn-hangzhou.aliyuncs.com/common/36723748-0889-481D-AD81-B036124EBE2E_1_105_c.jpeg" width="200" height="200">
+        </a>
+        <h2 id="name" class="hidden-xs hidden-sm">chenyusharp</h2>
+        <h3 id="title" class="hidden-xs hidden-sm hidden-md">Java Developer</h3>
+        <small id="location" class="text-muted hidden-xs hidden-sm"><i class="icon icon-map-marker"></i> Hangzhou, China</small>
+      </div>
+      
+      <div class="search" id="search-form-wrap">
+
+    <form class="search-form sidebar-form">
+        <div class="input-group">
+            <input type="text" class="search-form-input form-control" placeholder="搜索" />
+            <span class="input-group-btn">
+                <button type="submit" class="search-form-submit btn btn-flat" onclick="return false;"><i class="icon icon-search"></i></button>
+            </span>
+        </div>
+    </form>
+    <div class="ins-search">
+  <div class="ins-search-mask"></div>
+  <div class="ins-search-container">
+    <div class="ins-input-wrapper">
+      <input type="text" class="ins-search-input" placeholder="想要查找什么..." x-webkit-speech />
+      <button type="button" class="close ins-close ins-selectable" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+    </div>
+    <div class="ins-section-wrapper">
+      <div class="ins-section-container"></div>
+    </div>
+  </div>
+</div>
+
+
+</div>
+      <button class="navbar-toggle collapsed" type="button" data-toggle="collapse" data-target="#main-navbar" aria-controls="main-navbar" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+    </div>
+    <nav id="main-navbar" class="collapse navbar-collapse" itemscope itemtype="http://schema.org/SiteNavigationElement" role="navigation">
+      <ul class="nav navbar-nav main-nav ">
+        
+        
+        <li class="menu-item menu-item-home">
+          <a href="/.">
+            
+            <i class="icon icon-home-fill"></i>
+            
+            <span class="menu-title">首页</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives">
+            
+            <i class="icon icon-archives-fill"></i>
+            
+            <span class="menu-title">归档</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories">
+            
+            <i class="icon icon-folder"></i>
+            
+            <span class="menu-title">分类</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags">
+            
+            <i class="icon icon-tags"></i>
+            
+            <span class="menu-title">标签</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-repository">
+          <a href="/repository">
+            
+            <i class="icon icon-project"></i>
+            
+            <span class="menu-title">项目</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-books">
+          <a href="/books">
+            
+            <i class="icon icon-book-fill"></i>
+            
+            <span class="menu-title">书单</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-links">
+          <a href="/links">
+            
+            <i class="icon icon-friendship"></i>
+            
+            <span class="menu-title">友链</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about">
+            
+            <i class="icon icon-cup-fill"></i>
+            
+            <span class="menu-title">关于</span>
+          </a>
+        </li>
+        
+      </ul>
+      
+	
+    <ul class="social-links">
+    	
+        <li><a href="https://github.com/chenyusharp" target="_blank" title="Github" data-toggle=tooltip data-placement=top><i class="icon icon-github"></i></a></li>
+        
+    </ul>
+
+    </nav>
+  </div>
+</header>
+
+  
+    <aside class="sidebar" itemscope itemtype="http://schema.org/WPSideBar">
+  <div class="slimContent">
+    
+      <div class="widget">
+    <h3 class="widget-title">公告</h3>
+    <div class="widget-body">
+        <div id="board">
+            <div class="content">
+                <p>欢迎交流与分享经验!</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">分类</h3>
+    <div class="widget-body">
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/DDD/">DDD</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/linux/">linux</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/redis/">redis</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/typora/">typora</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/wholee/">wholee</a><span class="category-list-count">10</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%8A%80%E6%9C%AF/">技术</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%8A%80%E8%83%BD/">技能</a><span class="category-list-count">1</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%8A%80%E8%83%BD/%E5%B7%A5%E4%BD%9C/">工作</a><span class="category-list-count">1</span></li></ul></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">标签</h3>
+    <div class="widget-body">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/DDD/" rel="tag">DDD</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/linux/" rel="tag">linux</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/redis/" rel="tag">redis</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/wholee/" rel="tag">wholee</a><span class="tag-list-count">10</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%B7%A5%E4%BD%9C%E5%AE%89%E6%8E%92/" rel="tag">工作安排</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%8A%80%E8%83%BD/" rel="tag">技能</a><span class="tag-list-count">1</span></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">标签云</h3>
+    <div class="widget-body tagcloud">
+      <a href="/tags/DDD/" style="font-size: 13px;">DDD</a> <a href="/tags/linux/" style="font-size: 13.33px;">linux</a> <a href="/tags/redis/" style="font-size: 13px;">redis</a> <a href="/tags/wholee/" style="font-size: 14px;">wholee</a> <a href="/tags/%E5%B7%A5%E4%BD%9C%E5%AE%89%E6%8E%92/" style="font-size: 13.67px;">工作安排</a> <a href="/tags/%E6%8A%80%E8%83%BD/" style="font-size: 13px;">技能</a>
+    </div>
+  </div>
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">归档</h3>
+    <div class="widget-body">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/03/">三月 2022</a><span class="archive-list-count">12</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/02/">二月 2022</a><span class="archive-list-count">21</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/01/">一月 2022</a><span class="archive-list-count">30</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/12/">十二月 2021</a><span class="archive-list-count">8</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/11/">十一月 2021</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/10/">十月 2021</a><span class="archive-list-count">38</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/09/">九月 2021</a><span class="archive-list-count">10</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/08/">八月 2021</a><span class="archive-list-count">24</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/07/">七月 2021</a><span class="archive-list-count">18</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/06/">六月 2021</a><span class="archive-list-count">13</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/05/">五月 2021</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/03/">三月 2021</a><span class="archive-list-count">1</span></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget-body">
+      <ul class="recent-post-list list-unstyled no-thumbnail">
+        
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/%E6%8A%80%E6%9C%AF/">技术</a>
+              </p>
+              <p class="item-title">
+                <a href="/2022/03/20/typora%E6%96%87%E4%BB%B6%E9%9B%86%E5%90%88/%E6%8A%80%E6%9C%AF/%E5%B8%B8%E8%A7%81%E7%9A%84%E9%9D%A2%E8%AF%95%E6%8A%80%E6%9C%AF%E9%97%AE%E9%A2%98/%E5%88%A9%E7%94%A8JVM%E5%91%BD%E4%BB%A4%E8%A1%8C%E5%B7%A5%E5%85%B7%E6%8E%92%E6%9F%A5%E7%BA%BF%E4%B8%8A%E9%97%AE%E9%A2%98/" class="title">利用JVM命令行工具排查线上问题</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2022-03-20T05:19:39.297Z" itemprop="datePublished">2022-03-20</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/%E6%8A%80%E6%9C%AF/">技术</a>
+              </p>
+              <p class="item-title">
+                <a href="/2022/03/20/typora%E6%96%87%E4%BB%B6%E9%9B%86%E5%90%88/%E6%8A%80%E6%9C%AF/%E5%B8%B8%E8%A7%81%E7%9A%84%E9%9D%A2%E8%AF%95%E6%8A%80%E6%9C%AF%E9%97%AE%E9%A2%98/%E5%A6%82%E4%BD%95%E5%AE%9E%E7%8E%B0%E4%B8%80%E4%B8%AARPC%E6%A1%86%E6%9E%B6/" class="title">如何实现一个RPC框架</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2022-03-19T18:29:15.439Z" itemprop="datePublished">2022-03-20</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/linux/">linux</a>
+              </p>
+              <p class="item-title">
+                <a href="/2022/03/20/typora%E6%96%87%E4%BB%B6%E9%9B%86%E5%90%88/%E6%8A%80%E6%9C%AF/%E6%8A%80%E6%9C%AF%E7%AC%94%E8%AE%B0/%E6%9C%8D%E5%8A%A1%E5%99%A8/%E5%B8%B8%E7%94%A8%E7%9A%84linux%E5%91%BD%E4%BB%A4/" class="title">常用的linux命令</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2022-03-19T18:23:26.102Z" itemprop="datePublished">2022-03-20</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/redis/">redis</a>
+              </p>
+              <p class="item-title">
+                <a href="/2022/03/20/typora%E6%96%87%E4%BB%B6%E9%9B%86%E5%90%88/%E6%8A%80%E6%9C%AF/redis/redis%E6%BA%90%E7%A0%81%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/" class="title">redis源码环境搭建</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2022-03-19T16:29:16.300Z" itemprop="datePublished">2022-03-20</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                
+              </p>
+              <p class="item-title">
+                <a href="/2022/03/19/typora%E6%96%87%E4%BB%B6%E9%9B%86%E5%90%88/%E6%8A%80%E6%9C%AF/%E5%B8%B8%E8%A7%81%E7%9A%84%E9%9D%A2%E8%AF%95%E6%8A%80%E6%9C%AF%E9%97%AE%E9%A2%98/Spring%20AOP%E6%98%AF%E6%80%8E%E4%B9%88%E5%AE%9E%E7%8E%B0%E7%9A%84/" class="title">(no title)</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2022-03-18T17:03:12.253Z" itemprop="datePublished">2022-03-19</time>
+              </p>
+            </div>
+          </li>
+          
+      </ul>
+    </div>
+  </div>
+  
+
+    
+  </div>
+</aside>
+
+  
+  
+<main class="main" role="main">
+  <div class="content">
+  <article id="post-typora文件集合/技术/gRPC/GRPC框架的使用" class="article article-type-post" itemscope itemtype="http://schema.org/BlogPosting">
+    
+    <div class="article-header">
+      
+      <div class="article-meta">
+        <span class="article-date">
+    <i class="icon icon-calendar-check"></i>
+	<a href="/2021/12/30/typora%E6%96%87%E4%BB%B6%E9%9B%86%E5%90%88/%E6%8A%80%E6%9C%AF/gRPC/GRPC%E6%A1%86%E6%9E%B6%E7%9A%84%E4%BD%BF%E7%94%A8/" class="article-date">
+	  <time datetime="2021-12-30T03:22:37.281Z" itemprop="datePublished">2021-12-30</time>
+	</a>
+</span>
+        
+        
+
+        
+
+        <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2021/12/30/typora%E6%96%87%E4%BB%B6%E9%9B%86%E5%90%88/%E6%8A%80%E6%9C%AF/gRPC/GRPC%E6%A1%86%E6%9E%B6%E7%9A%84%E4%BD%BF%E7%94%A8/#comments" class="article-comment-link">评论</a></span>
+        
+      </div>
+    </div>
+    <div class="article-entry marked-body" itemprop="articleBody">
+      
+        <h2 id="GRPC框架的使用："><a href="#GRPC框架的使用：" class="headerlink" title="GRPC框架的使用："></a>GRPC框架的使用：</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ClientInterceptor</span><br></pre></td></tr></table></figure>
+
+<h3 id="拦截器的作用？"><a href="#拦截器的作用？" class="headerlink" title="拦截器的作用？"></a>拦截器的作用？</h3><p>轮询策略：<br>![image-20211230113255423](/Users/xiazhenyu/Library/Application Support/typora-user-images/image-20211230113255423.png)</p>
+<h3 id="Grpc的设计理念："><a href="#Grpc的设计理念：" class="headerlink" title="Grpc的设计理念："></a>Grpc的设计理念：</h3><ol>
+<li>服务而非对对象、消息而非引用。grpc的诞生就是为了适应为微服务。<br>原话：促进微服务的系统间粗粒度消息交互设计理念，同时避免分布式对象的陷阱和分布式计算的缪误。</li>
+<li>普遍并且简单<br>适用于移动的设备，迎合现在的移动互联场景；<br>原话：该基础框架应该再任何流行的开发平台上适用，并且易于个人在自己的平台上构建。它在CPU和内存有限的设备上也应该切实可行。</li>
+<li>流<br>适应大数据的处理；<br>原话：存储系统依赖于流和流控来传递大数据集。像语音转文本或股票代码等其他服务，依靠流表达时间相关的消息序列。</li>
+<li>元数据交换<br>抽离出与业务逻辑无关的代码；<br>原话：常见的横切关注点，如认证或跟踪，依赖数据交换,但这不是服务公共接口中的一部分。部署依赖于他们将这些特性以不同速度演进到服务暴露的个别API的能力。</li>
+</ol>
+<h3 id="Grpc中的几个核心的概念："><a href="#Grpc中的几个核心的概念：" class="headerlink" title="Grpc中的几个核心的概念："></a>Grpc中的几个核心的概念：</h3><ol>
+<li><p>Stub：（桩）<br>该层是暴露给大多数开发者的，提供类型安全的绑定到正在适应的数据模型/IDL/接口。gRPC带有一个proto-buffer编译器的插件。用来从.proto文件中生成Stub接口。</p>
+</li>
+<li><p>关键接口： Stream Observe</p>
+</li>
+<li><p>Channel<br>该层是传输处理之上的抽象，适合拦截器/装饰器，并比Stub层暴露更多的行为给应用。它像让应用框架可以简单的使用这个层来定位横切关注点，如日志、监控、认证等。流程控制也在这个层上暴露，允许更多复杂的应用来直接使用它进行交互。</p>
+</li>
+<li><p>Common</p>
+</li>
+<li><p>Client</p>
+</li>
+<li><p>NameResolver<br>是一个可拔插的组件，用以解析目标URL并返回地址给调用者；NameResolver使用URI的schema来检测是否可以解析它，再使用schema后面的组件来做实际处理。<br>目标的地址和属性可能随着时间的过去发生修改，因此调用者注册Listener来接受持续的更新；<br>扩展术语：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">URI：（统一资源标识符）</span><br><span class="line">通用的形式：</span><br><span class="line">schema:[//[user:password@]host:[port]][/]path[?query][#fragment]</span><br><span class="line">1.schema:由一系列字符组成，以字母开头，跟着有字母，数字，加号(+)，点号(.)或者中划线(-)的任何组合。</span><br><span class="line">流行的schema包括：http、ftp、malito(邮箱服务中)、file和data。</span><br><span class="line">2.双斜杠（//）</span><br><span class="line">某些 scheme 要求有这个， 而有些 scheme 不要求。当 authority 部分缺失时， path 部分不能以双斜杠开始。</span><br><span class="line">3.authority部分</span><br><span class="line">包括：</span><br><span class="line"> 可选认证部分：有用户名和密码，冒号分割，带一个@符号；</span><br><span class="line"> host：可以是hostname、ip等；</span><br><span class="line"> 可选的端口号：和hostname之间用冒号分割；</span><br><span class="line">4.路径</span><br><span class="line">包含数据，通常以层次形式组织，表现为一系列斜杠分割的部分。</span><br><span class="line">5.可选的query</span><br><span class="line">通常是一系列的属性值对，以分隔符分割；</span><br><span class="line">6.可选的fragment/片段</span><br><span class="line">和之前的部分以#分割。fragment包括一个fragment identifier片段标识，提供到间接资源的引导。</span><br></pre></td></tr></table></figure>
+
+<p>![image-20211230143739616](/Users/xiazhenyu/Library/Application Support/typora-user-images/image-20211230143739616.png)</p>
+</li>
+</ol>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">authority代表URI中的 [userinfo@]host[:port]，包括host(或者ip)和可选的port和userinfo。这个是RPC框架中比较常见的一个术语。</span><br></pre></td></tr></table></figure>
+
+<ol start="7">
+<li><p>Metadata</p>
+<p>提供对读取和写入元数据数值的访问，元数据值在调用期间交换<br>内部定义的类：<br>Marshaller：<br>定义了两个Marshaller的interface，分别处理二进制和ASCII自字符的值；</p>
+<ol>
+<li>BInaryMarshaller：用于序列化为原始二进制的元数据值的装配器；</li>
+<li>AsciiMarshaller:  用序列化为ASCII字符的元数据值的装配器，值只包含下列字符：<ul>
+<li>空格：0x20</li>
+<li>ASCII可见字符（0x21-0x7E） 。</li>
+</ul>
+</li>
+</ol>
+<p>内部类：Metadata.Key<br>元数据项的key，是为了元数据的解析和序列化；有效字符串：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">数字： 0-9</span><br><span class="line">大写字符： A-Z（标准化到小写)</span><br><span class="line">小写字符： a-z</span><br><span class="line">特殊字符： -_.</span><br></pre></td></tr></table></figure></li>
+<li><p>Channel<br>通道。<br>核心方法：<br>ClientCall方法：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">abstract</span> &lt;RequestT, ResponseT&gt; <span class="function">ClientCall&lt;RequestT, ResponseT&gt; <span class="title">newCall</span><span class="params">(</span></span></span><br><span class="line"><span class="params"><span class="function">      MethodDescriptor&lt;RequestT, ResponseT&gt; methodDescriptor, CallOptions callOptions)</span></span>;</span><br></pre></td></tr></table></figure>
+
+<p>作用：构建一个用于远程操作的ClientCall对象，通过给定的MethodDescriptor来制定。返回的ClientCall对象不会触发任何远程行为，直到ClientCall.start(ClientCall.Listener,Metadata)方法调用。</p>
+</li>
+<li><p>ManagedChannel<br>ManagedChannel在Channel的基础上提供了对Channel生命周期管理功能；</p>
+<p>实际实现式就是添加了 shutdown()/shutdownNow() 方法用于关闭 Channel，isShutdown()/isTerminated() 方法用于检测 Channel 状态， 以及 awaitTermination() 方法用于等待关闭操作完成。</p>
+</li>
+<li><p>ManagedChannelImpl</p>
+<ol>
+<li><p>InUseStateAggregator：正在使用的状态的聚合器，聚合一个对象集合的正在使用的状态。<br>实现原理：每个要使用这个聚合器的调用者都要存进来一个对象（范型T），然后用完之后再取出来，这样就可以通过保存对象数量的变化来判断开始使用或者已经不在使用。</p>
+</li>
+<li><p>NameResolver<br>name resolver的start()方法，也就是name resolver要开始解析name的这个工作，只有两种情况下开始：</p>
+<ol>
+<li><p>第一次rpc请求：此时要调用Channel的newCall()方法得到ClientCall的实例，然后调用ClientCall的start()方法，期间获取ClientTransport时激发一次name reslover的start()方法;<br>![image-20220101185222825](/Users/xiazhenyu/Library/Application Support/typora-user-images/image-20220101185222825.png)</p>
+<p>在ManagedChannelImpl的第361行的这个方法中，只有第一次调用的时候，inUseStateAggregator.,isInUse()这个方法返回的才有可能是false，这个时候回去创建timer以便在稍后进入空闲模式，然后回去创建lb以及触发name reslver的start方法。<br>![image-20220101185517463](/Users/xiazhenyu/Library/Application Support/typora-user-images/image-20220101185517463.png)</p>
+</li>
+</ol>
+</li>
+</ol>
+<p>再一次调用rpc方法的时候，这个时候lbHelper就不是null了，所以也就不会出发name resolver的start方法了。那这个name resolver最终调用的是哪里呢？<br>通过项目启动时，配置的BeanConfig中可以看出，每一个bean初始化的时候，都回去初始化一下ManagedChannelImpl这个类，通过上面的分析可以看出，这个是个Channel的管理类，负责网络的通信。<br>然后这个ManagedChannelImpl也是会注入在对应的接口sub的实现类中，为后续的请求做准备。每个sub中的NameResolver类也是在这个过程中创建的。<br>NameResolver类初始化的流程：<br>第一步：<br>![image-20220101195048927](/Users/xiazhenyu/Library/Application Support/typora-user-images/image-20220101195048927.png)</p>
+<p>第二步：<br><strong>![image-20220101195109926](/Users/xiazhenyu/Library/Application Support/typora-user-images/image-20220101195109926.png)</strong></p>
+<p>第三步：</p>
+<p>![image-20220101195150543](/Users/xiazhenyu/Library/Application Support/typora-user-images/image-20220101195150543.png)</p>
+<p>第四步：<br>![image-20220101195220372](/Users/xiazhenyu/Library/Application Support/typora-user-images/image-20220101195220372.png)</p>
+<p>最终：</p>
+<p>![image-20220101195553821](/Users/xiazhenyu/Library/Application Support/typora-user-images/image-20220101195553821.png)</p>
+<p>可以看出，最终创建的NameResolverder的实现类时OstrichNameResolver。</p>
+<p>所以，实际上的上面所说的调用的nameResolver的start方法，真的调用的是OstrichNameResolver的start方法。如下图：<br>![image-20220101200036448](/Users/xiazhenyu/Library/Application Support/typora-user-images/image-20220101200036448.png)</p>
+<p>然后，我们看下这个start方法中做了什么事情。</p>
+<p>之前创建OstrichNameResolver的时候，初始化了两个线程池——GrpcUtil.SHARED_CHANNEL_EXECUTOR, GrpcUtil.TIMER_SERVICE，当然，它们都是包装的，具体的线程池在其内部。一个时常规的线程池、一个时定时任务的线程池。这个方法的主要作用就是查询注册中心，然后把一些列的服务地址，写入Listener中，如下图：<br>![image-20220101203628916](/Users/xiazhenyu/Library/Application Support/typora-user-images/image-20220101203628916.png)</p>
+<p>然后调用了ManagedChannelImpl中onResult方法：<br>![image-20220101205018535](/Users/xiazhenyu/Library/Application Support/typora-user-images/image-20220101205018535.png)</p>
+<p>大体而言，此方法的主要目的就是将上面的到的服务的ip:host信息写入LoadBalance中。最终会走到RoundRobinLoadBalancer的handleResolvedAddresses方法中：<br>![image-20220101231409755](/Users/xiazhenyu/Library/Application Support/typora-user-images/image-20220101231409755.png)</p>
+<p>服务拉取的时间间隔（5分钟）<br>![image-20220101194149585](/Users/xiazhenyu/Library/Application Support/typora-user-images/image-20220101194149585.png)</p>
+</li>
+<li><p>​    </p>
+</li>
+</ol>
+<p>参考博文：<a target="_blank" rel="noopener" href="https://skyao.gitbooks.io/learning-grpc/content/channel/channel/impl/idle_mode.html">https://skyao.gitbooks.io/learning-grpc/content/channel/channel/impl/idle_mode.html</a></p>
+
+      
+    </div>
+    <div class="article-footer">
+      <blockquote class="mt-2x">
+  <ul class="post-copyright list-unstyled">
+    
+    <li class="post-copyright-link hidden-xs">
+      <strong>本文链接：</strong>
+      <a href="http://example.com/2021/12/30/typora%E6%96%87%E4%BB%B6%E9%9B%86%E5%90%88/%E6%8A%80%E6%9C%AF/gRPC/GRPC%E6%A1%86%E6%9E%B6%E7%9A%84%E4%BD%BF%E7%94%A8/" title="" target="_blank" rel="external">http://example.com/2021/12/30/typora文件集合/技术/gRPC/GRPC框架的使用/</a>
+    </li>
+    
+    <li class="post-copyright-license">
+      <strong>版权声明： </strong> 本博客所有文章除特别声明外，均采用 <a href="http://creativecommons.org/licenses/by/4.0/deed.zh" target="_blank" rel="external">CC BY 4.0 CN协议</a> 许可协议。转载请注明出处！
+    </li>
+  </ul>
+</blockquote>
+
+
+<div class="panel panel-default panel-badger">
+  <div class="panel-body">
+    <figure class="media">
+      <div class="media-left">
+        <a href="https://github.com/chenyusharp" target="_blank" class="img-burn thumb-sm visible-lg">
+          <img src="https://xiazhenyu.oss-cn-hangzhou.aliyuncs.com/common/36723748-0889-481D-AD81-B036124EBE2E_1_105_c.jpeg" class="img-rounded w-full" alt="">
+        </a>
+      </div>
+      <div class="media-body">
+        <h3 class="media-heading"><a href="https://github.com/chenyusharp" target="_blank"><span class="text-dark">chenyusharp</span><small class="ml-1x">Java Developer</small></a></h3>
+        <div>个人简介。</div>
+      </div>
+    </figure>
+  </div>
+</div>
+
+
+    </div>
+  </article>
+  
+    
+  <section id="comments">
+  	
+      <div id="vcomments"></div>
+    
+  </section>
+
+
+  
+</div>
+
+  <nav class="bar bar-footer clearfix" data-stick-bottom>
+  <div class="bar-inner">
+  
+  <ul class="pager pull-left">
+    
+    <li class="prev">
+      <a href="/2022/01/03/typora%E6%96%87%E4%BB%B6%E9%9B%86%E5%90%88/%E6%8A%80%E6%9C%AF/%E6%8A%80%E6%9C%AF%E7%AC%94%E8%AE%B0/%E6%BA%90%E7%A0%81/HashMap/" title="(no title)"><i class="icon icon-angle-left" aria-hidden="true"></i><span>&nbsp;&nbsp;上一篇</span></a>
+    </li>
+    
+    
+    <li class="next">
+      <a href="/2021/12/29/typora%E6%96%87%E4%BB%B6%E9%9B%86%E5%90%88/%E6%8B%89%E9%92%A9/JVM/12%E6%9C%8829%E5%8F%B7%E7%AD%94%E7%96%91/" title="(no title)"><span>下一篇&nbsp;&nbsp;</span><i class="icon icon-angle-right" aria-hidden="true"></i></a>
+    </li>
+    
+    
+  </ul>
+  
+  
+  <!-- Button trigger modal -->
+  <button type="button" class="btn btn-fancy btn-donate pop-onhover bg-gradient-warning" data-toggle="modal" data-target="#donateModal"><span>赏</span></button>
+  <!-- <div class="wave-icon wave-icon-danger btn-donate" data-toggle="modal" data-target="#donateModal">
+    <div class="wave-circle"><span class="icon"><i class="icon icon-bill"></i></span></div>
+  </div> -->
+  
+  
+  <div class="bar-right">
+    
+    <div class="share-component" data-sites="weibo,qq,wechat,facebook,twitter" data-mobile-sites="weibo,qq,qzone"></div>
+    
+  </div>
+  </div>
+</nav>
+  
+<!-- Modal -->
+<div class="modal modal-center modal-small modal-xs-full fade" id="donateModal" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content donate">
+      <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+      <div class="modal-body">
+        <div class="donate-box">
+          <div class="donate-head">
+            <p>感谢您的支持，我会继续努力的!</p>
+          </div>
+          <div class="tab-content">
+            <div role="tabpanel" class="tab-pane fade active in" id="alipay">
+              <div class="donate-payimg">
+                <img src="/images/donate/alipayimg.png" alt="扫码支持" title="扫一扫" />
+              </div>
+              <p class="text-muted mv">扫码打赏，你说多少就多少</p>
+              <p class="text-grey">打开支付宝扫一扫，即可进行扫码打赏哦</p>
+            </div>
+            <div role="tabpanel" class="tab-pane fade" id="wechatpay">
+              <div class="donate-payimg">
+                <img src="/images/donate/wechatpayimg.png" alt="扫码支持" title="扫一扫" />
+              </div>
+              <p class="text-muted mv">扫码打赏，你说多少就多少</p>
+              <p class="text-grey">打开微信扫一扫，即可进行扫码打赏哦</p>
+            </div>
+          </div>
+          <div class="donate-footer">
+            <ul class="nav nav-tabs nav-justified" role="tablist">
+              <li role="presentation" class="active">
+                <a href="#alipay" id="alipay-tab" role="tab" data-toggle="tab" aria-controls="alipay" aria-expanded="true"><i class="icon icon-alipay"></i> 支付宝</a>
+              </li>
+              <li role="presentation" class="">
+                <a href="#wechatpay" role="tab" id="wechatpay-tab" data-toggle="tab" aria-controls="wechatpay" aria-expanded="false"><i class="icon icon-wepay"></i> 微信支付</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+</main>
+
+  <footer class="footer" itemscope itemtype="http://schema.org/WPFooter">
+	
+	
+    <ul class="social-links">
+    	
+        <li><a href="https://github.com/chenyusharp" target="_blank" title="Github" data-toggle=tooltip data-placement=top><i class="icon icon-github"></i></a></li>
+        
+    </ul>
+
+    <div class="copyright">
+    	
+        <div class="publishby">
+        	Theme by <a href="https://github.com/cofess" target="_blank"> cofess </a>base on <a href="https://github.com/cofess/hexo-theme-pure" target="_blank">pure</a>.
+        </div>
+    </div>
+</footer>
+  <script src="//cdn.jsdelivr.net/npm/jquery@1.12.4/dist/jquery.min.js"></script>
+<script>
+window.jQuery || document.write('<script src="js/jquery.min.js"><\/script>')
+</script>
+
+<script src="/js/plugin.min.js"></script>
+
+
+<script src="/js/application.js"></script>
+
+
+    <script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: '文章',
+            PAGES: '页面',
+            CATEGORIES: '分类',
+            TAGS: '标签',
+            UNTITLED: '(未命名)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+
+<script src="/js/insight.js"></script>
+
+
+
+
+
+
+   
+
+
+
+
+   
+    
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/valine"></script>
+  <script type="text/javascript">
+  var GUEST = ['nick', 'mail', 'link'];
+  var meta = 'nick,mail,link';
+  meta = meta.split(',').filter(function(item) {
+    return GUEST.indexOf(item) > -1;
+  });
+  new Valine({
+    el: '#vcomments',
+    verify: false,
+    notify: false,
+    appId: '',
+    appKey: '',
+    placeholder: 'Just go go',
+    avatar: 'mm',
+    meta: meta,
+    pageSize: '10' || 10,
+    visitor: false
+  });
+  </script>
+
+     
+
+
+
+
+
+
+
+</body>
+</html>

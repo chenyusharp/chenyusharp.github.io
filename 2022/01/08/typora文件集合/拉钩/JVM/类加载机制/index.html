@@ -1,0 +1,816 @@
+<!DOCTYPE html>
+<html lang=zh>
+<head>
+  <meta charset="utf-8">
+  
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
+  <meta name="renderer" content="webkit">
+  <meta http-equiv="Cache-Control" content="no-transform" />
+  <meta http-equiv="Cache-Control" content="no-siteapp" />
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="format-detection" content="telephone=no,email=no,adress=no">
+  <!-- Color theme for statusbar -->
+  <meta name="theme-color" content="#000000" />
+  <!-- 强制页面在当前窗口以独立页面显示,防止别人在框架里调用页面 -->
+  <meta http-equiv="window-target" content="_top" />
+  
+  
+  <title>Hexo</title>
+  <meta name="description" content="类文件Class文件：Class文件是一组以字节为基础单位的二进制流，其数据结构的本质，是一系列的枚举类型（表）。枚举类型由“无符号数”、“其他枚举类型（表）”组成。Class文件中最基本、底层的类型定义如下：  字节码的本质：就是一个在二维坐标系上的16进制编码。 都有哪些东西呢？    内容 说明     魔数 0xCAFEBABE，证明该class文件的合法性    大小版本号 表明这个类文">
+<meta property="og:type" content="article">
+<meta property="og:title" content="技术、生活、思考">
+<meta property="og:url" content="http://example.com/2022/01/08/typora%E6%96%87%E4%BB%B6%E9%9B%86%E5%90%88/%E6%8B%89%E9%92%A9/JVM/%E7%B1%BB%E5%8A%A0%E8%BD%BD%E6%9C%BA%E5%88%B6/index.html">
+<meta property="og:site_name" content="技术、生活、思考">
+<meta property="og:description" content="类文件Class文件：Class文件是一组以字节为基础单位的二进制流，其数据结构的本质，是一系列的枚举类型（表）。枚举类型由“无符号数”、“其他枚举类型（表）”组成。Class文件中最基本、底层的类型定义如下：  字节码的本质：就是一个在二维坐标系上的16进制编码。 都有哪些东西呢？    内容 说明     魔数 0xCAFEBABE，证明该class文件的合法性    大小版本号 表明这个类文">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://example.com/Users/xiazhenyu/Desktop/typora%E6%96%87%E4%BB%B6%E9%9B%86%E5%90%88/%E6%96%87%E6%A1%A3%E5%90%88%E9%9B%86/Class%E6%96%87%E4%BB%B6%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84.png">
+<meta property="article:published_time" content="2022-01-08T13:43:03.047Z">
+<meta property="article:modified_time" content="2022-02-13T06:43:33.224Z">
+<meta property="article:author" content="chenyusharp">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/Users/xiazhenyu/Desktop/typora%E6%96%87%E4%BB%B6%E9%9B%86%E5%90%88/%E6%96%87%E6%A1%A3%E5%90%88%E9%9B%86/Class%E6%96%87%E4%BB%B6%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84.png">
+  <!-- Canonical links -->
+  <link rel="canonical" href="http://example.com/2022/01/08/typora%E6%96%87%E4%BB%B6%E9%9B%86%E5%90%88/%E6%8B%89%E9%92%A9/JVM/%E7%B1%BB%E5%8A%A0%E8%BD%BD%E6%9C%BA%E5%88%B6/index.html">
+  
+    <link rel="alternate" href="/atom.xml" title="技术、生活、思考" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png" type="image/x-icon">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+  
+  
+  
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+
+<body class="main-center" itemscope itemtype="http://schema.org/WebPage">
+  <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+  <div class="slimContent">
+    <div class="navbar-header">
+      
+      
+      <div class="profile-block text-center">
+        <a id="avatar" href="https://github.com/chenyusharp" target="_blank">
+          <img class="img-circle img-rotate" src="https://xiazhenyu.oss-cn-hangzhou.aliyuncs.com/common/36723748-0889-481D-AD81-B036124EBE2E_1_105_c.jpeg" width="200" height="200">
+        </a>
+        <h2 id="name" class="hidden-xs hidden-sm">chenyusharp</h2>
+        <h3 id="title" class="hidden-xs hidden-sm hidden-md">Java Developer</h3>
+        <small id="location" class="text-muted hidden-xs hidden-sm"><i class="icon icon-map-marker"></i> Hangzhou, China</small>
+      </div>
+      
+      <div class="search" id="search-form-wrap">
+
+    <form class="search-form sidebar-form">
+        <div class="input-group">
+            <input type="text" class="search-form-input form-control" placeholder="搜索" />
+            <span class="input-group-btn">
+                <button type="submit" class="search-form-submit btn btn-flat" onclick="return false;"><i class="icon icon-search"></i></button>
+            </span>
+        </div>
+    </form>
+    <div class="ins-search">
+  <div class="ins-search-mask"></div>
+  <div class="ins-search-container">
+    <div class="ins-input-wrapper">
+      <input type="text" class="ins-search-input" placeholder="想要查找什么..." x-webkit-speech />
+      <button type="button" class="close ins-close ins-selectable" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+    </div>
+    <div class="ins-section-wrapper">
+      <div class="ins-section-container"></div>
+    </div>
+  </div>
+</div>
+
+
+</div>
+      <button class="navbar-toggle collapsed" type="button" data-toggle="collapse" data-target="#main-navbar" aria-controls="main-navbar" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+    </div>
+    <nav id="main-navbar" class="collapse navbar-collapse" itemscope itemtype="http://schema.org/SiteNavigationElement" role="navigation">
+      <ul class="nav navbar-nav main-nav ">
+        
+        
+        <li class="menu-item menu-item-home">
+          <a href="/.">
+            
+            <i class="icon icon-home-fill"></i>
+            
+            <span class="menu-title">首页</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives">
+            
+            <i class="icon icon-archives-fill"></i>
+            
+            <span class="menu-title">归档</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories">
+            
+            <i class="icon icon-folder"></i>
+            
+            <span class="menu-title">分类</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags">
+            
+            <i class="icon icon-tags"></i>
+            
+            <span class="menu-title">标签</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-repository">
+          <a href="/repository">
+            
+            <i class="icon icon-project"></i>
+            
+            <span class="menu-title">项目</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-books">
+          <a href="/books">
+            
+            <i class="icon icon-book-fill"></i>
+            
+            <span class="menu-title">书单</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-links">
+          <a href="/links">
+            
+            <i class="icon icon-friendship"></i>
+            
+            <span class="menu-title">友链</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about">
+            
+            <i class="icon icon-cup-fill"></i>
+            
+            <span class="menu-title">关于</span>
+          </a>
+        </li>
+        
+      </ul>
+      
+	
+    <ul class="social-links">
+    	
+        <li><a href="https://github.com/chenyusharp" target="_blank" title="Github" data-toggle=tooltip data-placement=top><i class="icon icon-github"></i></a></li>
+        
+    </ul>
+
+    </nav>
+  </div>
+</header>
+
+  
+    <aside class="sidebar" itemscope itemtype="http://schema.org/WPSideBar">
+  <div class="slimContent">
+    
+      <div class="widget">
+    <h3 class="widget-title">公告</h3>
+    <div class="widget-body">
+        <div id="board">
+            <div class="content">
+                <p>欢迎交流与分享经验!</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">分类</h3>
+    <div class="widget-body">
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/DDD/">DDD</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/linux/">linux</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/redis/">redis</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/typora/">typora</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/wholee/">wholee</a><span class="category-list-count">10</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%8A%80%E6%9C%AF/">技术</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%8A%80%E8%83%BD/">技能</a><span class="category-list-count">1</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%8A%80%E8%83%BD/%E5%B7%A5%E4%BD%9C/">工作</a><span class="category-list-count">1</span></li></ul></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">标签</h3>
+    <div class="widget-body">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/DDD/" rel="tag">DDD</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/linux/" rel="tag">linux</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/redis/" rel="tag">redis</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/wholee/" rel="tag">wholee</a><span class="tag-list-count">10</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%B7%A5%E4%BD%9C%E5%AE%89%E6%8E%92/" rel="tag">工作安排</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%8A%80%E8%83%BD/" rel="tag">技能</a><span class="tag-list-count">1</span></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">标签云</h3>
+    <div class="widget-body tagcloud">
+      <a href="/tags/DDD/" style="font-size: 13px;">DDD</a> <a href="/tags/linux/" style="font-size: 13.33px;">linux</a> <a href="/tags/redis/" style="font-size: 13px;">redis</a> <a href="/tags/wholee/" style="font-size: 14px;">wholee</a> <a href="/tags/%E5%B7%A5%E4%BD%9C%E5%AE%89%E6%8E%92/" style="font-size: 13.67px;">工作安排</a> <a href="/tags/%E6%8A%80%E8%83%BD/" style="font-size: 13px;">技能</a>
+    </div>
+  </div>
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">归档</h3>
+    <div class="widget-body">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/03/">三月 2022</a><span class="archive-list-count">12</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/02/">二月 2022</a><span class="archive-list-count">21</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/01/">一月 2022</a><span class="archive-list-count">30</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/12/">十二月 2021</a><span class="archive-list-count">8</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/11/">十一月 2021</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/10/">十月 2021</a><span class="archive-list-count">38</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/09/">九月 2021</a><span class="archive-list-count">10</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/08/">八月 2021</a><span class="archive-list-count">24</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/07/">七月 2021</a><span class="archive-list-count">18</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/06/">六月 2021</a><span class="archive-list-count">13</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/05/">五月 2021</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/03/">三月 2021</a><span class="archive-list-count">1</span></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget-body">
+      <ul class="recent-post-list list-unstyled no-thumbnail">
+        
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/%E6%8A%80%E6%9C%AF/">技术</a>
+              </p>
+              <p class="item-title">
+                <a href="/2022/03/20/typora%E6%96%87%E4%BB%B6%E9%9B%86%E5%90%88/%E6%8A%80%E6%9C%AF/%E5%B8%B8%E8%A7%81%E7%9A%84%E9%9D%A2%E8%AF%95%E6%8A%80%E6%9C%AF%E9%97%AE%E9%A2%98/%E5%88%A9%E7%94%A8JVM%E5%91%BD%E4%BB%A4%E8%A1%8C%E5%B7%A5%E5%85%B7%E6%8E%92%E6%9F%A5%E7%BA%BF%E4%B8%8A%E9%97%AE%E9%A2%98/" class="title">利用JVM命令行工具排查线上问题</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2022-03-20T05:19:39.297Z" itemprop="datePublished">2022-03-20</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/%E6%8A%80%E6%9C%AF/">技术</a>
+              </p>
+              <p class="item-title">
+                <a href="/2022/03/20/typora%E6%96%87%E4%BB%B6%E9%9B%86%E5%90%88/%E6%8A%80%E6%9C%AF/%E5%B8%B8%E8%A7%81%E7%9A%84%E9%9D%A2%E8%AF%95%E6%8A%80%E6%9C%AF%E9%97%AE%E9%A2%98/%E5%A6%82%E4%BD%95%E5%AE%9E%E7%8E%B0%E4%B8%80%E4%B8%AARPC%E6%A1%86%E6%9E%B6/" class="title">如何实现一个RPC框架</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2022-03-19T18:29:15.439Z" itemprop="datePublished">2022-03-20</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/linux/">linux</a>
+              </p>
+              <p class="item-title">
+                <a href="/2022/03/20/typora%E6%96%87%E4%BB%B6%E9%9B%86%E5%90%88/%E6%8A%80%E6%9C%AF/%E6%8A%80%E6%9C%AF%E7%AC%94%E8%AE%B0/%E6%9C%8D%E5%8A%A1%E5%99%A8/%E5%B8%B8%E7%94%A8%E7%9A%84linux%E5%91%BD%E4%BB%A4/" class="title">常用的linux命令</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2022-03-19T18:23:26.102Z" itemprop="datePublished">2022-03-20</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/redis/">redis</a>
+              </p>
+              <p class="item-title">
+                <a href="/2022/03/20/typora%E6%96%87%E4%BB%B6%E9%9B%86%E5%90%88/%E6%8A%80%E6%9C%AF/redis/redis%E6%BA%90%E7%A0%81%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/" class="title">redis源码环境搭建</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2022-03-19T16:29:16.300Z" itemprop="datePublished">2022-03-20</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                
+              </p>
+              <p class="item-title">
+                <a href="/2022/03/19/typora%E6%96%87%E4%BB%B6%E9%9B%86%E5%90%88/%E6%8A%80%E6%9C%AF/%E5%B8%B8%E8%A7%81%E7%9A%84%E9%9D%A2%E8%AF%95%E6%8A%80%E6%9C%AF%E9%97%AE%E9%A2%98/Spring%20AOP%E6%98%AF%E6%80%8E%E4%B9%88%E5%AE%9E%E7%8E%B0%E7%9A%84/" class="title">(no title)</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2022-03-18T17:03:12.253Z" itemprop="datePublished">2022-03-19</time>
+              </p>
+            </div>
+          </li>
+          
+      </ul>
+    </div>
+  </div>
+  
+
+    
+  </div>
+</aside>
+
+  
+  
+<main class="main" role="main">
+  <div class="content">
+  <article id="post-typora文件集合/拉钩/JVM/类加载机制" class="article article-type-post" itemscope itemtype="http://schema.org/BlogPosting">
+    
+    <div class="article-header">
+      
+      <div class="article-meta">
+        <span class="article-date">
+    <i class="icon icon-calendar-check"></i>
+	<a href="/2022/01/08/typora%E6%96%87%E4%BB%B6%E9%9B%86%E5%90%88/%E6%8B%89%E9%92%A9/JVM/%E7%B1%BB%E5%8A%A0%E8%BD%BD%E6%9C%BA%E5%88%B6/" class="article-date">
+	  <time datetime="2022-01-08T13:43:03.047Z" itemprop="datePublished">2022-01-08</time>
+	</a>
+</span>
+        
+        
+
+        
+
+        <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2022/01/08/typora%E6%96%87%E4%BB%B6%E9%9B%86%E5%90%88/%E6%8B%89%E9%92%A9/JVM/%E7%B1%BB%E5%8A%A0%E8%BD%BD%E6%9C%BA%E5%88%B6/#comments" class="article-comment-link">评论</a></span>
+        
+      </div>
+    </div>
+    <div class="article-entry marked-body" itemprop="articleBody">
+      
+        <h2 id="类文件"><a href="#类文件" class="headerlink" title="类文件"></a>类文件</h2><h3 id="Class文件："><a href="#Class文件：" class="headerlink" title="Class文件："></a>Class文件：</h3><p>Class文件是一组以字节为基础单位的二进制流，其数据结构的本质，是一系列的枚举类型（表）。枚举类型由“无符号数”、“其他枚举类型（表）”组成。Class文件中最基本、底层的类型定义如下：</p>
+<p><img src="/Users/xiazhenyu/Desktop/typora%E6%96%87%E4%BB%B6%E9%9B%86%E5%90%88/%E6%96%87%E6%A1%A3%E5%90%88%E9%9B%86/Class%E6%96%87%E4%BB%B6%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84.png" alt="Class文件数据结构"></p>
+<p>字节码的本质：就是一个在二维坐标系上的16进制编码。</p>
+<p>都有哪些东西呢？</p>
+<table>
+<thead>
+<tr>
+<th>内容</th>
+<th>说明</th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td>魔数</td>
+<td>0xCAFEBABE，证明该class文件的合法性</td>
+<td></td>
+</tr>
+<tr>
+<td>大小版本号</td>
+<td>表明这个类文件是有哪个版本的jdk编译的。</td>
+<td></td>
+</tr>
+<tr>
+<td>常量池容量</td>
+<td>常量池所包含的常量项数。</td>
+<td></td>
+</tr>
+<tr>
+<td>常量池</td>
+<td>字面量：文本字符串、被final修饰的成员变量；<br />符号引用：类和接口的全限定名、字段的名称和描述符、方法的名称和描述符</td>
+<td></td>
+</tr>
+<tr>
+<td>访问标志</td>
+<td>作用域、是否为abstract、是否为final等</td>
+<td></td>
+</tr>
+<tr>
+<td>类、父类、实现的接口的索引</td>
+<td>当前类本身、父类、实现的接口的信息。</td>
+<td></td>
+</tr>
+<tr>
+<td>字段表集合</td>
+<td>接口或者类中声明的变量；</td>
+<td></td>
+</tr>
+<tr>
+<td>方法表集合</td>
+<td>接口或者类中声明的方法；</td>
+<td></td>
+</tr>
+<tr>
+<td>属性表集合</td>
+<td>接口或者类其本身的属性；</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody></table>
+<h3 id="字节码指令？"><a href="#字节码指令？" class="headerlink" title="字节码指令？"></a>字节码指令？</h3><p>定义：由一个字节长度、代表着某种特定操作含义的数字以及跟随其后的零至多个代表操作所需的参数构成。<br>指令概述：</p>
+<table>
+<thead>
+<tr>
+<th>类型</th>
+<th>指令</th>
+<th>说明</th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td>加载和存储指令</td>
+<td>load、store、const、wide</td>
+<td>将数据向栈桢中的操作数栈传输、存储</td>
+<td></td>
+</tr>
+<tr>
+<td>运行指令</td>
+<td>加减乘除、取余、取反、位移、与或非、自增、比较</td>
+<td>计算</td>
+<td></td>
+</tr>
+<tr>
+<td>类型转化指令</td>
+<td>宽化、窄化</td>
+<td>int转long、long转int、窄化有风险</td>
+<td></td>
+</tr>
+<tr>
+<td>对象创建与访问指令</td>
+<td>创建对象、数组，访问实例、操作数组、取数组长度、检查实例</td>
+<td>对对象和数组进行创建与操作</td>
+<td></td>
+</tr>
+<tr>
+<td>控制转移指令</td>
+<td>条件分支、符合条件分支、无条件分支</td>
+<td>控制代码分支</td>
+<td></td>
+</tr>
+<tr>
+<td>方法调用与返回指令</td>
+<td>调用分派、接口调用分派、父类调用</td>
+<td>控制方法调用</td>
+<td></td>
+</tr>
+<tr>
+<td>异常处理指令</td>
+<td>抛出异常、捕捉异常</td>
+<td>控制异常</td>
+<td></td>
+</tr>
+<tr>
+<td>同步指令</td>
+<td>多线程时保证线程安全</td>
+<td>控制并发</td>
+<td></td>
+</tr>
+</tbody></table>
+<h2 id="类加载机制"><a href="#类加载机制" class="headerlink" title="类加载机制"></a>类加载机制</h2><p>类的加载时机：</p>
+<p>![image-20220108225356052](/Users/xiazhenyu/Library/Application Support/typora-user-images/image-20220108225356052.png)</p>
+<p>PS: 解析不一定按照上述的流程，它在某些条件下可以在初始化阶段之后再开始，为了支持Java语言的运行时绑定特性。<br>需要立即对类进行初始化的情况：</p>
+<ol>
+<li>遇到new、getstatic、putstatic、invokestatic(调用静态方法)这四条字节码指令时，如果类型没有进行过初始化，则需要先触发其初始化阶段。</li>
+<li>使用java.lang.reflect包的方法对类型进行反射调用的时候，如果类型没有进行过初始化，则需要先触发其初始化。</li>
+<li>当初始化类的时候，如果发现其父类还没有进行过初始化，则需要先触发其父类的初始化；</li>
+<li>当虚拟机启动时，用户需要指定一个要执行的主类（包含main()方法的类），虚拟机先初始化这个主类。</li>
+<li>当使用JDK7 新加入的动态语言支持时，如果一个java.lang.invoke.MethodHandler实例最后的解析结果为REF_getstatic、REF_putstatic、 REF_invokestatic、 REF_newInvokeSpecial四种类型的方法句柄，并且这个方法句柄对应的类没有进行过初始化，则需要先触发其初始化。</li>
+<li>当一个接口中定义了JDK8 新加入的默认方法（被default方法修饰的接口方法）时，如果这个接口的实现类发生了初始化，那这个接口要再其之前被初始化。</li>
+</ol>
+<p>接口也有初始化过程，编译器会为接口生成”<clinit>()&quot;类构造器，用于初始化接口中所定义的成员变量。不同的是，当一个类在初始化时，要求其父类全部都已经初始化过了，但是一个接口在初始化时，并不要求其父接口全部都完成初始化，只有在其真正使用到父接口的时候才会初始化。</p>
+<h3 id="加载"><a href="#加载" class="headerlink" title="加载"></a>加载</h3><ol>
+<li><p>加载时机</p>
+<table>
+<thead>
+<tr>
+<th>时机</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>遇到new、getstatic、putstatic、invokestatic字节码时</td>
+<td>new：实例化对象；<br />getstatic、putstatic：读取static字段；<br />invokestatic：调用静态方法；</td>
+</tr>
+<tr>
+<td>被反射代码调用时</td>
+<td></td>
+</tr>
+<tr>
+<td>main方法所在的类</td>
+<td></td>
+</tr>
+<tr>
+<td>动态语言支持</td>
+<td>groovy等动态语言解析需要加载新的类</td>
+</tr>
+<tr>
+<td>调用接口的default方法</td>
+<td></td>
+</tr>
+</tbody></table>
+</li>
+<li><p>加载来源：</p>
+</li>
+</ol>
+<p>功能：</p>
+<ol>
+<li>通过一个类的全限定名来获取定义此类的二进制字节流；</li>
+<li>将这个字节流所代表的静态存储结构转化为方法区的运行时数据结构；</li>
+<li>在内存中生成一个代表这个类的java.lang.Class对象，作为方法区这个类的各种数据的访问入口；</li>
+</ol>
+<p>PS：数组类本身时不通过类加载器创建的，它是由Java虚拟机直接在内存中动态构造出来的。但是数组中的元素类型仍然是需要类加载器来完成加载的。</p>
+<h3 id="验证"><a href="#验证" class="headerlink" title="验证"></a>验证</h3><p>包含一下四个阶段的验证动作：文件格式验证、元数据验证、字节码验证、符号引用验证。</p>
+<h4 id="文件格式验证"><a href="#文件格式验证" class="headerlink" title="文件格式验证"></a>文件格式验证</h4><p>最常见的是魔数0xCAFEBABE、主次版本号是否在当前虚拟机接收范围内；<br>保证输入的字节流能正确地解析并存储于方法区之内，格式上符合描述一个Java类型信息的要求。</p>
+<h4 id="元数据验证"><a href="#元数据验证" class="headerlink" title="元数据验证"></a>元数据验证</h4><p>对字节码描述的信息进行语义分析，包括：</p>
+<ul>
+<li>这个类是否有父类；</li>
+<li>这个类的父类是否继承了不允许被继承的类（被final修饰的类）；</li>
+<li>如果这个类不是抽象类，是否实现了其父类或接口之中要求实现的所有方法；</li>
+<li>类中的字段、方法是否与父类产生矛盾；</li>
+</ul>
+<h4 id="字节码验证"><a href="#字节码验证" class="headerlink" title="字节码验证"></a>字节码验证</h4><p>通过数据流分析和控制流分析，确定程序语义是合法的、符合逻辑的。</p>
+<h4 id="符号引用验证"><a href="#符号引用验证" class="headerlink" title="符号引用验证"></a>符号引用验证</h4><p>发生在虚拟机将符号引用转化为直接引用的时候。对类自身以外的各类信息进行匹配性校验，通俗来说就是，该类是否缺少或者被禁止访问它依赖的某些外部类、方法、字段等资源。目的：保证解析行为能正常执行。</p>
+<h3 id="准备"><a href="#准备" class="headerlink" title="准备"></a>准备</h3><p>正式为类中定义的变量（即静态变量，被static修饰的变量）分配内存并设置类变量初始值的阶段。这里的初始值通常情况下是数据类型的零值，但是如果类的字段属性表中存在ConstantValue属性，那么在准备阶段变量值就会被初始化为ConstantValue属性指定的值。<br>划分内存、设置类变量初始值、初始化符号</p>
+<h3 id="解析"><a href="#解析" class="headerlink" title="解析"></a>解析</h3><p>解析阶段是Java虚拟机将常量池内的符号引用替换为直接引用的过程。</p>
+<ol>
+<li>符号引用（symbolic References）：符号引用以一组符号来描述所引用的目标，符号可以是任何形式的字面量，只要使用时能无歧义地定位到目标即可。符号引用与虚拟机的内存布局无关。</li>
+<li>直接引用（Direct References）：直接引用是可以直接指向目标的指针、相对偏移量或是一个能直接定位到目标的句柄。直接引用和虚拟机的内存布局直接相关。</li>
+</ol>
+<p>解析动作主要针对类或接口、字段、类方法、接口方法、方法类型、方法句柄和调用点限定符这7类符号引用进行。</p>
+<h3 id="初始化"><a href="#初始化" class="headerlink" title="初始化"></a>初始化</h3><p>执行类构造器&lt;clinit&gt;()方法的过程。&lt;clinit&gt;()方法是由编译器自动收集类中的所有变量的赋值动作和静态语句块（static{}块）中的语句合并产生的，编译器收集的顺序是由语句在源文件中出现的顺序决定的，静态语句块只能访问到定义在静态语句块之前的变量，定义在它之后的变量，在前面的静态语句块可以赋值，但是不能访问。<br>需要注意的点：</p>
+<ul>
+<li>&lt;clinit&gt;() 方法与类的构造函数不同，它不需要显式的调用父类构造器，Java虚拟机会保证在字类的&lt;clinit&gt;()方法执行完成以前，父类的&lt;clinit&gt;()方法已经执行完毕；</li>
+<li>由于父类的&lt;clinit&gt;()先执行，所以父类中的定义的静态语句块要优先于子类的变量操作；</li>
+<li>&lt;clinit&gt;() 不是必须的；</li>
+<li>接口中不能使用静态语句块，但仍然有变量初始化的赋值操作；</li>
+<li>Java虚拟机保证一个类的&lt;clinit&gt;()方法在多线程环境下被正确地加锁同步；</li>
+</ul>
+<h2 id="类加载器"><a href="#类加载器" class="headerlink" title="类加载器"></a>类加载器</h2><p>获取类的二进制字节流的代码成为==类加载器==</p>
+<p>对于任意一个类，都必须由加载它的==类加载器和这个类本身==一起共同确立其在Java虚拟机中的唯一性。每一个类加载器，都拥有一个独立的类名称空间，比较两个类是不是相同需要在同一个类名称空间下才有意义。</p>
+<p>下面是几个不同等级的类加载器。 </p>
+<ul>
+<li>Bootstrap ClassLoader </li>
+</ul>
+<p>这个是加载器的大Boss，任何类的加载行为，都要经过它。它的作用是加载核心类库，也就是rt.jar、resources.jar、charsets.jar、tools.jar等。当然这些jar包的路径是可以指定的。-Xbootclasspath参数可以完成指定的操作。 </p>
+<p>这个加载器是C++编写的，随着JVM而启动。 </p>
+<ul>
+<li>Extension ClassLoader </li>
+</ul>
+<p>扩展类加载器，主要用作加载<JAVA_HOME>\lib\ext目录下的jar包和.class文件。同样的，通过系统变量java.ext.dirs可以指定这个目录。 </p>
+<p>这个加载器是个Java类，继承自URLClassLoader，在JDK中的名字应该是ExtClassLoader；</p>
+<ul>
+<li>App ClassLoader </li>
+</ul>
+<p>这是我们编写的Java类的默认加载器，有时候也叫做System ClassLoader。一般用来加载classpath下的其他的所有的jar包和.class文件。我们编写的代码，首先会使用这个类加载器进行加载。 </p>
+<ul>
+<li>Custom ClassLoader </li>
+</ul>
+<p>自定义加载器，支持一些个性化的扩展功能。 </p>
+<h3 id="双亲委派模型"><a href="#双亲委派模型" class="headerlink" title="双亲委派模型"></a>双亲委派模型</h3><p>双亲委派机制的意思是除了顶层的启动类加载器以外，其余的类加载器，在加载以前，都会委派给它的父类加载器进行加载，这样一层一层向上传递，直到祖先们都无法胜任，它才会真正的加载。<br>代码：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">protected</span> Class&lt;?&gt; loadClass(String name, <span class="keyword">boolean</span> resolve)</span><br><span class="line">        <span class="keyword">throws</span> ClassNotFoundException</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">synchronized</span> (getClassLoadingLock(name)) &#123;</span><br><span class="line">            <span class="comment">// First, check if the class has already been loaded</span></span><br><span class="line">            Class&lt;?&gt; c = findLoadedClass(name);</span><br><span class="line">            <span class="keyword">if</span> (c == <span class="keyword">null</span>) &#123;</span><br><span class="line">                <span class="keyword">long</span> t0 = System.nanoTime();</span><br><span class="line">                <span class="keyword">try</span> &#123;</span><br><span class="line">                    <span class="keyword">if</span> (parent != <span class="keyword">null</span>) &#123;</span><br><span class="line">                        c = parent.loadClass(name, <span class="keyword">false</span>);</span><br><span class="line">                    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                        c = findBootstrapClassOrNull(name);</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125; <span class="keyword">catch</span> (ClassNotFoundException e) &#123;</span><br><span class="line">                    <span class="comment">// ClassNotFoundException thrown if class not found</span></span><br><span class="line">                    <span class="comment">// from the non-null parent class loader</span></span><br><span class="line">                &#125;</span><br><span class="line"></span><br><span class="line">                <span class="keyword">if</span> (c == <span class="keyword">null</span>) &#123;</span><br><span class="line">                    <span class="comment">// If still not found, then invoke findClass in order</span></span><br><span class="line">                    <span class="comment">// to find the class.</span></span><br><span class="line">                    <span class="keyword">long</span> t1 = System.nanoTime();</span><br><span class="line">                    c = findClass(name);</span><br><span class="line"></span><br><span class="line">                    <span class="comment">// this is the defining class loader; record the stats</span></span><br><span class="line">                    sun.misc.PerfCounter.getParentDelegationTime().addTime(t1 - t0);</span><br><span class="line">                    sun.misc.PerfCounter.getFindClassTime().addElapsedTimeFrom(t1);</span><br><span class="line">                    sun.misc.PerfCounter.getFindClasses().increment();</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">if</span> (resolve) &#123;</span><br><span class="line">                resolveClass(c);</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">return</span> c;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="破坏双亲委派模型"><a href="#破坏双亲委派模型" class="headerlink" title="破坏双亲委派模型"></a>破坏双亲委派模型</h3><p>举出一个破坏双亲委派机制的例子：</p>
+<p>Tomcat的架构：</p>
+<p>类索引、父类索引、接口索引集合<br>类索引和父类索引是一个u2类型的数据，接口索引集合是一组u2类型的数据的集合，Class文件中由这三项数据来确定类型的继承关系。</p>
+<p>字节码指令<br>Java虚拟机的指令由一个字节长度的、代表着某种特定操作含义的数字（称为操作码，Opcode）以及跟随其后的零至多个代表此操作所需的参数（称为操作数，Operand）构成。由于Java虚拟机采用面向操作数栈而不是面向寄存器的架构，所以大多数指令都不包含操作数，只有一个操作码，指令参数都存放在操作数栈中。</p>
+
+      
+    </div>
+    <div class="article-footer">
+      <blockquote class="mt-2x">
+  <ul class="post-copyright list-unstyled">
+    
+    <li class="post-copyright-link hidden-xs">
+      <strong>本文链接：</strong>
+      <a href="http://example.com/2022/01/08/typora%E6%96%87%E4%BB%B6%E9%9B%86%E5%90%88/%E6%8B%89%E9%92%A9/JVM/%E7%B1%BB%E5%8A%A0%E8%BD%BD%E6%9C%BA%E5%88%B6/" title="" target="_blank" rel="external">http://example.com/2022/01/08/typora文件集合/拉钩/JVM/类加载机制/</a>
+    </li>
+    
+    <li class="post-copyright-license">
+      <strong>版权声明： </strong> 本博客所有文章除特别声明外，均采用 <a href="http://creativecommons.org/licenses/by/4.0/deed.zh" target="_blank" rel="external">CC BY 4.0 CN协议</a> 许可协议。转载请注明出处！
+    </li>
+  </ul>
+</blockquote>
+
+
+<div class="panel panel-default panel-badger">
+  <div class="panel-body">
+    <figure class="media">
+      <div class="media-left">
+        <a href="https://github.com/chenyusharp" target="_blank" class="img-burn thumb-sm visible-lg">
+          <img src="https://xiazhenyu.oss-cn-hangzhou.aliyuncs.com/common/36723748-0889-481D-AD81-B036124EBE2E_1_105_c.jpeg" class="img-rounded w-full" alt="">
+        </a>
+      </div>
+      <div class="media-body">
+        <h3 class="media-heading"><a href="https://github.com/chenyusharp" target="_blank"><span class="text-dark">chenyusharp</span><small class="ml-1x">Java Developer</small></a></h3>
+        <div>个人简介。</div>
+      </div>
+    </figure>
+  </div>
+</div>
+
+
+    </div>
+  </article>
+  
+    
+  <section id="comments">
+  	
+      <div id="vcomments"></div>
+    
+  </section>
+
+
+  
+</div>
+
+  <nav class="bar bar-footer clearfix" data-stick-bottom>
+  <div class="bar-inner">
+  
+  <ul class="pager pull-left">
+    
+    <li class="prev">
+      <a href="/2022/01/09/typora%E6%96%87%E4%BB%B6%E9%9B%86%E5%90%88/%E6%8B%89%E9%92%A9/JVM/1%E6%9C%889%E5%8F%B7%E7%9B%B4%E6%92%AD/" title="(no title)"><i class="icon icon-angle-left" aria-hidden="true"></i><span>&nbsp;&nbsp;上一篇</span></a>
+    </li>
+    
+    
+    <li class="next">
+      <a href="/2022/01/07/typora%E6%96%87%E4%BB%B6%E9%9B%86%E5%90%88/%E6%8A%80%E6%9C%AF/%E6%8A%80%E6%9C%AF%E7%AC%94%E8%AE%B0/%E6%BA%90%E7%A0%81/RateLimiter/" title="(no title)"><span>下一篇&nbsp;&nbsp;</span><i class="icon icon-angle-right" aria-hidden="true"></i></a>
+    </li>
+    
+    
+  </ul>
+  
+  
+  <!-- Button trigger modal -->
+  <button type="button" class="btn btn-fancy btn-donate pop-onhover bg-gradient-warning" data-toggle="modal" data-target="#donateModal"><span>赏</span></button>
+  <!-- <div class="wave-icon wave-icon-danger btn-donate" data-toggle="modal" data-target="#donateModal">
+    <div class="wave-circle"><span class="icon"><i class="icon icon-bill"></i></span></div>
+  </div> -->
+  
+  
+  <div class="bar-right">
+    
+    <div class="share-component" data-sites="weibo,qq,wechat,facebook,twitter" data-mobile-sites="weibo,qq,qzone"></div>
+    
+  </div>
+  </div>
+</nav>
+  
+<!-- Modal -->
+<div class="modal modal-center modal-small modal-xs-full fade" id="donateModal" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content donate">
+      <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+      <div class="modal-body">
+        <div class="donate-box">
+          <div class="donate-head">
+            <p>感谢您的支持，我会继续努力的!</p>
+          </div>
+          <div class="tab-content">
+            <div role="tabpanel" class="tab-pane fade active in" id="alipay">
+              <div class="donate-payimg">
+                <img src="/images/donate/alipayimg.png" alt="扫码支持" title="扫一扫" />
+              </div>
+              <p class="text-muted mv">扫码打赏，你说多少就多少</p>
+              <p class="text-grey">打开支付宝扫一扫，即可进行扫码打赏哦</p>
+            </div>
+            <div role="tabpanel" class="tab-pane fade" id="wechatpay">
+              <div class="donate-payimg">
+                <img src="/images/donate/wechatpayimg.png" alt="扫码支持" title="扫一扫" />
+              </div>
+              <p class="text-muted mv">扫码打赏，你说多少就多少</p>
+              <p class="text-grey">打开微信扫一扫，即可进行扫码打赏哦</p>
+            </div>
+          </div>
+          <div class="donate-footer">
+            <ul class="nav nav-tabs nav-justified" role="tablist">
+              <li role="presentation" class="active">
+                <a href="#alipay" id="alipay-tab" role="tab" data-toggle="tab" aria-controls="alipay" aria-expanded="true"><i class="icon icon-alipay"></i> 支付宝</a>
+              </li>
+              <li role="presentation" class="">
+                <a href="#wechatpay" role="tab" id="wechatpay-tab" data-toggle="tab" aria-controls="wechatpay" aria-expanded="false"><i class="icon icon-wepay"></i> 微信支付</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+</main>
+
+  <footer class="footer" itemscope itemtype="http://schema.org/WPFooter">
+	
+	
+    <ul class="social-links">
+    	
+        <li><a href="https://github.com/chenyusharp" target="_blank" title="Github" data-toggle=tooltip data-placement=top><i class="icon icon-github"></i></a></li>
+        
+    </ul>
+
+    <div class="copyright">
+    	
+        <div class="publishby">
+        	Theme by <a href="https://github.com/cofess" target="_blank"> cofess </a>base on <a href="https://github.com/cofess/hexo-theme-pure" target="_blank">pure</a>.
+        </div>
+    </div>
+</footer>
+  <script src="//cdn.jsdelivr.net/npm/jquery@1.12.4/dist/jquery.min.js"></script>
+<script>
+window.jQuery || document.write('<script src="js/jquery.min.js"><\/script>')
+</script>
+
+<script src="/js/plugin.min.js"></script>
+
+
+<script src="/js/application.js"></script>
+
+
+    <script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: '文章',
+            PAGES: '页面',
+            CATEGORIES: '分类',
+            TAGS: '标签',
+            UNTITLED: '(未命名)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+
+<script src="/js/insight.js"></script>
+
+
+
+
+
+
+   
+
+
+
+
+   
+    
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/valine"></script>
+  <script type="text/javascript">
+  var GUEST = ['nick', 'mail', 'link'];
+  var meta = 'nick,mail,link';
+  meta = meta.split(',').filter(function(item) {
+    return GUEST.indexOf(item) > -1;
+  });
+  new Valine({
+    el: '#vcomments',
+    verify: false,
+    notify: false,
+    appId: '',
+    appKey: '',
+    placeholder: 'Just go go',
+    avatar: 'mm',
+    meta: meta,
+    pageSize: '10' || 10,
+    visitor: false
+  });
+  </script>
+
+     
+
+
+
+
+
+
+
+</body>
+</html>

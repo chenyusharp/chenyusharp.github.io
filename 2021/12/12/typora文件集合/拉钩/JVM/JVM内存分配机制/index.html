@@ -1,0 +1,659 @@
+<!DOCTYPE html>
+<html lang=zh>
+<head>
+  <meta charset="utf-8">
+  
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
+  <meta name="renderer" content="webkit">
+  <meta http-equiv="Cache-Control" content="no-transform" />
+  <meta http-equiv="Cache-Control" content="no-siteapp" />
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="format-detection" content="telephone=no,email=no,adress=no">
+  <!-- Color theme for statusbar -->
+  <meta name="theme-color" content="#000000" />
+  <!-- 强制页面在当前窗口以独立页面显示,防止别人在框架里调用页面 -->
+  <meta http-equiv="window-target" content="_top" />
+  
+  
+  <title>Hexo</title>
+  <meta name="description" content="JVM内存分配机制 见博客：https:&#x2F;&#x2F;www.cnblogs.com&#x2F;itpower&#x2F;p&#x2F;15401004.html 对象内存分配的两种方式：  指针碰撞；默认采用的是指针碰撞的方式。如果Java堆中的内存是绝对规整，所有用过的内存都放在一边，空闲的内存放在另一边，中间放着一个指针作为分界嗲的只是器，那所分配的内存就仅仅是把那个指针向空闲的那边挪动一段与对象大小相等的距离。 空闲列表；如果j">
+<meta property="og:type" content="article">
+<meta property="og:title" content="技术、生活、思考">
+<meta property="og:url" content="http://example.com/2021/12/12/typora%E6%96%87%E4%BB%B6%E9%9B%86%E5%90%88/%E6%8B%89%E9%92%A9/JVM/JVM%E5%86%85%E5%AD%98%E5%88%86%E9%85%8D%E6%9C%BA%E5%88%B6/index.html">
+<meta property="og:site_name" content="技术、生活、思考">
+<meta property="og:description" content="JVM内存分配机制 见博客：https:&#x2F;&#x2F;www.cnblogs.com&#x2F;itpower&#x2F;p&#x2F;15401004.html 对象内存分配的两种方式：  指针碰撞；默认采用的是指针碰撞的方式。如果Java堆中的内存是绝对规整，所有用过的内存都放在一边，空闲的内存放在另一边，中间放着一个指针作为分界嗲的只是器，那所分配的内存就仅仅是把那个指针向空闲的那边挪动一段与对象大小相等的距离。 空闲列表；如果j">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://xiazhenyu.oss-cn-hangzhou.aliyuncs.com/common/1187916-20211012101818062-1048005036.png">
+<meta property="og:image" content="https://xiazhenyu.oss-cn-hangzhou.aliyuncs.com/common/1187916-20211008190533330-1922149630-20220213014304890.png">
+<meta property="og:image" content="http://example.com/Users/xiazhenyu/Downloads/JVM%E8%80%81%E5%B9%B4%E4%BB%A3%E7%A9%BA%E9%97%B4%E6%8B%85%E4%BF%9D%E6%9C%BA%E5%88%B6.png">
+<meta property="article:published_time" content="2021-12-12T15:08:33.441Z">
+<meta property="article:modified_time" content="2022-02-12T18:19:05.362Z">
+<meta property="article:author" content="chenyusharp">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://xiazhenyu.oss-cn-hangzhou.aliyuncs.com/common/1187916-20211012101818062-1048005036.png">
+  <!-- Canonical links -->
+  <link rel="canonical" href="http://example.com/2021/12/12/typora%E6%96%87%E4%BB%B6%E9%9B%86%E5%90%88/%E6%8B%89%E9%92%A9/JVM/JVM%E5%86%85%E5%AD%98%E5%88%86%E9%85%8D%E6%9C%BA%E5%88%B6/index.html">
+  
+    <link rel="alternate" href="/atom.xml" title="技术、生活、思考" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png" type="image/x-icon">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+  
+  
+  
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+
+<body class="main-center" itemscope itemtype="http://schema.org/WebPage">
+  <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+  <div class="slimContent">
+    <div class="navbar-header">
+      
+      
+      <div class="profile-block text-center">
+        <a id="avatar" href="https://github.com/chenyusharp" target="_blank">
+          <img class="img-circle img-rotate" src="https://xiazhenyu.oss-cn-hangzhou.aliyuncs.com/common/36723748-0889-481D-AD81-B036124EBE2E_1_105_c.jpeg" width="200" height="200">
+        </a>
+        <h2 id="name" class="hidden-xs hidden-sm">chenyusharp</h2>
+        <h3 id="title" class="hidden-xs hidden-sm hidden-md">Java Developer</h3>
+        <small id="location" class="text-muted hidden-xs hidden-sm"><i class="icon icon-map-marker"></i> Hangzhou, China</small>
+      </div>
+      
+      <div class="search" id="search-form-wrap">
+
+    <form class="search-form sidebar-form">
+        <div class="input-group">
+            <input type="text" class="search-form-input form-control" placeholder="搜索" />
+            <span class="input-group-btn">
+                <button type="submit" class="search-form-submit btn btn-flat" onclick="return false;"><i class="icon icon-search"></i></button>
+            </span>
+        </div>
+    </form>
+    <div class="ins-search">
+  <div class="ins-search-mask"></div>
+  <div class="ins-search-container">
+    <div class="ins-input-wrapper">
+      <input type="text" class="ins-search-input" placeholder="想要查找什么..." x-webkit-speech />
+      <button type="button" class="close ins-close ins-selectable" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+    </div>
+    <div class="ins-section-wrapper">
+      <div class="ins-section-container"></div>
+    </div>
+  </div>
+</div>
+
+
+</div>
+      <button class="navbar-toggle collapsed" type="button" data-toggle="collapse" data-target="#main-navbar" aria-controls="main-navbar" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+    </div>
+    <nav id="main-navbar" class="collapse navbar-collapse" itemscope itemtype="http://schema.org/SiteNavigationElement" role="navigation">
+      <ul class="nav navbar-nav main-nav ">
+        
+        
+        <li class="menu-item menu-item-home">
+          <a href="/.">
+            
+            <i class="icon icon-home-fill"></i>
+            
+            <span class="menu-title">首页</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives">
+            
+            <i class="icon icon-archives-fill"></i>
+            
+            <span class="menu-title">归档</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories">
+            
+            <i class="icon icon-folder"></i>
+            
+            <span class="menu-title">分类</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags">
+            
+            <i class="icon icon-tags"></i>
+            
+            <span class="menu-title">标签</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-repository">
+          <a href="/repository">
+            
+            <i class="icon icon-project"></i>
+            
+            <span class="menu-title">项目</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-books">
+          <a href="/books">
+            
+            <i class="icon icon-book-fill"></i>
+            
+            <span class="menu-title">书单</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-links">
+          <a href="/links">
+            
+            <i class="icon icon-friendship"></i>
+            
+            <span class="menu-title">友链</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about">
+            
+            <i class="icon icon-cup-fill"></i>
+            
+            <span class="menu-title">关于</span>
+          </a>
+        </li>
+        
+      </ul>
+      
+	
+    <ul class="social-links">
+    	
+        <li><a href="https://github.com/chenyusharp" target="_blank" title="Github" data-toggle=tooltip data-placement=top><i class="icon icon-github"></i></a></li>
+        
+    </ul>
+
+    </nav>
+  </div>
+</header>
+
+  
+    <aside class="sidebar" itemscope itemtype="http://schema.org/WPSideBar">
+  <div class="slimContent">
+    
+      <div class="widget">
+    <h3 class="widget-title">公告</h3>
+    <div class="widget-body">
+        <div id="board">
+            <div class="content">
+                <p>欢迎交流与分享经验!</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">分类</h3>
+    <div class="widget-body">
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/DDD/">DDD</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/linux/">linux</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/redis/">redis</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/typora/">typora</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/wholee/">wholee</a><span class="category-list-count">10</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%8A%80%E6%9C%AF/">技术</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%8A%80%E8%83%BD/">技能</a><span class="category-list-count">1</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%8A%80%E8%83%BD/%E5%B7%A5%E4%BD%9C/">工作</a><span class="category-list-count">1</span></li></ul></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">标签</h3>
+    <div class="widget-body">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/DDD/" rel="tag">DDD</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/linux/" rel="tag">linux</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/redis/" rel="tag">redis</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/wholee/" rel="tag">wholee</a><span class="tag-list-count">10</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%B7%A5%E4%BD%9C%E5%AE%89%E6%8E%92/" rel="tag">工作安排</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%8A%80%E8%83%BD/" rel="tag">技能</a><span class="tag-list-count">1</span></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">标签云</h3>
+    <div class="widget-body tagcloud">
+      <a href="/tags/DDD/" style="font-size: 13px;">DDD</a> <a href="/tags/linux/" style="font-size: 13.33px;">linux</a> <a href="/tags/redis/" style="font-size: 13px;">redis</a> <a href="/tags/wholee/" style="font-size: 14px;">wholee</a> <a href="/tags/%E5%B7%A5%E4%BD%9C%E5%AE%89%E6%8E%92/" style="font-size: 13.67px;">工作安排</a> <a href="/tags/%E6%8A%80%E8%83%BD/" style="font-size: 13px;">技能</a>
+    </div>
+  </div>
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">归档</h3>
+    <div class="widget-body">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/03/">三月 2022</a><span class="archive-list-count">12</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/02/">二月 2022</a><span class="archive-list-count">21</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/01/">一月 2022</a><span class="archive-list-count">30</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/12/">十二月 2021</a><span class="archive-list-count">8</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/11/">十一月 2021</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/10/">十月 2021</a><span class="archive-list-count">38</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/09/">九月 2021</a><span class="archive-list-count">10</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/08/">八月 2021</a><span class="archive-list-count">24</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/07/">七月 2021</a><span class="archive-list-count">18</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/06/">六月 2021</a><span class="archive-list-count">13</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/05/">五月 2021</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/03/">三月 2021</a><span class="archive-list-count">1</span></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget-body">
+      <ul class="recent-post-list list-unstyled no-thumbnail">
+        
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/%E6%8A%80%E6%9C%AF/">技术</a>
+              </p>
+              <p class="item-title">
+                <a href="/2022/03/20/typora%E6%96%87%E4%BB%B6%E9%9B%86%E5%90%88/%E6%8A%80%E6%9C%AF/%E5%B8%B8%E8%A7%81%E7%9A%84%E9%9D%A2%E8%AF%95%E6%8A%80%E6%9C%AF%E9%97%AE%E9%A2%98/%E5%88%A9%E7%94%A8JVM%E5%91%BD%E4%BB%A4%E8%A1%8C%E5%B7%A5%E5%85%B7%E6%8E%92%E6%9F%A5%E7%BA%BF%E4%B8%8A%E9%97%AE%E9%A2%98/" class="title">利用JVM命令行工具排查线上问题</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2022-03-20T05:19:39.297Z" itemprop="datePublished">2022-03-20</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/%E6%8A%80%E6%9C%AF/">技术</a>
+              </p>
+              <p class="item-title">
+                <a href="/2022/03/20/typora%E6%96%87%E4%BB%B6%E9%9B%86%E5%90%88/%E6%8A%80%E6%9C%AF/%E5%B8%B8%E8%A7%81%E7%9A%84%E9%9D%A2%E8%AF%95%E6%8A%80%E6%9C%AF%E9%97%AE%E9%A2%98/%E5%A6%82%E4%BD%95%E5%AE%9E%E7%8E%B0%E4%B8%80%E4%B8%AARPC%E6%A1%86%E6%9E%B6/" class="title">如何实现一个RPC框架</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2022-03-19T18:29:15.439Z" itemprop="datePublished">2022-03-20</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/linux/">linux</a>
+              </p>
+              <p class="item-title">
+                <a href="/2022/03/20/typora%E6%96%87%E4%BB%B6%E9%9B%86%E5%90%88/%E6%8A%80%E6%9C%AF/%E6%8A%80%E6%9C%AF%E7%AC%94%E8%AE%B0/%E6%9C%8D%E5%8A%A1%E5%99%A8/%E5%B8%B8%E7%94%A8%E7%9A%84linux%E5%91%BD%E4%BB%A4/" class="title">常用的linux命令</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2022-03-19T18:23:26.102Z" itemprop="datePublished">2022-03-20</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/redis/">redis</a>
+              </p>
+              <p class="item-title">
+                <a href="/2022/03/20/typora%E6%96%87%E4%BB%B6%E9%9B%86%E5%90%88/%E6%8A%80%E6%9C%AF/redis/redis%E6%BA%90%E7%A0%81%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/" class="title">redis源码环境搭建</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2022-03-19T16:29:16.300Z" itemprop="datePublished">2022-03-20</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                
+              </p>
+              <p class="item-title">
+                <a href="/2022/03/19/typora%E6%96%87%E4%BB%B6%E9%9B%86%E5%90%88/%E6%8A%80%E6%9C%AF/%E5%B8%B8%E8%A7%81%E7%9A%84%E9%9D%A2%E8%AF%95%E6%8A%80%E6%9C%AF%E9%97%AE%E9%A2%98/Spring%20AOP%E6%98%AF%E6%80%8E%E4%B9%88%E5%AE%9E%E7%8E%B0%E7%9A%84/" class="title">(no title)</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2022-03-18T17:03:12.253Z" itemprop="datePublished">2022-03-19</time>
+              </p>
+            </div>
+          </li>
+          
+      </ul>
+    </div>
+  </div>
+  
+
+    
+  </div>
+</aside>
+
+  
+  
+<main class="main" role="main">
+  <div class="content">
+  <article id="post-typora文件集合/拉钩/JVM/JVM内存分配机制" class="article article-type-post" itemscope itemtype="http://schema.org/BlogPosting">
+    
+    <div class="article-header">
+      
+      <div class="article-meta">
+        <span class="article-date">
+    <i class="icon icon-calendar-check"></i>
+	<a href="/2021/12/12/typora%E6%96%87%E4%BB%B6%E9%9B%86%E5%90%88/%E6%8B%89%E9%92%A9/JVM/JVM%E5%86%85%E5%AD%98%E5%88%86%E9%85%8D%E6%9C%BA%E5%88%B6/" class="article-date">
+	  <time datetime="2021-12-12T15:08:33.441Z" itemprop="datePublished">2021-12-12</time>
+	</a>
+</span>
+        
+        
+
+        
+
+        <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2021/12/12/typora%E6%96%87%E4%BB%B6%E9%9B%86%E5%90%88/%E6%8B%89%E9%92%A9/JVM/JVM%E5%86%85%E5%AD%98%E5%88%86%E9%85%8D%E6%9C%BA%E5%88%B6/#comments" class="article-comment-link">评论</a></span>
+        
+      </div>
+    </div>
+    <div class="article-entry marked-body" itemprop="articleBody">
+      
+        <p>JVM内存分配机制</p>
+<p>见博客：<a target="_blank" rel="noopener" href="https://www.cnblogs.com/itpower/p/15401004.html">https://www.cnblogs.com/itpower/p/15401004.html</a></p>
+<p>对象内存分配的两种方式：</p>
+<ol>
+<li>指针碰撞；<br>默认采用的是指针碰撞的方式。如果Java堆中的内存是绝对<strong>规整</strong>，所有用过的内存都放在一边，空闲的内存放在另一边，中间放着一个指针作为分界嗲的只是器，那所分配的内存就仅仅是把那个指针向空闲的那边挪动一段与对象大小相等的距离。</li>
+<li>空闲列表；<br>如果java堆中的内存不是规整的，已使用的内存和空闲的内存相互交错，那就没有办法简单的进行指针碰撞了，虚拟机就必须维护一个列表，记录哪些内存是可用的，再分配的时候从列表中找到一块足够大的内存空间分配给对象实例，并更新列表上的记录；</li>
+</ol>
+<p>多个对象并发占用空间的问题？</p>
+<p>解决方案一：CAS，失败重试的方式保证更新操作的原子性来对分配空间的动作进行同步处理；</p>
+<p>解决方案二：TLAB，（Thread Local Allocation Buffer）,在每个线程初始化的时候，提前在堆空间中为线程分配一块专属的内存。jdk8默认的内存分配方式。<br>开启：-XX:+UseTLAB，制定大小:-XX:TLABSize</p>
+<p>指针压缩：<br>在64位操作系统中，jvm默认开启指针压缩。指针压缩就是将KClass Pointer类型指针进行压缩。</p>
+<p>开启指针压缩的命令：-XX:+UseCompressedOops</p>
+<p>为什么要进行指针压缩？</p>
+<ol>
+<li>减少64位平台下的内存消耗，默认启用指针压缩；</li>
+<li>32位地址最大支持4GB内存，可以通过对对象指针的压缩编码、解码方式进行优化，使得jvm只用32位地址就可以支持更大的内存配置；</li>
+<li>堆内存小于4G时，不需要启用指针压缩，jvm会直接去除高32位地址，即使用低虚拟地址空间；</li>
+<li>堆内存大于32G时，压缩指针会失效，会强制使用64位（即8字节）来对java对象寻址，这就会出现1中的问题，所以堆内存不要大于32G为好。为什么会失效？首先，不压缩的情况下，KClassPointer的存储空间是8个字节，压缩的情况下是4个字节。</li>
+<li>JVM中，对象的内存地址一般是8字节的倍数，不足8字节的，需要补齐。</li>
+</ol>
+<p>内存分配的流程：</p>
+<p>涉及的内容包括：逃逸分析、TLAB、GC、分代担保机制、动态年龄判断</p>
+<p><img src="https://xiazhenyu.oss-cn-hangzhou.aliyuncs.com/common/1187916-20211012101818062-1048005036.png"></p>
+<ul>
+<li>第一步：判断是不是可以在栈上分配对象。</li>
+</ul>
+<p>原因：将所有对象都放在对上创建，会导致堆上容易触发GC、影响应用性能。</p>
+<p>手段：通过==逃逸分析==技术，确定对象会不会被外部访问。如果不会逃逸（不会被外部访问到），那么就会将该对象在栈上分配内存。随着栈桢出栈而销毁，从而减轻了GC的压力。然后再结合标量替换技术，进行内存的实际分配。</p>
+<p>什么是标量替换？</p>
+<p>当栈桢没有一块连续的空间去放得下一个对象时，JVM这个时候不会去创建改对象，而是会将该对象的成员变量分解为若干个被方法使用的局部变量。这些替代的局部变量在栈桢或寄存器上分配空间。可以通过参数控制是否开启标量替换：<code>-XX:+EliminateAllocations</code></p>
+<p>PS:</p>
+<p>标量：不能被进一步分解的量，比如Java中的基础数据类型就是标量；</p>
+<p>聚合量：可以被进一步分解的量，比如对象就是一个聚合量。</p>
+<ul>
+<li>第二步：判断是不是大对象。</li>
+</ul>
+<p>是否是大对象？放入老年代中：是否开启TLAB？在Eden中分配一小块空间给线程：直接在Eden中进行分配。</p>
+<p>TLAB：Thread Local Allocation Buffer。 参数控制：<code>-XX:+UseTLAB</code>。</p>
+<p>这个地方就涉及到了JVM的中的堆内存划分了，如下图所示：</p>
+<p><img src="https://xiazhenyu.oss-cn-hangzhou.aliyuncs.com/common/1187916-20211008190533330-1922149630-20220213014304890.png" alt="img"></p>
+<ul>
+<li>对象动态年龄判断</li>
+</ul>
+<p>​    如果Survivor区域里面，一批对象的总大小大于这块Survivor区域内存大小的50%（-XX:TargetSurvivorRatio可以指定），那么此时大于等于这批对象年龄最大值的对象，就可以直接进入老年代了。作用：希望那些可能是长期存活的对象，尽早进入老年代。对象动态年龄判断机制一般是在minor gc之后触发的。</p>
+<ul>
+<li>老年代的空间分配担保机制(存在的意义就是提前进行预判，避免发生OOM，因为我们之前已经提到，minor GC之后会存在Eden区的对象往Old区中移动)。</li>
+</ul>
+<p><img src="/Users/xiazhenyu/Downloads/JVM%E8%80%81%E5%B9%B4%E4%BB%A3%E7%A9%BA%E9%97%B4%E6%8B%85%E4%BF%9D%E6%9C%BA%E5%88%B6.png" alt="JVM老年代空间担保机制"></p>
+<ol>
+<li>年轻代每次minor GC之前JVM都会计算下老年代的可用空间。如果这个可用空间小于年轻代里现有的所有对象大小之和（包括垃圾对象），就会看一下 <code>-XX:-HandlePromotionFailure</code>的参数是否设置了，如果有这个参数，就会看老年代的可用内存大小，是否大于之前每一次minor GC之后进入老年代的对象的平均大小；</li>
+<li>如果老年代可用内存大小&lt;平均minor GC之后进入老年代的对象的大小或者没有开启允许担保失败的参数，那么就会直接触发一次Full GC，然后再出发一次Minor GC，如果回收完还是没有足够的空间存放新对象就会发生OOM；</li>
+<li>如果minor GC之后剩余存活的需要挪动到老年代的对象的大小还是大于老年代的可用空间，那么也会出发Full GC，Full GC完之后如果没有空间放minor GC（说明老年代还是太小了），这个时候也会发生OOM。</li>
+</ol>
+<p>周三答疑记录：</p>
+<ol>
+<li>进入老年代有如下几种情况：<br>1.对象经过几次垃圾回收，熬到设定的年龄阈值，就会晋升到老年代。<br>2.如果直接分配大对象，该大对象超出了JVM设置的限定值，就会直接分配到老年代。<br>3.在一次新生代GC后，Survivor区域中的几个年龄对象加起来超过了Survivor区内存的一半，那么根据动态年龄判定规则，从最小的年龄加起，比如年龄1+年龄2+年龄3的对象大小总和，超过了Survivor区内存的一半，此时年龄3以上的对象就会晋升老年代。<br>4.新生代GC后，存活下来的对象太多，Survivor区放不下，此时对象直接晋升老年代。</li>
+<li>CMS垃圾收集器中的增量更新与原始快照问题；</li>
+</ol>
+<p>​     2.1 卡表是什么？</p>
+<p>​     2.2 CMS采用的是增量更新</p>
+<p>漏标的两个充要条件</p>
+<p>一、有至少一个黑色对象在自己被标记之后指向了这个白色对象；<br>二、所有的灰色对象在自己引用扫描完成之前删除了对白色对象的引用<br>这两个条件,必须全满足,才会造成漏标问题。</p>
+<p>换言之,我们破坏任何一个条件.这个白色对象,就不会再被漏标</p>
+<p>这样就产生了两个解决办法</p>
+<ul>
+<li>CMS采用的是增量更新<br> 增量更新破坏的是第一个条件,我们在这个黑色对象增加了对白色对象的引用之后,将它的这个引用,记录下来,在最后标记的时候,再以这个黑色对象为根,对它的引用进行重新扫描.</li>
+</ul>
+<p> 可以简单理解为,当一个黑色对象增加了对白色对象的引用,那么这个黑色对象就被变灰 这样有一个缺点。就是会重新扫描这个黑色对象的所有引用,比较浪费时间；</p>
+<ul>
+<li>G1采用的是原始快照<br> 原始快照破坏的是第二个条件,我们在这个灰色对象取消对白色对象的引用之前,将这个引用记录下来,在最后标记的时候,再以这个引用指向的白色对象为根,对它的引用进行扫描</li>
+</ul>
+<p>可以简单理解为,当一个灰色对象取消了对白色对象的引用,那么这个白色对象被变灰。 这样做的缺点就是,这个白色对象有可能并没有黑色对象去引用它,但是它还是被变灰了,就会导致它和它的引用,本来应该被垃圾回收掉,但是此次GC存活了下来,就是所谓的浮动垃圾.其实这样是比较可以忍受的,只是让它多存活了一次GC而已,浪费一点点空间,但是会比增量更新更省时间。</p>
+
+      
+    </div>
+    <div class="article-footer">
+      <blockquote class="mt-2x">
+  <ul class="post-copyright list-unstyled">
+    
+    <li class="post-copyright-link hidden-xs">
+      <strong>本文链接：</strong>
+      <a href="http://example.com/2021/12/12/typora%E6%96%87%E4%BB%B6%E9%9B%86%E5%90%88/%E6%8B%89%E9%92%A9/JVM/JVM%E5%86%85%E5%AD%98%E5%88%86%E9%85%8D%E6%9C%BA%E5%88%B6/" title="" target="_blank" rel="external">http://example.com/2021/12/12/typora文件集合/拉钩/JVM/JVM内存分配机制/</a>
+    </li>
+    
+    <li class="post-copyright-license">
+      <strong>版权声明： </strong> 本博客所有文章除特别声明外，均采用 <a href="http://creativecommons.org/licenses/by/4.0/deed.zh" target="_blank" rel="external">CC BY 4.0 CN协议</a> 许可协议。转载请注明出处！
+    </li>
+  </ul>
+</blockquote>
+
+
+<div class="panel panel-default panel-badger">
+  <div class="panel-body">
+    <figure class="media">
+      <div class="media-left">
+        <a href="https://github.com/chenyusharp" target="_blank" class="img-burn thumb-sm visible-lg">
+          <img src="https://xiazhenyu.oss-cn-hangzhou.aliyuncs.com/common/36723748-0889-481D-AD81-B036124EBE2E_1_105_c.jpeg" class="img-rounded w-full" alt="">
+        </a>
+      </div>
+      <div class="media-body">
+        <h3 class="media-heading"><a href="https://github.com/chenyusharp" target="_blank"><span class="text-dark">chenyusharp</span><small class="ml-1x">Java Developer</small></a></h3>
+        <div>个人简介。</div>
+      </div>
+    </figure>
+  </div>
+</div>
+
+
+    </div>
+  </article>
+  
+    
+  <section id="comments">
+  	
+      <div id="vcomments"></div>
+    
+  </section>
+
+
+  
+</div>
+
+  <nav class="bar bar-footer clearfix" data-stick-bottom>
+  <div class="bar-inner">
+  
+  <ul class="pager pull-left">
+    
+    <li class="prev">
+      <a href="/2021/12/18/typora%E6%96%87%E4%BB%B6%E9%9B%86%E5%90%88/%E6%8B%89%E9%92%A9/%E5%A4%9A%E7%BA%BF%E7%A8%8B/%E5%A4%9A%E7%BA%BF%E7%A8%8B%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" title="(no title)"><i class="icon icon-angle-left" aria-hidden="true"></i><span>&nbsp;&nbsp;上一篇</span></a>
+    </li>
+    
+    
+    <li class="next">
+      <a href="/2021/12/05/typora%E6%96%87%E4%BB%B6%E9%9B%86%E5%90%88/%E6%8B%89%E9%92%A9/JVM/JVM-%E6%8B%89%E9%92%A9/" title="(no title)"><span>下一篇&nbsp;&nbsp;</span><i class="icon icon-angle-right" aria-hidden="true"></i></a>
+    </li>
+    
+    
+  </ul>
+  
+  
+  <!-- Button trigger modal -->
+  <button type="button" class="btn btn-fancy btn-donate pop-onhover bg-gradient-warning" data-toggle="modal" data-target="#donateModal"><span>赏</span></button>
+  <!-- <div class="wave-icon wave-icon-danger btn-donate" data-toggle="modal" data-target="#donateModal">
+    <div class="wave-circle"><span class="icon"><i class="icon icon-bill"></i></span></div>
+  </div> -->
+  
+  
+  <div class="bar-right">
+    
+    <div class="share-component" data-sites="weibo,qq,wechat,facebook,twitter" data-mobile-sites="weibo,qq,qzone"></div>
+    
+  </div>
+  </div>
+</nav>
+  
+<!-- Modal -->
+<div class="modal modal-center modal-small modal-xs-full fade" id="donateModal" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content donate">
+      <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+      <div class="modal-body">
+        <div class="donate-box">
+          <div class="donate-head">
+            <p>感谢您的支持，我会继续努力的!</p>
+          </div>
+          <div class="tab-content">
+            <div role="tabpanel" class="tab-pane fade active in" id="alipay">
+              <div class="donate-payimg">
+                <img src="/images/donate/alipayimg.png" alt="扫码支持" title="扫一扫" />
+              </div>
+              <p class="text-muted mv">扫码打赏，你说多少就多少</p>
+              <p class="text-grey">打开支付宝扫一扫，即可进行扫码打赏哦</p>
+            </div>
+            <div role="tabpanel" class="tab-pane fade" id="wechatpay">
+              <div class="donate-payimg">
+                <img src="/images/donate/wechatpayimg.png" alt="扫码支持" title="扫一扫" />
+              </div>
+              <p class="text-muted mv">扫码打赏，你说多少就多少</p>
+              <p class="text-grey">打开微信扫一扫，即可进行扫码打赏哦</p>
+            </div>
+          </div>
+          <div class="donate-footer">
+            <ul class="nav nav-tabs nav-justified" role="tablist">
+              <li role="presentation" class="active">
+                <a href="#alipay" id="alipay-tab" role="tab" data-toggle="tab" aria-controls="alipay" aria-expanded="true"><i class="icon icon-alipay"></i> 支付宝</a>
+              </li>
+              <li role="presentation" class="">
+                <a href="#wechatpay" role="tab" id="wechatpay-tab" data-toggle="tab" aria-controls="wechatpay" aria-expanded="false"><i class="icon icon-wepay"></i> 微信支付</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+</main>
+
+  <footer class="footer" itemscope itemtype="http://schema.org/WPFooter">
+	
+	
+    <ul class="social-links">
+    	
+        <li><a href="https://github.com/chenyusharp" target="_blank" title="Github" data-toggle=tooltip data-placement=top><i class="icon icon-github"></i></a></li>
+        
+    </ul>
+
+    <div class="copyright">
+    	
+        <div class="publishby">
+        	Theme by <a href="https://github.com/cofess" target="_blank"> cofess </a>base on <a href="https://github.com/cofess/hexo-theme-pure" target="_blank">pure</a>.
+        </div>
+    </div>
+</footer>
+  <script src="//cdn.jsdelivr.net/npm/jquery@1.12.4/dist/jquery.min.js"></script>
+<script>
+window.jQuery || document.write('<script src="js/jquery.min.js"><\/script>')
+</script>
+
+<script src="/js/plugin.min.js"></script>
+
+
+<script src="/js/application.js"></script>
+
+
+    <script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: '文章',
+            PAGES: '页面',
+            CATEGORIES: '分类',
+            TAGS: '标签',
+            UNTITLED: '(未命名)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+
+<script src="/js/insight.js"></script>
+
+
+
+
+
+
+   
+
+
+
+
+   
+    
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/valine"></script>
+  <script type="text/javascript">
+  var GUEST = ['nick', 'mail', 'link'];
+  var meta = 'nick,mail,link';
+  meta = meta.split(',').filter(function(item) {
+    return GUEST.indexOf(item) > -1;
+  });
+  new Valine({
+    el: '#vcomments',
+    verify: false,
+    notify: false,
+    appId: '',
+    appKey: '',
+    placeholder: 'Just go go',
+    avatar: 'mm',
+    meta: meta,
+    pageSize: '10' || 10,
+    visitor: false
+  });
+  </script>
+
+     
+
+
+
+
+
+
+
+</body>
+</html>

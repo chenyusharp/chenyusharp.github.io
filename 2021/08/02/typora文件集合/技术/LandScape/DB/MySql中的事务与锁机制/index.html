@@ -1,0 +1,596 @@
+<!DOCTYPE html>
+<html lang=zh>
+<head>
+  <meta charset="utf-8">
+  
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
+  <meta name="renderer" content="webkit">
+  <meta http-equiv="Cache-Control" content="no-transform" />
+  <meta http-equiv="Cache-Control" content="no-siteapp" />
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="format-detection" content="telephone=no,email=no,adress=no">
+  <!-- Color theme for statusbar -->
+  <meta name="theme-color" content="#000000" />
+  <!-- 强制页面在当前窗口以独立页面显示,防止别人在框架里调用页面 -->
+  <meta http-equiv="window-target" content="_top" />
+  
+  
+  <title>Hexo</title>
+  <meta name="description" content="MySql中的事务与锁机制事务及其特性简单来说，事务是指作为单个逻辑工作单元执行的一系列操作，这些操作要么全做，要么全不做，是一个不可分割的工作单元。一个逻辑工作单元要成为事务，在关系型数据库管理系统中，必须满足 4 个特性，即所谓的 ACID：原子性、一致性、隔离性和持久性。一致性：事务开始之前和事务结束之后，数据库的完整性限制未被破坏。原子性：事务的所有操作，要么全部完成，要么全部不完成，">
+<meta property="og:type" content="article">
+<meta property="og:title" content="技术、生活、思考">
+<meta property="og:url" content="http://example.com/2021/08/02/typora%E6%96%87%E4%BB%B6%E9%9B%86%E5%90%88/%E6%8A%80%E6%9C%AF/LandScape/DB/MySql%E4%B8%AD%E7%9A%84%E4%BA%8B%E5%8A%A1%E4%B8%8E%E9%94%81%E6%9C%BA%E5%88%B6/index.html">
+<meta property="og:site_name" content="技术、生活、思考">
+<meta property="og:description" content="MySql中的事务与锁机制事务及其特性简单来说，事务是指作为单个逻辑工作单元执行的一系列操作，这些操作要么全做，要么全不做，是一个不可分割的工作单元。一个逻辑工作单元要成为事务，在关系型数据库管理系统中，必须满足 4 个特性，即所谓的 ACID：原子性、一致性、隔离性和持久性。一致性：事务开始之前和事务结束之后，数据库的完整性限制未被破坏。原子性：事务的所有操作，要么全部完成，要么全部不完成，">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://example.com/2021/08/02/typora%E6%96%87%E4%BB%B6%E9%9B%86%E5%90%88/%E6%8A%80%E6%9C%AF/LandScape/DB/MySql%E4%B8%AD%E7%9A%84%E4%BA%8B%E5%8A%A1%E4%B8%8E%E9%94%81%E6%9C%BA%E5%88%B6/MySql%E4%B8%AD%E7%9A%84%E4%BA%8B%E5%8A%A1%E4%B8%8E%E9%94%81%E6%9C%BA%E5%88%B6.resources/9145603A-2215-4B57-82F1-37052472440E.png">
+<meta property="og:image" content="http://example.com/2021/08/02/typora%E6%96%87%E4%BB%B6%E9%9B%86%E5%90%88/%E6%8A%80%E6%9C%AF/LandScape/DB/MySql%E4%B8%AD%E7%9A%84%E4%BA%8B%E5%8A%A1%E4%B8%8E%E9%94%81%E6%9C%BA%E5%88%B6/MySql%E4%B8%AD%E7%9A%84%E4%BA%8B%E5%8A%A1%E4%B8%8E%E9%94%81%E6%9C%BA%E5%88%B6.resources/6B03027C-60DA-4D4B-ACAE-2FC094029D71.png">
+<meta property="og:image" content="http://example.com/2021/08/02/typora%E6%96%87%E4%BB%B6%E9%9B%86%E5%90%88/%E6%8A%80%E6%9C%AF/LandScape/DB/MySql%E4%B8%AD%E7%9A%84%E4%BA%8B%E5%8A%A1%E4%B8%8E%E9%94%81%E6%9C%BA%E5%88%B6/MySql%E4%B8%AD%E7%9A%84%E4%BA%8B%E5%8A%A1%E4%B8%8E%E9%94%81%E6%9C%BA%E5%88%B6.resources/94333D0D-8144-4A1D-816C-4F19F0D42C90.png">
+<meta property="og:image" content="http://example.com/2021/08/02/typora%E6%96%87%E4%BB%B6%E9%9B%86%E5%90%88/%E6%8A%80%E6%9C%AF/LandScape/DB/MySql%E4%B8%AD%E7%9A%84%E4%BA%8B%E5%8A%A1%E4%B8%8E%E9%94%81%E6%9C%BA%E5%88%B6/MySql%E4%B8%AD%E7%9A%84%E4%BA%8B%E5%8A%A1%E4%B8%8E%E9%94%81%E6%9C%BA%E5%88%B6.resources/5F8D726D-A547-42AB-8956-90A9C60830FB.png">
+<meta property="og:image" content="http://example.com/2021/08/02/typora%E6%96%87%E4%BB%B6%E9%9B%86%E5%90%88/%E6%8A%80%E6%9C%AF/LandScape/DB/MySql%E4%B8%AD%E7%9A%84%E4%BA%8B%E5%8A%A1%E4%B8%8E%E9%94%81%E6%9C%BA%E5%88%B6/MySql%E4%B8%AD%E7%9A%84%E4%BA%8B%E5%8A%A1%E4%B8%8E%E9%94%81%E6%9C%BA%E5%88%B6.resources/770F10D1-E10F-4BEB-9A9E-37ED944E81EC.png">
+<meta property="og:image" content="http://example.com/2021/08/02/typora%E6%96%87%E4%BB%B6%E9%9B%86%E5%90%88/%E6%8A%80%E6%9C%AF/LandScape/DB/MySql%E4%B8%AD%E7%9A%84%E4%BA%8B%E5%8A%A1%E4%B8%8E%E9%94%81%E6%9C%BA%E5%88%B6/MySql%E4%B8%AD%E7%9A%84%E4%BA%8B%E5%8A%A1%E4%B8%8E%E9%94%81%E6%9C%BA%E5%88%B6.resources/5F0FDE47-0FAD-4807-BAD6-66871F549C56.png">
+<meta property="og:image" content="http://example.com/2021/08/02/typora%E6%96%87%E4%BB%B6%E9%9B%86%E5%90%88/%E6%8A%80%E6%9C%AF/LandScape/DB/MySql%E4%B8%AD%E7%9A%84%E4%BA%8B%E5%8A%A1%E4%B8%8E%E9%94%81%E6%9C%BA%E5%88%B6/MySql%E4%B8%AD%E7%9A%84%E4%BA%8B%E5%8A%A1%E4%B8%8E%E9%94%81%E6%9C%BA%E5%88%B6.resources/305534B7-7846-4AF2-9CC8-04413EB77BB3.png">
+<meta property="og:image" content="http://example.com/2021/08/02/typora%E6%96%87%E4%BB%B6%E9%9B%86%E5%90%88/%E6%8A%80%E6%9C%AF/LandScape/DB/MySql%E4%B8%AD%E7%9A%84%E4%BA%8B%E5%8A%A1%E4%B8%8E%E9%94%81%E6%9C%BA%E5%88%B6/MySql%E4%B8%AD%E7%9A%84%E4%BA%8B%E5%8A%A1%E4%B8%8E%E9%94%81%E6%9C%BA%E5%88%B6.resources/0F96A303-DFA6-4B26-B99A-CA179CCB658F.png">
+<meta property="og:image" content="http://example.com/2021/08/02/typora%E6%96%87%E4%BB%B6%E9%9B%86%E5%90%88/%E6%8A%80%E6%9C%AF/LandScape/DB/MySql%E4%B8%AD%E7%9A%84%E4%BA%8B%E5%8A%A1%E4%B8%8E%E9%94%81%E6%9C%BA%E5%88%B6/MySql%E4%B8%AD%E7%9A%84%E4%BA%8B%E5%8A%A1%E4%B8%8E%E9%94%81%E6%9C%BA%E5%88%B6.resources/F1815EC9-9367-4D90-901A-5680CBFAA3A2.png">
+<meta property="og:image" content="http://example.com/2021/08/02/typora%E6%96%87%E4%BB%B6%E9%9B%86%E5%90%88/%E6%8A%80%E6%9C%AF/LandScape/DB/MySql%E4%B8%AD%E7%9A%84%E4%BA%8B%E5%8A%A1%E4%B8%8E%E9%94%81%E6%9C%BA%E5%88%B6/MySql%E4%B8%AD%E7%9A%84%E4%BA%8B%E5%8A%A1%E4%B8%8E%E9%94%81%E6%9C%BA%E5%88%B6.resources/CE7BEFD9-06F6-4023-9C68-737E64472368.png">
+<meta property="article:published_time" content="2021-08-01T16:33:20.603Z">
+<meta property="article:modified_time" content="2021-08-01T16:33:20.607Z">
+<meta property="article:author" content="chenyusharp">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/2021/08/02/typora%E6%96%87%E4%BB%B6%E9%9B%86%E5%90%88/%E6%8A%80%E6%9C%AF/LandScape/DB/MySql%E4%B8%AD%E7%9A%84%E4%BA%8B%E5%8A%A1%E4%B8%8E%E9%94%81%E6%9C%BA%E5%88%B6/MySql%E4%B8%AD%E7%9A%84%E4%BA%8B%E5%8A%A1%E4%B8%8E%E9%94%81%E6%9C%BA%E5%88%B6.resources/9145603A-2215-4B57-82F1-37052472440E.png">
+  <!-- Canonical links -->
+  <link rel="canonical" href="http://example.com/2021/08/02/typora%E6%96%87%E4%BB%B6%E9%9B%86%E5%90%88/%E6%8A%80%E6%9C%AF/LandScape/DB/MySql%E4%B8%AD%E7%9A%84%E4%BA%8B%E5%8A%A1%E4%B8%8E%E9%94%81%E6%9C%BA%E5%88%B6/index.html">
+  
+    <link rel="alternate" href="/atom.xml" title="技术、生活、思考" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png" type="image/x-icon">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+  
+  
+  
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+
+<body class="main-center" itemscope itemtype="http://schema.org/WebPage">
+  <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+  <div class="slimContent">
+    <div class="navbar-header">
+      
+      
+      <div class="profile-block text-center">
+        <a id="avatar" href="https://github.com/chenyusharp" target="_blank">
+          <img class="img-circle img-rotate" src="https://xiazhenyu.oss-cn-hangzhou.aliyuncs.com/common/36723748-0889-481D-AD81-B036124EBE2E_1_105_c.jpeg" width="200" height="200">
+        </a>
+        <h2 id="name" class="hidden-xs hidden-sm">chenyusharp</h2>
+        <h3 id="title" class="hidden-xs hidden-sm hidden-md">Java Developer</h3>
+        <small id="location" class="text-muted hidden-xs hidden-sm"><i class="icon icon-map-marker"></i> Hangzhou, China</small>
+      </div>
+      
+      <div class="search" id="search-form-wrap">
+
+    <form class="search-form sidebar-form">
+        <div class="input-group">
+            <input type="text" class="search-form-input form-control" placeholder="搜索" />
+            <span class="input-group-btn">
+                <button type="submit" class="search-form-submit btn btn-flat" onclick="return false;"><i class="icon icon-search"></i></button>
+            </span>
+        </div>
+    </form>
+    <div class="ins-search">
+  <div class="ins-search-mask"></div>
+  <div class="ins-search-container">
+    <div class="ins-input-wrapper">
+      <input type="text" class="ins-search-input" placeholder="想要查找什么..." x-webkit-speech />
+      <button type="button" class="close ins-close ins-selectable" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+    </div>
+    <div class="ins-section-wrapper">
+      <div class="ins-section-container"></div>
+    </div>
+  </div>
+</div>
+
+
+</div>
+      <button class="navbar-toggle collapsed" type="button" data-toggle="collapse" data-target="#main-navbar" aria-controls="main-navbar" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+    </div>
+    <nav id="main-navbar" class="collapse navbar-collapse" itemscope itemtype="http://schema.org/SiteNavigationElement" role="navigation">
+      <ul class="nav navbar-nav main-nav ">
+        
+        
+        <li class="menu-item menu-item-home">
+          <a href="/.">
+            
+            <i class="icon icon-home-fill"></i>
+            
+            <span class="menu-title">首页</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives">
+            
+            <i class="icon icon-archives-fill"></i>
+            
+            <span class="menu-title">归档</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories">
+            
+            <i class="icon icon-folder"></i>
+            
+            <span class="menu-title">分类</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags">
+            
+            <i class="icon icon-tags"></i>
+            
+            <span class="menu-title">标签</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-repository">
+          <a href="/repository">
+            
+            <i class="icon icon-project"></i>
+            
+            <span class="menu-title">项目</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-books">
+          <a href="/books">
+            
+            <i class="icon icon-book-fill"></i>
+            
+            <span class="menu-title">书单</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-links">
+          <a href="/links">
+            
+            <i class="icon icon-friendship"></i>
+            
+            <span class="menu-title">友链</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about">
+            
+            <i class="icon icon-cup-fill"></i>
+            
+            <span class="menu-title">关于</span>
+          </a>
+        </li>
+        
+      </ul>
+      
+	
+    <ul class="social-links">
+    	
+        <li><a href="https://github.com/chenyusharp" target="_blank" title="Github" data-toggle=tooltip data-placement=top><i class="icon icon-github"></i></a></li>
+        
+    </ul>
+
+    </nav>
+  </div>
+</header>
+
+  
+    <aside class="sidebar" itemscope itemtype="http://schema.org/WPSideBar">
+  <div class="slimContent">
+    
+      <div class="widget">
+    <h3 class="widget-title">公告</h3>
+    <div class="widget-body">
+        <div id="board">
+            <div class="content">
+                <p>欢迎交流与分享经验!</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">分类</h3>
+    <div class="widget-body">
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/DDD/">DDD</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/linux/">linux</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/redis/">redis</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/typora/">typora</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/wholee/">wholee</a><span class="category-list-count">10</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%8A%80%E6%9C%AF/">技术</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%8A%80%E8%83%BD/">技能</a><span class="category-list-count">1</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%8A%80%E8%83%BD/%E5%B7%A5%E4%BD%9C/">工作</a><span class="category-list-count">1</span></li></ul></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">标签</h3>
+    <div class="widget-body">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/DDD/" rel="tag">DDD</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/linux/" rel="tag">linux</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/redis/" rel="tag">redis</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/wholee/" rel="tag">wholee</a><span class="tag-list-count">10</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%B7%A5%E4%BD%9C%E5%AE%89%E6%8E%92/" rel="tag">工作安排</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%8A%80%E8%83%BD/" rel="tag">技能</a><span class="tag-list-count">1</span></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">标签云</h3>
+    <div class="widget-body tagcloud">
+      <a href="/tags/DDD/" style="font-size: 13px;">DDD</a> <a href="/tags/linux/" style="font-size: 13.33px;">linux</a> <a href="/tags/redis/" style="font-size: 13px;">redis</a> <a href="/tags/wholee/" style="font-size: 14px;">wholee</a> <a href="/tags/%E5%B7%A5%E4%BD%9C%E5%AE%89%E6%8E%92/" style="font-size: 13.67px;">工作安排</a> <a href="/tags/%E6%8A%80%E8%83%BD/" style="font-size: 13px;">技能</a>
+    </div>
+  </div>
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">归档</h3>
+    <div class="widget-body">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/03/">三月 2022</a><span class="archive-list-count">12</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/02/">二月 2022</a><span class="archive-list-count">21</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/01/">一月 2022</a><span class="archive-list-count">30</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/12/">十二月 2021</a><span class="archive-list-count">8</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/11/">十一月 2021</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/10/">十月 2021</a><span class="archive-list-count">38</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/09/">九月 2021</a><span class="archive-list-count">10</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/08/">八月 2021</a><span class="archive-list-count">24</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/07/">七月 2021</a><span class="archive-list-count">18</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/06/">六月 2021</a><span class="archive-list-count">13</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/05/">五月 2021</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/03/">三月 2021</a><span class="archive-list-count">1</span></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget-body">
+      <ul class="recent-post-list list-unstyled no-thumbnail">
+        
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/%E6%8A%80%E6%9C%AF/">技术</a>
+              </p>
+              <p class="item-title">
+                <a href="/2022/03/20/typora%E6%96%87%E4%BB%B6%E9%9B%86%E5%90%88/%E6%8A%80%E6%9C%AF/%E5%B8%B8%E8%A7%81%E7%9A%84%E9%9D%A2%E8%AF%95%E6%8A%80%E6%9C%AF%E9%97%AE%E9%A2%98/%E5%88%A9%E7%94%A8JVM%E5%91%BD%E4%BB%A4%E8%A1%8C%E5%B7%A5%E5%85%B7%E6%8E%92%E6%9F%A5%E7%BA%BF%E4%B8%8A%E9%97%AE%E9%A2%98/" class="title">利用JVM命令行工具排查线上问题</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2022-03-20T05:19:39.297Z" itemprop="datePublished">2022-03-20</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/%E6%8A%80%E6%9C%AF/">技术</a>
+              </p>
+              <p class="item-title">
+                <a href="/2022/03/20/typora%E6%96%87%E4%BB%B6%E9%9B%86%E5%90%88/%E6%8A%80%E6%9C%AF/%E5%B8%B8%E8%A7%81%E7%9A%84%E9%9D%A2%E8%AF%95%E6%8A%80%E6%9C%AF%E9%97%AE%E9%A2%98/%E5%A6%82%E4%BD%95%E5%AE%9E%E7%8E%B0%E4%B8%80%E4%B8%AARPC%E6%A1%86%E6%9E%B6/" class="title">如何实现一个RPC框架</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2022-03-19T18:29:15.439Z" itemprop="datePublished">2022-03-20</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/linux/">linux</a>
+              </p>
+              <p class="item-title">
+                <a href="/2022/03/20/typora%E6%96%87%E4%BB%B6%E9%9B%86%E5%90%88/%E6%8A%80%E6%9C%AF/%E6%8A%80%E6%9C%AF%E7%AC%94%E8%AE%B0/%E6%9C%8D%E5%8A%A1%E5%99%A8/%E5%B8%B8%E7%94%A8%E7%9A%84linux%E5%91%BD%E4%BB%A4/" class="title">常用的linux命令</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2022-03-19T18:23:26.102Z" itemprop="datePublished">2022-03-20</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/redis/">redis</a>
+              </p>
+              <p class="item-title">
+                <a href="/2022/03/20/typora%E6%96%87%E4%BB%B6%E9%9B%86%E5%90%88/%E6%8A%80%E6%9C%AF/redis/redis%E6%BA%90%E7%A0%81%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/" class="title">redis源码环境搭建</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2022-03-19T16:29:16.300Z" itemprop="datePublished">2022-03-20</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                
+              </p>
+              <p class="item-title">
+                <a href="/2022/03/19/typora%E6%96%87%E4%BB%B6%E9%9B%86%E5%90%88/%E6%8A%80%E6%9C%AF/%E5%B8%B8%E8%A7%81%E7%9A%84%E9%9D%A2%E8%AF%95%E6%8A%80%E6%9C%AF%E9%97%AE%E9%A2%98/Spring%20AOP%E6%98%AF%E6%80%8E%E4%B9%88%E5%AE%9E%E7%8E%B0%E7%9A%84/" class="title">(no title)</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2022-03-18T17:03:12.253Z" itemprop="datePublished">2022-03-19</time>
+              </p>
+            </div>
+          </li>
+          
+      </ul>
+    </div>
+  </div>
+  
+
+    
+  </div>
+</aside>
+
+  
+  
+<main class="main" role="main">
+  <div class="content">
+  <article id="post-typora文件集合/技术/LandScape/DB/MySql中的事务与锁机制" class="article article-type-post" itemscope itemtype="http://schema.org/BlogPosting">
+    
+    <div class="article-header">
+      
+      <div class="article-meta">
+        <span class="article-date">
+    <i class="icon icon-calendar-check"></i>
+	<a href="/2021/08/02/typora%E6%96%87%E4%BB%B6%E9%9B%86%E5%90%88/%E6%8A%80%E6%9C%AF/LandScape/DB/MySql%E4%B8%AD%E7%9A%84%E4%BA%8B%E5%8A%A1%E4%B8%8E%E9%94%81%E6%9C%BA%E5%88%B6/" class="article-date">
+	  <time datetime="2021-08-01T16:33:20.603Z" itemprop="datePublished">2021-08-02</time>
+	</a>
+</span>
+        
+        
+
+        
+
+        <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2021/08/02/typora%E6%96%87%E4%BB%B6%E9%9B%86%E5%90%88/%E6%8A%80%E6%9C%AF/LandScape/DB/MySql%E4%B8%AD%E7%9A%84%E4%BA%8B%E5%8A%A1%E4%B8%8E%E9%94%81%E6%9C%BA%E5%88%B6/#comments" class="article-comment-link">评论</a></span>
+        
+      </div>
+    </div>
+    <div class="article-entry marked-body" itemprop="articleBody">
+      
+        <?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/><meta name="exporter-version" content="Evernote Mac 9.5.5 (463962)"/><meta name="author" content="夏振宇"/><meta name="created" content="2021-02-05 17:01:14 +0000"/><meta name="source" content="desktop.mac"/><meta name="updated" content="2021-04-06 10:16:35 +0000"/><title>MySql中的事务与锁机制</title></head><body><div><span style="font-weight: bold;">事务及其特性</span></div><div><br/></div><div><br/></div><div><br/></div><div>简单来说，事务是指作为单个逻辑工作单元执行的一系列操作，这些操作要么全做，要么全不做，是一个不可分割的工作单元。</div><div>一个逻辑工作单元要成为事务，在关系型数据库管理系统中，必须满足 4 个特性，即所谓的 ACID：原子性、一致性、隔离性和持久性。</div><div><br/></div><ol><li><div>一致性：事务开始之前和事务结束之后，数据库的完整性限制未被破坏。</div></li></ol><div><br/></div><ol start="2"><li><div>原子性：事务的所有操作，要么全部完成，要么全部不完成，不会结束在某个中间环节。</div></li></ol><div><br/></div><ol start="3"><li><div>持久性：事务完成之后，事务所做的修改进行持久化保存，不会丢失。</div></li></ol><div><br/></div><ol start="4"><li><div>隔离性：当多个事务并发访问数据库中的同一数据时，所表现出来的相互关系。</div></li></ol><div>ACID 及它们之间的关系如下图所示，比如 4 个特性中有 3 个与 WAL 有关系，都需要通过 Redo、Undo 日志来保证等。</div><div><img src="MySql%E4%B8%AD%E7%9A%84%E4%BA%8B%E5%8A%A1%E4%B8%8E%E9%94%81%E6%9C%BA%E5%88%B6.resources/9145603A-2215-4B57-82F1-37052472440E.png" height="571" width="1000"/><br/></div><div><span style="font-weight: bold;">一致性</span></div><div>首先来看一致性，一致性其实包括两部分内容，分别是约束一致性和数据一致性。</div><div><br/></div><ol><li><div> 约束一致性：大家应该很容易想到数据库中创建表结构时所指定的外键、Check、唯一索引等约束。可惜在 MySQL 中，是不支持 Check 的，只支持另外两种，所以约束一致性就非常容易理解了。</div></li></ol><div><br/></div><ol start="2"><li><div> 数据一致性：是一个综合性的规定，或者说是一个把握全局的规定。因为它是由原子性、持久性、隔离性共同保证的结果，而不是单单依赖于某一种技术。</div></li></ol><div><br/></div><div><span style="font-weight: bold;">原子性</span></div><div><br/></div><div><br/></div><div>原子性就是前面提到的两个要么，即要么改了，要么没改。也就是说用户感受不到一个正在改的状态。Mysql是通过WAL（W<span style="font-size: unset; color: unset; font-family: unset;">rite Ahead Lo</span></div><div><span style="font-size: unset; color: unset; font-family: unset;">g）技术来实现这个效果的。</span></div><div>可能你想问，原子性和WAL到底有什么关系呢？其实关系非常的大。举例来说，如果事务提交了，那改了的数据就生效了，如果此时Buffer Pool的脏页没有刷盘，如何来保证改了的数据生效呢？就需要使用Redo日志恢复出来的数据。而如果事务没有提交，且Buffer Pool的脏页被刷盘了，那这个本不应该存在的数据如何消失呢？就需要使用Undo来实现了，Undo又是通过Redo来保证的，所以最终原子性的保证还是靠Redo的WAL机制实现的。</div><div><br/></div><div><span style="font-weight: bold;">持久性</span></div><div><br/></div><div><br/></div><div>再来看持久性。所谓持久性，就是指一个事务一旦提交，他对数据库中的数据的改变就是应该是永久性的，接下来的操作或者故障不应该对其有任何的影响。前面已经讲到，事务的原子性可以保证一个事务要么全部执行，要么全部不执行的特性，这个可以从逻辑上保证用户看不到中间的状态。但是 持久性是如何保证的呢？一旦事务提交，通过原子性，即便是遇到宕机，也可以从逻辑上讲数据找回来后再次写入物理存储空间，这样就从逻辑和物理两个方面保证了数据不会丢失，即保证了数据库的持久性。</div><div><br/></div><div><span style="font-weight: bold;">隔离性</span></div><div><br/></div><div><span style="font-size: unset; color: unset; font-family: unset;">最后看下隔离性。所谓隔离性，指的是一个事务的执行不能被其他的事务干扰，即一个事务内部的操作及使用的数据对其他的并发的事务是隔离的。锁和多版本控制就符合隔离性。</span></div><div><br/></div><div><br/></div><div><br/></div><div><span style="font-size: 18px; font-weight: bold;">并发事务控制</span></div><div><br/></div><div><span style="font-weight: bold;">单版本控制-锁</span></div><div><br/></div><div>先来看锁，锁用独占的方式来保证在只有一个版本的情况下事务之间相互隔离，所以锁可以理解为单版本控制。</div><div>在Mysql事务中，锁的实现与隔离级别有关，在RR（Repeated Read） 隔离级别下，Mysql为了解决幻读的问题，以牺牲并行度为代价，通过Gap锁（间隙锁）来防止数据的写入，而这种锁，因为并行度不够，冲突很多，经常会引起死锁。现在流行的Row模式可以避免很多冲突甚至死锁，所以推行使用Row+RC（Read Commit）模式的隔离级别，可以很大程度上提高数据库的读写并行度。</div><div><br/></div><div><br/></div><div><span style="font-size: unset; color: unset; font-family: unset;">多版本控制-MVCC</span></div><div><br/></div><div>多版本控制也叫做MVCC，是指在数据库中，为了实现高并发的数据访问，对数据进行多版本处理，并通过事务的可见性来保证事务能看到自己应该看到的数据版本。</div><div>那多版本是如何生成的呢？每一次对数据库的修改，都会在Undo日志中记录当前修改记录的事务号及修改前数据状态的存储地址（即ROLL_PTR），以便在必要的时候可以回滚到老的数据版本。例如，一个读事务查询到当前记录，而最新的事务还未提交，根据原子性，读事务看不到最新的数据，但可以去回滚段中找到老本的数据，这样就生成了多个版本。</div><div><br/></div><div>多版本控制很巧妙地将稀缺资源的独占互斥转换为并发，大大提高了数据的吞吐量及读写性能。</div><div><br/></div><div><br/></div><div><span style="font-weight: bold;">特性背后的技术原理</span></div><div><br/></div><div>先来看看原子性，每一个写事务，都会修改Buffer Pool，从而产生相应的Redo日志，这些日志信息会被记录到lib_logfile文件中。因为Redo日志遵循WAL的方式写入的，所以事务是顺序被记录的。</div><div>在MYSQL 中，任何Buffer Pool中的页被刷到磁盘之前，都会先写入到日志文件中，这样做有两方面的保证。</div><ol><li><div>如果Buffer Pool中的这个页没有刷盘成功，此时的数据库挂了，那在数据库再次启动之后，可以通过Redo日志将其恢复出来，以保证脏页写下去的数据不会丢失，所以必须保证Redo先写。</div></li><li><div>因为Buffer Pool的空间是有限的，要载入新页时，需要从LRU链表中淘汰一些页，而这些页必须要刷盘之后，才可以重新使用，那这时的刷盘，就需要保证对应的LSN的日志也要提前写到lib_logfiles中，如果没有写的话，恰巧这个事务又没有提交，数据库挂了，在数据库启动之后，这个事务就没法回滚了。所以如果不写日志的话，这些数据对应的回滚日志可能就不存在，导致未提交的事务回滚不了，从而不能保证原子性，所以原子性就是通过WAL来保证的。</div></li></ol><div><br/></div><div><br/></div><div><span style="font-weight: bold;">持久性背后的技术</span></div><div><br/></div><div>一个提交动作触发的操作有：binlog落地、发送binlog、存储引擎提交、flush_logs、check_point、事务提交标记等。这些都是数据库保证数据完整性、持久性的手段。</div><div><img src="MySql%E4%B8%AD%E7%9A%84%E4%BA%8B%E5%8A%A1%E4%B8%8E%E9%94%81%E6%9C%BA%E5%88%B6.resources/6B03027C-60DA-4D4B-ACAE-2FC094029D71.png" height="447" width="1651"/><br/></div><div><br/></div><div><br/></div><div>那这些操作如何做到持久性的呢？前面讲过，通过原子性可以保证逻辑上的持久性，通过存储引擎的数据刷盘可以保证物理上的持久性。这个过程与前面提到的Redo日志、事务状态、数据库恢复、参数innodb_flush_log_at_trx_commit有关，还与binlog有关。另外，在数据库恢复时，如果发现某事务的状态为Prepare，则会在binlog中找到对应的事务并将其在数据库中重新执行一遍，来保证数据库的持久性。</div><div><br/></div><div><br/></div><div><br/></div><div><span style="font-weight: bold;">隔离性背后的技术</span></div><div><br/></div><div><br/></div><div>接下来来看隔离性，InnoDB支持的隔离性有4种，隔离性从低到高分别为：读未提交、读提交、可重复读、可串行化。</div><div><br/></div><ol><li><div>读未提交（RU，Read UnCommitted）。他能读到一个事务的中间过程，违背了ACID特性，存在脏读的问题，所以基本不会用到，可以忽略。</div></li><li><div>读提交（RC，Read Committed）。他表示如果其他事务已经提交，那么我们可以看到，这也是一种最普遍适用的级别，但由于一些历史原因，可能RC在生产环境使用的并不多。</div></li><li><div>可重复读（RR， Repeatable Read）,是目前被使用的最多的一种级别。其特点是有Gap锁，目前还是默认的级别，在这种级别下经常会发生死锁、低并发等问题。</div></li><li><div>可串行化，这种实现方式，其实已经并不是多版本了，又回到了单版本的状态，因为它所有的实现都是通过锁来实现的。</div></li></ol><div><br/></div><div> 具体说到隔离性的实现方式，我们通常用Read View 标示一个事务的可见性。目前讲到RC级别的事务可见性并不高，他可以看到已提交的事务的所有修改。而RR级别的事务，则没有这个功能，一个读事务中，不管其他事务对这些数据做了什么修改，以及是否提交，只要自己不提交，查询的数据结果就不会改变。这时如何做到的呢？</div><div><br/></div><div>随着时间的推移，读提交每一条读操作语句都会获取一次Read View，每次更新之后，都会获取数据库中最新的事务提交状态，也就是可以看到最新提交的事务了，即每条语句执行都会更新其可见性视图。而反观下面的可重复读，这个可见性视图，只有在自己当前事务提交之后，才会更新，所以与其他事务是没有关系的。</div><div><br/></div><div>这里需要提醒大家的是：在RR级别下，长时间未提交的事务会影响数据的PURGE操作，从而影响数据库的性能，所以可以对这样的事务天假一个监控。</div><div>最后我们来讲下可串行化的隔离级别，前面已经提到了，可串行化是通过锁来实现的，所以实际上并不是通过多版本控制，他的特点也很明显：读锁、单版本控制、并发低。</div><div><br/></div><div><br/></div><div><span style="font-weight: bold;">一致性背后的技术</span></div><div><br/></div><div><br/></div><div>接下来是一致性。一致性可以归纳为数据的完整性。根据前文可知，数据的完整性是通过其他三个特性来保证的，包括原子性、隔离性、持久性，而这三个特性，又是通过Redo/Rndo来保证的，正所谓：合久必分，分久必合，三足鼎立，三分归晋。数据库也是，为了保证数据的完整性，提出来三个特性，这三个特性又是由同一个技术实现的，所以理解Redo/Undo才能理解数据库的本质。</div><div><img src="MySql%E4%B8%AD%E7%9A%84%E4%BA%8B%E5%8A%A1%E4%B8%8E%E9%94%81%E6%9C%BA%E5%88%B6.resources/94333D0D-8144-4A1D-816C-4F19F0D42C90.png" height="394" width="1651"/><br/></div><div>如上图所示，逻辑上的一致性，包括唯一索引、外键约束、check约束，这属于业务逻辑范畴。</div><div><br/></div><div><br/></div><div><span style="font-weight: bold;">MVCC 实现原理</span></div><div><br/></div><div><br/></div><div>Mysql InnoDB存储引擎，实现的是基于多版本的并发控制协议-MVCC，而不是基于锁的并发控制。</div><div>MVCC 最大的好处是读不加锁，读写不冲突。在读多写少的OLTP应用中，读写不冲突时非常重要的，极大的提高了系统的并发性能，这也是为什么现阶段几乎所有的RDMS 都支持MVCC的原因。</div><div><br/></div><div><span style="font-weight: bold;">快照读与当前读</span></div><div><br/></div><div>在MVCC并发控制中，读操作可以分为两类：快照读（Snapshot Read）与当前读（ Current Read）。</div><ol><li><div>快照读：读取的是记录的可见版本（有可能是历史版本），不用加锁。</div></li></ol><div><span style="font-size: unset; color: unset; font-family: unset;">      2. 当前读：读取的是记录的最新版本，并且当前读返回的记录，都会加锁，保证其他事务不会再并发修改这条记录。</span></div><div>   </div><div>注意：MVCC 只在RC 与RR这两种隔离级别下工作。</div><div>如何区分快照读和当前读呢？ 可以简单的理解为：</div><div><br/></div><ol><li><div>快照读：简单的select操作，属于快照读，不需要加锁；</div></li><li><div>当前读： 特殊的读操作，插入/更新/删除操作，属于当前读，需要加锁。</div></li></ol><div><br/></div><div>MVCC 多版本的实现</div><div><br/></div><div>为了让大家更直观的理解MVCC 的实现原理，这里举一个“事务对某行记录更新的过程”的案例来讲解MVCC中多版本的实现。</div><div><br/></div><div>     假设F1～F6是表中字段的名字，1～6是其对应的数据。后面三个隐含的字段分别对应该行的隐含的ID、事务号和回滚指针，如下图所示：</div><div><img src="MySql%E4%B8%AD%E7%9A%84%E4%BA%8B%E5%8A%A1%E4%B8%8E%E9%94%81%E6%9C%BA%E5%88%B6.resources/5F8D726D-A547-42AB-8956-90A9C60830FB.png" height="212" width="783"/><br/></div><div><br/></div><div><br/></div><div>隐含ID（DB_ROW_ID<span style="font-size: unset; color: unset; font-family: unset;">）,6个字节，当由InnoDB自动产生聚集索引时，聚集索引包括这个DB_ROW_ID的值；</span></div><div>事务号（DB_TRX_ID），6个字节，标记了最新更新这行记录的Transaction ID，每处理一个事务，其值自动+1；</div><div>回滚指针（DB_ROLL_PT），7个字节，指向当前记录的Rollback Segment 的Undo log记录，通过这个指针才能找到之前的版本数据。</div><div><br/></div><div>首先，假如这条数据是刚insert的，可以理解为ID是1，其余两个字段是空。</div><div><br/></div><div>然后，当事务1更改该行的数据时，会进行如下操作，如下图所示：</div><div><br/></div><div><img src="MySql%E4%B8%AD%E7%9A%84%E4%BA%8B%E5%8A%A1%E4%B8%8E%E9%94%81%E6%9C%BA%E5%88%B6.resources/770F10D1-E10F-4BEB-9A9E-37ED944E81EC.png" height="207" width="694"/><br/></div><div><br/></div><div><br/></div><div>用排他锁锁定该行，记录Redo log；</div><div>把该行修改之前的值复制到Undo log，即图中下面的行；</div><div>修改当前行的值，填写事务编号，使回滚指针指向 Undo log中修改前的行。</div><div><br/></div><div>接下来，与事务1相同，此时Undo log中有两行记录，并且通过回滚指针连在一起。因此，如果Undo log一直不删除，则会通过当前记录的回滚指针回溯到该行创建时的初始内容，所幸的是在InnoDB中存在purge线程，他会查询哪些比现在最老的活动事务还早的Undo log，并删除它们，从而保证Undo log文件不会无限增长，如下图所示：</div><div><img src="MySql%E4%B8%AD%E7%9A%84%E4%BA%8B%E5%8A%A1%E4%B8%8E%E9%94%81%E6%9C%BA%E5%88%B6.resources/5F0FDE47-0FAD-4807-BAD6-66871F549C56.png" height="245" width="663"/><br/></div><div> </div><div><span style="font-weight: bold;">并发事务问题及解决方案</span></div><div><br/></div><div>上文讲述了MVCC 的原理及实现。那么随着数据库并发事务处理能力的大大增强，数据库资源的利用率也会大大提高，从而提高了数据库系统的事务吞吐量，可以支持更多的用户并发访问。但是并发事务处理也会带来一些问题，如：脏读、不可重复读、幻读等。</div><div><br/></div><div><span style="font-weight: bold;">脏读</span></div><div><br/></div><div>一个事务在对一条记录修改，这个事务完成之前并提交，这条记录的数据就处于不一致的状态；这时，另一个事务也来读取同一条记录，如果不加控制，第二个事务读取了这些脏数据，并据此做了进一步的处理，就会产生未提交的数据以来关系。这种现象叫做脏读。</div><div><br/></div><div><br/></div><div><span style="font-weight: bold;">不可重复读</span></div><div><br/></div><div>一个事务在读取某些数据后的某个时间，再次读取以前读取过的数据，却发现其读出的数据已尽发生了改变、或某些记录已经被删除了！这种现象就叫做“不可重复读”。</div><div><br/></div><div><span style="font-weight: bold;">幻读</span></div><div><br/></div><div>一个事务按相同的条件重新读取以前检索过的数据，却发现其他事务插入了满足其查询条件的新数据，这种现象就叫做“幻读”。</div><div><br/></div><div><br/></div><div><br/></div><div>解决方案</div><div><br/></div><div><br/></div><div>产生的这些问题，Mysql数据库是通过事务隔离级别来解决的，上文已经详细讲解过了。</div><div><br/></div><div><br/></div><div><br/></div><div><img src="MySql%E4%B8%AD%E7%9A%84%E4%BA%8B%E5%8A%A1%E4%B8%8E%E9%94%81%E6%9C%BA%E5%88%B6.resources/305534B7-7846-4AF2-9CC8-04413EB77BB3.png" height="412" width="1111"/><br/></div><div><br/></div><div><br/></div><div><br/></div><div><br/></div><div><br/></div><div><br/></div><div><br/></div><div><br/></div><div><br/></div><div><br/></div><div><br/></div><div><br/></div><div><br/></div><div><br/></div><div><br/></div><div><br/></div><div><br/></div><div><span style="font-weight: bold;">Mysql中锁的分类</span></div><div><br/></div><div>前面提到了锁，下面详细讲解Mysql中的锁。在Mysql中有三种级别的锁：页级锁、表级锁、行级锁</div><div><br/></div><ul><li><div>表级锁：开销小，加锁快；不会出现死锁；锁粒度大，发生锁冲突的概率最高，并发度最低。会发生在：MyISAM、memory、InnoDB、DBD等存储引擎中。</div></li><li><div> 行级锁：开销大，加锁慢；会出现死锁；锁粒度最小，发生锁冲突的概率最低，并发度最高。会发生在：InnoDB存储引擎。</div></li><li><div>页级锁：开销和加锁时间介于表锁和行锁之间；会出现死锁；锁定粒度介于表锁 和行锁之间，并发度一般。会发生在BDB存储引擎。</div></li></ul><div>三种级别的锁分别对应存储引擎关系如下图所示：</div><div><img src="MySql%E4%B8%AD%E7%9A%84%E4%BA%8B%E5%8A%A1%E4%B8%8E%E9%94%81%E6%9C%BA%E5%88%B6.resources/0F96A303-DFA6-4B26-B99A-CA179CCB658F.png" height="269" width="988"/><br/></div><div><br/></div><div><br/></div><div><br/></div><div>注意：Mysql中表锁包括读锁和写锁。只需记住这个表锁模式兼容矩阵即可。</div><div><br/></div><div><br/></div><div><span style="font-weight: bold;">InnoDB中的锁</span></div><div><br/></div><div><br/></div><div><br/></div><div>在Mysql InnoDB存储引擎中，锁分为行锁和表锁。其中行锁包括两种锁：</div><ul><li><div>共享锁（S）： 多个事务可以一起读，共享锁之间不互斥，共享锁会阻塞拍他锁；</div></li><li><div>排他锁（X）：允许获得排他锁的事务更新数据，阻止其他事务取得相同数据集的共享读锁和排他锁。</div></li></ul><div><br/></div><div><br/></div><div>另外，为了允许行锁和表锁共存，实现多粒度锁机制，InnoDB还有两种内部使用的意向锁（Intention Locks），这两种意向锁搜事表锁。表锁分为三种。</div><ul><li><div>意向共享锁（IS）：事务计划给数据行加行共享锁，事务在给一个数据行加共享锁前必须先取得改表的IS锁；</div></li><li><div>意向排他锁（IX）：事务打算给数据行加排他锁，事务在给一个数据行加排他锁前必须先取得改表的IX锁。</div></li><li><div>自增锁（AUTO-INC Lock）：特殊表锁，自增长计数器通过该“锁”来获得自增长计数器最大的计数值。</div></li></ul><div><br/></div><div>在加行锁之前必须先获得表级意向锁，否则等待innodb_lock_wait_timeout 超时后根据innodb_rollback_on_timeout 决定是否回滚事务。</div><div><br/></div><div>InnoDB 自增锁</div><div><br/></div><div><br/></div><div>在Mysql InnoDB存储引擎中，我们在设计表结构的时候，通常会建议添加一列作为自增主键。这里就会涉及一特殊的锁：自增锁（AUTO-INC Lock）,它属于表锁的一种，在insert结束之后立即释放。保持默认值就行。如下图所示：</div><div><br/></div><div><br/></div><div><img src="MySql%E4%B8%AD%E7%9A%84%E4%BA%8B%E5%8A%A1%E4%B8%8E%E9%94%81%E6%9C%BA%E5%88%B6.resources/F1815EC9-9367-4D90-901A-5680CBFAA3A2.png" height="507" width="1187"/><br/></div><div><br/></div><div><br/></div><div>InnoDB 锁关系矩阵如下图所示，其中：+ 表示兼容，- 表示不兼容。</div><div><img src="MySql%E4%B8%AD%E7%9A%84%E4%BA%8B%E5%8A%A1%E4%B8%8E%E9%94%81%E6%9C%BA%E5%88%B6.resources/CE7BEFD9-06F6-4023-9C68-737E64472368.png" height="300" width="1021"/><br/></div><div><br/></div><div><br/></div><div><br/></div><div><br/></div><div><br/></div><div><br/></div><div><br/></div><div><br/></div><div><br/></div><div><br/></div><div><br/></div><div><br/></div><div><br/></div><div><br/></div><div><br/></div><div><br/></div><div><br/></div><div><br/></div><div><br/></div></body></html>
+      
+    </div>
+    <div class="article-footer">
+      <blockquote class="mt-2x">
+  <ul class="post-copyright list-unstyled">
+    
+    <li class="post-copyright-link hidden-xs">
+      <strong>本文链接：</strong>
+      <a href="http://example.com/2021/08/02/typora%E6%96%87%E4%BB%B6%E9%9B%86%E5%90%88/%E6%8A%80%E6%9C%AF/LandScape/DB/MySql%E4%B8%AD%E7%9A%84%E4%BA%8B%E5%8A%A1%E4%B8%8E%E9%94%81%E6%9C%BA%E5%88%B6/" title="" target="_blank" rel="external">http://example.com/2021/08/02/typora文件集合/技术/LandScape/DB/MySql中的事务与锁机制/</a>
+    </li>
+    
+    <li class="post-copyright-license">
+      <strong>版权声明： </strong> 本博客所有文章除特别声明外，均采用 <a href="http://creativecommons.org/licenses/by/4.0/deed.zh" target="_blank" rel="external">CC BY 4.0 CN协议</a> 许可协议。转载请注明出处！
+    </li>
+  </ul>
+</blockquote>
+
+
+<div class="panel panel-default panel-badger">
+  <div class="panel-body">
+    <figure class="media">
+      <div class="media-left">
+        <a href="https://github.com/chenyusharp" target="_blank" class="img-burn thumb-sm visible-lg">
+          <img src="https://xiazhenyu.oss-cn-hangzhou.aliyuncs.com/common/36723748-0889-481D-AD81-B036124EBE2E_1_105_c.jpeg" class="img-rounded w-full" alt="">
+        </a>
+      </div>
+      <div class="media-body">
+        <h3 class="media-heading"><a href="https://github.com/chenyusharp" target="_blank"><span class="text-dark">chenyusharp</span><small class="ml-1x">Java Developer</small></a></h3>
+        <div>个人简介。</div>
+      </div>
+    </figure>
+  </div>
+</div>
+
+
+    </div>
+  </article>
+  
+    
+  <section id="comments">
+  	
+      <div id="vcomments"></div>
+    
+  </section>
+
+
+  
+</div>
+
+  <nav class="bar bar-footer clearfix" data-stick-bottom>
+  <div class="bar-inner">
+  
+  <ul class="pager pull-left">
+    
+    <li class="prev">
+      <a href="/2021/08/02/typora%E6%96%87%E4%BB%B6%E9%9B%86%E5%90%88/%E6%8A%80%E6%9C%AF/LandScape/Spring/Spring%E4%B8%AD%E7%9A%84%E4%BA%8B%E5%8A%A1/" title="(no title)"><i class="icon icon-angle-left" aria-hidden="true"></i><span>&nbsp;&nbsp;上一篇</span></a>
+    </li>
+    
+    
+    <li class="next">
+      <a href="/2021/07/26/typora%E6%96%87%E4%BB%B6%E9%9B%86%E5%90%88/%E6%8A%80%E6%9C%AF/%E6%8A%80%E6%9C%AF%E7%AC%94%E8%AE%B0/Pulsar%20MQ%E7%9B%B8%E5%85%B3%E7%9F%A5%E8%AF%86%E7%82%B9/" title="(no title)"><span>下一篇&nbsp;&nbsp;</span><i class="icon icon-angle-right" aria-hidden="true"></i></a>
+    </li>
+    
+    
+  </ul>
+  
+  
+  <!-- Button trigger modal -->
+  <button type="button" class="btn btn-fancy btn-donate pop-onhover bg-gradient-warning" data-toggle="modal" data-target="#donateModal"><span>赏</span></button>
+  <!-- <div class="wave-icon wave-icon-danger btn-donate" data-toggle="modal" data-target="#donateModal">
+    <div class="wave-circle"><span class="icon"><i class="icon icon-bill"></i></span></div>
+  </div> -->
+  
+  
+  <div class="bar-right">
+    
+    <div class="share-component" data-sites="weibo,qq,wechat,facebook,twitter" data-mobile-sites="weibo,qq,qzone"></div>
+    
+  </div>
+  </div>
+</nav>
+  
+<!-- Modal -->
+<div class="modal modal-center modal-small modal-xs-full fade" id="donateModal" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content donate">
+      <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+      <div class="modal-body">
+        <div class="donate-box">
+          <div class="donate-head">
+            <p>感谢您的支持，我会继续努力的!</p>
+          </div>
+          <div class="tab-content">
+            <div role="tabpanel" class="tab-pane fade active in" id="alipay">
+              <div class="donate-payimg">
+                <img src="/images/donate/alipayimg.png" alt="扫码支持" title="扫一扫" />
+              </div>
+              <p class="text-muted mv">扫码打赏，你说多少就多少</p>
+              <p class="text-grey">打开支付宝扫一扫，即可进行扫码打赏哦</p>
+            </div>
+            <div role="tabpanel" class="tab-pane fade" id="wechatpay">
+              <div class="donate-payimg">
+                <img src="/images/donate/wechatpayimg.png" alt="扫码支持" title="扫一扫" />
+              </div>
+              <p class="text-muted mv">扫码打赏，你说多少就多少</p>
+              <p class="text-grey">打开微信扫一扫，即可进行扫码打赏哦</p>
+            </div>
+          </div>
+          <div class="donate-footer">
+            <ul class="nav nav-tabs nav-justified" role="tablist">
+              <li role="presentation" class="active">
+                <a href="#alipay" id="alipay-tab" role="tab" data-toggle="tab" aria-controls="alipay" aria-expanded="true"><i class="icon icon-alipay"></i> 支付宝</a>
+              </li>
+              <li role="presentation" class="">
+                <a href="#wechatpay" role="tab" id="wechatpay-tab" data-toggle="tab" aria-controls="wechatpay" aria-expanded="false"><i class="icon icon-wepay"></i> 微信支付</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+</main>
+
+  <footer class="footer" itemscope itemtype="http://schema.org/WPFooter">
+	
+	
+    <ul class="social-links">
+    	
+        <li><a href="https://github.com/chenyusharp" target="_blank" title="Github" data-toggle=tooltip data-placement=top><i class="icon icon-github"></i></a></li>
+        
+    </ul>
+
+    <div class="copyright">
+    	
+        <div class="publishby">
+        	Theme by <a href="https://github.com/cofess" target="_blank"> cofess </a>base on <a href="https://github.com/cofess/hexo-theme-pure" target="_blank">pure</a>.
+        </div>
+    </div>
+</footer>
+  <script src="//cdn.jsdelivr.net/npm/jquery@1.12.4/dist/jquery.min.js"></script>
+<script>
+window.jQuery || document.write('<script src="js/jquery.min.js"><\/script>')
+</script>
+
+<script src="/js/plugin.min.js"></script>
+
+
+<script src="/js/application.js"></script>
+
+
+    <script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: '文章',
+            PAGES: '页面',
+            CATEGORIES: '分类',
+            TAGS: '标签',
+            UNTITLED: '(未命名)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+
+<script src="/js/insight.js"></script>
+
+
+
+
+
+
+   
+
+
+
+
+   
+    
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/valine"></script>
+  <script type="text/javascript">
+  var GUEST = ['nick', 'mail', 'link'];
+  var meta = 'nick,mail,link';
+  meta = meta.split(',').filter(function(item) {
+    return GUEST.indexOf(item) > -1;
+  });
+  new Valine({
+    el: '#vcomments',
+    verify: false,
+    notify: false,
+    appId: '',
+    appKey: '',
+    placeholder: 'Just go go',
+    avatar: 'mm',
+    meta: meta,
+    pageSize: '10' || 10,
+    visitor: false
+  });
+  </script>
+
+     
+
+
+
+
+
+
+
+</body>
+</html>

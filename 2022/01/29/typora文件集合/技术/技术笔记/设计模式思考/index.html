@@ -1,0 +1,668 @@
+<!DOCTYPE html>
+<html lang=zh>
+<head>
+  <meta charset="utf-8">
+  
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
+  <meta name="renderer" content="webkit">
+  <meta http-equiv="Cache-Control" content="no-transform" />
+  <meta http-equiv="Cache-Control" content="no-siteapp" />
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="format-detection" content="telephone=no,email=no,adress=no">
+  <!-- Color theme for statusbar -->
+  <meta name="theme-color" content="#000000" />
+  <!-- 强制页面在当前窗口以独立页面显示,防止别人在框架里调用页面 -->
+  <meta http-equiv="window-target" content="_top" />
+  
+  
+  <title>Hexo</title>
+  <meta name="description" content="自己对设计模式的思考 Builder模式构建者模式的主要点就是在一个类里面有一个静态类Builder，这个类里面的成员变量和外层的类中的成变量是一样的，里面提供了对每一个成员变量的操作方法，然后还有一个build签名函数，用以初始化这个静态的类。build里面调用的是外层的对象的构造函数，入参就是这个静态类，里面会把这个静态类的成员变量的值依次复制给外层对象中对应的成员变量。 在Spring中的应">
+<meta property="og:type" content="article">
+<meta property="og:title" content="技术、生活、思考">
+<meta property="og:url" content="http://example.com/2022/01/29/typora%E6%96%87%E4%BB%B6%E9%9B%86%E5%90%88/%E6%8A%80%E6%9C%AF/%E6%8A%80%E6%9C%AF%E7%AC%94%E8%AE%B0/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E6%80%9D%E8%80%83/index.html">
+<meta property="og:site_name" content="技术、生活、思考">
+<meta property="og:description" content="自己对设计模式的思考 Builder模式构建者模式的主要点就是在一个类里面有一个静态类Builder，这个类里面的成员变量和外层的类中的成变量是一样的，里面提供了对每一个成员变量的操作方法，然后还有一个build签名函数，用以初始化这个静态的类。build里面调用的是外层的对象的构造函数，入参就是这个静态类，里面会把这个静态类的成员变量的值依次复制给外层对象中对应的成员变量。 在Spring中的应">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://xiazhenyu.oss-cn-hangzhou.aliyuncs.com/common/%E9%80%82%E9%85%8D%E5%99%A8%E6%A8%A1%E5%BC%8F.png">
+<meta property="og:image" content="https://xiazhenyu.oss-cn-hangzhou.aliyuncs.com/common/20220129175329.png">
+<meta property="og:image" content="https://camo.githubusercontent.com/83e552b2f3cdf39dd6c642787c8ddba5decc745782d6b89ad2b0c75dd08d0bcc/68747470733a2f2f696d672d626c6f672e6373646e696d672e636e2f32303139303830313136343734333537352e706e673f782d6f73732d70726f636573733d696d6167652f77617465726d61726b2c747970655f5a6d46755a33706f5a57356e6147567064476b2c736861646f775f31302c746578745f6148523063484d364c7939696247396e4c6d4e7a5a473475626d56304c304e765a475679516e4a3161584d3d2c73697a655f31362c636f6c6f725f4646464646462c745f3730">
+<meta property="og:image" content="https://xiazhenyu.oss-cn-hangzhou.aliyuncs.com/common/image-20220207113433968.png">
+<meta property="og:image" content="https://xiazhenyu.oss-cn-hangzhou.aliyuncs.com/common/image-20220207113625568.png">
+<meta property="og:image" content="https://xiazhenyu.oss-cn-hangzhou.aliyuncs.com/common/ResourceLoader%20UML%E7%BB%93%E6%9E%84%E5%9B%BE.png">
+<meta property="og:image" content="https://xiazhenyu.oss-cn-hangzhou.aliyuncs.com/common/image-20220207142949077.png">
+<meta property="og:image" content="https://xiazhenyu.oss-cn-hangzhou.aliyuncs.com/common/image-20220207161033677.png">
+<meta property="og:image" content="https://xiazhenyu.oss-cn-hangzhou.aliyuncs.com/common/image-20220207161151075.png">
+<meta property="og:image" content="https://xiazhenyu.oss-cn-hangzhou.aliyuncs.com/common/image-20220207162023243.png">
+<meta property="og:image" content="https://xiazhenyu.oss-cn-hangzhou.aliyuncs.com/common/image-20220207162332358.png">
+<meta property="og:image" content="https://xiazhenyu.oss-cn-hangzhou.aliyuncs.com/common/ApplicationEventPublisher%20UML%E7%BB%93%E6%9E%84%E5%9B%BE.png">
+<meta property="og:image" content="https://xiazhenyu.oss-cn-hangzhou.aliyuncs.com/common/ApplicationEventMulticaster%20UML%20%E7%BB%93%E6%9E%84%E5%9B%BE.png">
+<meta property="og:image" content="https://xiazhenyu.oss-cn-hangzhou.aliyuncs.com/common/image-20220207164119342.png">
+<meta property="og:image" content="https://xiazhenyu.oss-cn-hangzhou.aliyuncs.com/common/image-20220207164300314.png">
+<meta property="og:image" content="https://xiazhenyu.oss-cn-hangzhou.aliyuncs.com/common/image-20220207164707039.png">
+<meta property="article:published_time" content="2022-01-29T06:35:28.385Z">
+<meta property="article:modified_time" content="2022-02-11T07:02:51.846Z">
+<meta property="article:author" content="chenyusharp">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://xiazhenyu.oss-cn-hangzhou.aliyuncs.com/common/%E9%80%82%E9%85%8D%E5%99%A8%E6%A8%A1%E5%BC%8F.png">
+  <!-- Canonical links -->
+  <link rel="canonical" href="http://example.com/2022/01/29/typora%E6%96%87%E4%BB%B6%E9%9B%86%E5%90%88/%E6%8A%80%E6%9C%AF/%E6%8A%80%E6%9C%AF%E7%AC%94%E8%AE%B0/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E6%80%9D%E8%80%83/index.html">
+  
+    <link rel="alternate" href="/atom.xml" title="技术、生活、思考" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png" type="image/x-icon">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+  
+  
+  
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+
+<body class="main-center" itemscope itemtype="http://schema.org/WebPage">
+  <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+  <div class="slimContent">
+    <div class="navbar-header">
+      
+      
+      <div class="profile-block text-center">
+        <a id="avatar" href="https://github.com/chenyusharp" target="_blank">
+          <img class="img-circle img-rotate" src="https://xiazhenyu.oss-cn-hangzhou.aliyuncs.com/common/36723748-0889-481D-AD81-B036124EBE2E_1_105_c.jpeg" width="200" height="200">
+        </a>
+        <h2 id="name" class="hidden-xs hidden-sm">chenyusharp</h2>
+        <h3 id="title" class="hidden-xs hidden-sm hidden-md">Java Developer</h3>
+        <small id="location" class="text-muted hidden-xs hidden-sm"><i class="icon icon-map-marker"></i> Hangzhou, China</small>
+      </div>
+      
+      <div class="search" id="search-form-wrap">
+
+    <form class="search-form sidebar-form">
+        <div class="input-group">
+            <input type="text" class="search-form-input form-control" placeholder="搜索" />
+            <span class="input-group-btn">
+                <button type="submit" class="search-form-submit btn btn-flat" onclick="return false;"><i class="icon icon-search"></i></button>
+            </span>
+        </div>
+    </form>
+    <div class="ins-search">
+  <div class="ins-search-mask"></div>
+  <div class="ins-search-container">
+    <div class="ins-input-wrapper">
+      <input type="text" class="ins-search-input" placeholder="想要查找什么..." x-webkit-speech />
+      <button type="button" class="close ins-close ins-selectable" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+    </div>
+    <div class="ins-section-wrapper">
+      <div class="ins-section-container"></div>
+    </div>
+  </div>
+</div>
+
+
+</div>
+      <button class="navbar-toggle collapsed" type="button" data-toggle="collapse" data-target="#main-navbar" aria-controls="main-navbar" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+    </div>
+    <nav id="main-navbar" class="collapse navbar-collapse" itemscope itemtype="http://schema.org/SiteNavigationElement" role="navigation">
+      <ul class="nav navbar-nav main-nav ">
+        
+        
+        <li class="menu-item menu-item-home">
+          <a href="/.">
+            
+            <i class="icon icon-home-fill"></i>
+            
+            <span class="menu-title">首页</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives">
+            
+            <i class="icon icon-archives-fill"></i>
+            
+            <span class="menu-title">归档</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories">
+            
+            <i class="icon icon-folder"></i>
+            
+            <span class="menu-title">分类</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags">
+            
+            <i class="icon icon-tags"></i>
+            
+            <span class="menu-title">标签</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-repository">
+          <a href="/repository">
+            
+            <i class="icon icon-project"></i>
+            
+            <span class="menu-title">项目</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-books">
+          <a href="/books">
+            
+            <i class="icon icon-book-fill"></i>
+            
+            <span class="menu-title">书单</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-links">
+          <a href="/links">
+            
+            <i class="icon icon-friendship"></i>
+            
+            <span class="menu-title">友链</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about">
+            
+            <i class="icon icon-cup-fill"></i>
+            
+            <span class="menu-title">关于</span>
+          </a>
+        </li>
+        
+      </ul>
+      
+	
+    <ul class="social-links">
+    	
+        <li><a href="https://github.com/chenyusharp" target="_blank" title="Github" data-toggle=tooltip data-placement=top><i class="icon icon-github"></i></a></li>
+        
+    </ul>
+
+    </nav>
+  </div>
+</header>
+
+  
+    <aside class="sidebar" itemscope itemtype="http://schema.org/WPSideBar">
+  <div class="slimContent">
+    
+      <div class="widget">
+    <h3 class="widget-title">公告</h3>
+    <div class="widget-body">
+        <div id="board">
+            <div class="content">
+                <p>欢迎交流与分享经验!</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">分类</h3>
+    <div class="widget-body">
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/DDD/">DDD</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/linux/">linux</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/redis/">redis</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/typora/">typora</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/wholee/">wholee</a><span class="category-list-count">10</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%8A%80%E6%9C%AF/">技术</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%8A%80%E8%83%BD/">技能</a><span class="category-list-count">1</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%8A%80%E8%83%BD/%E5%B7%A5%E4%BD%9C/">工作</a><span class="category-list-count">1</span></li></ul></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">标签</h3>
+    <div class="widget-body">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/DDD/" rel="tag">DDD</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/linux/" rel="tag">linux</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/redis/" rel="tag">redis</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/wholee/" rel="tag">wholee</a><span class="tag-list-count">10</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%B7%A5%E4%BD%9C%E5%AE%89%E6%8E%92/" rel="tag">工作安排</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%8A%80%E8%83%BD/" rel="tag">技能</a><span class="tag-list-count">1</span></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">标签云</h3>
+    <div class="widget-body tagcloud">
+      <a href="/tags/DDD/" style="font-size: 13px;">DDD</a> <a href="/tags/linux/" style="font-size: 13.33px;">linux</a> <a href="/tags/redis/" style="font-size: 13px;">redis</a> <a href="/tags/wholee/" style="font-size: 14px;">wholee</a> <a href="/tags/%E5%B7%A5%E4%BD%9C%E5%AE%89%E6%8E%92/" style="font-size: 13.67px;">工作安排</a> <a href="/tags/%E6%8A%80%E8%83%BD/" style="font-size: 13px;">技能</a>
+    </div>
+  </div>
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">归档</h3>
+    <div class="widget-body">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/03/">三月 2022</a><span class="archive-list-count">12</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/02/">二月 2022</a><span class="archive-list-count">21</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/01/">一月 2022</a><span class="archive-list-count">30</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/12/">十二月 2021</a><span class="archive-list-count">8</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/11/">十一月 2021</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/10/">十月 2021</a><span class="archive-list-count">38</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/09/">九月 2021</a><span class="archive-list-count">10</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/08/">八月 2021</a><span class="archive-list-count">24</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/07/">七月 2021</a><span class="archive-list-count">18</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/06/">六月 2021</a><span class="archive-list-count">13</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/05/">五月 2021</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/03/">三月 2021</a><span class="archive-list-count">1</span></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget-body">
+      <ul class="recent-post-list list-unstyled no-thumbnail">
+        
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/%E6%8A%80%E6%9C%AF/">技术</a>
+              </p>
+              <p class="item-title">
+                <a href="/2022/03/20/typora%E6%96%87%E4%BB%B6%E9%9B%86%E5%90%88/%E6%8A%80%E6%9C%AF/%E5%B8%B8%E8%A7%81%E7%9A%84%E9%9D%A2%E8%AF%95%E6%8A%80%E6%9C%AF%E9%97%AE%E9%A2%98/%E5%88%A9%E7%94%A8JVM%E5%91%BD%E4%BB%A4%E8%A1%8C%E5%B7%A5%E5%85%B7%E6%8E%92%E6%9F%A5%E7%BA%BF%E4%B8%8A%E9%97%AE%E9%A2%98/" class="title">利用JVM命令行工具排查线上问题</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2022-03-20T05:19:39.297Z" itemprop="datePublished">2022-03-20</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/%E6%8A%80%E6%9C%AF/">技术</a>
+              </p>
+              <p class="item-title">
+                <a href="/2022/03/20/typora%E6%96%87%E4%BB%B6%E9%9B%86%E5%90%88/%E6%8A%80%E6%9C%AF/%E5%B8%B8%E8%A7%81%E7%9A%84%E9%9D%A2%E8%AF%95%E6%8A%80%E6%9C%AF%E9%97%AE%E9%A2%98/%E5%A6%82%E4%BD%95%E5%AE%9E%E7%8E%B0%E4%B8%80%E4%B8%AARPC%E6%A1%86%E6%9E%B6/" class="title">如何实现一个RPC框架</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2022-03-19T18:29:15.439Z" itemprop="datePublished">2022-03-20</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/linux/">linux</a>
+              </p>
+              <p class="item-title">
+                <a href="/2022/03/20/typora%E6%96%87%E4%BB%B6%E9%9B%86%E5%90%88/%E6%8A%80%E6%9C%AF/%E6%8A%80%E6%9C%AF%E7%AC%94%E8%AE%B0/%E6%9C%8D%E5%8A%A1%E5%99%A8/%E5%B8%B8%E7%94%A8%E7%9A%84linux%E5%91%BD%E4%BB%A4/" class="title">常用的linux命令</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2022-03-19T18:23:26.102Z" itemprop="datePublished">2022-03-20</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/redis/">redis</a>
+              </p>
+              <p class="item-title">
+                <a href="/2022/03/20/typora%E6%96%87%E4%BB%B6%E9%9B%86%E5%90%88/%E6%8A%80%E6%9C%AF/redis/redis%E6%BA%90%E7%A0%81%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/" class="title">redis源码环境搭建</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2022-03-19T16:29:16.300Z" itemprop="datePublished">2022-03-20</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                
+              </p>
+              <p class="item-title">
+                <a href="/2022/03/19/typora%E6%96%87%E4%BB%B6%E9%9B%86%E5%90%88/%E6%8A%80%E6%9C%AF/%E5%B8%B8%E8%A7%81%E7%9A%84%E9%9D%A2%E8%AF%95%E6%8A%80%E6%9C%AF%E9%97%AE%E9%A2%98/Spring%20AOP%E6%98%AF%E6%80%8E%E4%B9%88%E5%AE%9E%E7%8E%B0%E7%9A%84/" class="title">(no title)</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2022-03-18T17:03:12.253Z" itemprop="datePublished">2022-03-19</time>
+              </p>
+            </div>
+          </li>
+          
+      </ul>
+    </div>
+  </div>
+  
+
+    
+  </div>
+</aside>
+
+  
+  
+<main class="main" role="main">
+  <div class="content">
+  <article id="post-typora文件集合/技术/技术笔记/设计模式思考" class="article article-type-post" itemscope itemtype="http://schema.org/BlogPosting">
+    
+    <div class="article-header">
+      
+      <div class="article-meta">
+        <span class="article-date">
+    <i class="icon icon-calendar-check"></i>
+	<a href="/2022/01/29/typora%E6%96%87%E4%BB%B6%E9%9B%86%E5%90%88/%E6%8A%80%E6%9C%AF/%E6%8A%80%E6%9C%AF%E7%AC%94%E8%AE%B0/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E6%80%9D%E8%80%83/" class="article-date">
+	  <time datetime="2022-01-29T06:35:28.385Z" itemprop="datePublished">2022-01-29</time>
+	</a>
+</span>
+        
+        
+
+        
+
+        <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2022/01/29/typora%E6%96%87%E4%BB%B6%E9%9B%86%E5%90%88/%E6%8A%80%E6%9C%AF/%E6%8A%80%E6%9C%AF%E7%AC%94%E8%AE%B0/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E6%80%9D%E8%80%83/#comments" class="article-comment-link">评论</a></span>
+        
+      </div>
+    </div>
+    <div class="article-entry marked-body" itemprop="articleBody">
+      
+        <h2 id="自己对设计模式的思考"><a href="#自己对设计模式的思考" class="headerlink" title="自己对设计模式的思考"></a>自己对设计模式的思考</h2><hr>
+<h3 id="Builder模式"><a href="#Builder模式" class="headerlink" title="Builder模式"></a>Builder模式</h3><p>构建者模式的主要点就是在一个类里面有一个静态类Builder，这个类里面的成员变量和外层的类中的成变量是一样的，里面提供了对每一个成员变量的操作方法，然后还有一个<em><strong>build</strong></em>签名函数，用以初始化这个静态的类。build里面调用的是外层的对象的构造函数，入参就是这个静态类，里面会把这个静态类的成员变量的值依次复制给外层对象中对应的成员变量。</p>
+<p>在Spring中的应用：</p>
+<hr>
+<h3 id="责任链模式"><a href="#责任链模式" class="headerlink" title="责任链模式"></a>责任链模式</h3><p>责任链模式的特点是可以一直把参数传递到下一个处理的handler下去，直到handler没有下一个要处理的了为止。基本的思想就是，我们要去定义一个抽象的基类，比如叫做ProcessorHandler,然后这个抽象类中是有一个引用类型的成员变量的，类型也是ProcessorHandler ，我们暂且把这变量叫做next吧。然后我们还需要定义一个方法handler()，接收的参数我们假设是一个接口HandlerInterface，里面的处理逻辑核心的是当next不为空或者null的时候，调用next的同名的方法签名。最后我们怎么使用呢？可以按照下面的步骤去做：</p>
+<ol>
+<li>第一步：定义一个类，继承ProcessorHandler;</li>
+<li>第二步：重写抽象父类中的handler()方法，我们可以在这个里面做一些自己的业务逻辑；</li>
+<li>第三步：在handler()重写的实现方法的最后，我们要手动去调用下抽象父类的handler方法，让父类帮我们把处理逻辑给传递下去；</li>
+</ol>
+<p>在Spring中的应用：</p>
+<hr>
+<h3 id="适配器模式"><a href="#适配器模式" class="headerlink" title="适配器模式"></a>适配器模式</h3><p><img src="https://xiazhenyu.oss-cn-hangzhou.aliyuncs.com/common/%E9%80%82%E9%85%8D%E5%99%A8%E6%A8%A1%E5%BC%8F.png" alt="适配器模式"></p>
+<p>适配器的思想可以这么考虑。我们Class A已经实现了接口Interface 1了，我们不想在让他再去实现另外的一个接口了，但是我们现在这个Class A的要实现的功能却在另外的一个接口或者类中，这个时候我们就可以通过适配器的模式去做。<br>同样的原理：我们写一个Adapter去实现Interface 1，我们在对应的方法中再去调用我们真正需要调用的类或者服务。，比如Class B中的某个方法。<br>适配器模式的作用：我们通过增加一个新的适配器来解决接口不兼容的问题，使得原本没有任何关系的类可以协同工作。<br>适配器模式在Spring中的应用：</p>
+<p><img src="https://xiazhenyu.oss-cn-hangzhou.aliyuncs.com/common/20220129175329.png"></p>
+<p>通过上图，我们看到，AdvisorAdapter架起了Advice与MethodInterceptor之间的桥梁，可以根据输入的advisor，得到对应的advice，然后进一步调用adapter中的方法匹配到对应的MethodInterceptor。</p>
+<hr>
+<h3 id="装饰者模式"><a href="#装饰者模式" class="headerlink" title="装饰者模式"></a>装饰者模式</h3><p>我理解就是一个接口的实现类A中，有一个成员变量B，也实现了相同的接口，然后在A的实现的接口interface1()中，可以调用B的相同的接口，同时可以做些其他的操作。</p>
+<hr>
+<h3 id="策略模式"><a href="#策略模式" class="headerlink" title="策略模式"></a>策略模式</h3><p>策略模式其实就是把if语句块中的代码抽离出来，变成一个一个的策略，然后需要有一个入口去切换策略。目的是对同一个操作，不同的策略的实现是不同的。</p>
+<p>策略模式的三个角色：</p>
+<ol>
+<li>Context 封装角色：也称为上下文角色，起到了封装的作用，屏蔽了高层模块对策略的直接访问；</li>
+<li>策略抽象对象角色：定义策略的接口；</li>
+<li>策略实现类：策略实现接口，实现具体的策略算法或行为内容并向外界暴露。</li>
+</ol>
+<p>在Spring中的应用：</p>
+<p><img src="https://camo.githubusercontent.com/83e552b2f3cdf39dd6c642787c8ddba5decc745782d6b89ad2b0c75dd08d0bcc/68747470733a2f2f696d672d626c6f672e6373646e696d672e636e2f32303139303830313136343734333537352e706e673f782d6f73732d70726f636573733d696d6167652f77617465726d61726b2c747970655f5a6d46755a33706f5a57356e6147567064476b2c736861646f775f31302c746578745f6148523063484d364c7939696247396e4c6d4e7a5a473475626d56304c304e765a475679516e4a3161584d3d2c73697a655f31362c636f6c6f725f4646464646462c745f3730" alt="img"></p>
+<p>loadBeanDefinition：<br><img src="https://xiazhenyu.oss-cn-hangzhou.aliyuncs.com/common/image-20220207113433968.png" alt="image-20220207113433968"></p>
+<p>分析；<br>context封装角色：AbstractXmlApplicationContext；</p>
+<p>抽象对象角色：BeanDefinitionReader；</p>
+<p>策略实现类：XmlBeanDefinitionReader和PropertiesBeanDefinitionReader，这个可以通过BeanDefinitionReader的实现类可以得知，</p>
+<p><img src="https://xiazhenyu.oss-cn-hangzhou.aliyuncs.com/common/image-20220207113625568.png" alt="image-20220207113625568"></p>
+<p>分析：<br>context封装角色：AnnotationConfigWebApplicationContext<br>抽象对象角色：这个从源码看，AnnotatedBeanDefinitionReader并不是一个接口或是抽象类，但是AnnotatedBeanDefinitionReader中有一个成员变量BeanDefinitionRegistry，这个是一个接口，从AnnotatedBeanDefinitionReader的初始化可以看出，这个接口的实现类是DefaultListableBeanFactory。所以个人理解抽象角色是BeanDefinitionRegistry。<br>策略实现类角色：根据上面的分析，个人理解策略实现类是DefaultListableBeanFactory。</p>
+<p>ResourceLoader:<br><img src="https://xiazhenyu.oss-cn-hangzhou.aliyuncs.com/common/ResourceLoader%20UML%E7%BB%93%E6%9E%84%E5%9B%BE.png" alt="ResourceLoader UML结构图" style="zoom: 200%;" /></p>
+<p>ResourceLoader接口的实现大致分为两大类：一个是直接的实现类DefaultResourceLoader，另一个是ResourcePatternResolver和ApplicationContext。</p>
+<p><img src="https://xiazhenyu.oss-cn-hangzhou.aliyuncs.com/common/image-20220207142949077.png" alt="image-20220207142949077"></p>
+<p>角色分析：<br>context角色： AbstractBeanDefinitionReader；<br>抽象策略：ResourceLoader；<br>实现类角色：DefaultResourceLoader和ResourcePatternResolver。ResourceLoader是一个非常基础的接口，Spring框架中大量的类是实现了这个接口的。</p>
+<hr>
+<h3 id="观察者模式"><a href="#观察者模式" class="headerlink" title="观察者模式"></a>观察者模式</h3><h4 id="定义："><a href="#定义：" class="headerlink" title="定义："></a>定义：</h4><p>观察者模式定义了一种一对多的依赖关系，让多个观察者对象同时监听某一个主题对象。当主题对象状态发生变化的时候，会通知所有观察者，使观察者自己可以更新自己。</p>
+<h4 id="作用："><a href="#作用：" class="headerlink" title="作用："></a>作用：</h4><p>让耦合的双方都依赖于抽象，而不是依赖于具体。从而使各自的变化不会影响到另一边的变化。并建立了一套触发机制。</p>
+<h5 id="1-Spring中的容器事件："><a href="#1-Spring中的容器事件：" class="headerlink" title="1.Spring中的容器事件："></a>1.Spring中的容器事件：</h5><ul>
+<li>ContextStartedEvent：ApplicationContext启动事件；</li>
+<li>ContextRefreshedEvent：ApplicationContext更新事件；</li>
+<li>ContextStoppedEvent：ApplicationContext停止事件；</li>
+<li>ContextClosedEvent：ApplicationContext关闭事件；</li>
+</ul>
+<h5 id="2-事件监听者："><a href="#2-事件监听者：" class="headerlink" title="2.事件监听者："></a>2.事件监听者：</h5><p>有两种方式，一种是通过继承ApplicationListener接口，然后是在onApplicationEvent()方法中处理事件。另一种是采用注解的形式：@EventListener。<br>注解的实现原理：</p>
+<p>EventListenerMethodProcessor中的初始化之后调用的方法afterSingletonsInstantiated中，这个里面会去遍历所有的bean，</p>
+<p>然后调用processBean方法。</p>
+<p><img src="https://xiazhenyu.oss-cn-hangzhou.aliyuncs.com/common/image-20220207161033677.png" alt="image-20220207161033677"></p>
+<p>提取出EventListener注解修饰的方法并根据注解的参数创建ApplicationListener对象加入到ApplicationContext的监听列表中。</p>
+<p><img src="https://xiazhenyu.oss-cn-hangzhou.aliyuncs.com/common/image-20220207161151075.png" alt="image-20220207161151075"></p>
+<p>监听列表是在哪里呢？从源码可以看出，一个是存放到了AbstractApplicationContext的applicationListeners中去，一个是存放到了名为AbstractApplicationEventMulticaster的对象中去，</p>
+<p><img src="https://xiazhenyu.oss-cn-hangzhou.aliyuncs.com/common/image-20220207162023243.png" alt="image-20220207162023243"></p>
+<p><img src="https://xiazhenyu.oss-cn-hangzhou.aliyuncs.com/common/image-20220207162332358.png" alt="image-20220207162332358"></p>
+<h5 id="3-发布事件"><a href="#3-发布事件" class="headerlink" title="3. 发布事件"></a>3. 发布事件</h5><p>事件发布的入口是在ApplicationEventPublish接口中的publishEvent方法，但是具体的实现是在ApplicationEventMulticater中。</p>
+<img src="https://xiazhenyu.oss-cn-hangzhou.aliyuncs.com/common/ApplicationEventPublisher%20UML%E7%BB%93%E6%9E%84%E5%9B%BE.png" alt="ApplicationEventPublisher UML结构图" style="zoom:50%;" />
+
+
+
+<p><img src="https://xiazhenyu.oss-cn-hangzhou.aliyuncs.com/common/ApplicationEventMulticaster%20UML%20%E7%BB%93%E6%9E%84%E5%9B%BE.png" alt="ApplicationEventMulticaster UML 结构图"></p>
+<p>此处调用了SimpleApplicationEventMulticaster中的multicastEvent方法进行事件的发布。</p>
+<p><img src="https://xiazhenyu.oss-cn-hangzhou.aliyuncs.com/common/image-20220207164119342.png" alt="image-20220207164119342"></p>
+<p><img src="https://xiazhenyu.oss-cn-hangzhou.aliyuncs.com/common/image-20220207164300314.png" alt="image-20220207164300314"></p>
+<p>从上图可以看出，SimpleApplicationEventMulticaster进行事件的发布是支持线程池异步发布的–只要对应的Executor是不为null的。</p>
+<p><img src="https://xiazhenyu.oss-cn-hangzhou.aliyuncs.com/common/image-20220207164707039.png" alt="image-20220207164707039"></p>
+<p>然后我们看这里，从这里我们可以看到，发布和订阅之间的关系了。之所以发布的事件，订阅者能接受到，是因为在发布的时候，最终调用的是ApplicationListener的onApplicationEvent方法。</p>
+
+      
+    </div>
+    <div class="article-footer">
+      <blockquote class="mt-2x">
+  <ul class="post-copyright list-unstyled">
+    
+    <li class="post-copyright-link hidden-xs">
+      <strong>本文链接：</strong>
+      <a href="http://example.com/2022/01/29/typora%E6%96%87%E4%BB%B6%E9%9B%86%E5%90%88/%E6%8A%80%E6%9C%AF/%E6%8A%80%E6%9C%AF%E7%AC%94%E8%AE%B0/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E6%80%9D%E8%80%83/" title="" target="_blank" rel="external">http://example.com/2022/01/29/typora文件集合/技术/技术笔记/设计模式思考/</a>
+    </li>
+    
+    <li class="post-copyright-license">
+      <strong>版权声明： </strong> 本博客所有文章除特别声明外，均采用 <a href="http://creativecommons.org/licenses/by/4.0/deed.zh" target="_blank" rel="external">CC BY 4.0 CN协议</a> 许可协议。转载请注明出处！
+    </li>
+  </ul>
+</blockquote>
+
+
+<div class="panel panel-default panel-badger">
+  <div class="panel-body">
+    <figure class="media">
+      <div class="media-left">
+        <a href="https://github.com/chenyusharp" target="_blank" class="img-burn thumb-sm visible-lg">
+          <img src="https://xiazhenyu.oss-cn-hangzhou.aliyuncs.com/common/36723748-0889-481D-AD81-B036124EBE2E_1_105_c.jpeg" class="img-rounded w-full" alt="">
+        </a>
+      </div>
+      <div class="media-body">
+        <h3 class="media-heading"><a href="https://github.com/chenyusharp" target="_blank"><span class="text-dark">chenyusharp</span><small class="ml-1x">Java Developer</small></a></h3>
+        <div>个人简介。</div>
+      </div>
+    </figure>
+  </div>
+</div>
+
+
+    </div>
+  </article>
+  
+    
+  <section id="comments">
+  	
+      <div id="vcomments"></div>
+    
+  </section>
+
+
+  
+</div>
+
+  <nav class="bar bar-footer clearfix" data-stick-bottom>
+  <div class="bar-inner">
+  
+  <ul class="pager pull-left">
+    
+    <li class="prev">
+      <a href="/2022/02/10/typora%E6%96%87%E4%BB%B6%E9%9B%86%E5%90%88/%E6%8A%80%E6%9C%AF/%E6%8A%80%E6%9C%AF%E7%AC%94%E8%AE%B0/Restful%E5%92%8CRPC%E7%9A%84%E6%80%9D%E8%80%83/" title="(no title)"><i class="icon icon-angle-left" aria-hidden="true"></i><span>&nbsp;&nbsp;上一篇</span></a>
+    </li>
+    
+    
+    <li class="next">
+      <a href="/2022/01/26/typora%E6%96%87%E4%BB%B6%E9%9B%86%E5%90%88/%E6%8B%89%E9%92%A9/JVM/1%E6%9C%8826%E5%8F%B7%E7%AD%94%E7%96%91/" title="(no title)"><span>下一篇&nbsp;&nbsp;</span><i class="icon icon-angle-right" aria-hidden="true"></i></a>
+    </li>
+    
+    
+  </ul>
+  
+  
+  <!-- Button trigger modal -->
+  <button type="button" class="btn btn-fancy btn-donate pop-onhover bg-gradient-warning" data-toggle="modal" data-target="#donateModal"><span>赏</span></button>
+  <!-- <div class="wave-icon wave-icon-danger btn-donate" data-toggle="modal" data-target="#donateModal">
+    <div class="wave-circle"><span class="icon"><i class="icon icon-bill"></i></span></div>
+  </div> -->
+  
+  
+  <div class="bar-right">
+    
+    <div class="share-component" data-sites="weibo,qq,wechat,facebook,twitter" data-mobile-sites="weibo,qq,qzone"></div>
+    
+  </div>
+  </div>
+</nav>
+  
+<!-- Modal -->
+<div class="modal modal-center modal-small modal-xs-full fade" id="donateModal" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content donate">
+      <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+      <div class="modal-body">
+        <div class="donate-box">
+          <div class="donate-head">
+            <p>感谢您的支持，我会继续努力的!</p>
+          </div>
+          <div class="tab-content">
+            <div role="tabpanel" class="tab-pane fade active in" id="alipay">
+              <div class="donate-payimg">
+                <img src="/images/donate/alipayimg.png" alt="扫码支持" title="扫一扫" />
+              </div>
+              <p class="text-muted mv">扫码打赏，你说多少就多少</p>
+              <p class="text-grey">打开支付宝扫一扫，即可进行扫码打赏哦</p>
+            </div>
+            <div role="tabpanel" class="tab-pane fade" id="wechatpay">
+              <div class="donate-payimg">
+                <img src="/images/donate/wechatpayimg.png" alt="扫码支持" title="扫一扫" />
+              </div>
+              <p class="text-muted mv">扫码打赏，你说多少就多少</p>
+              <p class="text-grey">打开微信扫一扫，即可进行扫码打赏哦</p>
+            </div>
+          </div>
+          <div class="donate-footer">
+            <ul class="nav nav-tabs nav-justified" role="tablist">
+              <li role="presentation" class="active">
+                <a href="#alipay" id="alipay-tab" role="tab" data-toggle="tab" aria-controls="alipay" aria-expanded="true"><i class="icon icon-alipay"></i> 支付宝</a>
+              </li>
+              <li role="presentation" class="">
+                <a href="#wechatpay" role="tab" id="wechatpay-tab" data-toggle="tab" aria-controls="wechatpay" aria-expanded="false"><i class="icon icon-wepay"></i> 微信支付</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+</main>
+
+  <footer class="footer" itemscope itemtype="http://schema.org/WPFooter">
+	
+	
+    <ul class="social-links">
+    	
+        <li><a href="https://github.com/chenyusharp" target="_blank" title="Github" data-toggle=tooltip data-placement=top><i class="icon icon-github"></i></a></li>
+        
+    </ul>
+
+    <div class="copyright">
+    	
+        <div class="publishby">
+        	Theme by <a href="https://github.com/cofess" target="_blank"> cofess </a>base on <a href="https://github.com/cofess/hexo-theme-pure" target="_blank">pure</a>.
+        </div>
+    </div>
+</footer>
+  <script src="//cdn.jsdelivr.net/npm/jquery@1.12.4/dist/jquery.min.js"></script>
+<script>
+window.jQuery || document.write('<script src="js/jquery.min.js"><\/script>')
+</script>
+
+<script src="/js/plugin.min.js"></script>
+
+
+<script src="/js/application.js"></script>
+
+
+    <script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: '文章',
+            PAGES: '页面',
+            CATEGORIES: '分类',
+            TAGS: '标签',
+            UNTITLED: '(未命名)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+
+<script src="/js/insight.js"></script>
+
+
+
+
+
+
+   
+
+
+
+
+   
+    
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/valine"></script>
+  <script type="text/javascript">
+  var GUEST = ['nick', 'mail', 'link'];
+  var meta = 'nick,mail,link';
+  meta = meta.split(',').filter(function(item) {
+    return GUEST.indexOf(item) > -1;
+  });
+  new Valine({
+    el: '#vcomments',
+    verify: false,
+    notify: false,
+    appId: '',
+    appKey: '',
+    placeholder: 'Just go go',
+    avatar: 'mm',
+    meta: meta,
+    pageSize: '10' || 10,
+    visitor: false
+  });
+  </script>
+
+     
+
+
+
+
+
+
+
+</body>
+</html>

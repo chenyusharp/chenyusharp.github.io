@@ -1,0 +1,746 @@
+<!DOCTYPE html>
+<html lang=zh>
+<head>
+  <meta charset="utf-8">
+  
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
+  <meta name="renderer" content="webkit">
+  <meta http-equiv="Cache-Control" content="no-transform" />
+  <meta http-equiv="Cache-Control" content="no-siteapp" />
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="format-detection" content="telephone=no,email=no,adress=no">
+  <!-- Color theme for statusbar -->
+  <meta name="theme-color" content="#000000" />
+  <!-- 强制页面在当前窗口以独立页面显示,防止别人在框架里调用页面 -->
+  <meta http-equiv="window-target" content="_top" />
+  
+  
+  <title>Hexo</title>
+  <meta name="description" content="[TOC] 正排索引与倒排索引ES的分片基本概念基本的存储单元是shard，一个index可能分为多个shard，每个shard可以分布在不同的机器上。然后一个shad是有多个Segment组成，每个Segment是一些倒排索引的集合。然后每次创建一个新的Document或更新一个Document，都会归属于一个新的Segment（同样会被记录到commit point里面），而不是去修改原来的S">
+<meta property="og:type" content="article">
+<meta property="og:title" content="技术、生活、思考">
+<meta property="og:url" content="http://example.com/2021/10/15/typora%E6%96%87%E4%BB%B6%E9%9B%86%E5%90%88/%E6%8B%89%E9%92%A9/ES/index.html">
+<meta property="og:site_name" content="技术、生活、思考">
+<meta property="og:description" content="[TOC] 正排索引与倒排索引ES的分片基本概念基本的存储单元是shard，一个index可能分为多个shard，每个shard可以分布在不同的机器上。然后一个shad是有多个Segment组成，每个Segment是一些倒排索引的集合。然后每次创建一个新的Document或更新一个Document，都会归属于一个新的Segment（同样会被记录到commit point里面），而不是去修改原来的S">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://example.com/Users/xiazhenyu/Desktop/typora%E6%96%87%E4%BB%B6%E9%9B%86%E5%90%88/%E6%96%87%E6%A1%A3%E5%90%88%E9%9B%86/ES%E7%9A%84index%E7%BB%93%E6%9E%84.png">
+<meta property="article:published_time" content="2021-10-15T12:39:48.614Z">
+<meta property="article:modified_time" content="2022-01-11T15:04:44.101Z">
+<meta property="article:author" content="chenyusharp">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/Users/xiazhenyu/Desktop/typora%E6%96%87%E4%BB%B6%E9%9B%86%E5%90%88/%E6%96%87%E6%A1%A3%E5%90%88%E9%9B%86/ES%E7%9A%84index%E7%BB%93%E6%9E%84.png">
+  <!-- Canonical links -->
+  <link rel="canonical" href="http://example.com/2021/10/15/typora%E6%96%87%E4%BB%B6%E9%9B%86%E5%90%88/%E6%8B%89%E9%92%A9/ES/index.html">
+  
+    <link rel="alternate" href="/atom.xml" title="技术、生活、思考" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png" type="image/x-icon">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+  
+  
+  
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+
+<body class="main-center" itemscope itemtype="http://schema.org/WebPage">
+  <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+  <div class="slimContent">
+    <div class="navbar-header">
+      
+      
+      <div class="profile-block text-center">
+        <a id="avatar" href="https://github.com/chenyusharp" target="_blank">
+          <img class="img-circle img-rotate" src="https://xiazhenyu.oss-cn-hangzhou.aliyuncs.com/common/36723748-0889-481D-AD81-B036124EBE2E_1_105_c.jpeg" width="200" height="200">
+        </a>
+        <h2 id="name" class="hidden-xs hidden-sm">chenyusharp</h2>
+        <h3 id="title" class="hidden-xs hidden-sm hidden-md">Java Developer</h3>
+        <small id="location" class="text-muted hidden-xs hidden-sm"><i class="icon icon-map-marker"></i> Hangzhou, China</small>
+      </div>
+      
+      <div class="search" id="search-form-wrap">
+
+    <form class="search-form sidebar-form">
+        <div class="input-group">
+            <input type="text" class="search-form-input form-control" placeholder="搜索" />
+            <span class="input-group-btn">
+                <button type="submit" class="search-form-submit btn btn-flat" onclick="return false;"><i class="icon icon-search"></i></button>
+            </span>
+        </div>
+    </form>
+    <div class="ins-search">
+  <div class="ins-search-mask"></div>
+  <div class="ins-search-container">
+    <div class="ins-input-wrapper">
+      <input type="text" class="ins-search-input" placeholder="想要查找什么..." x-webkit-speech />
+      <button type="button" class="close ins-close ins-selectable" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+    </div>
+    <div class="ins-section-wrapper">
+      <div class="ins-section-container"></div>
+    </div>
+  </div>
+</div>
+
+
+</div>
+      <button class="navbar-toggle collapsed" type="button" data-toggle="collapse" data-target="#main-navbar" aria-controls="main-navbar" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+    </div>
+    <nav id="main-navbar" class="collapse navbar-collapse" itemscope itemtype="http://schema.org/SiteNavigationElement" role="navigation">
+      <ul class="nav navbar-nav main-nav ">
+        
+        
+        <li class="menu-item menu-item-home">
+          <a href="/.">
+            
+            <i class="icon icon-home-fill"></i>
+            
+            <span class="menu-title">首页</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives">
+            
+            <i class="icon icon-archives-fill"></i>
+            
+            <span class="menu-title">归档</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories">
+            
+            <i class="icon icon-folder"></i>
+            
+            <span class="menu-title">分类</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags">
+            
+            <i class="icon icon-tags"></i>
+            
+            <span class="menu-title">标签</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-repository">
+          <a href="/repository">
+            
+            <i class="icon icon-project"></i>
+            
+            <span class="menu-title">项目</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-books">
+          <a href="/books">
+            
+            <i class="icon icon-book-fill"></i>
+            
+            <span class="menu-title">书单</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-links">
+          <a href="/links">
+            
+            <i class="icon icon-friendship"></i>
+            
+            <span class="menu-title">友链</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about">
+            
+            <i class="icon icon-cup-fill"></i>
+            
+            <span class="menu-title">关于</span>
+          </a>
+        </li>
+        
+      </ul>
+      
+	
+    <ul class="social-links">
+    	
+        <li><a href="https://github.com/chenyusharp" target="_blank" title="Github" data-toggle=tooltip data-placement=top><i class="icon icon-github"></i></a></li>
+        
+    </ul>
+
+    </nav>
+  </div>
+</header>
+
+  
+    <aside class="sidebar" itemscope itemtype="http://schema.org/WPSideBar">
+  <div class="slimContent">
+    
+      <div class="widget">
+    <h3 class="widget-title">公告</h3>
+    <div class="widget-body">
+        <div id="board">
+            <div class="content">
+                <p>欢迎交流与分享经验!</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">分类</h3>
+    <div class="widget-body">
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/DDD/">DDD</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/linux/">linux</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/redis/">redis</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/typora/">typora</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/wholee/">wholee</a><span class="category-list-count">10</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%8A%80%E6%9C%AF/">技术</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%8A%80%E8%83%BD/">技能</a><span class="category-list-count">1</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%8A%80%E8%83%BD/%E5%B7%A5%E4%BD%9C/">工作</a><span class="category-list-count">1</span></li></ul></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">标签</h3>
+    <div class="widget-body">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/DDD/" rel="tag">DDD</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/linux/" rel="tag">linux</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/redis/" rel="tag">redis</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/wholee/" rel="tag">wholee</a><span class="tag-list-count">10</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%B7%A5%E4%BD%9C%E5%AE%89%E6%8E%92/" rel="tag">工作安排</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%8A%80%E8%83%BD/" rel="tag">技能</a><span class="tag-list-count">1</span></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">标签云</h3>
+    <div class="widget-body tagcloud">
+      <a href="/tags/DDD/" style="font-size: 13px;">DDD</a> <a href="/tags/linux/" style="font-size: 13.33px;">linux</a> <a href="/tags/redis/" style="font-size: 13px;">redis</a> <a href="/tags/wholee/" style="font-size: 14px;">wholee</a> <a href="/tags/%E5%B7%A5%E4%BD%9C%E5%AE%89%E6%8E%92/" style="font-size: 13.67px;">工作安排</a> <a href="/tags/%E6%8A%80%E8%83%BD/" style="font-size: 13px;">技能</a>
+    </div>
+  </div>
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">归档</h3>
+    <div class="widget-body">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/03/">三月 2022</a><span class="archive-list-count">12</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/02/">二月 2022</a><span class="archive-list-count">21</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/01/">一月 2022</a><span class="archive-list-count">30</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/12/">十二月 2021</a><span class="archive-list-count">8</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/11/">十一月 2021</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/10/">十月 2021</a><span class="archive-list-count">38</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/09/">九月 2021</a><span class="archive-list-count">10</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/08/">八月 2021</a><span class="archive-list-count">24</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/07/">七月 2021</a><span class="archive-list-count">18</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/06/">六月 2021</a><span class="archive-list-count">13</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/05/">五月 2021</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/03/">三月 2021</a><span class="archive-list-count">1</span></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget-body">
+      <ul class="recent-post-list list-unstyled no-thumbnail">
+        
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/%E6%8A%80%E6%9C%AF/">技术</a>
+              </p>
+              <p class="item-title">
+                <a href="/2022/03/20/typora%E6%96%87%E4%BB%B6%E9%9B%86%E5%90%88/%E6%8A%80%E6%9C%AF/%E5%B8%B8%E8%A7%81%E7%9A%84%E9%9D%A2%E8%AF%95%E6%8A%80%E6%9C%AF%E9%97%AE%E9%A2%98/%E5%88%A9%E7%94%A8JVM%E5%91%BD%E4%BB%A4%E8%A1%8C%E5%B7%A5%E5%85%B7%E6%8E%92%E6%9F%A5%E7%BA%BF%E4%B8%8A%E9%97%AE%E9%A2%98/" class="title">利用JVM命令行工具排查线上问题</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2022-03-20T05:19:39.297Z" itemprop="datePublished">2022-03-20</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/%E6%8A%80%E6%9C%AF/">技术</a>
+              </p>
+              <p class="item-title">
+                <a href="/2022/03/20/typora%E6%96%87%E4%BB%B6%E9%9B%86%E5%90%88/%E6%8A%80%E6%9C%AF/%E5%B8%B8%E8%A7%81%E7%9A%84%E9%9D%A2%E8%AF%95%E6%8A%80%E6%9C%AF%E9%97%AE%E9%A2%98/%E5%A6%82%E4%BD%95%E5%AE%9E%E7%8E%B0%E4%B8%80%E4%B8%AARPC%E6%A1%86%E6%9E%B6/" class="title">如何实现一个RPC框架</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2022-03-19T18:29:15.439Z" itemprop="datePublished">2022-03-20</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/linux/">linux</a>
+              </p>
+              <p class="item-title">
+                <a href="/2022/03/20/typora%E6%96%87%E4%BB%B6%E9%9B%86%E5%90%88/%E6%8A%80%E6%9C%AF/%E6%8A%80%E6%9C%AF%E7%AC%94%E8%AE%B0/%E6%9C%8D%E5%8A%A1%E5%99%A8/%E5%B8%B8%E7%94%A8%E7%9A%84linux%E5%91%BD%E4%BB%A4/" class="title">常用的linux命令</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2022-03-19T18:23:26.102Z" itemprop="datePublished">2022-03-20</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/redis/">redis</a>
+              </p>
+              <p class="item-title">
+                <a href="/2022/03/20/typora%E6%96%87%E4%BB%B6%E9%9B%86%E5%90%88/%E6%8A%80%E6%9C%AF/redis/redis%E6%BA%90%E7%A0%81%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/" class="title">redis源码环境搭建</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2022-03-19T16:29:16.300Z" itemprop="datePublished">2022-03-20</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                
+              </p>
+              <p class="item-title">
+                <a href="/2022/03/19/typora%E6%96%87%E4%BB%B6%E9%9B%86%E5%90%88/%E6%8A%80%E6%9C%AF/%E5%B8%B8%E8%A7%81%E7%9A%84%E9%9D%A2%E8%AF%95%E6%8A%80%E6%9C%AF%E9%97%AE%E9%A2%98/Spring%20AOP%E6%98%AF%E6%80%8E%E4%B9%88%E5%AE%9E%E7%8E%B0%E7%9A%84/" class="title">(no title)</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2022-03-18T17:03:12.253Z" itemprop="datePublished">2022-03-19</time>
+              </p>
+            </div>
+          </li>
+          
+      </ul>
+    </div>
+  </div>
+  
+
+    
+  </div>
+</aside>
+
+  
+  
+<main class="main" role="main">
+  <div class="content">
+  <article id="post-typora文件集合/拉钩/ES" class="article article-type-post" itemscope itemtype="http://schema.org/BlogPosting">
+    
+    <div class="article-header">
+      
+      <div class="article-meta">
+        <span class="article-date">
+    <i class="icon icon-calendar-check"></i>
+	<a href="/2021/10/15/typora%E6%96%87%E4%BB%B6%E9%9B%86%E5%90%88/%E6%8B%89%E9%92%A9/ES/" class="article-date">
+	  <time datetime="2021-10-15T12:39:48.614Z" itemprop="datePublished">2021-10-15</time>
+	</a>
+</span>
+        
+        
+
+        
+
+        <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2021/10/15/typora%E6%96%87%E4%BB%B6%E9%9B%86%E5%90%88/%E6%8B%89%E9%92%A9/ES/#comments" class="article-comment-link">评论</a></span>
+        
+      </div>
+    </div>
+    <div class="article-entry marked-body" itemprop="articleBody">
+      
+        <p>[TOC]</p>
+<h2 id="正排索引与倒排索引"><a href="#正排索引与倒排索引" class="headerlink" title="正排索引与倒排索引"></a>正排索引与倒排索引</h2><h2 id="ES的分片"><a href="#ES的分片" class="headerlink" title="ES的分片"></a>ES的分片</h2><h3 id="基本概念"><a href="#基本概念" class="headerlink" title="基本概念"></a>基本概念</h3><p>基本的存储单元是shard，一个index可能分为多个shard，每个shard可以分布在不同的机器上。然后一个shad是有多个Segment组成，每个Segment是一些倒排索引的集合。然后每次创建一个新的Document或更新一个Document，都会归属于一个新的Segment（同样会被记录到commit point里面），而不是去修改原来的Segment。每次文档的删除操作，会仅仅标记Segment中该文档为删除状态，而不是真正的立马删除。</p>
+<p><img src="/Users/xiazhenyu/Desktop/typora%E6%96%87%E4%BB%B6%E9%9B%86%E5%90%88/%E6%96%87%E6%A1%A3%E5%90%88%E9%9B%86/ES%E7%9A%84index%E7%BB%93%E6%9E%84.png" alt="ES的index结构"></p>
+<p>几个重要的概念：<br>Memory Buffer与Translog、commit point（记录着所有的segemnt信息，es在启动或重新打开一个索引的过程中使用这个提交点来判断哪些段隶属于当前分片）</p>
+<p>原因：每次commit操作意味着将Segment合并，并写入磁盘。但是这样做是很重的IO操作，所以为了提升机器性能和近实时搜索，新文档会被首先写入到内存Buffer和translog文件中，每个shard对应一个translog文件。<br>translog的作用：</p>
+<ol>
+<li>保证文件缓存中的文档不丢失；</li>
+<li>系统重启时，从translog中年恢复；</li>
+<li>新的segment收录到commit point中；</li>
+</ol>
+<p>![ES Shard的组成部分](/Users/xiazhenyu/Desktop/typora文件集合/文档合集/ES Shard的组成部分.png)</p>
+<p>*** write/refresh/flush过程*** </p>
+<p>![ES write:refresh:flush总体流程图](/Users/xiazhenyu/Desktop/typora文件集合/文档合集/ES write:refresh:flush总体流程图.png)</p>
+<h3 id="write过程"><a href="#write过程" class="headerlink" title="write过程"></a>write过程</h3><p>当写请求发送到es后，es将数据暂存写入memory buffer中，同时会写入到translog文件中；<br>如下图：<br>![ES write操作](/Users/xiazhenyu/Desktop/typora文件集合/文档合集/ES write操作.png)</p>
+<h3 id="refresh过程"><a href="#refresh过程" class="headerlink" title="refresh过程"></a>refresh过程</h3><ol>
+<li>将内存缓冲区的文档写入到新的Segment中，同时这个段被打开，使其可以被搜索到。这个时候Segment是存储在文件缓存系统中的。</li>
+<li>内存缓冲区被清空，但translog没有被清空，是为了后面的flush操作；</li>
+</ol>
+<p>![ES refresh操作](/Users/xiazhenyu/Desktop/typora文件集合/文档合集/ES refresh操作.png)</p>
+<h3 id="flush过程"><a href="#flush过程" class="headerlink" title="flush过程"></a>flush过程</h3><p>触发机制：translog变得越来越大、索引被刷新；</p>
+<ol>
+<li>所有内存缓冲区的文档都会被写入一个新的段中；</li>
+<li>缓冲区被清空；</li>
+<li>一个提交点被写入硬盘（记录被flush到磁盘的段）；</li>
+<li>文件系统缓存通过fsync被刷新到磁盘（flush）；</li>
+<li>老的translog被删除；</li>
+</ol>
+<p>![ES flush过程](/Users/xiazhenyu/Desktop/typora文件集合/文档合集/ES flush过程.png)</p>
+<p>PS：当es重新启动的时候或索引重新打开的时候，他会从磁盘中使用最后一个提交点去恢复已知的段，并且会重放translog中所有在最后一次提交后发生的变更操作。</p>
+<h3 id="merger过程"><a href="#merger过程" class="headerlink" title="merger过程"></a>merger过程</h3><ol>
+<li>合并进程选择一小部分大小相似的段，并且在后台将他们合并到更大的段中。这并不会中断索引和搜索；</li>
+<li>新的段被打开用来搜索；</li>
+<li>老的段被删除；</li>
+</ol>
+<p>![image-20211018065648999](/Users/xiazhenyu/Library/Application Support/typora-user-images/image-20211018065648999.png)</p>
+<h2 id="常见问题排查"><a href="#常见问题排查" class="headerlink" title="常见问题排查"></a>常见问题排查</h2><h3 id="高CPU场景"><a href="#高CPU场景" class="headerlink" title="高CPU场景"></a>高CPU场景</h3><ol>
+<li> 查看节点hot thread</li>
+</ol>
+   <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">GET _nodes/hot_threads</span><br><span class="line">GET _nodes/&lt;node_name&gt;/hot_threads</span><br></pre></td></tr></table></figure>
+
+<ol start="2">
+<li><p>查看线程池</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">GET _cat/thread_pool</span><br><span class="line">GET _cat/thread_pool/force_merge?v&amp;s=name</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>查看线程池使用的情况可快速定位当前集群线程池使用情况；</li>
+<li>可查看具体节点的某个线程池的使用情况；</li>
+</ul>
+</li>
+<li><p>查看当前任务</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">GET _cat/tasks?detailed</span><br><span class="line">GET _tasks?actions=*bulk&amp;detailed</span><br><span class="line">GET _tasks?actions=*search&amp;detailed</span><br></pre></td></tr></table></figure></li>
+<li><p>取消任务</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">POST _tasks/&lt;taskId&gt;/_cancel</span><br></pre></td></tr></table></figure>
+
+<p>根据上一步拿到的任务id进行取消操作</p>
+</li>
+<li><p>查看索引的迁移进度</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">GET _cat/recovery/&lt;index_name&gt;?v</span><br></pre></td></tr></table></figure></li>
+</ol>
+<h3 id="高内存场景"><a href="#高内存场景" class="headerlink" title="高内存场景"></a>高内存场景</h3><p>Es的高JVM内存压力可能是以下原因造成的：</p>
+<ul>
+<li>集群的请求数量激增；</li>
+<li>聚合、通配符以及在查询中选择了较宽的时间范围；</li>
+<li>各节点间的分区分配不均衡或者一个集群中的分区太多；</li>
+<li>字段数据或索引映射激增；</li>
+<li>无法处理传入负载的实例类型；</li>
+</ul>
+<ol>
+<li><p>查看缓存</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">GET /_stats/query_cache</span><br><span class="line">GET /_stats/fielddata_cache</span><br><span class="line">GET /_stats/request_cache</span><br></pre></td></tr></table></figure></li>
+<li><p>清理缓存</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">POST /&lt;index_name&gt;/_cache/clear</span><br><span class="line">POST /&lt;index_name&gt;/_cache/clear?fileddata=true</span><br><span class="line">POST /&lt;index_name&gt;/_cache/clear?query=true</span><br><span class="line">POST /&lt;index_name&gt;/_cache/clear?request=true</span><br></pre></td></tr></table></figure></li>
+</ol>
+<h3 id="慢查询定位"><a href="#慢查询定位" class="headerlink" title="慢查询定位"></a>慢查询定位</h3><h3 id="分页"><a href="#分页" class="headerlink" title="分页"></a>分页</h3><table>
+<thead>
+<tr>
+<th>分页方式</th>
+<th>性能</th>
+<th>优点</th>
+<th>缺点</th>
+<th>场景</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>from+size</td>
+<td>低</td>
+<td>灵活性好，实现简单</td>
+<td>存在深度分页问题</td>
+<td>数据量比较小，能容内深度分页的问题</td>
+</tr>
+<tr>
+<td>Scroll</td>
+<td>中</td>
+<td>解决了深度分页问题</td>
+<td>无法反映数据的实时性（快照版本），维护成本高，<br />需要维护一个scroll_id</td>
+<td>海量数据的导出</td>
+</tr>
+<tr>
+<td>Search_after</td>
+<td>高</td>
+<td>性能最好，不存在深度分页问题，<br />能够反映数据的实时性</td>
+<td>实现比较复杂，每一次查询都需要上次查询的结果</td>
+<td>海量数据的分页</td>
+</tr>
+</tbody></table>
+<h2 id="集群规划"><a href="#集群规划" class="headerlink" title="集群规划"></a>集群规划</h2><ol>
+<li><p>怎么规划？<br>需要从以下两个方面考虑：</p>
+<ul>
+<li>当前的数据量有多大？数据增长情况如何？</li>
+<li>机器规格，cpu、多大内存、多大硬盘容量？</li>
+</ul>
+<p>es的JVM heap最大可以设置==32G==。如果机器的内存很大，可以考虑在一台机器上运行多个es节点实例。<br>集群规划满足当前数据规模+适量增长规模即可，后续可按需扩展；</p>
+<p>场景分析：<br>A 对于业务搜索功能模块，且多是垂直领域的搜索。数据量级几千万到数十亿级别，一般是2-4台机器的规模。</p>
+<p>B 大规模的OLAP，需要几十到几百的节点的规模。</p>
+</li>
+<li><p>节点角色<br>ES节点有Master、DataNode（默认是数据节点）、Coordinate node三种。<br>Coordinate Node: 协调节点，一个节点只接收请求、转发请求到其他节点、汇总各个节点返回数据等功能的节点。一个节点可以充当一个或者多个角色，默认三个都有。对于中大规模的集群，应当考虑角色分开。这样不会因为协调节点负载过高而影响数据节点的能力。</p>
+</li>
+</ol>
+<ol start="3">
+<li><p>脑裂问题</p>
+<p>6.x和之前版本：</p>
+<p><strong>discovery.zen.minimum_master_nodes:</strong> (有master资格节点数/2) + 1 这个参数控制的是，选举主节点时需要看到最少多少个具有master资格的活节点，才能进行选举。官方 的推荐值是(N/2)+1，其中N是具有master资格的节点的数量。</p>
+<p>7.x以后：<br>集群自己控制，启动的一个新的集群的时候需要有cluster.inital_master_nodes初始化集群列表。</p>
+<p>常用做法（中大规模集群）：：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">1)Master 和 dataNode 角色分开，配置奇数个master，如3 </span><br><span class="line">2)单播发现机制，配置master资格节点(5.0之前): </span><br><span class="line">discovery.zen.ping.multicast.enabled: false —— 关闭多播发现机制，默认是关闭的 </span><br><span class="line">3)延长ping master的等待时长</span><br><span class="line">discovery.zen.ping_timeout: 30(默认值是3秒)——其他节点ping主节点多久时间没有响应就认</span><br><span class="line">为主节点不可用了。</span><br><span class="line">es7中换成了 discovery.request_peers_timeout</span><br></pre></td></tr></table></figure></li>
+<li><p>分片设置：</p>
+<p>ElasticSearch推荐的最大JVM堆空间是30<del>32G, 所以把你的分片最大容量限制为30GB, 然后再对分片数量做合理估算. 例如, 你认为你的数据能达到200GB, 推荐你最多分配7到8个分片。<br>在开始阶段, 一个好的方案是根据你的节点数量按照1.5</del>3倍的原则来创建分片. 例如,如果你有3个节点, 则推荐你创建的分片数最多不超过9(3x3)个。当性能下降时，增加节点，ES会平衡分片的放置。<br>副本：为保证高可用性，副本数设置2即可。要求集群至少有3个节点，来分开存放主分片、副本。并发量大时，查询性能会下降，可增加副本数，来提升并发查询能力。</p>
+</li>
+<li><p>集群调优<br><em><strong>写:</strong></em></p>
+<ul>
+<li><p>首次向集群中灌入数据，可以将副本数设置为0，写入完再调整回去，这样副本分片只需要拷贝，节省了索引的过程；</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">PUT /&lt;index_name&gt;/_settings </span><br><span class="line">&#123;</span><br><span class="line"><span class="attr">&quot;number_of_replicas&quot;</span>: <span class="number">0</span> </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<li><p>自动生成doc ID<br>如果写入doc时指定了id，es会尝试读取原来的doc版本号，以判断是否需要更新。这回设计一次读取磁盘的操作。</p>
+</li>
+<li><p>设置合理的mapping</p>
+<ol>
+<li>将不需要建立索引的字段index属性设置为not_analyzed或no；</li>
+<li>减少字段内容长度；</li>
+<li>使用不同的分词器；</li>
+</ol>
+</li>
+<li><p>调整_source字段</p>
+</li>
+<li><p>对analyzed的字段禁用norms;</p>
+</li>
+<li><p>调整索引的刷新间隔，如果对实时性要求不高的话；</p>
+</li>
+<li><p>批处理；</p>
+</li>
+<li><p>Document的路由处理（设置合理的分片）</p>
+<p>ES默认的路由是根据id，也可以在发送请求时手动指定一个routing value，例如：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">PUT /index/doc/id?routing=user_id</span><br></pre></td></tr></table></figure></li>
+</ul>
+<p><em><strong>读:</strong></em></p>
+<ul>
+<li>数据分组<br>对数据进行基于天来建立索引，一个例子，日志系统；</li>
+<li>ID字段类型定义为keyword<br>一般情况下，id字段不会被用作range类型搜索。keyword会被优化，以便进行terms查询。性能大约会提升30%。</li>
+<li>限制用户的输入的条件；</li>
+</ul>
+</li>
+</ol>
+
+      
+    </div>
+    <div class="article-footer">
+      <blockquote class="mt-2x">
+  <ul class="post-copyright list-unstyled">
+    
+    <li class="post-copyright-link hidden-xs">
+      <strong>本文链接：</strong>
+      <a href="http://example.com/2021/10/15/typora%E6%96%87%E4%BB%B6%E9%9B%86%E5%90%88/%E6%8B%89%E9%92%A9/ES/" title="" target="_blank" rel="external">http://example.com/2021/10/15/typora文件集合/拉钩/ES/</a>
+    </li>
+    
+    <li class="post-copyright-license">
+      <strong>版权声明： </strong> 本博客所有文章除特别声明外，均采用 <a href="http://creativecommons.org/licenses/by/4.0/deed.zh" target="_blank" rel="external">CC BY 4.0 CN协议</a> 许可协议。转载请注明出处！
+    </li>
+  </ul>
+</blockquote>
+
+
+<div class="panel panel-default panel-badger">
+  <div class="panel-body">
+    <figure class="media">
+      <div class="media-left">
+        <a href="https://github.com/chenyusharp" target="_blank" class="img-burn thumb-sm visible-lg">
+          <img src="https://xiazhenyu.oss-cn-hangzhou.aliyuncs.com/common/36723748-0889-481D-AD81-B036124EBE2E_1_105_c.jpeg" class="img-rounded w-full" alt="">
+        </a>
+      </div>
+      <div class="media-body">
+        <h3 class="media-heading"><a href="https://github.com/chenyusharp" target="_blank"><span class="text-dark">chenyusharp</span><small class="ml-1x">Java Developer</small></a></h3>
+        <div>个人简介。</div>
+      </div>
+    </figure>
+  </div>
+</div>
+
+
+    </div>
+  </article>
+  
+    
+  <section id="comments">
+  	
+      <div id="vcomments"></div>
+    
+  </section>
+
+
+  
+</div>
+
+  <nav class="bar bar-footer clearfix" data-stick-bottom>
+  <div class="bar-inner">
+  
+  <ul class="pager pull-left">
+    
+    <li class="prev">
+      <a href="/2021/10/15/ES/" title="(no title)"><i class="icon icon-angle-left" aria-hidden="true"></i><span>&nbsp;&nbsp;上一篇</span></a>
+    </li>
+    
+    
+    <li class="next">
+      <a href="/2021/10/12/typora%E6%96%87%E4%BB%B6%E9%9B%86%E5%90%88/%E6%8B%89%E9%92%A9/%E5%88%86%E4%BA%AB/mysql%E7%9A%84%E5%AD%98%E5%82%A8%E5%BC%95%E6%93%8E%E4%B8%8E%E7%B4%A2%E5%BC%95%E7%BB%93%E6%9E%84/" title="(no title)"><span>下一篇&nbsp;&nbsp;</span><i class="icon icon-angle-right" aria-hidden="true"></i></a>
+    </li>
+    
+    
+  </ul>
+  
+  
+  <!-- Button trigger modal -->
+  <button type="button" class="btn btn-fancy btn-donate pop-onhover bg-gradient-warning" data-toggle="modal" data-target="#donateModal"><span>赏</span></button>
+  <!-- <div class="wave-icon wave-icon-danger btn-donate" data-toggle="modal" data-target="#donateModal">
+    <div class="wave-circle"><span class="icon"><i class="icon icon-bill"></i></span></div>
+  </div> -->
+  
+  
+  <div class="bar-right">
+    
+    <div class="share-component" data-sites="weibo,qq,wechat,facebook,twitter" data-mobile-sites="weibo,qq,qzone"></div>
+    
+  </div>
+  </div>
+</nav>
+  
+<!-- Modal -->
+<div class="modal modal-center modal-small modal-xs-full fade" id="donateModal" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content donate">
+      <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+      <div class="modal-body">
+        <div class="donate-box">
+          <div class="donate-head">
+            <p>感谢您的支持，我会继续努力的!</p>
+          </div>
+          <div class="tab-content">
+            <div role="tabpanel" class="tab-pane fade active in" id="alipay">
+              <div class="donate-payimg">
+                <img src="/images/donate/alipayimg.png" alt="扫码支持" title="扫一扫" />
+              </div>
+              <p class="text-muted mv">扫码打赏，你说多少就多少</p>
+              <p class="text-grey">打开支付宝扫一扫，即可进行扫码打赏哦</p>
+            </div>
+            <div role="tabpanel" class="tab-pane fade" id="wechatpay">
+              <div class="donate-payimg">
+                <img src="/images/donate/wechatpayimg.png" alt="扫码支持" title="扫一扫" />
+              </div>
+              <p class="text-muted mv">扫码打赏，你说多少就多少</p>
+              <p class="text-grey">打开微信扫一扫，即可进行扫码打赏哦</p>
+            </div>
+          </div>
+          <div class="donate-footer">
+            <ul class="nav nav-tabs nav-justified" role="tablist">
+              <li role="presentation" class="active">
+                <a href="#alipay" id="alipay-tab" role="tab" data-toggle="tab" aria-controls="alipay" aria-expanded="true"><i class="icon icon-alipay"></i> 支付宝</a>
+              </li>
+              <li role="presentation" class="">
+                <a href="#wechatpay" role="tab" id="wechatpay-tab" data-toggle="tab" aria-controls="wechatpay" aria-expanded="false"><i class="icon icon-wepay"></i> 微信支付</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+</main>
+
+  <footer class="footer" itemscope itemtype="http://schema.org/WPFooter">
+	
+	
+    <ul class="social-links">
+    	
+        <li><a href="https://github.com/chenyusharp" target="_blank" title="Github" data-toggle=tooltip data-placement=top><i class="icon icon-github"></i></a></li>
+        
+    </ul>
+
+    <div class="copyright">
+    	
+        <div class="publishby">
+        	Theme by <a href="https://github.com/cofess" target="_blank"> cofess </a>base on <a href="https://github.com/cofess/hexo-theme-pure" target="_blank">pure</a>.
+        </div>
+    </div>
+</footer>
+  <script src="//cdn.jsdelivr.net/npm/jquery@1.12.4/dist/jquery.min.js"></script>
+<script>
+window.jQuery || document.write('<script src="js/jquery.min.js"><\/script>')
+</script>
+
+<script src="/js/plugin.min.js"></script>
+
+
+<script src="/js/application.js"></script>
+
+
+    <script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: '文章',
+            PAGES: '页面',
+            CATEGORIES: '分类',
+            TAGS: '标签',
+            UNTITLED: '(未命名)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+
+<script src="/js/insight.js"></script>
+
+
+
+
+
+
+   
+
+
+
+
+   
+    
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/valine"></script>
+  <script type="text/javascript">
+  var GUEST = ['nick', 'mail', 'link'];
+  var meta = 'nick,mail,link';
+  meta = meta.split(',').filter(function(item) {
+    return GUEST.indexOf(item) > -1;
+  });
+  new Valine({
+    el: '#vcomments',
+    verify: false,
+    notify: false,
+    appId: '',
+    appKey: '',
+    placeholder: 'Just go go',
+    avatar: 'mm',
+    meta: meta,
+    pageSize: '10' || 10,
+    visitor: false
+  });
+  </script>
+
+     
+
+
+
+
+
+
+
+</body>
+</html>

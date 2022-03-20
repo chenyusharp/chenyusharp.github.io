@@ -1,0 +1,721 @@
+<!DOCTYPE html>
+<html lang=zh>
+<head>
+  <meta charset="utf-8">
+  
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
+  <meta name="renderer" content="webkit">
+  <meta http-equiv="Cache-Control" content="no-transform" />
+  <meta http-equiv="Cache-Control" content="no-siteapp" />
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="format-detection" content="telephone=no,email=no,adress=no">
+  <!-- Color theme for statusbar -->
+  <meta name="theme-color" content="#000000" />
+  <!-- 强制页面在当前窗口以独立页面显示,防止别人在框架里调用页面 -->
+  <meta http-equiv="window-target" content="_top" />
+  
+  
+  <title>Hexo</title>
+  <meta name="description" content="面试过程1. JAVA基础问题1：HashMap面试官：讲讲HashMap 回答： （1）使用场景 （2）源码大概（源码实现、扩容过程） ​    扩展了解决Hash冲突的常见方法：重散列、重哈希、拉链法。HashMap、ConcurrentHashMap都使用的是拉链法，ThreadLocal使用的是重散列法。 （3）优点 ​    不需要考虑线程安全的情况下，性能好，查询效率高，查询的时间复杂">
+<meta property="og:type" content="article">
+<meta property="og:title" content="技术、生活、思考">
+<meta property="og:url" content="http://example.com/2022/01/18/typora%E6%96%87%E4%BB%B6%E9%9B%86%E5%90%88/%E6%8B%89%E9%92%A9/%E5%A4%8D%E7%9B%98/1%E9%A5%BF%E4%BA%86%E4%B9%88%E7%AC%AC%E4%B8%80%E8%BD%AE%E9%9D%A2%E8%AF%95%E5%A4%8D%E7%9B%98-%E5%88%86%E4%BA%AB%E7%89%88/index.html">
+<meta property="og:site_name" content="技术、生活、思考">
+<meta property="og:description" content="面试过程1. JAVA基础问题1：HashMap面试官：讲讲HashMap 回答： （1）使用场景 （2）源码大概（源码实现、扩容过程） ​    扩展了解决Hash冲突的常见方法：重散列、重哈希、拉链法。HashMap、ConcurrentHashMap都使用的是拉链法，ThreadLocal使用的是重散列法。 （3）优点 ​    不需要考虑线程安全的情况下，性能好，查询效率高，查询的时间复杂">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2022-01-18T13:25:11.411Z">
+<meta property="article:modified_time" content="2022-01-19T16:50:43.260Z">
+<meta property="article:author" content="chenyusharp">
+<meta name="twitter:card" content="summary">
+  <!-- Canonical links -->
+  <link rel="canonical" href="http://example.com/2022/01/18/typora%E6%96%87%E4%BB%B6%E9%9B%86%E5%90%88/%E6%8B%89%E9%92%A9/%E5%A4%8D%E7%9B%98/1%E9%A5%BF%E4%BA%86%E4%B9%88%E7%AC%AC%E4%B8%80%E8%BD%AE%E9%9D%A2%E8%AF%95%E5%A4%8D%E7%9B%98-%E5%88%86%E4%BA%AB%E7%89%88/index.html">
+  
+    <link rel="alternate" href="/atom.xml" title="技术、生活、思考" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png" type="image/x-icon">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+  
+  
+  
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+
+<body class="main-center" itemscope itemtype="http://schema.org/WebPage">
+  <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+  <div class="slimContent">
+    <div class="navbar-header">
+      
+      
+      <div class="profile-block text-center">
+        <a id="avatar" href="https://github.com/chenyusharp" target="_blank">
+          <img class="img-circle img-rotate" src="https://xiazhenyu.oss-cn-hangzhou.aliyuncs.com/common/36723748-0889-481D-AD81-B036124EBE2E_1_105_c.jpeg" width="200" height="200">
+        </a>
+        <h2 id="name" class="hidden-xs hidden-sm">chenyusharp</h2>
+        <h3 id="title" class="hidden-xs hidden-sm hidden-md">Java Developer</h3>
+        <small id="location" class="text-muted hidden-xs hidden-sm"><i class="icon icon-map-marker"></i> Hangzhou, China</small>
+      </div>
+      
+      <div class="search" id="search-form-wrap">
+
+    <form class="search-form sidebar-form">
+        <div class="input-group">
+            <input type="text" class="search-form-input form-control" placeholder="搜索" />
+            <span class="input-group-btn">
+                <button type="submit" class="search-form-submit btn btn-flat" onclick="return false;"><i class="icon icon-search"></i></button>
+            </span>
+        </div>
+    </form>
+    <div class="ins-search">
+  <div class="ins-search-mask"></div>
+  <div class="ins-search-container">
+    <div class="ins-input-wrapper">
+      <input type="text" class="ins-search-input" placeholder="想要查找什么..." x-webkit-speech />
+      <button type="button" class="close ins-close ins-selectable" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+    </div>
+    <div class="ins-section-wrapper">
+      <div class="ins-section-container"></div>
+    </div>
+  </div>
+</div>
+
+
+</div>
+      <button class="navbar-toggle collapsed" type="button" data-toggle="collapse" data-target="#main-navbar" aria-controls="main-navbar" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+    </div>
+    <nav id="main-navbar" class="collapse navbar-collapse" itemscope itemtype="http://schema.org/SiteNavigationElement" role="navigation">
+      <ul class="nav navbar-nav main-nav ">
+        
+        
+        <li class="menu-item menu-item-home">
+          <a href="/.">
+            
+            <i class="icon icon-home-fill"></i>
+            
+            <span class="menu-title">首页</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives">
+            
+            <i class="icon icon-archives-fill"></i>
+            
+            <span class="menu-title">归档</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories">
+            
+            <i class="icon icon-folder"></i>
+            
+            <span class="menu-title">分类</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags">
+            
+            <i class="icon icon-tags"></i>
+            
+            <span class="menu-title">标签</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-repository">
+          <a href="/repository">
+            
+            <i class="icon icon-project"></i>
+            
+            <span class="menu-title">项目</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-books">
+          <a href="/books">
+            
+            <i class="icon icon-book-fill"></i>
+            
+            <span class="menu-title">书单</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-links">
+          <a href="/links">
+            
+            <i class="icon icon-friendship"></i>
+            
+            <span class="menu-title">友链</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about">
+            
+            <i class="icon icon-cup-fill"></i>
+            
+            <span class="menu-title">关于</span>
+          </a>
+        </li>
+        
+      </ul>
+      
+	
+    <ul class="social-links">
+    	
+        <li><a href="https://github.com/chenyusharp" target="_blank" title="Github" data-toggle=tooltip data-placement=top><i class="icon icon-github"></i></a></li>
+        
+    </ul>
+
+    </nav>
+  </div>
+</header>
+
+  
+    <aside class="sidebar" itemscope itemtype="http://schema.org/WPSideBar">
+  <div class="slimContent">
+    
+      <div class="widget">
+    <h3 class="widget-title">公告</h3>
+    <div class="widget-body">
+        <div id="board">
+            <div class="content">
+                <p>欢迎交流与分享经验!</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">分类</h3>
+    <div class="widget-body">
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/DDD/">DDD</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/linux/">linux</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/redis/">redis</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/typora/">typora</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/wholee/">wholee</a><span class="category-list-count">10</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%8A%80%E6%9C%AF/">技术</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%8A%80%E8%83%BD/">技能</a><span class="category-list-count">1</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%8A%80%E8%83%BD/%E5%B7%A5%E4%BD%9C/">工作</a><span class="category-list-count">1</span></li></ul></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">标签</h3>
+    <div class="widget-body">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/DDD/" rel="tag">DDD</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/linux/" rel="tag">linux</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/redis/" rel="tag">redis</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/wholee/" rel="tag">wholee</a><span class="tag-list-count">10</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%B7%A5%E4%BD%9C%E5%AE%89%E6%8E%92/" rel="tag">工作安排</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%8A%80%E8%83%BD/" rel="tag">技能</a><span class="tag-list-count">1</span></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">标签云</h3>
+    <div class="widget-body tagcloud">
+      <a href="/tags/DDD/" style="font-size: 13px;">DDD</a> <a href="/tags/linux/" style="font-size: 13.33px;">linux</a> <a href="/tags/redis/" style="font-size: 13px;">redis</a> <a href="/tags/wholee/" style="font-size: 14px;">wholee</a> <a href="/tags/%E5%B7%A5%E4%BD%9C%E5%AE%89%E6%8E%92/" style="font-size: 13.67px;">工作安排</a> <a href="/tags/%E6%8A%80%E8%83%BD/" style="font-size: 13px;">技能</a>
+    </div>
+  </div>
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">归档</h3>
+    <div class="widget-body">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/03/">三月 2022</a><span class="archive-list-count">12</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/02/">二月 2022</a><span class="archive-list-count">21</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/01/">一月 2022</a><span class="archive-list-count">30</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/12/">十二月 2021</a><span class="archive-list-count">8</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/11/">十一月 2021</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/10/">十月 2021</a><span class="archive-list-count">38</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/09/">九月 2021</a><span class="archive-list-count">10</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/08/">八月 2021</a><span class="archive-list-count">24</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/07/">七月 2021</a><span class="archive-list-count">18</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/06/">六月 2021</a><span class="archive-list-count">13</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/05/">五月 2021</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/03/">三月 2021</a><span class="archive-list-count">1</span></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget-body">
+      <ul class="recent-post-list list-unstyled no-thumbnail">
+        
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/%E6%8A%80%E6%9C%AF/">技术</a>
+              </p>
+              <p class="item-title">
+                <a href="/2022/03/20/typora%E6%96%87%E4%BB%B6%E9%9B%86%E5%90%88/%E6%8A%80%E6%9C%AF/%E5%B8%B8%E8%A7%81%E7%9A%84%E9%9D%A2%E8%AF%95%E6%8A%80%E6%9C%AF%E9%97%AE%E9%A2%98/%E5%88%A9%E7%94%A8JVM%E5%91%BD%E4%BB%A4%E8%A1%8C%E5%B7%A5%E5%85%B7%E6%8E%92%E6%9F%A5%E7%BA%BF%E4%B8%8A%E9%97%AE%E9%A2%98/" class="title">利用JVM命令行工具排查线上问题</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2022-03-20T05:19:39.297Z" itemprop="datePublished">2022-03-20</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/%E6%8A%80%E6%9C%AF/">技术</a>
+              </p>
+              <p class="item-title">
+                <a href="/2022/03/20/typora%E6%96%87%E4%BB%B6%E9%9B%86%E5%90%88/%E6%8A%80%E6%9C%AF/%E5%B8%B8%E8%A7%81%E7%9A%84%E9%9D%A2%E8%AF%95%E6%8A%80%E6%9C%AF%E9%97%AE%E9%A2%98/%E5%A6%82%E4%BD%95%E5%AE%9E%E7%8E%B0%E4%B8%80%E4%B8%AARPC%E6%A1%86%E6%9E%B6/" class="title">如何实现一个RPC框架</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2022-03-19T18:29:15.439Z" itemprop="datePublished">2022-03-20</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/linux/">linux</a>
+              </p>
+              <p class="item-title">
+                <a href="/2022/03/20/typora%E6%96%87%E4%BB%B6%E9%9B%86%E5%90%88/%E6%8A%80%E6%9C%AF/%E6%8A%80%E6%9C%AF%E7%AC%94%E8%AE%B0/%E6%9C%8D%E5%8A%A1%E5%99%A8/%E5%B8%B8%E7%94%A8%E7%9A%84linux%E5%91%BD%E4%BB%A4/" class="title">常用的linux命令</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2022-03-19T18:23:26.102Z" itemprop="datePublished">2022-03-20</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/redis/">redis</a>
+              </p>
+              <p class="item-title">
+                <a href="/2022/03/20/typora%E6%96%87%E4%BB%B6%E9%9B%86%E5%90%88/%E6%8A%80%E6%9C%AF/redis/redis%E6%BA%90%E7%A0%81%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/" class="title">redis源码环境搭建</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2022-03-19T16:29:16.300Z" itemprop="datePublished">2022-03-20</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                
+              </p>
+              <p class="item-title">
+                <a href="/2022/03/19/typora%E6%96%87%E4%BB%B6%E9%9B%86%E5%90%88/%E6%8A%80%E6%9C%AF/%E5%B8%B8%E8%A7%81%E7%9A%84%E9%9D%A2%E8%AF%95%E6%8A%80%E6%9C%AF%E9%97%AE%E9%A2%98/Spring%20AOP%E6%98%AF%E6%80%8E%E4%B9%88%E5%AE%9E%E7%8E%B0%E7%9A%84/" class="title">(no title)</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2022-03-18T17:03:12.253Z" itemprop="datePublished">2022-03-19</time>
+              </p>
+            </div>
+          </li>
+          
+      </ul>
+    </div>
+  </div>
+  
+
+    
+  </div>
+</aside>
+
+  
+  
+<main class="main" role="main">
+  <div class="content">
+  <article id="post-typora文件集合/拉钩/复盘/1饿了么第一轮面试复盘-分享版" class="article article-type-post" itemscope itemtype="http://schema.org/BlogPosting">
+    
+    <div class="article-header">
+      
+      <div class="article-meta">
+        <span class="article-date">
+    <i class="icon icon-calendar-check"></i>
+	<a href="/2022/01/18/typora%E6%96%87%E4%BB%B6%E9%9B%86%E5%90%88/%E6%8B%89%E9%92%A9/%E5%A4%8D%E7%9B%98/1%E9%A5%BF%E4%BA%86%E4%B9%88%E7%AC%AC%E4%B8%80%E8%BD%AE%E9%9D%A2%E8%AF%95%E5%A4%8D%E7%9B%98-%E5%88%86%E4%BA%AB%E7%89%88/" class="article-date">
+	  <time datetime="2022-01-18T13:25:11.411Z" itemprop="datePublished">2022-01-18</time>
+	</a>
+</span>
+        
+        
+
+        
+
+        <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2022/01/18/typora%E6%96%87%E4%BB%B6%E9%9B%86%E5%90%88/%E6%8B%89%E9%92%A9/%E5%A4%8D%E7%9B%98/1%E9%A5%BF%E4%BA%86%E4%B9%88%E7%AC%AC%E4%B8%80%E8%BD%AE%E9%9D%A2%E8%AF%95%E5%A4%8D%E7%9B%98-%E5%88%86%E4%BA%AB%E7%89%88/#comments" class="article-comment-link">评论</a></span>
+        
+      </div>
+    </div>
+    <div class="article-entry marked-body" itemprop="articleBody">
+      
+        <h2 id="面试过程"><a href="#面试过程" class="headerlink" title="面试过程"></a>面试过程</h2><h3 id="1-JAVA基础"><a href="#1-JAVA基础" class="headerlink" title="1. JAVA基础"></a>1. JAVA基础</h3><h4 id="问题1：HashMap"><a href="#问题1：HashMap" class="headerlink" title="问题1：HashMap"></a>问题1：HashMap</h4><p><strong>面试官：</strong>讲讲HashMap</p>
+<p>回答：</p>
+<p>（1）使用场景</p>
+<p>（2）源码大概（源码实现、扩容过程）</p>
+<p>​    扩展了解决Hash冲突的常见方法：重散列、重哈希、拉链法。HashMap、ConcurrentHashMap都使用的是拉链法，ThreadLocal使用的是重散列法。</p>
+<p>（3）优点</p>
+<p>​    不需要考虑线程安全的情况下，性能好，查询效率高，查询的时间复杂度是O(1)。</p>
+<p>（4）缺点</p>
+<p>线程不安全。</p>
+<p>​    扩展了JDK为了解决线程安全，在JUC包中添加了HashTable、ConcurrentHashMap。</p>
+<p>目的：成功的将面试官的注意点引入我们学过的并发编程模块。</p>
+<h4 id="问题2：ConcurrentHashMap"><a href="#问题2：ConcurrentHashMap" class="headerlink" title="问题2：ConcurrentHashMap"></a>问题2：ConcurrentHashMap</h4><p><strong>面试官：</strong>既然提到ConcurrentHashMap，那么讲讲他是如何保证线程安全的，以及他的扩容过程。</p>
+<p>回答：</p>
+<p>（1）ConcurrentHashMap使用了拉链法，以数组中每个元素为加锁维度，目的是细化锁的粒度，使其保证线程安全的同时保证并发性。</p>
+<p>（2）与之形成鲜明对比的是HashTable，虽然二者都保证的线程安全，但HashTable以每个操作方法为维度，粒度较粗。</p>
+<h4 id="问题3：锁"><a href="#问题3：锁" class="headerlink" title="问题3：锁"></a>问题3：锁</h4><p><strong>面试官：</strong>讲下java中常见的锁有哪些？</p>
+<p>回答：最常见到的就是Synchronized和AQS组件下的ReentrantLock</p>
+<p><strong>面试官：</strong>能讲一下他们两个直接的区别吗，以及我们该怎么选择？</p>
+<p>回答：</p>
+<p>（1）Synchronized的使用方法</p>
+<p>（2）ReentrantLock的使用方法</p>
+<p>（3）两者的共同点和不同点</p>
+<p>（4）针对不同点，如果需要使用ReentrantLock的特性就选择ReentrantLock，如果不需要就推荐使用Synchornized，原因是隐式加锁，对程序员友好。</p>
+<p><strong>遗漏点：</strong>线程安全方面存在着较大的设计区别、并发处理能力上存在较大区别</p>
+<p><strong>面试官：</strong>他们两个直接的性能有差距吗？</p>
+<p>回答：</p>
+<p>（1）在JDK1.6之前，性能有所差距</p>
+<p>（2）在JDK1.6之后，JVM将Synchronized分成了无锁、偏向锁、轻量级锁、重量级锁。</p>
+<p>（3）询问面试官是否要将Synchronized的4个锁状态的升级过程细讲下，面试官说，针对这个知识点你已经讲的挺具体的了，不需要深入了。</p>
+<h3 id="2-MySQL"><a href="#2-MySQL" class="headerlink" title="2. MySQL"></a>2. MySQL</h3><h4 id="问题1：表容量"><a href="#问题1：表容量" class="headerlink" title="问题1：表容量"></a>问题1：表容量</h4><p><strong>面试官：</strong>你们系统单表容量大概有多少？</p>
+<p>回答：</p>
+<p>（1）新系统的单表容量大概是100W左右</p>
+<p>（2）之所以新系统的容量不是很高，因为我们重构系统一个很重要的缘由就是解决单表容量过大问题。</p>
+<p>（3）介绍了下老系统的单表问题，曾经出现过自增主键不够的问题</p>
+<p>（4）为了解决老系统的单表问题，我们采取了将两天前的交易通过定时任务移动到历史表中</p>
+<p>（5）新系统为了解决这个问题，采用了分库分表的方案</p>
+<p>目的：将面试官的注意力转移到自己很熟悉的新系统中</p>
+<h4 id="问题2：分库分表"><a href="#问题2：分库分表" class="headerlink" title="问题2：分库分表"></a>问题2：分库分表</h4><p><strong>面试官：</strong>讲下你们怎么分库分表的？</p>
+<p>回答：</p>
+<p>（1）使用了Sharding-jdbc插件</p>
+<p>（2）横向切分+纵向切分的方式，并具体举例code表</p>
+<p>（3）优点：减轻单库单表的压力</p>
+<p>（4）缺点：当需要按时间统计订单时，就会比较难</p>
+<p>（5）缺点的解决方案：利用binLog，将数据同步到数据仓库中，然后es提供数据的搜索</p>
+<p><strong>面试官：</strong>es这个方案中，你们怎么保证es与数据库的数据一致性的？</p>
+<p>回答：</p>
+<p>（1）这个方案不是我做的，但我考虑过，我可以给下我的见解</p>
+<p>（2）binLog是推动到MQ的，那就要保证MQ的数据安全，讲了如何防止MQ数据丢失</p>
+<p>（3）需要再加一个补救措施，每天零点定时任务，检测当日新增数据量是否一致，如果不一致，则进行补录</p>
+<p><strong>面试官：</strong>你这个补救措施是针对insert的，那如果是update怎么办？</p>
+<p>当时没回答上来，面试官就进入下一个问题了，没有过多浪费时间。</p>
+<h4 id="问题3：ES"><a href="#问题3：ES" class="headerlink" title="问题3：ES"></a>问题3：ES</h4><p><strong>面试官：</strong>前面既然提到了，能讲讲吗？</p>
+<p>回到：对不起，没有研究过，只知道日常的使用</p>
+<h4 id="问题4：MySQL的索引原理"><a href="#问题4：MySQL的索引原理" class="headerlink" title="问题4：MySQL的索引原理"></a>问题4：MySQL的索引原理</h4><p><strong>面试官：</strong>讲下MySQL的索引原理</p>
+<p>回答：</p>
+<p>（1）讲了下B+树</p>
+<p>（2）B树与B+树的区别</p>
+<p>（3）当新建索引的时候，新增一个索引树</p>
+<p>（4）扩展了自己熟悉的索引失效，以自己项目中曾经碰到的问题为切入点，讲了6种常见的索引失效场景。</p>
+<p>目的：脱离干巴巴的理论知识，以项目中问题讲解实战中可能碰到的问题</p>
+<h3 id="3-JVM"><a href="#3-JVM" class="headerlink" title="3. JVM"></a>3. JVM</h3><h4 id="问题1：CPU、内存占用过高时的查找问题的方法"><a href="#问题1：CPU、内存占用过高时的查找问题的方法" class="headerlink" title="问题1：CPU、内存占用过高时的查找问题的方法"></a>问题1：CPU、内存占用过高时的查找问题的方法</h4><p><strong>面试官：</strong>你们项目中有没有碰到过内存占用过高的场景，你们怎么解决的？</p>
+<p>回答：</p>
+<p>（1）没有碰到过内存占用过高的场景，但是我们有过CPU过高的场景</p>
+<p>（2）回答咱们之前上课时讲过的思路</p>
+<p>目的：</p>
+<p>内存占用过高还没实践过，所以想转移话题，结果失败</p>
+<p><strong>面试官：</strong>如果现在碰到内存占用过高的场景，你打算怎么排查？</p>
+<p>回答：</p>
+<p>（1）首先得先查下是不是境外内存占用过高</p>
+<p>（2）境外内存占用过高，可以只用Google提供的一个工具进行排查，它能够看到对象的引用次数等等，承认自己还没有实践过</p>
+<p>（3）堆内存占用过高，就讲了下咱们上课时的思路，也同样承认自己还没实践过</p>
+<h4 id="问题2：JVM参数调优"><a href="#问题2：JVM参数调优" class="headerlink" title="问题2：JVM参数调优"></a>问题2：JVM参数调优</h4><p><strong>面试官：</strong>你们项目中JVM参数是怎么样的</p>
+<p>回答：</p>
+<p>（1）承认CTO规定这类参数只能由运维经理进行配置，不允许程序员自己配置</p>
+<p>（2）但是自己知道大概有哪些参数需要配置，并讲了常见的几个参数，和不太可能有人配置的指定垃圾收集器</p>
+<p>目的：主动提到垃圾收集器，是为了尽快问到自己更熟悉的内容</p>
+<h4 id="问题3：垃圾回收器"><a href="#问题3：垃圾回收器" class="headerlink" title="问题3：垃圾回收器"></a>问题3：垃圾回收器</h4><p><strong>面试官：</strong>既然提到垃圾收集器，讲一下你熟悉的垃圾回收器？</p>
+<p>回到：</p>
+<p>（1）因为项目中使用的是JDK1.8，所以对CMS稍微熟悉点</p>
+<p>（2）CMS垃圾回收的过程，以及为什么要STW</p>
+<p>（3）扩展出垃圾回收中的可达性分析、二次标记、三色标记</p>
+<p>（4）表达了自己虽然更加熟悉CMS，但是其他的垃圾收集器都逃不开三种垃圾回收算法</p>
+<p>（5）讲了下标记-清除、标记-复制、标记-整理算法的思路</p>
+<p><strong>面试官：</strong>既然提到标记-清除，那么他就会产生垃圾碎片，能说出CMS是怎么解决垃圾碎片问题的吗</p>
+<p>回答：</p>
+<p>（1）明确说出自己不记得两个参数的单词是什么，但清除他们的作用</p>
+<p>（2）讲了下在Full GC时，开启内存碎片整理过程。由于碎片整理时需要移动存活对象的，需要停顿一段时间。（默认开启，JDK9开始废弃）（对应-XX:+UseCMS-CompactAtFullCollection ）</p>
+<p>（3）讲了下收集器在执行若干次不整理碎片的Full GC后，下一次进入Full GC就会进行碎片整理。（默认0，表示每次进入FUll GC都需要碎片整理。JDK9开始废弃）（对应-XX:CMSFullGCsBeforeCompaction）</p>
+<p><strong>面试官：</strong>除了CMS，G1垃圾收集器熟悉吗？</p>
+<p>回答：</p>
+<p>（1）承认暂时不熟悉，但表达如果项目使用的版本默认是G1，可以去学习下</p>
+<h3 id="4-框架"><a href="#4-框架" class="headerlink" title="4. 框架"></a>4. 框架</h3><h4 id="问题1：SpringIoc"><a href="#问题1：SpringIoc" class="headerlink" title="问题1：SpringIoc"></a>问题1：SpringIoc</h4><p><strong>面试官：</strong>大概讲下SpringIoc？</p>
+<p>回答：</p>
+<p>（1）承认是两年前学的内容，现在组织语言有点难</p>
+<p>（2）表示自己曾今尝试手写过Ioc容器，并讲了下当时的大概的实现方式</p>
+<p><strong>面试官：</strong>SpringAop呢？</p>
+<p>回答：</p>
+<p>（1）承认自己没有准备切面编程相关的知识点</p>
+<h4 id="问题2：动态代理"><a href="#问题2：动态代理" class="headerlink" title="问题2：动态代理"></a>问题2：动态代理</h4><p><strong>面试官：</strong>讲下JDK动态代理，cglib动态代理的区别</p>
+<p>回到：</p>
+<p>（1）讲了下两者在使用上的不同之处</p>
+<h3 id="5-架构设计"><a href="#5-架构设计" class="headerlink" title="5. 架构设计"></a>5. 架构设计</h3><h4 id="问题1：设计模式"><a href="#问题1：设计模式" class="headerlink" title="问题1：设计模式"></a>问题1：设计模式</h4><p><strong>面试官：</strong>你熟悉哪些设计模式？</p>
+<p>回答：</p>
+<p>（1）说出自己最喜欢用的三种设计模式：适配器模式、拦截器模式、策略模式</p>
+<p>（2）每个设计模式在项目中的使用及其优点</p>
+<p><strong>面试官：</strong>除了这些还有吗？</p>
+<p>回答：</p>
+<p>（1）常听说的观察者模式，装饰器模式，讲了下大概的作用</p>
+<p><strong>PS：</strong>单例模式、工厂模式没有讲，当时觉得听的太多了，千篇一律使用到这两个模式，不够亮点，所以选择几个个人喜欢且熟悉的。</p>
+<h4 id="问题2：架构师思维"><a href="#问题2：架构师思维" class="headerlink" title="问题2：架构师思维"></a>问题2：架构师思维</h4><p><strong>面试官：</strong>你简历中写道架构师思维，那你觉得架构师思维应该是怎么样的？</p>
+<p>回答：</p>
+<p>（1）说出自己认为的几个重要的原则，架构师应该遵循：单一职能原则，开闭原则</p>
+<p><strong>PS：</strong>设计模式的六大原则，当时只记得这两个原则了</p>
+<p>（2）就上述的两个原则，分别举例，在日常项目中，我们是怎么做的</p>
+<p>（3）说出架构师还需要有个技能，就是演化思维</p>
+<p><strong>PS：</strong>“演化思维”这个词当时没想出来，随便说了大概，忘了具体内容了</p>
+<p>（4）根据自己的项目经验详细讲解了怎么从一个小功能到一个微服务的过程。</p>
+<p>​    举的例子是券系统-哈根达斯文件上传商委。</p>
+<p>​    第一步实现功能；</p>
+<p>​    第二步性能提升优化，怎么去满足大文件的处理；</p>
+<p>​    第三步可用性提升优化，怎么将功能抽象，满足卡系统、订单系统的使用；</p>
+<p>​    第四步用户友好性提升优化，除了定时任务，还添加了接口，让运营同事能上传指定日期的文件，并做好控制防止同一日起重复提交。</p>
+<h3 id="你有什么问题要问我的"><a href="#你有什么问题要问我的" class="headerlink" title="你有什么问题要问我的"></a>你有什么问题要问我的</h3><h2 id="面试复盘"><a href="#面试复盘" class="headerlink" title="面试复盘"></a>面试复盘</h2><h3 id="1-面试官目的"><a href="#1-面试官目的" class="headerlink" title="1. 面试官目的"></a>1. 面试官目的</h3><p>一般情况下，按照技术 -&gt; 业务设计 -&gt; 管理的步骤。第一轮面试考察的是求职者的技术水平能力</p>
+<h3 id="2-提问方式"><a href="#2-提问方式" class="headerlink" title="2. 提问方式"></a>2. 提问方式</h3><h4 id="2-1-具体技术点及与其他技术点的区别"><a href="#2-1-具体技术点及与其他技术点的区别" class="headerlink" title="2.1 具体技术点及与其他技术点的区别"></a>2.1 具体技术点及与其他技术点的区别</h4><p><strong>解答思路：</strong></p>
+<p>（1）需要讲解核心的区别点</p>
+<p>（2）举出每个技术点的使用场景及优缺点</p>
+<p><strong>案例：</strong></p>
+<p>问：BIO、NIO、AIO三者直接的区别？</p>
+<p>答：同步异步、阻塞非阻塞的区别。各自的使用场景及优缺点</p>
+<h4 id="2-2-开放性的问某个技术点"><a href="#2-2-开放性的问某个技术点" class="headerlink" title="2.2 开放性的问某个技术点"></a>2.2 开放性的问某个技术点</h4><p><strong>解答思路：</strong></p>
+<p>（1）通过与面试官的交互，确定具体需要讲解的技术细节</p>
+<p><strong>案例：</strong></p>
+<p>问：讲讲JVM原理</p>
+<p>思路：JVM主要有五大模块：类加载系统、运行时数据区、执行引擎、本地方法接口、垃圾回收模块。挑其中最有把握的，问面试官是否可以就其深入讲讲。</p>
+<h3 id="3-向面试官提问"><a href="#3-向面试官提问" class="headerlink" title="3. 向面试官提问"></a>3. 向面试官提问</h3><h4 id="3-1-面试的小组或部门负责的功能"><a href="#3-1-面试的小组或部门负责的功能" class="headerlink" title="3.1 面试的小组或部门负责的功能"></a>3.1 面试的小组或部门负责的功能</h4><p><strong>目的：</strong></p>
+<p>了解小组做的项目或者模块，在后面的面试的中可能有用</p>
+<h4 id="3-2-面试的小组或部门的人数"><a href="#3-2-面试的小组或部门的人数" class="headerlink" title="3.2 面试的小组或部门的人数"></a>3.2 面试的小组或部门的人数</h4><p><strong>目的：</strong></p>
+<p>了解人数，间接的了解求职部门的规模</p>
+
+      
+    </div>
+    <div class="article-footer">
+      <blockquote class="mt-2x">
+  <ul class="post-copyright list-unstyled">
+    
+    <li class="post-copyright-link hidden-xs">
+      <strong>本文链接：</strong>
+      <a href="http://example.com/2022/01/18/typora%E6%96%87%E4%BB%B6%E9%9B%86%E5%90%88/%E6%8B%89%E9%92%A9/%E5%A4%8D%E7%9B%98/1%E9%A5%BF%E4%BA%86%E4%B9%88%E7%AC%AC%E4%B8%80%E8%BD%AE%E9%9D%A2%E8%AF%95%E5%A4%8D%E7%9B%98-%E5%88%86%E4%BA%AB%E7%89%88/" title="" target="_blank" rel="external">http://example.com/2022/01/18/typora文件集合/拉钩/复盘/1饿了么第一轮面试复盘-分享版/</a>
+    </li>
+    
+    <li class="post-copyright-license">
+      <strong>版权声明： </strong> 本博客所有文章除特别声明外，均采用 <a href="http://creativecommons.org/licenses/by/4.0/deed.zh" target="_blank" rel="external">CC BY 4.0 CN协议</a> 许可协议。转载请注明出处！
+    </li>
+  </ul>
+</blockquote>
+
+
+<div class="panel panel-default panel-badger">
+  <div class="panel-body">
+    <figure class="media">
+      <div class="media-left">
+        <a href="https://github.com/chenyusharp" target="_blank" class="img-burn thumb-sm visible-lg">
+          <img src="https://xiazhenyu.oss-cn-hangzhou.aliyuncs.com/common/36723748-0889-481D-AD81-B036124EBE2E_1_105_c.jpeg" class="img-rounded w-full" alt="">
+        </a>
+      </div>
+      <div class="media-body">
+        <h3 class="media-heading"><a href="https://github.com/chenyusharp" target="_blank"><span class="text-dark">chenyusharp</span><small class="ml-1x">Java Developer</small></a></h3>
+        <div>个人简介。</div>
+      </div>
+    </figure>
+  </div>
+</div>
+
+
+    </div>
+  </article>
+  
+    
+  <section id="comments">
+  	
+      <div id="vcomments"></div>
+    
+  </section>
+
+
+  
+</div>
+
+  <nav class="bar bar-footer clearfix" data-stick-bottom>
+  <div class="bar-inner">
+  
+  <ul class="pager pull-left">
+    
+    <li class="prev">
+      <a href="/2022/01/19/typora%E6%96%87%E4%BB%B6%E9%9B%86%E5%90%88/%E6%8A%80%E6%9C%AF/%E6%8A%80%E6%9C%AF%E7%AC%94%E8%AE%B0/%E6%BA%90%E7%A0%81/Tomcat%E6%BA%90%E7%A0%81%E5%AD%A6%E4%B9%A0/" title="(no title)"><i class="icon icon-angle-left" aria-hidden="true"></i><span>&nbsp;&nbsp;上一篇</span></a>
+    </li>
+    
+    
+    <li class="next">
+      <a href="/2022/01/16/typora%E6%96%87%E4%BB%B6%E9%9B%86%E5%90%88/%E6%8A%80%E6%9C%AF/%E6%8A%80%E6%9C%AF%E7%AC%94%E8%AE%B0/%E6%BA%90%E7%A0%81/Mybatis%E6%BA%90%E7%A0%81%E5%AD%A6%E4%B9%A0/" title="(no title)"><span>下一篇&nbsp;&nbsp;</span><i class="icon icon-angle-right" aria-hidden="true"></i></a>
+    </li>
+    
+    
+  </ul>
+  
+  
+  <!-- Button trigger modal -->
+  <button type="button" class="btn btn-fancy btn-donate pop-onhover bg-gradient-warning" data-toggle="modal" data-target="#donateModal"><span>赏</span></button>
+  <!-- <div class="wave-icon wave-icon-danger btn-donate" data-toggle="modal" data-target="#donateModal">
+    <div class="wave-circle"><span class="icon"><i class="icon icon-bill"></i></span></div>
+  </div> -->
+  
+  
+  <div class="bar-right">
+    
+    <div class="share-component" data-sites="weibo,qq,wechat,facebook,twitter" data-mobile-sites="weibo,qq,qzone"></div>
+    
+  </div>
+  </div>
+</nav>
+  
+<!-- Modal -->
+<div class="modal modal-center modal-small modal-xs-full fade" id="donateModal" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content donate">
+      <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+      <div class="modal-body">
+        <div class="donate-box">
+          <div class="donate-head">
+            <p>感谢您的支持，我会继续努力的!</p>
+          </div>
+          <div class="tab-content">
+            <div role="tabpanel" class="tab-pane fade active in" id="alipay">
+              <div class="donate-payimg">
+                <img src="/images/donate/alipayimg.png" alt="扫码支持" title="扫一扫" />
+              </div>
+              <p class="text-muted mv">扫码打赏，你说多少就多少</p>
+              <p class="text-grey">打开支付宝扫一扫，即可进行扫码打赏哦</p>
+            </div>
+            <div role="tabpanel" class="tab-pane fade" id="wechatpay">
+              <div class="donate-payimg">
+                <img src="/images/donate/wechatpayimg.png" alt="扫码支持" title="扫一扫" />
+              </div>
+              <p class="text-muted mv">扫码打赏，你说多少就多少</p>
+              <p class="text-grey">打开微信扫一扫，即可进行扫码打赏哦</p>
+            </div>
+          </div>
+          <div class="donate-footer">
+            <ul class="nav nav-tabs nav-justified" role="tablist">
+              <li role="presentation" class="active">
+                <a href="#alipay" id="alipay-tab" role="tab" data-toggle="tab" aria-controls="alipay" aria-expanded="true"><i class="icon icon-alipay"></i> 支付宝</a>
+              </li>
+              <li role="presentation" class="">
+                <a href="#wechatpay" role="tab" id="wechatpay-tab" data-toggle="tab" aria-controls="wechatpay" aria-expanded="false"><i class="icon icon-wepay"></i> 微信支付</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+</main>
+
+  <footer class="footer" itemscope itemtype="http://schema.org/WPFooter">
+	
+	
+    <ul class="social-links">
+    	
+        <li><a href="https://github.com/chenyusharp" target="_blank" title="Github" data-toggle=tooltip data-placement=top><i class="icon icon-github"></i></a></li>
+        
+    </ul>
+
+    <div class="copyright">
+    	
+        <div class="publishby">
+        	Theme by <a href="https://github.com/cofess" target="_blank"> cofess </a>base on <a href="https://github.com/cofess/hexo-theme-pure" target="_blank">pure</a>.
+        </div>
+    </div>
+</footer>
+  <script src="//cdn.jsdelivr.net/npm/jquery@1.12.4/dist/jquery.min.js"></script>
+<script>
+window.jQuery || document.write('<script src="js/jquery.min.js"><\/script>')
+</script>
+
+<script src="/js/plugin.min.js"></script>
+
+
+<script src="/js/application.js"></script>
+
+
+    <script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: '文章',
+            PAGES: '页面',
+            CATEGORIES: '分类',
+            TAGS: '标签',
+            UNTITLED: '(未命名)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+
+<script src="/js/insight.js"></script>
+
+
+
+
+
+
+   
+
+
+
+
+   
+    
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/valine"></script>
+  <script type="text/javascript">
+  var GUEST = ['nick', 'mail', 'link'];
+  var meta = 'nick,mail,link';
+  meta = meta.split(',').filter(function(item) {
+    return GUEST.indexOf(item) > -1;
+  });
+  new Valine({
+    el: '#vcomments',
+    verify: false,
+    notify: false,
+    appId: '',
+    appKey: '',
+    placeholder: 'Just go go',
+    avatar: 'mm',
+    meta: meta,
+    pageSize: '10' || 10,
+    visitor: false
+  });
+  </script>
+
+     
+
+
+
+
+
+
+
+</body>
+</html>
