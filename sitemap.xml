@@ -2,6 +2,15 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://example.com/2022/02/22/typora%E6%96%87%E4%BB%B6%E9%9B%86%E5%90%88/%E6%8A%80%E6%9C%AF/%E6%8A%80%E6%9C%AF%E7%AC%94%E8%AE%B0/%E8%AE%BE%E8%AE%A1/%E6%97%B6%E5%BA%8F%E5%9B%BE/</loc>
+    
+    <lastmod>2022-03-22</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
     <loc>http://example.com/2022/03/21/wholee/%E8%B4%A2%E5%8A%A1%E6%A0%B8%E7%AE%97%E9%A1%B9%E7%9B%AE/</loc>
     
     <lastmod>2022-03-21</lastmod>
@@ -491,15 +500,6 @@
     <loc>http://example.com/2022/02/23/typora%E6%96%87%E4%BB%B6%E9%9B%86%E5%90%88/%E6%8B%89%E9%92%A9/%E7%AD%94%E7%96%91/1%E6%9C%8823%E5%8F%B7%E7%AD%94%E7%96%91/</loc>
     
     <lastmod>2022-02-23</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>http://example.com/2022/02/22/typora%E6%96%87%E4%BB%B6%E9%9B%86%E5%90%88/%E6%8A%80%E6%9C%AF/%E6%8A%80%E6%9C%AF%E7%AC%94%E8%AE%B0/%E8%AE%BE%E8%AE%A1/%E6%97%B6%E5%BA%8F%E5%9B%BE/</loc>
-    
-    <lastmod>2022-02-22</lastmod>
     
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
@@ -1789,14 +1789,14 @@
   </url>
   
   <url>
-    <loc>http://example.com/categories/redis/</loc>
+    <loc>http://example.com/categories/%E6%8A%80%E6%9C%AF/</loc>
     <lastmod>2022-03-22</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
-    <loc>http://example.com/categories/%E6%8A%80%E6%9C%AF/</loc>
+    <loc>http://example.com/categories/redis/</loc>
     <lastmod>2022-03-22</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
