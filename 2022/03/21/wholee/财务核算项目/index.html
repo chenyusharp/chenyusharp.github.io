@@ -25,11 +25,16 @@
 <meta property="og:site_name" content="技术、生活、思考">
 <meta property="og:description" content="需求PRD地址： http:&#x2F;&#x2F;wiki.huoli101.com&#x2F;pages&#x2F;viewpage.action?pageId&#x3D;60388365 http:&#x2F;&#x2F;wiki.huoli101.com&#x2F;pages&#x2F;viewpage.action?pageId&#x3D;60388224 产品原型：https:&#x2F;&#x2F;15d977.axshare.com 数仓数据处理：http:&#x2F;&#x2F;wiki.huoli101.com&#x2F;p">
 <meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://xiazhenyu.oss-cn-hangzhou.aliyuncs.com/common/image-20220322103352489.png">
+<meta property="og:image" content="https://xiazhenyu.oss-cn-hangzhou.aliyuncs.com/common/image-20220322110930947.png">
+<meta property="og:image" content="https://xiazhenyu.oss-cn-hangzhou.aliyuncs.com/common/image-20220322104108539.png">
+<meta property="og:image" content="http://example.com/Users/xiazhenyu/Library/Application%20Support/typora-user-images/image-20220322104454330.png">
 <meta property="article:published_time" content="2022-03-21T08:32:35.466Z">
-<meta property="article:modified_time" content="2022-03-21T15:27:26.280Z">
+<meta property="article:modified_time" content="2022-03-22T06:20:40.965Z">
 <meta property="article:author" content="chenyusharp">
 <meta property="article:tag" content="wholee">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://xiazhenyu.oss-cn-hangzhou.aliyuncs.com/common/image-20220322103352489.png">
   <!-- Canonical links -->
   <link rel="canonical" href="http://example.com/2022/03/21/wholee/%E8%B4%A2%E5%8A%A1%E6%A0%B8%E7%AE%97%E9%A1%B9%E7%9B%AE/index.html">
   
@@ -423,15 +428,224 @@
 <li><p>凭证是可以物理删除的；</p>
 </li>
 </ul>
-<p>待确认的项：</p>
+<p>excel部分</p>
+<ul>
+<li><img src="https://xiazhenyu.oss-cn-hangzhou.aliyuncs.com/common/image-20220322103352489.png" alt="image-20220322103352489" style="zoom:50%;" /></li>
+</ul>
+<p>这两个日期取的是数仓推过来的日期；</p>
+<img src="https://xiazhenyu.oss-cn-hangzhou.aliyuncs.com/common/image-20220322110930947.png" alt="image-20220322110930947" style="zoom:50%;" />
+
+
+
+
+
+
+
+
+
+
+
+<p>==待确认的项：==</p>
 <ul>
 <li>凭证列表页的展示；</li>
 <li>数仓推过来的汇总明细中的单号的校验逻辑；</li>
 </ul>
 <h2 id="表结构设计"><a href="#表结构设计" class="headerlink" title="表结构设计"></a>表结构设计</h2><p>主要分为三大类：</p>
 <ol>
-<li>汇总数据类表：</li>
-<li>凭证表、凭证失败表（记录校验失败信息）（可以考虑通用的记录表设计）：</li>
+<li><p>汇总数据类表：</p>
+</li>
+<li><p>凭证表、凭证失败表（记录校验失败信息）（可以考虑通用的记录表设计）：</p>
+</li>
+</ol>
+<p>凭证表设计：</p>
+<table>
+<thead>
+<tr>
+<th>no</th>
+<th>类型</th>
+<th>字段名</th>
+<th>是否可为空</th>
+<th>解释</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>1</td>
+<td>表头</td>
+<td>id</td>
+<td></td>
+<td>20210313001</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td>number</td>
+<td></td>
+<td>单号(以天为纬度，每天从1自增)</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>2</td>
+<td></td>
+<td>date</td>
+<td></td>
+<td>日期（数仓推送时间）</td>
+</tr>
+<tr>
+<td>3</td>
+<td></td>
+<td>account_year</td>
+<td></td>
+<td>会计期间-年</td>
+</tr>
+<tr>
+<td>4</td>
+<td></td>
+<td>account_month</td>
+<td></td>
+<td>会计期间-月</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td>certificate_code</td>
+<td></td>
+<td>凭证编码，固定值: PRE001</td>
+</tr>
+<tr>
+<td>5</td>
+<td></td>
+<td>certificate_name</td>
+<td></td>
+<td>凭证字，固定值：记</td>
+</tr>
+<tr>
+<td>6</td>
+<td></td>
+<td>certificate_number</td>
+<td></td>
+<td>凭证号 ==（excel导出的时候，字段为空）==</td>
+</tr>
+<tr>
+<td>7</td>
+<td>表体</td>
+<td>summary</td>
+<td>N</td>
+<td>摘要</td>
+</tr>
+<tr>
+<td>8</td>
+<td></td>
+<td>subject_code</td>
+<td>N</td>
+<td>科目编码</td>
+</tr>
+<tr>
+<td>9</td>
+<td></td>
+<td>subject_full_name</td>
+<td>N</td>
+<td>科目全称</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td>assist_account</td>
+<td>Y</td>
+<td>辅助核算</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td>currency_number</td>
+<td>N</td>
+<td>货币代码</td>
+</tr>
+<tr>
+<td>10</td>
+<td></td>
+<td>currency_code</td>
+<td>N</td>
+<td>货币编码</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td>currency_name</td>
+<td>N</td>
+<td>货币名称</td>
+</tr>
+<tr>
+<td>11</td>
+<td></td>
+<td>original_amount</td>
+<td>N</td>
+<td>原币金额</td>
+</tr>
+<tr>
+<td>12</td>
+<td></td>
+<td>debit_amount</td>
+<td>N</td>
+<td>借方金额</td>
+</tr>
+<tr>
+<td>13</td>
+<td></td>
+<td>credit amount</td>
+<td>N</td>
+<td>贷方金额</td>
+</tr>
+<tr>
+<td>14</td>
+<td></td>
+<td>account_book_code</td>
+<td>N</td>
+<td>账薄编码</td>
+</tr>
+<tr>
+<td>15</td>
+<td></td>
+<td>account_book_name</td>
+<td>N</td>
+<td>账薄名称</td>
+</tr>
+<tr>
+<td>16</td>
+<td></td>
+<td>gmt_created</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>17</td>
+<td></td>
+<td>gmt_modified</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>18</td>
+<td></td>
+<td>version</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>19</td>
+<td></td>
+<td>is_deleted</td>
+<td></td>
+<td></td>
+</tr>
+</tbody></table>
+<p>唯一键：年月+业务码+业务类型+平台+国别</p>
+<ol>
 <li>配置表：部分配置表可以通过Apolo配置实现：</li>
 </ol>
 <p>​    3.1  单据类型；</p>
@@ -479,6 +693,19 @@
 <td></td>
 </tr>
 </tbody></table>
+<p>疑问点：</p>
+<ol>
+<li></li>
+</ol>
+<img src="https://xiazhenyu.oss-cn-hangzhou.aliyuncs.com/common/image-20220322104108539.png" alt="image-20220322104108539" style="zoom:50%;" />
+
+
+
+<p>是不是就是单号？（待验证）</p>
+<ol start="4">
+<li><img src="/Users/xiazhenyu/Library/Application Support/typora-user-images/image-20220322104454330.png" alt="image-20220322104454330" style="zoom:50%;" /></li>
+</ol>
+<p>凭证编码放在凭证规则中？然后凭证明细表冗余下？</p>
 
       
     </div>
