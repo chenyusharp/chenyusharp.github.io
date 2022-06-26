@@ -1,0 +1,644 @@
+<!DOCTYPE html>
+<html lang=zh>
+<head>
+  <meta charset="utf-8">
+  
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
+  <meta name="renderer" content="webkit">
+  <meta http-equiv="Cache-Control" content="no-transform" />
+  <meta http-equiv="Cache-Control" content="no-siteapp" />
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="format-detection" content="telephone=no,email=no,adress=no">
+  <!-- Color theme for statusbar -->
+  <meta name="theme-color" content="#000000" />
+  <!-- 强制页面在当前窗口以独立页面显示,防止别人在框架里调用页面 -->
+  <meta http-equiv="window-target" content="_top" />
+  
+  
+  <title>Hexo</title>
+  <meta name="description" content="业务背景以及目标类目属性体系背景规范商品的类目、属性信息，提供静态数据，快速的检索、创建商品； 目标  属性模版  对于大平台来说，商品信息既要按照平台要求来维护，同时也需要为个性化设置留有操作空间，通常采用构建模板的方式来完成。  在后端品类上先创建一套基础属性模板，模板中规定当前品类的所有的属性，同时设置好的各种操作功能，如属性组、属性名、是否必填、是否参与搜索、维护方式、可选属性值等 当商户">
+<meta property="og:type" content="article">
+<meta property="og:title" content="技术、生活、思考">
+<meta property="og:url" content="http://example.com/2022/06/18/typora%E6%96%87%E4%BB%B6%E9%9B%86%E5%90%88/%E6%8B%89%E9%92%A9/%E9%A1%B9%E7%9B%AE%E5%AE%9E%E6%88%98/%E9%A1%B9%E7%9B%AE%E6%9E%B6%E6%9E%84/index.html">
+<meta property="og:site_name" content="技术、生活、思考">
+<meta property="og:description" content="业务背景以及目标类目属性体系背景规范商品的类目、属性信息，提供静态数据，快速的检索、创建商品； 目标  属性模版  对于大平台来说，商品信息既要按照平台要求来维护，同时也需要为个性化设置留有操作空间，通常采用构建模板的方式来完成。  在后端品类上先创建一套基础属性模板，模板中规定当前品类的所有的属性，同时设置好的各种操作功能，如属性组、属性名、是否必填、是否参与搜索、维护方式、可选属性值等 当商户">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://xiazhenyu.oss-cn-hangzhou.aliyuncs.com/common/image-20220619195145532.png">
+<meta property="article:published_time" content="2022-06-18T13:54:08.755Z">
+<meta property="article:modified_time" content="2022-06-19T14:31:45.884Z">
+<meta property="article:author" content="chenyusharp">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://xiazhenyu.oss-cn-hangzhou.aliyuncs.com/common/image-20220619195145532.png">
+  <!-- Canonical links -->
+  <link rel="canonical" href="http://example.com/2022/06/18/typora%E6%96%87%E4%BB%B6%E9%9B%86%E5%90%88/%E6%8B%89%E9%92%A9/%E9%A1%B9%E7%9B%AE%E5%AE%9E%E6%88%98/%E9%A1%B9%E7%9B%AE%E6%9E%B6%E6%9E%84/index.html">
+  
+    <link rel="alternate" href="/atom.xml" title="技术、生活、思考" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png" type="image/x-icon">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+  
+  
+  
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+
+<body class="main-center" itemscope itemtype="http://schema.org/WebPage">
+  <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+  <div class="slimContent">
+    <div class="navbar-header">
+      
+      
+      <div class="profile-block text-center">
+        <a id="avatar" href="https://github.com/chenyusharp" target="_blank">
+          <img class="img-circle img-rotate" src="https://xiazhenyu.oss-cn-hangzhou.aliyuncs.com/common/36723748-0889-481D-AD81-B036124EBE2E_1_105_c.jpeg" width="200" height="200">
+        </a>
+        <h2 id="name" class="hidden-xs hidden-sm">chenyusharp</h2>
+        <h3 id="title" class="hidden-xs hidden-sm hidden-md">Java Developer</h3>
+        <small id="location" class="text-muted hidden-xs hidden-sm"><i class="icon icon-map-marker"></i> Hangzhou, China</small>
+      </div>
+      
+      <div class="search" id="search-form-wrap">
+
+    <form class="search-form sidebar-form">
+        <div class="input-group">
+            <input type="text" class="search-form-input form-control" placeholder="搜索" />
+            <span class="input-group-btn">
+                <button type="submit" class="search-form-submit btn btn-flat" onclick="return false;"><i class="icon icon-search"></i></button>
+            </span>
+        </div>
+    </form>
+    <div class="ins-search">
+  <div class="ins-search-mask"></div>
+  <div class="ins-search-container">
+    <div class="ins-input-wrapper">
+      <input type="text" class="ins-search-input" placeholder="想要查找什么..." x-webkit-speech />
+      <button type="button" class="close ins-close ins-selectable" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+    </div>
+    <div class="ins-section-wrapper">
+      <div class="ins-section-container"></div>
+    </div>
+  </div>
+</div>
+
+
+</div>
+      <button class="navbar-toggle collapsed" type="button" data-toggle="collapse" data-target="#main-navbar" aria-controls="main-navbar" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+    </div>
+    <nav id="main-navbar" class="collapse navbar-collapse" itemscope itemtype="http://schema.org/SiteNavigationElement" role="navigation">
+      <ul class="nav navbar-nav main-nav ">
+        
+        
+        <li class="menu-item menu-item-home">
+          <a href="/.">
+            
+            <i class="icon icon-home-fill"></i>
+            
+            <span class="menu-title">首页</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives">
+            
+            <i class="icon icon-archives-fill"></i>
+            
+            <span class="menu-title">归档</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories">
+            
+            <i class="icon icon-folder"></i>
+            
+            <span class="menu-title">分类</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags">
+            
+            <i class="icon icon-tags"></i>
+            
+            <span class="menu-title">标签</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-repository">
+          <a href="/repository">
+            
+            <i class="icon icon-project"></i>
+            
+            <span class="menu-title">项目</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-books">
+          <a href="/books">
+            
+            <i class="icon icon-book-fill"></i>
+            
+            <span class="menu-title">书单</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-links">
+          <a href="/links">
+            
+            <i class="icon icon-friendship"></i>
+            
+            <span class="menu-title">友链</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about">
+            
+            <i class="icon icon-cup-fill"></i>
+            
+            <span class="menu-title">关于</span>
+          </a>
+        </li>
+        
+      </ul>
+      
+	
+    <ul class="social-links">
+    	
+        <li><a href="https://github.com/chenyusharp" target="_blank" title="Github" data-toggle=tooltip data-placement=top><i class="icon icon-github"></i></a></li>
+        
+    </ul>
+
+    </nav>
+  </div>
+</header>
+
+  
+    <aside class="sidebar" itemscope itemtype="http://schema.org/WPSideBar">
+  <div class="slimContent">
+    
+      <div class="widget">
+    <h3 class="widget-title">公告</h3>
+    <div class="widget-body">
+        <div id="board">
+            <div class="content">
+                <p>欢迎交流与分享经验!</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">分类</h3>
+    <div class="widget-body">
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/JVM/">JVM</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Linux/">Linux</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/MQ/">MQ</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Redis/">Redis</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/algorithms/">algorithms</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/git/">git</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/linux/">linux</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/lombok/">lombok</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/maven/">maven</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/redis/">redis</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/s3/">s3</a><span class="category-list-count">1</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/s3/%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0/">文件上传</a><span class="category-list-count">1</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/typora/">typora</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/wholee/">wholee</a><span class="category-list-count">13</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E4%B8%9A%E5%8A%A1%E6%A8%A1%E5%BC%8F/">业务模式</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E4%BA%A7%E5%93%81/">产品</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%8A%80%E6%9C%AF/">技术</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%8B%89%E9%92%A9/">拉钩</a><span class="category-list-count">1</span></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">标签</h3>
+    <div class="widget-body">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux/" rel="tag">Linux</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/algorithms/" rel="tag">algorithms</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/algorithms-task/" rel="tag">algorithms  task</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/clubFactory/" rel="tag">clubFactory</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/git/" rel="tag">git</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/kafka/" rel="tag">kafka</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/linux/" rel="tag">linux</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/lombok/" rel="tag">lombok</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/maven/" rel="tag">maven</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/maven-version/" rel="tag">maven version</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/redis/" rel="tag">redis</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/wholee/" rel="tag">wholee</a><span class="tag-list-count">13</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%B7%A5%E4%BD%9C%E5%AE%89%E6%8E%92/" rel="tag">工作安排</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%8B%89%E9%92%A9/" rel="tag">拉钩</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E9%83%A8%E7%BD%B2-%E8%BF%90%E7%BB%B4%E7%B3%BB%E7%BB%9F/" rel="tag">部署/运维系统</a><span class="tag-list-count">2</span></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">标签云</h3>
+    <div class="widget-body tagcloud">
+      <a href="/tags/Linux/" style="font-size: 13px;">Linux</a> <a href="/tags/algorithms/" style="font-size: 13px;">algorithms</a> <a href="/tags/algorithms-task/" style="font-size: 13px;">algorithms  task</a> <a href="/tags/clubFactory/" style="font-size: 13px;">clubFactory</a> <a href="/tags/git/" style="font-size: 13px;">git</a> <a href="/tags/kafka/" style="font-size: 13px;">kafka</a> <a href="/tags/linux/" style="font-size: 13.4px;">linux</a> <a href="/tags/lombok/" style="font-size: 13px;">lombok</a> <a href="/tags/maven/" style="font-size: 13px;">maven</a> <a href="/tags/maven-version/" style="font-size: 13px;">maven version</a> <a href="/tags/redis/" style="font-size: 13px;">redis</a> <a href="/tags/wholee/" style="font-size: 14px;">wholee</a> <a href="/tags/%E5%B7%A5%E4%BD%9C%E5%AE%89%E6%8E%92/" style="font-size: 13.8px;">工作安排</a> <a href="/tags/%E6%8B%89%E9%92%A9/" style="font-size: 13.6px;">拉钩</a> <a href="/tags/%E9%83%A8%E7%BD%B2-%E8%BF%90%E7%BB%B4%E7%B3%BB%E7%BB%9F/" style="font-size: 13.2px;">部署/运维系统</a>
+    </div>
+  </div>
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">归档</h3>
+    <div class="widget-body">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/06/">六月 2022</a><span class="archive-list-count">14</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/05/">五月 2022</a><span class="archive-list-count">10</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/04/">四月 2022</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/03/">三月 2022</a><span class="archive-list-count">20</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/02/">二月 2022</a><span class="archive-list-count">22</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/01/">一月 2022</a><span class="archive-list-count">27</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/12/">十二月 2021</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/11/">十一月 2021</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/10/">十月 2021</a><span class="archive-list-count">29</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/09/">九月 2021</a><span class="archive-list-count">10</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/08/">八月 2021</a><span class="archive-list-count">21</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/07/">七月 2021</a><span class="archive-list-count">18</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/06/">六月 2021</a><span class="archive-list-count">11</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/05/">五月 2021</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/03/">三月 2021</a><span class="archive-list-count">1</span></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget-body">
+      <ul class="recent-post-list list-unstyled no-thumbnail">
+        
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                
+              </p>
+              <p class="item-title">
+                <a href="/2022/06/24/typora%E6%96%87%E4%BB%B6%E9%9B%86%E5%90%88/%E4%B8%AA%E4%BA%BA/%E6%B8%B8%E6%88%8F/%E6%B8%B8%E6%88%8F%E5%A4%A7%E5%85%A8/" class="title">(no title)</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2022-06-24T15:55:52.120Z" itemprop="datePublished">2022-06-24</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                
+              </p>
+              <p class="item-title">
+                <a href="/2022/06/22/typora%E6%96%87%E4%BB%B6%E9%9B%86%E5%90%88/%E6%8A%80%E6%9C%AF/%E6%8A%80%E6%9C%AF%E7%AC%94%E8%AE%B0/%E6%BA%90%E7%A0%81/Atomic%E7%B1%BB/" class="title">(no title)</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2022-06-22T08:12:04.951Z" itemprop="datePublished">2022-06-22</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                
+              </p>
+              <p class="item-title">
+                <a href="/2022/06/18/typora%E6%96%87%E4%BB%B6%E9%9B%86%E5%90%88/%E6%8B%89%E9%92%A9/%E9%A1%B9%E7%9B%AE%E5%AE%9E%E6%88%98/%E8%BF%9B%E5%BA%A6/" class="title">(no title)</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2022-06-18T13:54:20.914Z" itemprop="datePublished">2022-06-18</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                
+              </p>
+              <p class="item-title">
+                <a href="/2022/06/18/typora%E6%96%87%E4%BB%B6%E9%9B%86%E5%90%88/%E6%8B%89%E9%92%A9/%E9%A1%B9%E7%9B%AE%E5%AE%9E%E6%88%98/%E9%A1%B9%E7%9B%AE%E6%9E%B6%E6%9E%84/" class="title">(no title)</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2022-06-18T13:54:08.755Z" itemprop="datePublished">2022-06-18</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                
+              </p>
+              <p class="item-title">
+                <a href="/2022/06/18/typora%E6%96%87%E4%BB%B6%E9%9B%86%E5%90%88/%E6%8B%89%E9%92%A9/%E9%A1%B9%E7%9B%AE%E5%AE%9E%E6%88%98/%E7%B4%A0%E6%9D%90/" class="title">(no title)</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2022-06-18T13:53:58.126Z" itemprop="datePublished">2022-06-18</time>
+              </p>
+            </div>
+          </li>
+          
+      </ul>
+    </div>
+  </div>
+  
+
+    
+  </div>
+</aside>
+
+  
+  
+<main class="main" role="main">
+  <div class="content">
+  <article id="post-typora文件集合/拉钩/项目实战/项目架构" class="article article-type-post" itemscope itemtype="http://schema.org/BlogPosting">
+    
+    <div class="article-header">
+      
+      <div class="article-meta">
+        <span class="article-date">
+    <i class="icon icon-calendar-check"></i>
+	<a href="/2022/06/18/typora%E6%96%87%E4%BB%B6%E9%9B%86%E5%90%88/%E6%8B%89%E9%92%A9/%E9%A1%B9%E7%9B%AE%E5%AE%9E%E6%88%98/%E9%A1%B9%E7%9B%AE%E6%9E%B6%E6%9E%84/" class="article-date">
+	  <time datetime="2022-06-18T13:54:08.755Z" itemprop="datePublished">2022-06-18</time>
+	</a>
+</span>
+        
+        
+
+        
+
+        <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2022/06/18/typora%E6%96%87%E4%BB%B6%E9%9B%86%E5%90%88/%E6%8B%89%E9%92%A9/%E9%A1%B9%E7%9B%AE%E5%AE%9E%E6%88%98/%E9%A1%B9%E7%9B%AE%E6%9E%B6%E6%9E%84/#comments" class="article-comment-link">评论</a></span>
+        
+      </div>
+    </div>
+    <div class="article-entry marked-body" itemprop="articleBody">
+      
+        <h2 id="业务背景以及目标"><a href="#业务背景以及目标" class="headerlink" title="业务背景以及目标"></a>业务背景以及目标</h2><h4 id="类目属性体系"><a href="#类目属性体系" class="headerlink" title="类目属性体系"></a>类目属性体系</h4><h5 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h5><p>规范商品的类目、属性信息，提供静态数据，快速的检索、创建商品；</p>
+<h5 id="目标"><a href="#目标" class="headerlink" title="目标"></a>目标</h5><ul>
+<li> 属性模版</li>
+</ul>
+<p>对于大平台来说，商品信息既要按照平台要求来维护，同时也需要为个性化设置留有操作空间，通常采用构建模板的方式来完成。</p>
+<ol>
+<li>在后端品类上先创建一套基础属性模板，模板中规定当前品类的所有的属性，同时设置好的各种操作功能，如属性组、属性名、是否必填、是否参与搜索、维护方式、可选属性值等</li>
+<li>当商户在维护商品时，根据需要先对基础品类模板做出部分调整，如对属性组和属性进行位置调整、删除部分非必填的属性、添加个性化属性等，之后保存成个性化模板</li>
+<li>商户维护商品时，先设置商品对应品类，通过品类ID获取新模板的属性配置，之后再进行数据维护。</li>
+</ol>
+<ul>
+<li><p>类目</p>
+<p>​     电商平台的类目一般是设置成三层，一级类目、二级类目和三级类目。</p>
+<p><strong>前台类目</strong>：前台类目必须关联至少一个后台类目，其对应关系可以是一对一、一对多、多对多，支持商家根据自己的需要而灵活配置。前台类目映射可以按照商品属性、店铺ID、商品ID等维度映射。</p>
+<p><strong>后台类目</strong>：多对一映射：多个具有相同属性的后台类目通过聚合的方式映射到一个前台类目上，比如后台类目的各种牛仔裤，短裤 映射到前台类目上只是叫裤子。</p>
+</li>
+<li><p>属性</p>
+<p>属性，就是某个商品的特性，属性值即属性的具体内容。对于电商平台来说，属性主要是商品的品牌、尺寸、大小、颜色等，对于品牌属性而言，其属性值可以为阿迪达斯、耐克、马自达等等。</p>
+<p><strong>公共属性</strong>：公共属性指的是其他类目可以共用的属性。对于衣服而言，其属性有很多，比如品牌、颜色、尺寸、性别等等，而性别这个属性，就是公共属性，因为无论什么品牌的衣服，都具有这个属性，其属性值只有三个：男、女、中性；</p>
+<p><strong>销售属性</strong>：也称为规格属性，该属性是组成SKU的特殊属性，直接影响到买家的购买和商家的库存管理，例如衣服的颜色、尺寸等都是销售属性，设计销售属性，其实是考虑了用户购买的场景需求，当用户要购买一件衣服时，会想到要买什么颜色，自己穿什么尺寸（尺码），什么季节的衣服等等；</p>
+<p><strong>关键属性</strong>：关键属性指的是能唯一确定商品的属性。关键属性可以是一个属性，也可以是一群属性的集合。比如笔记本电脑，其关键属性就是品牌（苹果）、型号（Macbookpro），设计关键属性的目的也是为了让用户更好地找到想要的商品。</p>
+<p><strong>枚举可能性</strong>：枚举可能性指的是该属性的属性值能否完全枚举。对于品牌、重量、体积等属性，其值非常多，不可能由运营人员或产品经理来进行完全枚举，这个需要商家的协助，即系统预置一部分属性和属性值，由商家自行进行填充扩展，后续系统根据该属性及属性值的使用次数，将其系统化，减少商家的操作复杂度。</p>
+<p><strong>属性和类目关系</strong></p>
+<p>商品会挂载到子类目上（类目层级一般3-4级），由于商品数量远大于类目数量，所以我们不可能单独为每个商品绑定属性，所以一般是把属性绑定到类目上，发布商品的时候，根据分类选择对应的属性，这样将商品再挂载到子类目上的时候，这个商品就具有了这个类目树下的所有属性了。</p>
+</li>
+</ul>
+<h4 id="商品管理体系"><a href="#商品管理体系" class="headerlink" title="商品管理体系"></a>商品管理体系</h4><h5 id="背景-1"><a href="#背景-1" class="headerlink" title="背景"></a>背景</h5><p>商品管理系统属于电商产品中最基础的系统，是支撑整个电商产品的核心，基本上所有的系统都离不开商品数据，商品贯穿整个电商平台。</p>
+<p>从商品的采购、商品上架、前台的展示、整个流程都离不开商品。</p>
+<h5 id="目标-1"><a href="#目标-1" class="headerlink" title="目标"></a>目标</h5><p>提供统一的商品发品流程，以及底层的商品的增删改查的功能。商品管理的初步功能目标为：</p>
+<p>  商家：商品新增，修改，删除，采购管理（是否必须）。</p>
+<p>​          店内商品分类管理（增删改查）。</p>
+<p>  卖家/运营：店内商品浏览，分类浏览。</p>
+<ol>
+<li>与其他系统交互保证数据不丢失，系统稳定，卖家查询商店内商品的响应时间控制在1s内；</li>
+<li>保证建品的质量；</li>
+</ol>
+<h4 id="商品浏览体系"><a href="#商品浏览体系" class="headerlink" title="商品浏览体系"></a>商品浏览体系</h4><h5 id="背景-2"><a href="#背景-2" class="headerlink" title="背景"></a>背景</h5><p>一个电商系统的使命就是帮助大家选择自己喜欢的商品进行购买。所以首页的商品展示和商品搜索都是十分重要的模块，每天服务于千万用户，不用让用户用户觉得<strong>响应时间</strong>太久。良好的浏览体验，可以增加用户对平台的依赖性，增加购买的欲望。</p>
+<h5 id="目标-2"><a href="#目标-2" class="headerlink" title="目标"></a>目标</h5><ul>
+<li><p>高性能：商品信息数据比较多，要保证商详页在1秒内以内打开；800ms</p>
+</li>
+<li><p>灵活性：可以快速响应页面变更需求。如库存变更，限时优惠； </p>
+<p><strong>不同场景下，数据差异的问题。不同的场景对应不同的属性数据。</strong></p>
+</li>
+<li><p>扩展性：当访问量增加的时候可以随时进行水平扩展； 运维层面支持；</p>
+</li>
+</ul>
+<h4 id="库存体系"><a href="#库存体系" class="headerlink" title="库存体系"></a>库存体系</h4><h5 id="背景-3"><a href="#背景-3" class="headerlink" title="背景"></a>背景</h5><p>提供商品的库存管理。</p>
+<p>库存管理体系分层为销售层、调度层、仓库层</p>
+<img src="https://xiazhenyu.oss-cn-hangzhou.aliyuncs.com/common/image-20220619195145532.png" alt="image-20220619195145532"  />
+
+<p>由于触发库存发生变动的点不一样，库存的变动有两种流向，自上而下（销售层 → 调度层 → 仓库层）、自下而上（仓库层 → 调度层 → 销售层）两种。</p>
+<p>自上而下：用户下单后，首先会生成订单，扣减销售层的库存；然后流转到调度层进行调度，生成发货通知单，调整调度层的库存；然后推送至仓库，WMS系统同步响应，扣减库存进行出库。 </p>
+<p>自下而上：仓库的实物入库可以算是从下到上引起的库存变动。主要有三种单据：采购入库单、退货入库单、调拨入库单的实物入库，会连锁引起仓库层 、调度层、销售层的可用库存逐步增加。</p>
+<p>由于各层业务复杂、高度耦合、且销售层访问量大，很可能出现各层数据不一致、超售的情况。</p>
+<h5 id="目标-3"><a href="#目标-3" class="headerlink" title="目标"></a>目标</h5><ul>
+<li>防止超卖</li>
+<li>一致性</li>
+</ul>
+<p>参考地址：<a target="_blank" rel="noopener" href="https://juejin.cn/post/7054450547654393870#heading-10">https://juejin.cn/post/7054450547654393870#heading-10</a></p>
+
+      
+    </div>
+    <div class="article-footer">
+      <blockquote class="mt-2x">
+  <ul class="post-copyright list-unstyled">
+    
+    <li class="post-copyright-link hidden-xs">
+      <strong>本文链接：</strong>
+      <a href="http://example.com/2022/06/18/typora%E6%96%87%E4%BB%B6%E9%9B%86%E5%90%88/%E6%8B%89%E9%92%A9/%E9%A1%B9%E7%9B%AE%E5%AE%9E%E6%88%98/%E9%A1%B9%E7%9B%AE%E6%9E%B6%E6%9E%84/" title="" target="_blank" rel="external">http://example.com/2022/06/18/typora文件集合/拉钩/项目实战/项目架构/</a>
+    </li>
+    
+    <li class="post-copyright-license">
+      <strong>版权声明： </strong> 本博客所有文章除特别声明外，均采用 <a href="http://creativecommons.org/licenses/by/4.0/deed.zh" target="_blank" rel="external">CC BY 4.0 CN协议</a> 许可协议。转载请注明出处！
+    </li>
+  </ul>
+</blockquote>
+
+
+<div class="panel panel-default panel-badger">
+  <div class="panel-body">
+    <figure class="media">
+      <div class="media-left">
+        <a href="https://github.com/chenyusharp" target="_blank" class="img-burn thumb-sm visible-lg">
+          <img src="https://xiazhenyu.oss-cn-hangzhou.aliyuncs.com/common/36723748-0889-481D-AD81-B036124EBE2E_1_105_c.jpeg" class="img-rounded w-full" alt="">
+        </a>
+      </div>
+      <div class="media-body">
+        <h3 class="media-heading"><a href="https://github.com/chenyusharp" target="_blank"><span class="text-dark">chenyusharp</span><small class="ml-1x">Java Developer</small></a></h3>
+        <div>个人简介。</div>
+      </div>
+    </figure>
+  </div>
+</div>
+
+
+    </div>
+  </article>
+  
+    
+  <section id="comments">
+  	
+      <div id="vcomments"></div>
+    
+  </section>
+
+
+  
+</div>
+
+  <nav class="bar bar-footer clearfix" data-stick-bottom>
+  <div class="bar-inner">
+  
+  <ul class="pager pull-left">
+    
+    <li class="prev">
+      <a href="/2022/06/18/typora%E6%96%87%E4%BB%B6%E9%9B%86%E5%90%88/%E6%8B%89%E9%92%A9/%E9%A1%B9%E7%9B%AE%E5%AE%9E%E6%88%98/%E8%BF%9B%E5%BA%A6/" title="(no title)"><i class="icon icon-angle-left" aria-hidden="true"></i><span>&nbsp;&nbsp;上一篇</span></a>
+    </li>
+    
+    
+    <li class="next">
+      <a href="/2022/06/18/typora%E6%96%87%E4%BB%B6%E9%9B%86%E5%90%88/%E6%8B%89%E9%92%A9/%E9%A1%B9%E7%9B%AE%E5%AE%9E%E6%88%98/%E7%B4%A0%E6%9D%90/" title="(no title)"><span>下一篇&nbsp;&nbsp;</span><i class="icon icon-angle-right" aria-hidden="true"></i></a>
+    </li>
+    
+    
+  </ul>
+  
+  
+  <!-- Button trigger modal -->
+  <button type="button" class="btn btn-fancy btn-donate pop-onhover bg-gradient-warning" data-toggle="modal" data-target="#donateModal"><span>赏</span></button>
+  <!-- <div class="wave-icon wave-icon-danger btn-donate" data-toggle="modal" data-target="#donateModal">
+    <div class="wave-circle"><span class="icon"><i class="icon icon-bill"></i></span></div>
+  </div> -->
+  
+  
+  <div class="bar-right">
+    
+    <div class="share-component" data-sites="weibo,qq,wechat,facebook,twitter" data-mobile-sites="weibo,qq,qzone"></div>
+    
+  </div>
+  </div>
+</nav>
+  
+<!-- Modal -->
+<div class="modal modal-center modal-small modal-xs-full fade" id="donateModal" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content donate">
+      <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+      <div class="modal-body">
+        <div class="donate-box">
+          <div class="donate-head">
+            <p>感谢您的支持，我会继续努力的!</p>
+          </div>
+          <div class="tab-content">
+            <div role="tabpanel" class="tab-pane fade active in" id="alipay">
+              <div class="donate-payimg">
+                <img src="/images/donate/alipayimg.png" alt="扫码支持" title="扫一扫" />
+              </div>
+              <p class="text-muted mv">扫码打赏，你说多少就多少</p>
+              <p class="text-grey">打开支付宝扫一扫，即可进行扫码打赏哦</p>
+            </div>
+            <div role="tabpanel" class="tab-pane fade" id="wechatpay">
+              <div class="donate-payimg">
+                <img src="/images/donate/wechatpayimg.png" alt="扫码支持" title="扫一扫" />
+              </div>
+              <p class="text-muted mv">扫码打赏，你说多少就多少</p>
+              <p class="text-grey">打开微信扫一扫，即可进行扫码打赏哦</p>
+            </div>
+          </div>
+          <div class="donate-footer">
+            <ul class="nav nav-tabs nav-justified" role="tablist">
+              <li role="presentation" class="active">
+                <a href="#alipay" id="alipay-tab" role="tab" data-toggle="tab" aria-controls="alipay" aria-expanded="true"><i class="icon icon-alipay"></i> 支付宝</a>
+              </li>
+              <li role="presentation" class="">
+                <a href="#wechatpay" role="tab" id="wechatpay-tab" data-toggle="tab" aria-controls="wechatpay" aria-expanded="false"><i class="icon icon-wepay"></i> 微信支付</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+</main>
+
+  <footer class="footer" itemscope itemtype="http://schema.org/WPFooter">
+	
+	
+    <ul class="social-links">
+    	
+        <li><a href="https://github.com/chenyusharp" target="_blank" title="Github" data-toggle=tooltip data-placement=top><i class="icon icon-github"></i></a></li>
+        
+    </ul>
+
+    <div class="copyright">
+    	
+        <div class="publishby">
+        	Theme by <a href="https://github.com/cofess" target="_blank"> cofess </a>base on <a href="https://github.com/cofess/hexo-theme-pure" target="_blank">pure</a>.
+        </div>
+    </div>
+</footer>
+  <script src="//cdn.jsdelivr.net/npm/jquery@1.12.4/dist/jquery.min.js"></script>
+<script>
+window.jQuery || document.write('<script src="js/jquery.min.js"><\/script>')
+</script>
+
+<script src="/js/plugin.min.js"></script>
+
+
+<script src="/js/application.js"></script>
+
+
+    <script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: '文章',
+            PAGES: '页面',
+            CATEGORIES: '分类',
+            TAGS: '标签',
+            UNTITLED: '(未命名)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+
+<script src="/js/insight.js"></script>
+
+
+
+
+
+
+   
+
+
+
+
+   
+    
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/valine"></script>
+  <script type="text/javascript">
+  var GUEST = ['nick', 'mail', 'link'];
+  var meta = 'nick,mail,link';
+  meta = meta.split(',').filter(function(item) {
+    return GUEST.indexOf(item) > -1;
+  });
+  new Valine({
+    el: '#vcomments',
+    verify: false,
+    notify: false,
+    appId: '',
+    appKey: '',
+    placeholder: 'Just go go',
+    avatar: 'mm',
+    meta: meta,
+    pageSize: '10' || 10,
+    visitor: false
+  });
+  </script>
+
+     
+
+
+
+
+
+
+
+</body>
+</html>

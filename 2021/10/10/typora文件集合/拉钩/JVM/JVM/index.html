@@ -18,20 +18,20 @@
   
   
   <title>Hexo</title>
-  <meta name="description" content="[TOC] JVMJAVA 内存分布    区域 说明 是否线程共享    程序计数器 当前线程所执行的字节码的行号指示器（执行行数），用于CPU的线程切换定位上次执行的位置。 否   虚拟机栈 方法执行时的线程内存模型。每个方法被调用时，创建栈帧，用于存储方法元数据。 否   本地方法栈 用于执行本地方法（非Java方法），结构同上 否   堆 存放对象实例，常量池信息。涉及到内存的创建、回收。">
+  <meta name="description" content="[TOC] JVMJAVA 内存分布 常见的垃圾收集器   收集器 算法 工作时间 备注    Serial 复制算法 新生代 单线程，会暂停用户线程   Serial Old 复制整理算法 老年代 单线程，会暂停用户线程   ParNew 新生代：复制算法老年代：标记-整理算法 新生代+老年代 Serial 的多线程版本，适用于多核CPU。GC的时候都会暂停用户线程   Parallel Sca">
 <meta property="og:type" content="article">
 <meta property="og:title" content="技术、生活、思考">
 <meta property="og:url" content="http://example.com/2021/10/10/typora%E6%96%87%E4%BB%B6%E9%9B%86%E5%90%88/%E6%8B%89%E9%92%A9/JVM/JVM/index.html">
 <meta property="og:site_name" content="技术、生活、思考">
-<meta property="og:description" content="[TOC] JVMJAVA 内存分布    区域 说明 是否线程共享    程序计数器 当前线程所执行的字节码的行号指示器（执行行数），用于CPU的线程切换定位上次执行的位置。 否   虚拟机栈 方法执行时的线程内存模型。每个方法被调用时，创建栈帧，用于存储方法元数据。 否   本地方法栈 用于执行本地方法（非Java方法），结构同上 否   堆 存放对象实例，常量池信息。涉及到内存的创建、回收。">
+<meta property="og:description" content="[TOC] JVMJAVA 内存分布 常见的垃圾收集器   收集器 算法 工作时间 备注    Serial 复制算法 新生代 单线程，会暂停用户线程   Serial Old 复制整理算法 老年代 单线程，会暂停用户线程   ParNew 新生代：复制算法老年代：标记-整理算法 新生代+老年代 Serial 的多线程版本，适用于多核CPU。GC的时候都会暂停用户线程   Parallel Sca">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://xiazhenyu.oss-cn-hangzhou.aliyuncs.com/common/JVM%E5%86%85%E5%AD%98%E6%A8%A1%E5%9E%8B%E4%BB%A5%E5%8F%8AGC%E7%9B%B8%E5%85%B3%E7%9F%A5%E8%AF%86%E7%82%B9.jpg">
+<meta property="og:image" content="http://example.com/Users/xiazhenyu/Desktop/typora%E6%96%87%E4%BB%B6%E9%9B%86%E5%90%88/%E6%96%87%E6%A1%A3%E5%90%88%E9%9B%86/JVM%E5%86%85%E5%AD%98%E5%88%86%E5%B8%83%E4%BB%A5%E5%8F%8AGC%E7%9B%B8%E5%85%B3%E7%9F%A5%E8%AF%86%E7%82%B9.png">
 <meta property="og:image" content="http://example.com/Users/xiazhenyu/Desktop/typora%E6%96%87%E4%BB%B6%E9%9B%86%E5%90%88/%E6%96%87%E6%A1%A3%E5%90%88%E9%9B%86/%E5%B8%B8%E9%87%8F%E6%B1%A0%E4%BF%A1%E6%81%AF.png">
 <meta property="article:published_time" content="2021-10-10T12:47:15.776Z">
-<meta property="article:modified_time" content="2022-02-14T01:48:28.661Z">
+<meta property="article:modified_time" content="2022-06-12T08:59:22.016Z">
 <meta property="article:author" content="chenyusharp">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://xiazhenyu.oss-cn-hangzhou.aliyuncs.com/common/JVM%E5%86%85%E5%AD%98%E6%A8%A1%E5%9E%8B%E4%BB%A5%E5%8F%8AGC%E7%9B%B8%E5%85%B3%E7%9F%A5%E8%AF%86%E7%82%B9.jpg">
+<meta name="twitter:image" content="http://example.com/Users/xiazhenyu/Desktop/typora%E6%96%87%E4%BB%B6%E9%9B%86%E5%90%88/%E6%96%87%E6%A1%A3%E5%90%88%E9%9B%86/JVM%E5%86%85%E5%AD%98%E5%88%86%E5%B8%83%E4%BB%A5%E5%8F%8AGC%E7%9B%B8%E5%85%B3%E7%9F%A5%E8%AF%86%E7%82%B9.png">
   <!-- Canonical links -->
   <link rel="canonical" href="http://example.com/2021/10/10/typora%E6%96%87%E4%BB%B6%E9%9B%86%E5%90%88/%E6%8B%89%E9%92%A9/JVM/JVM/index.html">
   
@@ -214,7 +214,7 @@
     <h3 class="widget-title">分类</h3>
     <div class="widget-body">
     <div class="widget">
-      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/DDD/">DDD</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/JVM/">JVM</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Linux/">Linux</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Redis/">Redis</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/git/">git</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/linux/">linux</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/redis/">redis</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/typora/">typora</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/wholee/">wholee</a><span class="category-list-count">11</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E4%B8%9A%E5%8A%A1%E6%A8%A1%E5%BC%8F/">业务模式</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E4%BA%A7%E5%93%81/">产品</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%8A%80%E6%9C%AF/">技术</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%8A%80%E8%83%BD/">技能</a><span class="category-list-count">1</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%8A%80%E8%83%BD/%E5%B7%A5%E4%BD%9C/">工作</a><span class="category-list-count">1</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%8B%89%E9%92%A9/">拉钩</a><span class="category-list-count">1</span></li></ul>
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/JVM/">JVM</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Linux/">Linux</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/MQ/">MQ</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Redis/">Redis</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/algorithms/">algorithms</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/git/">git</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/linux/">linux</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/lombok/">lombok</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/maven/">maven</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/redis/">redis</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/s3/">s3</a><span class="category-list-count">1</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/s3/%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0/">文件上传</a><span class="category-list-count">1</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/typora/">typora</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/wholee/">wholee</a><span class="category-list-count">13</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E4%B8%9A%E5%8A%A1%E6%A8%A1%E5%BC%8F/">业务模式</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E4%BA%A7%E5%93%81/">产品</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%8A%80%E6%9C%AF/">技术</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%8B%89%E9%92%A9/">拉钩</a><span class="category-list-count">1</span></li></ul>
     </div>
   </div>
 
@@ -224,7 +224,7 @@
   <div class="widget">
     <h3 class="widget-title">标签</h3>
     <div class="widget-body">
-      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/DDD/" rel="tag">DDD</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux/" rel="tag">Linux</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/git/" rel="tag">git</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/linux/" rel="tag">linux</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/redis/" rel="tag">redis</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/wholee/" rel="tag">wholee</a><span class="tag-list-count">13</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%B7%A5%E4%BD%9C%E5%AE%89%E6%8E%92/" rel="tag">工作安排</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%8A%80%E8%83%BD/" rel="tag">技能</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%8B%89%E9%92%A9/" rel="tag">拉钩</a><span class="tag-list-count">3</span></li></ul>
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux/" rel="tag">Linux</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/algorithms/" rel="tag">algorithms</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/algorithms-task/" rel="tag">algorithms  task</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/clubFactory/" rel="tag">clubFactory</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/git/" rel="tag">git</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/kafka/" rel="tag">kafka</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/linux/" rel="tag">linux</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/lombok/" rel="tag">lombok</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/maven/" rel="tag">maven</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/maven-version/" rel="tag">maven version</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/redis/" rel="tag">redis</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/wholee/" rel="tag">wholee</a><span class="tag-list-count">13</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%B7%A5%E4%BD%9C%E5%AE%89%E6%8E%92/" rel="tag">工作安排</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%8B%89%E9%92%A9/" rel="tag">拉钩</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E9%83%A8%E7%BD%B2-%E8%BF%90%E7%BB%B4%E7%B3%BB%E7%BB%9F/" rel="tag">部署/运维系统</a><span class="tag-list-count">2</span></li></ul>
     </div>
   </div>
 
@@ -234,7 +234,7 @@
   <div class="widget">
     <h3 class="widget-title">标签云</h3>
     <div class="widget-body tagcloud">
-      <a href="/tags/DDD/" style="font-size: 13px;">DDD</a> <a href="/tags/Linux/" style="font-size: 13px;">Linux</a> <a href="/tags/git/" style="font-size: 13px;">git</a> <a href="/tags/linux/" style="font-size: 13.25px;">linux</a> <a href="/tags/redis/" style="font-size: 13px;">redis</a> <a href="/tags/wholee/" style="font-size: 14px;">wholee</a> <a href="/tags/%E5%B7%A5%E4%BD%9C%E5%AE%89%E6%8E%92/" style="font-size: 13.75px;">工作安排</a> <a href="/tags/%E6%8A%80%E8%83%BD/" style="font-size: 13px;">技能</a> <a href="/tags/%E6%8B%89%E9%92%A9/" style="font-size: 13.5px;">拉钩</a>
+      <a href="/tags/Linux/" style="font-size: 13px;">Linux</a> <a href="/tags/algorithms/" style="font-size: 13px;">algorithms</a> <a href="/tags/algorithms-task/" style="font-size: 13px;">algorithms  task</a> <a href="/tags/clubFactory/" style="font-size: 13px;">clubFactory</a> <a href="/tags/git/" style="font-size: 13px;">git</a> <a href="/tags/kafka/" style="font-size: 13px;">kafka</a> <a href="/tags/linux/" style="font-size: 13.4px;">linux</a> <a href="/tags/lombok/" style="font-size: 13px;">lombok</a> <a href="/tags/maven/" style="font-size: 13px;">maven</a> <a href="/tags/maven-version/" style="font-size: 13px;">maven version</a> <a href="/tags/redis/" style="font-size: 13px;">redis</a> <a href="/tags/wholee/" style="font-size: 14px;">wholee</a> <a href="/tags/%E5%B7%A5%E4%BD%9C%E5%AE%89%E6%8E%92/" style="font-size: 13.8px;">工作安排</a> <a href="/tags/%E6%8B%89%E9%92%A9/" style="font-size: 13.6px;">拉钩</a> <a href="/tags/%E9%83%A8%E7%BD%B2-%E8%BF%90%E7%BB%B4%E7%B3%BB%E7%BB%9F/" style="font-size: 13.2px;">部署/运维系统</a>
     </div>
   </div>
 
@@ -243,7 +243,7 @@
   <div class="widget">
     <h3 class="widget-title">归档</h3>
     <div class="widget-body">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/03/">三月 2022</a><span class="archive-list-count">20</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/02/">二月 2022</a><span class="archive-list-count">21</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/01/">一月 2022</a><span class="archive-list-count">30</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/12/">十二月 2021</a><span class="archive-list-count">8</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/11/">十一月 2021</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/10/">十月 2021</a><span class="archive-list-count">38</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/09/">九月 2021</a><span class="archive-list-count">10</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/08/">八月 2021</a><span class="archive-list-count">21</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/07/">七月 2021</a><span class="archive-list-count">18</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/06/">六月 2021</a><span class="archive-list-count">11</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/05/">五月 2021</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/03/">三月 2021</a><span class="archive-list-count">1</span></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/06/">六月 2022</a><span class="archive-list-count">14</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/05/">五月 2022</a><span class="archive-list-count">10</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/04/">四月 2022</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/03/">三月 2022</a><span class="archive-list-count">20</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/02/">二月 2022</a><span class="archive-list-count">22</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/01/">一月 2022</a><span class="archive-list-count">27</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/12/">十二月 2021</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/11/">十一月 2021</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/10/">十月 2021</a><span class="archive-list-count">29</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/09/">九月 2021</a><span class="archive-list-count">10</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/08/">八月 2021</a><span class="archive-list-count">21</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/07/">七月 2021</a><span class="archive-list-count">18</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/06/">六月 2021</a><span class="archive-list-count">11</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/05/">五月 2021</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/03/">三月 2021</a><span class="archive-list-count">1</span></li></ul>
     </div>
   </div>
 
@@ -259,28 +259,13 @@
             
             <div class="item-inner">
               <p class="item-category">
-                <a class="category-link" href="/categories/%E4%B8%9A%E5%8A%A1%E6%A8%A1%E5%BC%8F/">业务模式</a>
+                
               </p>
               <p class="item-title">
-                <a href="/2022/03/28/typora%E6%96%87%E4%BB%B6%E9%9B%86%E5%90%88/%E4%BA%A7%E5%93%81/wholee/%E9%98%BF%E7%B1%B3%E5%B7%B4%E6%A8%A1%E5%BC%8F/" class="title">阿米巴</a>
+                <a href="/2022/06/24/typora%E6%96%87%E4%BB%B6%E9%9B%86%E5%90%88/%E4%B8%AA%E4%BA%BA/%E6%B8%B8%E6%88%8F/%E6%B8%B8%E6%88%8F%E5%A4%A7%E5%85%A8/" class="title">(no title)</a>
               </p>
               <p class="item-date">
-                <time datetime="2022-03-28T11:12:59.061Z" itemprop="datePublished">2022-03-28</time>
-              </p>
-            </div>
-          </li>
-          
-          <li>
-            
-            <div class="item-inner">
-              <p class="item-category">
-                <a class="category-link" href="/categories/%E4%BA%A7%E5%93%81/">产品</a>
-              </p>
-              <p class="item-title">
-                <a href="/2022/03/28/typora%E6%96%87%E4%BB%B6%E9%9B%86%E5%90%88/%E4%BA%A7%E5%93%81/wholee/%E8%B4%A2%E5%8A%A1%E7%9B%B8%E5%85%B3/" class="title">财务相关产品文档</a>
-              </p>
-              <p class="item-date">
-                <time datetime="2022-03-28T11:09:10.242Z" itemprop="datePublished">2022-03-28</time>
+                <time datetime="2022-06-24T15:55:52.120Z" itemprop="datePublished">2022-06-24</time>
               </p>
             </div>
           </li>
@@ -292,10 +277,10 @@
                 
               </p>
               <p class="item-title">
-                <a href="/2022/03/28/typora%E6%96%87%E4%BB%B6%E9%9B%86%E5%90%88/%E4%BA%A7%E5%93%81/wholee/%E8%B4%A7%E5%93%81%E7%9B%B8%E5%85%B3/" class="title">(no title)</a>
+                <a href="/2022/06/22/typora%E6%96%87%E4%BB%B6%E9%9B%86%E5%90%88/%E6%8A%80%E6%9C%AF/%E6%8A%80%E6%9C%AF%E7%AC%94%E8%AE%B0/%E6%BA%90%E7%A0%81/Atomic%E7%B1%BB/" class="title">(no title)</a>
               </p>
               <p class="item-date">
-                <time datetime="2022-03-28T11:08:55.123Z" itemprop="datePublished">2022-03-28</time>
+                <time datetime="2022-06-22T08:12:04.951Z" itemprop="datePublished">2022-06-22</time>
               </p>
             </div>
           </li>
@@ -304,13 +289,13 @@
             
             <div class="item-inner">
               <p class="item-category">
-                <a class="category-link" href="/categories/JVM/">JVM</a>
+                
               </p>
               <p class="item-title">
-                <a href="/2022/03/28/typora%E6%96%87%E4%BB%B6%E9%9B%86%E5%90%88/%E6%8B%89%E9%92%A9/JVM/JVM%E5%AD%A6%E4%B9%A0%E6%80%BB%E7%BB%93/" class="title">JVM学习总结</a>
+                <a href="/2022/06/18/typora%E6%96%87%E4%BB%B6%E9%9B%86%E5%90%88/%E6%8B%89%E9%92%A9/%E9%A1%B9%E7%9B%AE%E5%AE%9E%E6%88%98/%E8%BF%9B%E5%BA%A6/" class="title">(no title)</a>
               </p>
               <p class="item-date">
-                <time datetime="2022-03-27T22:09:01.164Z" itemprop="datePublished">2022-03-28</time>
+                <time datetime="2022-06-18T13:54:20.914Z" itemprop="datePublished">2022-06-18</time>
               </p>
             </div>
           </li>
@@ -319,13 +304,28 @@
             
             <div class="item-inner">
               <p class="item-category">
-                <a class="category-link" href="/categories/Redis/">Redis</a>
+                
               </p>
               <p class="item-title">
-                <a href="/2022/03/27/typora%E6%96%87%E4%BB%B6%E9%9B%86%E5%90%88/%E6%8B%89%E9%92%A9/%E4%B8%AD%E9%97%B4%E4%BB%B6/Redis/Redis%E9%A2%84%E4%B9%A0/" class="title">Reids预习</a>
+                <a href="/2022/06/18/typora%E6%96%87%E4%BB%B6%E9%9B%86%E5%90%88/%E6%8B%89%E9%92%A9/%E9%A1%B9%E7%9B%AE%E5%AE%9E%E6%88%98/%E9%A1%B9%E7%9B%AE%E6%9E%B6%E6%9E%84/" class="title">(no title)</a>
               </p>
               <p class="item-date">
-                <time datetime="2022-03-26T16:53:06.754Z" itemprop="datePublished">2022-03-27</time>
+                <time datetime="2022-06-18T13:54:08.755Z" itemprop="datePublished">2022-06-18</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                
+              </p>
+              <p class="item-title">
+                <a href="/2022/06/18/typora%E6%96%87%E4%BB%B6%E9%9B%86%E5%90%88/%E6%8B%89%E9%92%A9/%E9%A1%B9%E7%9B%AE%E5%AE%9E%E6%88%98/%E7%B4%A0%E6%9D%90/" class="title">(no title)</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2022-06-18T13:53:58.126Z" itemprop="datePublished">2022-06-18</time>
               </p>
             </div>
           </li>
@@ -366,37 +366,83 @@
     <div class="article-entry marked-body" itemprop="articleBody">
       
         <p>[TOC]</p>
-<h2 id="JVM"><a href="#JVM" class="headerlink" title="JVM"></a>JVM</h2><h3 id="JAVA-内存分布"><a href="#JAVA-内存分布" class="headerlink" title="JAVA 内存分布"></a>JAVA 内存分布</h3><p><img src="https://xiazhenyu.oss-cn-hangzhou.aliyuncs.com/common/JVM%E5%86%85%E5%AD%98%E6%A8%A1%E5%9E%8B%E4%BB%A5%E5%8F%8AGC%E7%9B%B8%E5%85%B3%E7%9F%A5%E8%AF%86%E7%82%B9.jpg" alt="JVM内存模型以及GC相关知识点"></p>
+<h2 id="JVM"><a href="#JVM" class="headerlink" title="JVM"></a>JVM</h2><h3 id="JAVA-内存分布"><a href="#JAVA-内存分布" class="headerlink" title="JAVA 内存分布"></a>JAVA 内存分布</h3><p><img src="/Users/xiazhenyu/Desktop/typora%E6%96%87%E4%BB%B6%E9%9B%86%E5%90%88/%E6%96%87%E6%A1%A3%E5%90%88%E9%9B%86/JVM%E5%86%85%E5%AD%98%E5%88%86%E5%B8%83%E4%BB%A5%E5%8F%8AGC%E7%9B%B8%E5%85%B3%E7%9F%A5%E8%AF%86%E7%82%B9.png" alt="JVM内存分布以及GC相关知识点"></p>
+<h4 id="常见的垃圾收集器"><a href="#常见的垃圾收集器" class="headerlink" title="常见的垃圾收集器"></a>常见的垃圾收集器</h4><table>
+<thead>
+<tr>
+<th>收集器</th>
+<th>算法</th>
+<th>工作时间</th>
+<th>备注</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Serial</td>
+<td>复制算法</td>
+<td>新生代</td>
+<td>单线程，会暂停用户线程</td>
+</tr>
+<tr>
+<td>Serial Old</td>
+<td>复制整理算法</td>
+<td>老年代</td>
+<td>单线程，会暂停用户线程</td>
+</tr>
+<tr>
+<td>ParNew</td>
+<td>新生代：复制算法<br />老年代：标记-整理算法</td>
+<td>新生代+老年代</td>
+<td>Serial 的多线程版本，适用于多核CPU。<br />GC的时候都会暂停用户线程</td>
+</tr>
+<tr>
+<td>Parallel Scavenge<br />Parallel Old</td>
+<td>同ParNew</td>
+<td>同上</td>
+<td>有比较好的吞吐量</td>
+</tr>
+<tr>
+<td>CMS</td>
+<td>新生代：标记清除<br /></td>
+<td>初始标记：标记GC Roots直接关联的对象，耗时较短。<strong>需要STW</strong><br />并发标记：从GC Roots直接关联的对象开始遍历整个对象图，耗时比较长，但是不需要停顿用户线程。<strong>不会STW</strong>。<br />重新标记：修正并发标记期间，因用户线程运作而导致标记产生变动的那一部分标记记录。<strong>需要STW</strong><br />并发清除：清楚掉被标记死亡的对象。<strong>不会STW</strong></td>
+<td>优点：做到了并发收集（在并发标记阶段）；<br />缺点：<br />1. 对资源敏感；<br />2. 无法处理浮动垃圾；<br />3. 碎片化较多；</td>
+</tr>
+<tr>
+<td>G1</td>
+<td>标记-整理算法</td>
+<td>初始标记：标记GC Roots直接关联的对象。<strong>STW</strong><br />并发标记：从GC Root直接关联的对象开始遍历整个对象图，耗时较长，但是不需要停顿用户线程。<strong>不需要STW</strong><br />最终标记：遍历原始快照中的对象引用。<strong>需要STW</strong><br />筛选回收：筛选出回收效率比较高的Region，时间上限为JVM设定的预期耗时。<strong>STW</strong></td>
+<td>G1中，仍然存在老年代与年轻代的概念，但是内部布局不是固定的，都是一系列的Region的动态集合。在收回时，G1收集器会评估每个Region的回收价值，结合JVM的设定的期望值，框定出本次需要回收的Region。</td>
+</tr>
+</tbody></table>
 <table>
 <thead>
 <tr>
-<th>区域</th>
+<th align="center">区域</th>
 <th>说明</th>
 <th>是否线程共享</th>
 </tr>
 </thead>
 <tbody><tr>
-<td>程序计数器</td>
+<td align="center">程序计数器</td>
 <td>当前线程所执行的字节码的行号指示器（执行行数），用于CPU的线程切换定位上次执行的位置。</td>
 <td>否</td>
 </tr>
 <tr>
-<td>虚拟机栈</td>
+<td align="center">虚拟机栈</td>
 <td>方法执行时的线程内存模型。每个方法被调用时，创建栈帧，用于存储方法元数据。</td>
 <td>否</td>
 </tr>
 <tr>
-<td>本地方法栈</td>
+<td align="center">本地方法栈</td>
 <td>用于执行本地方法（非Java方法），结构同上</td>
 <td>否</td>
 </tr>
 <tr>
-<td>堆</td>
+<td align="center">堆</td>
 <td>存放对象实例，常量池信息。涉及到内存的创建、回收。是GC操作的区域</td>
 <td>是</td>
 </tr>
 <tr>
-<td>方法区</td>
+<td align="center">方法区</td>
 <td>类信息、常量、静态变量、运行时常量池</td>
 <td>是</td>
 </tr>
@@ -438,6 +484,7 @@
 <p>4.3 </p>
 </li>
 </ol>
+<h3 id="类加载机制"><a href="#类加载机制" class="headerlink" title="类加载机制"></a>类加载机制</h3><p><a href="/Users/xiazhenyu/Documents/hexo/source/_posts/typora%E6%96%87%E4%BB%B6%E9%9B%86%E5%90%88/%E6%8B%89%E9%92%A9/JVM/%E7%B1%BB%E5%8A%A0%E8%BD%BD%E6%9C%BA%E5%88%B6.md">见</a></p>
 <h3 id="什么是OOM怎么排查呢？"><a href="#什么是OOM怎么排查呢？" class="headerlink" title="什么是OOM怎么排查呢？"></a>什么是OOM怎么排查呢？</h3><p>出现OOM的8种情况</p>
 <p><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/192839736">https://zhuanlan.zhihu.com/p/192839736</a></p>
 <p>8种常见的OOM以及解决办法？</p>
@@ -493,8 +540,25 @@
 <ol start="2">
 <li>Java对象的组成<br>对象头、实例变量、填充数据</li>
 </ol>
-<h3 id="字节码文件"><a href="#字节码文件" class="headerlink" title="字节码文件"></a>字节码文件</h3><h3 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h3><p>1.元空间垃圾收集要满足那些条件<br>2.MESI的一致性协议，JMM的8大原子操作步骤<br>3.JVM优化思路，大促销的内存分配思路。</p>
-<h2 id="博文引用"><a href="#博文引用" class="headerlink" title="博文引用"></a>博文引用</h2><ol>
+<h3 id="JVM-调优"><a href="#JVM-调优" class="headerlink" title="JVM 调优"></a>JVM 调优</h3><ol>
+<li>jps</li>
+</ol>
+<p>jps 是(java process Status Tool), Java版的ps命令，查看java进程及其相关的信息，如果你想找到一个java进程的pid，那可以用jps命令替代linux中的ps命令了，简单而方便。</p>
+<ol start="2">
+<li><p>查看参数的默认值：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">java -XX:+PrintFlagsFinal -XX:+UseG1GC  2&gt;&amp;1 | grep UseAdaptiveSizePolicy</span><br></pre></td></tr></table></figure></li>
+</ol>
+<ol start="3">
+<li>以ES的JVM参数使用为例，我们看下JVM常见的优化点：</li>
+</ol>
+<p>下面是 ES 对于堆空间大小的配置。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">-Xms1g</span><br><span class="line">-Xmx1g</span><br></pre></td></tr></table></figure>
+
+<p>通过 Xmx 可指定堆的最大值，通过 Xms 可指定堆的初始大小。我们通常把这两个参数，设置成一样大小的，可避免堆空间在动态扩容时的时间开销。</p>
+<p>在配置文件中还有 AlwaysPreTouch 这个参数。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">-XX:+AlwaysPreTouch</span><br></pre></td></tr></table></figure>
+
+<h3 id=""><a href="#" class="headerlink" title=""></a></h3><h2 id="博文引用"><a href="#博文引用" class="headerlink" title="博文引用"></a>博文引用</h2><ol>
 <li><a target="_blank" rel="noopener" href="https://www.jianshu.com/p/bc7ae8d29f26">对于操作数栈的介绍</a></li>
 <li><a target="_blank" rel="noopener" href="https://www.jianshu.com/p/54b5da7c6816">Java内存泄漏</a></li>
 </ol>
@@ -559,7 +623,7 @@
     
     
     <li class="next">
-      <a href="/2021/10/09/%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98/" title="(no title)"><span>下一篇&nbsp;&nbsp;</span><i class="icon icon-angle-right" aria-hidden="true"></i></a>
+      <a href="/2021/10/10/typora%E6%96%87%E4%BB%B6%E9%9B%86%E5%90%88/%E6%8B%89%E9%92%A9/JVM/" title="(no title)"><span>下一篇&nbsp;&nbsp;</span><i class="icon icon-angle-right" aria-hidden="true"></i></a>
     </li>
     
     

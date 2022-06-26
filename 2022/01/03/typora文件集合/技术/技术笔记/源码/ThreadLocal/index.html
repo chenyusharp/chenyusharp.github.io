@@ -18,17 +18,19 @@
   
   
   <title>Hexo</title>
-  <meta name="description" content="ThreadLocal 是一个桥梁，建立起Thread和对应的变量之间的关系。这种关系是维护在Thread自身的一个map中的，而ThreadLocal是用来维护这个map的。 ThreadLocalMap的构造函数： ![image-20220103222751332](&#x2F;Users&#x2F;xiazhenyu&#x2F;Library&#x2F;Application Support&#x2F;typora-user-images">
+  <meta name="description" content="ThreadLocal ThreadLocal的内部组成：   ThreadLocal 是一个桥梁，建立起Thread和对应的变量之间的关系。这种关系是维护在Thread自身的一个map中的，而ThreadLocal是用来维护这个map的。 ThreadLocalMap的构造函数： ![image-20220103222751332](&#x2F;Users&#x2F;xiazhenyu&#x2F;Library&#x2F;Applic">
 <meta property="og:type" content="article">
 <meta property="og:title" content="技术、生活、思考">
 <meta property="og:url" content="http://example.com/2022/01/03/typora%E6%96%87%E4%BB%B6%E9%9B%86%E5%90%88/%E6%8A%80%E6%9C%AF/%E6%8A%80%E6%9C%AF%E7%AC%94%E8%AE%B0/%E6%BA%90%E7%A0%81/ThreadLocal/index.html">
 <meta property="og:site_name" content="技术、生活、思考">
-<meta property="og:description" content="ThreadLocal 是一个桥梁，建立起Thread和对应的变量之间的关系。这种关系是维护在Thread自身的一个map中的，而ThreadLocal是用来维护这个map的。 ThreadLocalMap的构造函数： ![image-20220103222751332](&#x2F;Users&#x2F;xiazhenyu&#x2F;Library&#x2F;Application Support&#x2F;typora-user-images">
+<meta property="og:description" content="ThreadLocal ThreadLocal的内部组成：   ThreadLocal 是一个桥梁，建立起Thread和对应的变量之间的关系。这种关系是维护在Thread自身的一个map中的，而ThreadLocal是用来维护这个map的。 ThreadLocalMap的构造函数： ![image-20220103222751332](&#x2F;Users&#x2F;xiazhenyu&#x2F;Library&#x2F;Applic">
 <meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://example.com/Users/xiazhenyu/Desktop/typora%E6%96%87%E4%BB%B6%E9%9B%86%E5%90%88/%E6%96%87%E6%A1%A3%E5%90%88%E9%9B%86/ThreadLocal%E7%BB%93%E6%9E%84.png">
 <meta property="article:published_time" content="2022-01-03T14:05:20.345Z">
-<meta property="article:modified_time" content="2022-01-03T16:16:39.123Z">
+<meta property="article:modified_time" content="2022-06-23T01:35:45.857Z">
 <meta property="article:author" content="chenyusharp">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/Users/xiazhenyu/Desktop/typora%E6%96%87%E4%BB%B6%E9%9B%86%E5%90%88/%E6%96%87%E6%A1%A3%E5%90%88%E9%9B%86/ThreadLocal%E7%BB%93%E6%9E%84.png">
   <!-- Canonical links -->
   <link rel="canonical" href="http://example.com/2022/01/03/typora%E6%96%87%E4%BB%B6%E9%9B%86%E5%90%88/%E6%8A%80%E6%9C%AF/%E6%8A%80%E6%9C%AF%E7%AC%94%E8%AE%B0/%E6%BA%90%E7%A0%81/ThreadLocal/index.html">
   
@@ -211,7 +213,7 @@
     <h3 class="widget-title">分类</h3>
     <div class="widget-body">
     <div class="widget">
-      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/DDD/">DDD</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/JVM/">JVM</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Linux/">Linux</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Redis/">Redis</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/git/">git</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/linux/">linux</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/redis/">redis</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/typora/">typora</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/wholee/">wholee</a><span class="category-list-count">11</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E4%B8%9A%E5%8A%A1%E6%A8%A1%E5%BC%8F/">业务模式</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E4%BA%A7%E5%93%81/">产品</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%8A%80%E6%9C%AF/">技术</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%8A%80%E8%83%BD/">技能</a><span class="category-list-count">1</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%8A%80%E8%83%BD/%E5%B7%A5%E4%BD%9C/">工作</a><span class="category-list-count">1</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%8B%89%E9%92%A9/">拉钩</a><span class="category-list-count">1</span></li></ul>
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/JVM/">JVM</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Linux/">Linux</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/MQ/">MQ</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Redis/">Redis</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/algorithms/">algorithms</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/git/">git</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/linux/">linux</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/lombok/">lombok</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/maven/">maven</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/redis/">redis</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/s3/">s3</a><span class="category-list-count">1</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/s3/%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0/">文件上传</a><span class="category-list-count">1</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/typora/">typora</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/wholee/">wholee</a><span class="category-list-count">13</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E4%B8%9A%E5%8A%A1%E6%A8%A1%E5%BC%8F/">业务模式</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E4%BA%A7%E5%93%81/">产品</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%8A%80%E6%9C%AF/">技术</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%8B%89%E9%92%A9/">拉钩</a><span class="category-list-count">1</span></li></ul>
     </div>
   </div>
 
@@ -221,7 +223,7 @@
   <div class="widget">
     <h3 class="widget-title">标签</h3>
     <div class="widget-body">
-      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/DDD/" rel="tag">DDD</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux/" rel="tag">Linux</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/git/" rel="tag">git</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/linux/" rel="tag">linux</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/redis/" rel="tag">redis</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/wholee/" rel="tag">wholee</a><span class="tag-list-count">13</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%B7%A5%E4%BD%9C%E5%AE%89%E6%8E%92/" rel="tag">工作安排</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%8A%80%E8%83%BD/" rel="tag">技能</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%8B%89%E9%92%A9/" rel="tag">拉钩</a><span class="tag-list-count">3</span></li></ul>
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux/" rel="tag">Linux</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/algorithms/" rel="tag">algorithms</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/algorithms-task/" rel="tag">algorithms  task</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/clubFactory/" rel="tag">clubFactory</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/git/" rel="tag">git</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/kafka/" rel="tag">kafka</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/linux/" rel="tag">linux</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/lombok/" rel="tag">lombok</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/maven/" rel="tag">maven</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/maven-version/" rel="tag">maven version</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/redis/" rel="tag">redis</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/wholee/" rel="tag">wholee</a><span class="tag-list-count">13</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%B7%A5%E4%BD%9C%E5%AE%89%E6%8E%92/" rel="tag">工作安排</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%8B%89%E9%92%A9/" rel="tag">拉钩</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E9%83%A8%E7%BD%B2-%E8%BF%90%E7%BB%B4%E7%B3%BB%E7%BB%9F/" rel="tag">部署/运维系统</a><span class="tag-list-count">2</span></li></ul>
     </div>
   </div>
 
@@ -231,7 +233,7 @@
   <div class="widget">
     <h3 class="widget-title">标签云</h3>
     <div class="widget-body tagcloud">
-      <a href="/tags/DDD/" style="font-size: 13px;">DDD</a> <a href="/tags/Linux/" style="font-size: 13px;">Linux</a> <a href="/tags/git/" style="font-size: 13px;">git</a> <a href="/tags/linux/" style="font-size: 13.25px;">linux</a> <a href="/tags/redis/" style="font-size: 13px;">redis</a> <a href="/tags/wholee/" style="font-size: 14px;">wholee</a> <a href="/tags/%E5%B7%A5%E4%BD%9C%E5%AE%89%E6%8E%92/" style="font-size: 13.75px;">工作安排</a> <a href="/tags/%E6%8A%80%E8%83%BD/" style="font-size: 13px;">技能</a> <a href="/tags/%E6%8B%89%E9%92%A9/" style="font-size: 13.5px;">拉钩</a>
+      <a href="/tags/Linux/" style="font-size: 13px;">Linux</a> <a href="/tags/algorithms/" style="font-size: 13px;">algorithms</a> <a href="/tags/algorithms-task/" style="font-size: 13px;">algorithms  task</a> <a href="/tags/clubFactory/" style="font-size: 13px;">clubFactory</a> <a href="/tags/git/" style="font-size: 13px;">git</a> <a href="/tags/kafka/" style="font-size: 13px;">kafka</a> <a href="/tags/linux/" style="font-size: 13.4px;">linux</a> <a href="/tags/lombok/" style="font-size: 13px;">lombok</a> <a href="/tags/maven/" style="font-size: 13px;">maven</a> <a href="/tags/maven-version/" style="font-size: 13px;">maven version</a> <a href="/tags/redis/" style="font-size: 13px;">redis</a> <a href="/tags/wholee/" style="font-size: 14px;">wholee</a> <a href="/tags/%E5%B7%A5%E4%BD%9C%E5%AE%89%E6%8E%92/" style="font-size: 13.8px;">工作安排</a> <a href="/tags/%E6%8B%89%E9%92%A9/" style="font-size: 13.6px;">拉钩</a> <a href="/tags/%E9%83%A8%E7%BD%B2-%E8%BF%90%E7%BB%B4%E7%B3%BB%E7%BB%9F/" style="font-size: 13.2px;">部署/运维系统</a>
     </div>
   </div>
 
@@ -240,7 +242,7 @@
   <div class="widget">
     <h3 class="widget-title">归档</h3>
     <div class="widget-body">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/03/">三月 2022</a><span class="archive-list-count">20</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/02/">二月 2022</a><span class="archive-list-count">21</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/01/">一月 2022</a><span class="archive-list-count">30</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/12/">十二月 2021</a><span class="archive-list-count">8</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/11/">十一月 2021</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/10/">十月 2021</a><span class="archive-list-count">38</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/09/">九月 2021</a><span class="archive-list-count">10</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/08/">八月 2021</a><span class="archive-list-count">21</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/07/">七月 2021</a><span class="archive-list-count">18</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/06/">六月 2021</a><span class="archive-list-count">11</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/05/">五月 2021</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/03/">三月 2021</a><span class="archive-list-count">1</span></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/06/">六月 2022</a><span class="archive-list-count">14</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/05/">五月 2022</a><span class="archive-list-count">10</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/04/">四月 2022</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/03/">三月 2022</a><span class="archive-list-count">20</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/02/">二月 2022</a><span class="archive-list-count">22</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/01/">一月 2022</a><span class="archive-list-count">27</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/12/">十二月 2021</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/11/">十一月 2021</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/10/">十月 2021</a><span class="archive-list-count">29</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/09/">九月 2021</a><span class="archive-list-count">10</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/08/">八月 2021</a><span class="archive-list-count">21</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/07/">七月 2021</a><span class="archive-list-count">18</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/06/">六月 2021</a><span class="archive-list-count">11</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/05/">五月 2021</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/03/">三月 2021</a><span class="archive-list-count">1</span></li></ul>
     </div>
   </div>
 
@@ -256,28 +258,13 @@
             
             <div class="item-inner">
               <p class="item-category">
-                <a class="category-link" href="/categories/%E4%B8%9A%E5%8A%A1%E6%A8%A1%E5%BC%8F/">业务模式</a>
+                
               </p>
               <p class="item-title">
-                <a href="/2022/03/28/typora%E6%96%87%E4%BB%B6%E9%9B%86%E5%90%88/%E4%BA%A7%E5%93%81/wholee/%E9%98%BF%E7%B1%B3%E5%B7%B4%E6%A8%A1%E5%BC%8F/" class="title">阿米巴</a>
+                <a href="/2022/06/24/typora%E6%96%87%E4%BB%B6%E9%9B%86%E5%90%88/%E4%B8%AA%E4%BA%BA/%E6%B8%B8%E6%88%8F/%E6%B8%B8%E6%88%8F%E5%A4%A7%E5%85%A8/" class="title">(no title)</a>
               </p>
               <p class="item-date">
-                <time datetime="2022-03-28T11:12:59.061Z" itemprop="datePublished">2022-03-28</time>
-              </p>
-            </div>
-          </li>
-          
-          <li>
-            
-            <div class="item-inner">
-              <p class="item-category">
-                <a class="category-link" href="/categories/%E4%BA%A7%E5%93%81/">产品</a>
-              </p>
-              <p class="item-title">
-                <a href="/2022/03/28/typora%E6%96%87%E4%BB%B6%E9%9B%86%E5%90%88/%E4%BA%A7%E5%93%81/wholee/%E8%B4%A2%E5%8A%A1%E7%9B%B8%E5%85%B3/" class="title">财务相关产品文档</a>
-              </p>
-              <p class="item-date">
-                <time datetime="2022-03-28T11:09:10.242Z" itemprop="datePublished">2022-03-28</time>
+                <time datetime="2022-06-24T15:55:52.120Z" itemprop="datePublished">2022-06-24</time>
               </p>
             </div>
           </li>
@@ -289,10 +276,10 @@
                 
               </p>
               <p class="item-title">
-                <a href="/2022/03/28/typora%E6%96%87%E4%BB%B6%E9%9B%86%E5%90%88/%E4%BA%A7%E5%93%81/wholee/%E8%B4%A7%E5%93%81%E7%9B%B8%E5%85%B3/" class="title">(no title)</a>
+                <a href="/2022/06/22/typora%E6%96%87%E4%BB%B6%E9%9B%86%E5%90%88/%E6%8A%80%E6%9C%AF/%E6%8A%80%E6%9C%AF%E7%AC%94%E8%AE%B0/%E6%BA%90%E7%A0%81/Atomic%E7%B1%BB/" class="title">(no title)</a>
               </p>
               <p class="item-date">
-                <time datetime="2022-03-28T11:08:55.123Z" itemprop="datePublished">2022-03-28</time>
+                <time datetime="2022-06-22T08:12:04.951Z" itemprop="datePublished">2022-06-22</time>
               </p>
             </div>
           </li>
@@ -301,13 +288,13 @@
             
             <div class="item-inner">
               <p class="item-category">
-                <a class="category-link" href="/categories/JVM/">JVM</a>
+                
               </p>
               <p class="item-title">
-                <a href="/2022/03/28/typora%E6%96%87%E4%BB%B6%E9%9B%86%E5%90%88/%E6%8B%89%E9%92%A9/JVM/JVM%E5%AD%A6%E4%B9%A0%E6%80%BB%E7%BB%93/" class="title">JVM学习总结</a>
+                <a href="/2022/06/18/typora%E6%96%87%E4%BB%B6%E9%9B%86%E5%90%88/%E6%8B%89%E9%92%A9/%E9%A1%B9%E7%9B%AE%E5%AE%9E%E6%88%98/%E8%BF%9B%E5%BA%A6/" class="title">(no title)</a>
               </p>
               <p class="item-date">
-                <time datetime="2022-03-27T22:09:01.164Z" itemprop="datePublished">2022-03-28</time>
+                <time datetime="2022-06-18T13:54:20.914Z" itemprop="datePublished">2022-06-18</time>
               </p>
             </div>
           </li>
@@ -316,13 +303,28 @@
             
             <div class="item-inner">
               <p class="item-category">
-                <a class="category-link" href="/categories/Redis/">Redis</a>
+                
               </p>
               <p class="item-title">
-                <a href="/2022/03/27/typora%E6%96%87%E4%BB%B6%E9%9B%86%E5%90%88/%E6%8B%89%E9%92%A9/%E4%B8%AD%E9%97%B4%E4%BB%B6/Redis/Redis%E9%A2%84%E4%B9%A0/" class="title">Reids预习</a>
+                <a href="/2022/06/18/typora%E6%96%87%E4%BB%B6%E9%9B%86%E5%90%88/%E6%8B%89%E9%92%A9/%E9%A1%B9%E7%9B%AE%E5%AE%9E%E6%88%98/%E9%A1%B9%E7%9B%AE%E6%9E%B6%E6%9E%84/" class="title">(no title)</a>
               </p>
               <p class="item-date">
-                <time datetime="2022-03-26T16:53:06.754Z" itemprop="datePublished">2022-03-27</time>
+                <time datetime="2022-06-18T13:54:08.755Z" itemprop="datePublished">2022-06-18</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                
+              </p>
+              <p class="item-title">
+                <a href="/2022/06/18/typora%E6%96%87%E4%BB%B6%E9%9B%86%E5%90%88/%E6%8B%89%E9%92%A9/%E9%A1%B9%E7%9B%AE%E5%AE%9E%E6%88%98/%E7%B4%A0%E6%9D%90/" class="title">(no title)</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2022-06-18T13:53:58.126Z" itemprop="datePublished">2022-06-18</time>
               </p>
             </div>
           </li>
@@ -362,17 +364,43 @@
     </div>
     <div class="article-entry marked-body" itemprop="articleBody">
       
-        <p>ThreadLocal 是一个桥梁，建立起Thread和对应的变量之间的关系。这种关系是维护在Thread自身的一个map中的，而ThreadLocal是用来维护这个map的。</p>
+        <h2 id="ThreadLocal"><a href="#ThreadLocal" class="headerlink" title="ThreadLocal"></a>ThreadLocal</h2><ol>
+<li>ThreadLocal的内部组成：</li>
+</ol>
+<p><img src="/Users/xiazhenyu/Desktop/typora%E6%96%87%E4%BB%B6%E9%9B%86%E5%90%88/%E6%96%87%E6%A1%A3%E5%90%88%E9%9B%86/ThreadLocal%E7%BB%93%E6%9E%84.png" alt="ThreadLocal结构"></p>
+<p>ThreadLocal 是一个桥梁，建立起Thread和对应的变量之间的关系。这种关系是维护在Thread自身的一个map中的，而ThreadLocal是用来维护这个map的。</p>
 <p>ThreadLocalMap的构造函数：</p>
 <p>![image-20220103222751332](/Users/xiazhenyu/Library/Application Support/typora-user-images/image-20220103222751332.png)</p>
-<p>InheritableThreadLocal<br>可以实现子线程继承父线程中的ThreadLocalMap中的变量。<br>![image-20220104000627722](/Users/xiazhenyu/Library/Application Support/typora-user-images/image-20220104000627722.png)</p>
+<ol start="2">
+<li><p>ThreadLocal的内存泄漏问题</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">static</span> <span class="class"><span class="keyword">class</span> <span class="title">Entry</span> <span class="keyword">extends</span> <span class="title">WeakReference</span>&lt;<span class="title">ThreadLocal</span>&lt;?&gt;&gt; </span>&#123;</span><br><span class="line">    <span class="comment">/** The value associated with this ThreadLocal. */</span></span><br><span class="line">    Object value;</span><br><span class="line"></span><br><span class="line">    Entry(ThreadLocal&lt;?&gt; k, Object v) &#123;</span><br><span class="line">        <span class="keyword">super</span>(k);</span><br><span class="line">        value = v;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+</ol>
+<p>通过上面的信息，我们看到，ThreadLocalMap中table数组中的对象是Entry，这个类是个弱引用类型。</p>
+<p>![image-20220622232535177](/Users/xiazhenyu/Library/Application Support/typora-user-images/image-20220622232535177.png)</p>
+<p>每一个Thread维护一个ThreadLocalMap映射表，这个映射表的key是ThreadLocal实例本身，value谁真正需要存储的Object。这一点可以通过Entry的结构来看出。</p>
+<p>也就是说ThreadLocal本身并不存储值，他只是作为一个key来让线程从ThreadLocalMap中获取value。但是由于ThreadLocalMap是使用ThreadLocal的弱引用作为key，弱引用的对象在GC时会被回收掉。这样一来，ThreadLocalMap中就会出现key为null的Entry，就没有办法访问这些key为null的Entry的value。如果当前线程不结束的话，这些key为null的Entry的value就会存在一条强引用链：Thread Ref -&gt; Thread -&gt; ThreadLocalMap -&gt; Entry -&gt; value，就永远无法回收，造成内存泄漏。</p>
+<ol start="3">
+<li><p>解决方法</p>
+<p>手动调用remove方法，看源码可以发现，在执行set、get方法之后，顺便把路上无效的entry用线性清扫清除掉，也可以起到一定的解决内存泄漏的问题。但是get、set方法发起无效key的清理都是有触发条件的，一般都是发现key匹配不到，</p>
+</li>
+</ol>
+<p>set方法：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">set</span><span class="params">(ThreadLocal&lt;?&gt; key, Object value)</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// We don&#x27;t use a fast path as with get() because it is at</span></span><br><span class="line">    <span class="comment">// least as common to use set() to create new entries as</span></span><br><span class="line">    <span class="comment">// it is to replace existing ones, in which case, a fast</span></span><br><span class="line">    <span class="comment">// path would fail more often than not.</span></span><br><span class="line"></span><br><span class="line">    Entry[] tab = table;</span><br><span class="line">    <span class="keyword">int</span> len = tab.length;</span><br><span class="line">    <span class="keyword">int</span> i = key.threadLocalHashCode &amp; (len-<span class="number">1</span>);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> (Entry e = tab[i];</span><br><span class="line">         e != <span class="keyword">null</span>;</span><br><span class="line">         e = tab[i = nextIndex(i, len)]) &#123;</span><br><span class="line">        ThreadLocal&lt;?&gt; k = e.get();</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (k == key) &#123;</span><br><span class="line">            e.value = value;</span><br><span class="line">            <span class="keyword">return</span>;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (k == <span class="keyword">null</span>) &#123;</span><br><span class="line">            replaceStaleEntry(key, value, i);</span><br><span class="line">            <span class="keyword">return</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    tab[i] = <span class="keyword">new</span> Entry(key, value);</span><br><span class="line">    <span class="keyword">int</span> sz = ++size;</span><br><span class="line">    <span class="keyword">if</span> (!cleanSomeSlots(i, sz) &amp;&amp; sz &gt;= threshold)</span><br><span class="line">        rehash();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<p>get 方法：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">private</span> Entry <span class="title">getEntry</span><span class="params">(ThreadLocal&lt;?&gt; key)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> i = key.threadLocalHashCode &amp; (table.length - <span class="number">1</span>);</span><br><span class="line">    Entry e = table[i];</span><br><span class="line">    <span class="keyword">if</span> (e != <span class="keyword">null</span> &amp;&amp; e.get() == key)</span><br><span class="line">        <span class="keyword">return</span> e;</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">        <span class="keyword">return</span> getEntryAfterMiss(key, i, e);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Version of getEntry method for use when key is not found in</span></span><br><span class="line"><span class="comment"> * its direct hash slot.</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span>  key the thread local object</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span>  i the table index for key&#x27;s hash code</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span>  e the entry at table[i]</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@return</span> the entry associated with key, or null if no such</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="function"><span class="keyword">private</span> Entry <span class="title">getEntryAfterMiss</span><span class="params">(ThreadLocal&lt;?&gt; key, <span class="keyword">int</span> i, Entry e)</span> </span>&#123;</span><br><span class="line">    Entry[] tab = table;</span><br><span class="line">    <span class="keyword">int</span> len = tab.length;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">while</span> (e != <span class="keyword">null</span>) &#123;</span><br><span class="line">        ThreadLocal&lt;?&gt; k = e.get();</span><br><span class="line">        <span class="keyword">if</span> (k == key)</span><br><span class="line">            <span class="keyword">return</span> e;</span><br><span class="line">        <span class="keyword">if</span> (k == <span class="keyword">null</span>)</span><br><span class="line">            expungeStaleEntry(i);</span><br><span class="line">        <span class="keyword">else</span></span><br><span class="line">            i = nextIndex(i, len);</span><br><span class="line">        e = tab[i];</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><a target="_blank" rel="noopener" href="https://cloud.tencent.com/developer/article/1706127">get、set方法是否确定可以解决内存泄漏问题？</a>，这个看了，感觉因该是可以的，只不过是在特定的条件下。</p>
+<h2 id="InheritableThreadLocal"><a href="#InheritableThreadLocal" class="headerlink" title="InheritableThreadLocal"></a>InheritableThreadLocal</h2><p>可以实现子线程继承父线程中的ThreadLocalMap中的变量。<br>![image-20220104000627722](/Users/xiazhenyu/Library/Application Support/typora-user-images/image-20220104000627722.png)</p>
 <p>在执行init方法的时候，通过把inheritThreadLocals入参始终设置为true。</p>
 <p>然后会有这么一个判断： parent.inheritableThreadLocals是否不等于null；</p>
 <p>![image-20220104000732987](/Users/xiazhenyu/Library/Application Support/typora-user-images/image-20220104000732987.png)</p>
 <p>这个parent是这么获取的呢？<br>![image-20220104000846492](/Users/xiazhenyu/Library/Application Support/typora-user-images/image-20220104000846492.png)</p>
 <p>可以看到这个parent的获取调用了native方法，得到对应的父线程；<br>如果我们此时采用InheritableThreadLocal来进行变量的存放，有InheritableThreadLocal的源代码可以看出：<br>![image-20220104001059973](/Users/xiazhenyu/Library/Application Support/typora-user-images/image-20220104001059973.png)</p>
 <p>InheritableThreadLocal 进行getMap与createMap的时候，都是向inheritableThreadLocals这个ThreadLocal.ThreadLocalMap类型的变量中存入数据的。所以上面的判断会一直是成立的。所以就实现了父线程向子线程传递变量。但是我们看到：<br>![image-20220104001448030](/Users/xiazhenyu/Library/Application Support/typora-user-images/image-20220104001448030.png)</p>
-<p>ThreadLocalMap的传递是以复制的方式由父线程到子线程的。而且是在子线程初始化的时候，这就会导致父子线程中ThreadLocalMap的值在以后是会出现不一致的情况的，</p>
+<p>ThreadLocalMap的传递是以复制的方式由父线程到子线程的。而且是在子线程初始化的时候，这就会导致父子线程中ThreadLocalMap的值在以后是会出现不一致的情况的。</p>
 
       
     </div>

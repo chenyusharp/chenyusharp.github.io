@@ -18,21 +18,20 @@
   
   
   <title>Hexo</title>
-  <meta name="description" content="[TOC] 多线程和锁多线程的目的：充分利用多核CPU的并行处理的能力，加快程序的处理速度； 锁的存在的意义：控制资源的并发访问，使操作串行话； JUC相关的（AQS）AQS是一个用来构建锁合同步器的框架。 原理：如果被请求的共享资源空闲，则将当前请求资源的线程设置为有效的工作线程，并且将共享资源设置为锁定状态。如果被请求的共享资源被占有，那么就需要一套线程阻塞等待以及被唤醒时锁分配的机制，这个机">
+  <meta name="description" content="[TOC] 多线程和锁多线程的目的：充分利用多核CPU的并行处理的能力，加快程序的处理速度； 锁的存在的意义：控制资源的并发访问，使操作串行话； JUC相关的（AQS）AQS是一个用来构建锁和同步器的框架。 原理：如果被请求的共享资源空闲，则将当前请求资源的线程设置为有效的工作线程，并且将共享资源设置为锁定状态。如果被请求的共享资源被占有，那么就需要一套线程阻塞等待以及被唤醒时锁分配的机制，这个机">
 <meta property="og:type" content="article">
 <meta property="og:title" content="技术、生活、思考">
 <meta property="og:url" content="http://example.com/2021/10/02/typora%E6%96%87%E4%BB%B6%E9%9B%86%E5%90%88/%E6%8B%89%E9%92%A9/%E5%A4%9A%E7%BA%BF%E7%A8%8B/index.html">
 <meta property="og:site_name" content="技术、生活、思考">
-<meta property="og:description" content="[TOC] 多线程和锁多线程的目的：充分利用多核CPU的并行处理的能力，加快程序的处理速度； 锁的存在的意义：控制资源的并发访问，使操作串行话； JUC相关的（AQS）AQS是一个用来构建锁合同步器的框架。 原理：如果被请求的共享资源空闲，则将当前请求资源的线程设置为有效的工作线程，并且将共享资源设置为锁定状态。如果被请求的共享资源被占有，那么就需要一套线程阻塞等待以及被唤醒时锁分配的机制，这个机">
+<meta property="og:description" content="[TOC] 多线程和锁多线程的目的：充分利用多核CPU的并行处理的能力，加快程序的处理速度； 锁的存在的意义：控制资源的并发访问，使操作串行话； JUC相关的（AQS）AQS是一个用来构建锁和同步器的框架。 原理：如果被请求的共享资源空闲，则将当前请求资源的线程设置为有效的工作线程，并且将共享资源设置为锁定状态。如果被请求的共享资源被占有，那么就需要一套线程阻塞等待以及被唤醒时锁分配的机制，这个机">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="http://example.com/Users/xiazhenyu/Desktop/typora%E6%96%87%E4%BB%B6%E9%9B%86%E5%90%88/%E6%96%87%E6%A1%A3%E5%90%88%E9%9B%86/MarkWord%E7%9A%84%E7%BB%93%E6%9E%84.png">
 <meta property="og:image" content="http://example.com/Users/xiazhenyu/Desktop/typora%E6%96%87%E4%BB%B6%E9%9B%86%E5%90%88/%E6%96%87%E6%A1%A3%E5%90%88%E9%9B%86/ObjectMonitor%E5%8A%A0%E9%94%81%E6%B5%81%E7%A8%8B.png">
-<meta property="og:image" content="http://example.com/Users/xiazhenyu/Desktop/typora%E6%96%87%E4%BB%B6%E9%9B%86%E5%90%88/%E6%96%87%E6%A1%A3%E5%90%88%E9%9B%86/%E7%BA%BF%E7%A8%8B%E6%B1%A0%E7%9A%84%E6%89%A7%E8%A1%8C%E6%B5%81%E7%A8%8B.png">
 <meta property="og:image" content="http://example.com/Users/xiazhenyu/Desktop/typora%E6%96%87%E4%BB%B6%E9%9B%86%E5%90%88/%E6%96%87%E6%A1%A3%E5%90%88%E9%9B%86/%E9%9B%B6%E6%8B%B7%E8%B4%9D.png">
 <meta property="og:image" content="http://example.com/Users/xiazhenyu/Desktop/typora%E6%96%87%E4%BB%B6%E9%9B%86%E5%90%88/%E6%96%87%E6%A1%A3%E5%90%88%E9%9B%86/mmap.png">
-<meta property="og:image" content="http://example.com/Users/xiazhenyu/Desktop/typora%E6%96%87%E4%BB%B6%E9%9B%86%E5%90%88/%E6%96%87%E6%A1%A3%E5%90%88%E9%9B%86/ThreadLocal%E7%BB%93%E6%9E%84.png">
+<meta property="og:image" content="http://example.com/Users/xiazhenyu/Library/Application%20Support/typora-user-images/image-20220616104330708.png">
 <meta property="article:published_time" content="2021-10-01T22:08:17.376Z">
-<meta property="article:modified_time" content="2021-12-12T09:48:40.458Z">
+<meta property="article:modified_time" content="2022-06-22T15:37:10.076Z">
 <meta property="article:author" content="chenyusharp">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="http://example.com/Users/xiazhenyu/Desktop/typora%E6%96%87%E4%BB%B6%E9%9B%86%E5%90%88/%E6%96%87%E6%A1%A3%E5%90%88%E9%9B%86/MarkWord%E7%9A%84%E7%BB%93%E6%9E%84.png">
@@ -218,7 +217,7 @@
     <h3 class="widget-title">分类</h3>
     <div class="widget-body">
     <div class="widget">
-      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/DDD/">DDD</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/JVM/">JVM</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Linux/">Linux</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Redis/">Redis</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/git/">git</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/linux/">linux</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/redis/">redis</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/typora/">typora</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/wholee/">wholee</a><span class="category-list-count">11</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E4%B8%9A%E5%8A%A1%E6%A8%A1%E5%BC%8F/">业务模式</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E4%BA%A7%E5%93%81/">产品</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%8A%80%E6%9C%AF/">技术</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%8A%80%E8%83%BD/">技能</a><span class="category-list-count">1</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%8A%80%E8%83%BD/%E5%B7%A5%E4%BD%9C/">工作</a><span class="category-list-count">1</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%8B%89%E9%92%A9/">拉钩</a><span class="category-list-count">1</span></li></ul>
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/JVM/">JVM</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Linux/">Linux</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/MQ/">MQ</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Redis/">Redis</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/algorithms/">algorithms</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/git/">git</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/linux/">linux</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/lombok/">lombok</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/maven/">maven</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/redis/">redis</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/s3/">s3</a><span class="category-list-count">1</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/s3/%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0/">文件上传</a><span class="category-list-count">1</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/typora/">typora</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/wholee/">wholee</a><span class="category-list-count">13</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E4%B8%9A%E5%8A%A1%E6%A8%A1%E5%BC%8F/">业务模式</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E4%BA%A7%E5%93%81/">产品</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%8A%80%E6%9C%AF/">技术</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%8B%89%E9%92%A9/">拉钩</a><span class="category-list-count">1</span></li></ul>
     </div>
   </div>
 
@@ -228,7 +227,7 @@
   <div class="widget">
     <h3 class="widget-title">标签</h3>
     <div class="widget-body">
-      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/DDD/" rel="tag">DDD</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux/" rel="tag">Linux</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/git/" rel="tag">git</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/linux/" rel="tag">linux</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/redis/" rel="tag">redis</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/wholee/" rel="tag">wholee</a><span class="tag-list-count">13</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%B7%A5%E4%BD%9C%E5%AE%89%E6%8E%92/" rel="tag">工作安排</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%8A%80%E8%83%BD/" rel="tag">技能</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%8B%89%E9%92%A9/" rel="tag">拉钩</a><span class="tag-list-count">3</span></li></ul>
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux/" rel="tag">Linux</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/algorithms/" rel="tag">algorithms</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/algorithms-task/" rel="tag">algorithms  task</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/clubFactory/" rel="tag">clubFactory</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/git/" rel="tag">git</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/kafka/" rel="tag">kafka</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/linux/" rel="tag">linux</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/lombok/" rel="tag">lombok</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/maven/" rel="tag">maven</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/maven-version/" rel="tag">maven version</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/redis/" rel="tag">redis</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/wholee/" rel="tag">wholee</a><span class="tag-list-count">13</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%B7%A5%E4%BD%9C%E5%AE%89%E6%8E%92/" rel="tag">工作安排</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%8B%89%E9%92%A9/" rel="tag">拉钩</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E9%83%A8%E7%BD%B2-%E8%BF%90%E7%BB%B4%E7%B3%BB%E7%BB%9F/" rel="tag">部署/运维系统</a><span class="tag-list-count">2</span></li></ul>
     </div>
   </div>
 
@@ -238,7 +237,7 @@
   <div class="widget">
     <h3 class="widget-title">标签云</h3>
     <div class="widget-body tagcloud">
-      <a href="/tags/DDD/" style="font-size: 13px;">DDD</a> <a href="/tags/Linux/" style="font-size: 13px;">Linux</a> <a href="/tags/git/" style="font-size: 13px;">git</a> <a href="/tags/linux/" style="font-size: 13.25px;">linux</a> <a href="/tags/redis/" style="font-size: 13px;">redis</a> <a href="/tags/wholee/" style="font-size: 14px;">wholee</a> <a href="/tags/%E5%B7%A5%E4%BD%9C%E5%AE%89%E6%8E%92/" style="font-size: 13.75px;">工作安排</a> <a href="/tags/%E6%8A%80%E8%83%BD/" style="font-size: 13px;">技能</a> <a href="/tags/%E6%8B%89%E9%92%A9/" style="font-size: 13.5px;">拉钩</a>
+      <a href="/tags/Linux/" style="font-size: 13px;">Linux</a> <a href="/tags/algorithms/" style="font-size: 13px;">algorithms</a> <a href="/tags/algorithms-task/" style="font-size: 13px;">algorithms  task</a> <a href="/tags/clubFactory/" style="font-size: 13px;">clubFactory</a> <a href="/tags/git/" style="font-size: 13px;">git</a> <a href="/tags/kafka/" style="font-size: 13px;">kafka</a> <a href="/tags/linux/" style="font-size: 13.4px;">linux</a> <a href="/tags/lombok/" style="font-size: 13px;">lombok</a> <a href="/tags/maven/" style="font-size: 13px;">maven</a> <a href="/tags/maven-version/" style="font-size: 13px;">maven version</a> <a href="/tags/redis/" style="font-size: 13px;">redis</a> <a href="/tags/wholee/" style="font-size: 14px;">wholee</a> <a href="/tags/%E5%B7%A5%E4%BD%9C%E5%AE%89%E6%8E%92/" style="font-size: 13.8px;">工作安排</a> <a href="/tags/%E6%8B%89%E9%92%A9/" style="font-size: 13.6px;">拉钩</a> <a href="/tags/%E9%83%A8%E7%BD%B2-%E8%BF%90%E7%BB%B4%E7%B3%BB%E7%BB%9F/" style="font-size: 13.2px;">部署/运维系统</a>
     </div>
   </div>
 
@@ -247,7 +246,7 @@
   <div class="widget">
     <h3 class="widget-title">归档</h3>
     <div class="widget-body">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/03/">三月 2022</a><span class="archive-list-count">20</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/02/">二月 2022</a><span class="archive-list-count">21</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/01/">一月 2022</a><span class="archive-list-count">30</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/12/">十二月 2021</a><span class="archive-list-count">8</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/11/">十一月 2021</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/10/">十月 2021</a><span class="archive-list-count">38</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/09/">九月 2021</a><span class="archive-list-count">10</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/08/">八月 2021</a><span class="archive-list-count">21</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/07/">七月 2021</a><span class="archive-list-count">18</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/06/">六月 2021</a><span class="archive-list-count">11</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/05/">五月 2021</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/03/">三月 2021</a><span class="archive-list-count">1</span></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/06/">六月 2022</a><span class="archive-list-count">14</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/05/">五月 2022</a><span class="archive-list-count">10</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/04/">四月 2022</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/03/">三月 2022</a><span class="archive-list-count">20</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/02/">二月 2022</a><span class="archive-list-count">22</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/01/">一月 2022</a><span class="archive-list-count">27</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/12/">十二月 2021</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/11/">十一月 2021</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/10/">十月 2021</a><span class="archive-list-count">29</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/09/">九月 2021</a><span class="archive-list-count">10</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/08/">八月 2021</a><span class="archive-list-count">21</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/07/">七月 2021</a><span class="archive-list-count">18</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/06/">六月 2021</a><span class="archive-list-count">11</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/05/">五月 2021</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/03/">三月 2021</a><span class="archive-list-count">1</span></li></ul>
     </div>
   </div>
 
@@ -263,28 +262,13 @@
             
             <div class="item-inner">
               <p class="item-category">
-                <a class="category-link" href="/categories/%E4%B8%9A%E5%8A%A1%E6%A8%A1%E5%BC%8F/">业务模式</a>
+                
               </p>
               <p class="item-title">
-                <a href="/2022/03/28/typora%E6%96%87%E4%BB%B6%E9%9B%86%E5%90%88/%E4%BA%A7%E5%93%81/wholee/%E9%98%BF%E7%B1%B3%E5%B7%B4%E6%A8%A1%E5%BC%8F/" class="title">阿米巴</a>
+                <a href="/2022/06/24/typora%E6%96%87%E4%BB%B6%E9%9B%86%E5%90%88/%E4%B8%AA%E4%BA%BA/%E6%B8%B8%E6%88%8F/%E6%B8%B8%E6%88%8F%E5%A4%A7%E5%85%A8/" class="title">(no title)</a>
               </p>
               <p class="item-date">
-                <time datetime="2022-03-28T11:12:59.061Z" itemprop="datePublished">2022-03-28</time>
-              </p>
-            </div>
-          </li>
-          
-          <li>
-            
-            <div class="item-inner">
-              <p class="item-category">
-                <a class="category-link" href="/categories/%E4%BA%A7%E5%93%81/">产品</a>
-              </p>
-              <p class="item-title">
-                <a href="/2022/03/28/typora%E6%96%87%E4%BB%B6%E9%9B%86%E5%90%88/%E4%BA%A7%E5%93%81/wholee/%E8%B4%A2%E5%8A%A1%E7%9B%B8%E5%85%B3/" class="title">财务相关产品文档</a>
-              </p>
-              <p class="item-date">
-                <time datetime="2022-03-28T11:09:10.242Z" itemprop="datePublished">2022-03-28</time>
+                <time datetime="2022-06-24T15:55:52.120Z" itemprop="datePublished">2022-06-24</time>
               </p>
             </div>
           </li>
@@ -296,10 +280,10 @@
                 
               </p>
               <p class="item-title">
-                <a href="/2022/03/28/typora%E6%96%87%E4%BB%B6%E9%9B%86%E5%90%88/%E4%BA%A7%E5%93%81/wholee/%E8%B4%A7%E5%93%81%E7%9B%B8%E5%85%B3/" class="title">(no title)</a>
+                <a href="/2022/06/22/typora%E6%96%87%E4%BB%B6%E9%9B%86%E5%90%88/%E6%8A%80%E6%9C%AF/%E6%8A%80%E6%9C%AF%E7%AC%94%E8%AE%B0/%E6%BA%90%E7%A0%81/Atomic%E7%B1%BB/" class="title">(no title)</a>
               </p>
               <p class="item-date">
-                <time datetime="2022-03-28T11:08:55.123Z" itemprop="datePublished">2022-03-28</time>
+                <time datetime="2022-06-22T08:12:04.951Z" itemprop="datePublished">2022-06-22</time>
               </p>
             </div>
           </li>
@@ -308,13 +292,13 @@
             
             <div class="item-inner">
               <p class="item-category">
-                <a class="category-link" href="/categories/JVM/">JVM</a>
+                
               </p>
               <p class="item-title">
-                <a href="/2022/03/28/typora%E6%96%87%E4%BB%B6%E9%9B%86%E5%90%88/%E6%8B%89%E9%92%A9/JVM/JVM%E5%AD%A6%E4%B9%A0%E6%80%BB%E7%BB%93/" class="title">JVM学习总结</a>
+                <a href="/2022/06/18/typora%E6%96%87%E4%BB%B6%E9%9B%86%E5%90%88/%E6%8B%89%E9%92%A9/%E9%A1%B9%E7%9B%AE%E5%AE%9E%E6%88%98/%E8%BF%9B%E5%BA%A6/" class="title">(no title)</a>
               </p>
               <p class="item-date">
-                <time datetime="2022-03-27T22:09:01.164Z" itemprop="datePublished">2022-03-28</time>
+                <time datetime="2022-06-18T13:54:20.914Z" itemprop="datePublished">2022-06-18</time>
               </p>
             </div>
           </li>
@@ -323,13 +307,28 @@
             
             <div class="item-inner">
               <p class="item-category">
-                <a class="category-link" href="/categories/Redis/">Redis</a>
+                
               </p>
               <p class="item-title">
-                <a href="/2022/03/27/typora%E6%96%87%E4%BB%B6%E9%9B%86%E5%90%88/%E6%8B%89%E9%92%A9/%E4%B8%AD%E9%97%B4%E4%BB%B6/Redis/Redis%E9%A2%84%E4%B9%A0/" class="title">Reids预习</a>
+                <a href="/2022/06/18/typora%E6%96%87%E4%BB%B6%E9%9B%86%E5%90%88/%E6%8B%89%E9%92%A9/%E9%A1%B9%E7%9B%AE%E5%AE%9E%E6%88%98/%E9%A1%B9%E7%9B%AE%E6%9E%B6%E6%9E%84/" class="title">(no title)</a>
               </p>
               <p class="item-date">
-                <time datetime="2022-03-26T16:53:06.754Z" itemprop="datePublished">2022-03-27</time>
+                <time datetime="2022-06-18T13:54:08.755Z" itemprop="datePublished">2022-06-18</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                
+              </p>
+              <p class="item-title">
+                <a href="/2022/06/18/typora%E6%96%87%E4%BB%B6%E9%9B%86%E5%90%88/%E6%8B%89%E9%92%A9/%E9%A1%B9%E7%9B%AE%E5%AE%9E%E6%88%98/%E7%B4%A0%E6%9D%90/" class="title">(no title)</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2022-06-18T13:53:58.126Z" itemprop="datePublished">2022-06-18</time>
               </p>
             </div>
           </li>
@@ -372,16 +371,34 @@
         <p>[TOC]</p>
 <h2 id="多线程和锁"><a href="#多线程和锁" class="headerlink" title="多线程和锁"></a>多线程和锁</h2><p>多线程的目的：充分利用多核CPU的并行处理的能力，加快程序的处理速度；</p>
 <p>锁的存在的意义：控制资源的并发访问，使操作串行话；</p>
-<h3 id="JUC相关的（AQS）"><a href="#JUC相关的（AQS）" class="headerlink" title="JUC相关的（AQS）"></a>JUC相关的（AQS）</h3><p>AQS是一个用来构建锁合同步器的框架。</p>
+<h3 id="JUC相关的（AQS）"><a href="#JUC相关的（AQS）" class="headerlink" title="JUC相关的（AQS）"></a>JUC相关的（AQS）</h3><p>AQS是一个用来构建锁和同步器的框架。</p>
 <p>原理：<br>如果被请求的共享资源空闲，则将当前请求资源的线程设置为有效的工作线程，并且将共享资源设置为锁定状态。如果被请求的共享资源被占有，<br>那么就需要一套线程阻塞等待以及被唤醒时锁分配的机制，这个机制AQS是用CLH队列实现的，即将暂时获取不到锁的线程加入到队列中。</p>
 <ul>
-<li>CLH队列：是一个虚拟的双向队列（虚拟的双向队列即不存在队列实例，仅存在节点之间的关联关系）。AQS是将每条请求共享资源的线程封装成一个CLH<br>锁队列的一个结点来实现锁的分配。</li>
+<li><p>CLH队列：是一个虚拟的双向队列（虚拟的双向队列即不存在队列实例，仅存在节点之间的关联关系）。AQS是将每条请求共享资源的线程封装成一个CLH<br>锁队列的一个结点来实现锁的分配。</p>
+</li>
+<li><p>两种资源共享方式：</p>
+</li>
 </ul>
-<p>两种资源共享方式：</p>
 <ol>
 <li>Exclusive：公平锁和非公平锁。</li>
 <li>Share：</li>
 </ol>
+<ul>
+<li>AQS流程：</li>
+</ul>
+<p>阻塞队列是整个<strong>AQS</strong>核心中的核心。如下图所示，head指向双向链表头部，tail指向双向链表尾部。入队就是把 新的Node加到tail后面，然后对tail进行CAS操作;出队就是对head进行CAS操作，把head向后移一个位置。</p>
+<p>初始的时候，head=tail=NULL;然后，在往队列中加入阻塞的线程时，会新建一个空的Node，让head和tail都指 向这个空Node;之后，在后面加入被阻塞的线程对象。所以，当head=tail的时候，说明队列为空。</p>
+<p>tryAcquire（）公平与非公平的区别就是，看队列中有没有等待的线程。这个方法的作用就是设置当前锁的排他线程；</p>
+<p>acquireQueued（）：</p>
+<pre><code>1. addWaiter（）先把当前线程封装成一个node，然后把node放入双向链表的尾部。
+1. 线程一旦进入 acquireQueued(...)就会被无限期阻塞，即使有其他线程调用interrupt()方法也不能将其唤醒，除非有其他线程释放了 锁，并且该线程拿到了锁，才会从accquireQueued()返回。
+1. 记录被阻塞期 间有没有其他线程向它发送过中断信号。如果有，则该方法会返回true;否则，返回false。
+</code></pre>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">final</span> <span class="keyword">boolean</span> <span class="title">acquireQueued</span><span class="params">(<span class="keyword">final</span> Node node, <span class="keyword">int</span> arg)</span> </span>&#123;</span><br><span class="line">       <span class="keyword">boolean</span> failed = <span class="keyword">true</span>;</span><br><span class="line">       <span class="keyword">try</span> &#123;</span><br><span class="line">           <span class="keyword">boolean</span> interrupted = <span class="keyword">false</span>;</span><br><span class="line">           <span class="keyword">for</span> (;;) &#123;</span><br><span class="line">               <span class="keyword">final</span> Node p = node.predecessor();</span><br><span class="line">               <span class="keyword">if</span> (p == head &amp;&amp; tryAcquire(arg)) &#123;</span><br><span class="line">                   setHead(node);</span><br><span class="line">                   p.next = <span class="keyword">null</span>; <span class="comment">// help GC</span></span><br><span class="line">                   failed = <span class="keyword">false</span>;</span><br><span class="line">                   <span class="keyword">return</span> interrupted;</span><br><span class="line">               &#125;</span><br><span class="line">               <span class="keyword">if</span> (shouldParkAfterFailedAcquire(p, node) &amp;&amp;</span><br><span class="line">                   parkAndCheckInterrupt())</span><br><span class="line">                   interrupted = <span class="keyword">true</span>;</span><br><span class="line">           &#125;</span><br><span class="line">       &#125; <span class="keyword">finally</span> &#123;</span><br><span class="line">           <span class="keyword">if</span> (failed)</span><br><span class="line">               cancelAcquire(node);</span><br><span class="line">       &#125;</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure>
+
+<p>selfInterrupt（）：</p>
+<p>自己给自己发送中断信号，也就是自己把自己的中 断标志位设为true。之所以要这么做，是因为自己在阻塞期间，收到其他线程中断信号没有及时响应，现在要进行补 偿。这样一来，如果该线程在lock代码块内部有调用sleep()之类的阻塞方法，就可以抛出异常，响应该中断信号。</p>
+<p>也正因为LockSupport.park()（在parkAndCheckInterrupt中）可能被中断唤醒，acquireQueued(…)方法才写了一个for死循环。唤醒之后，如果 发现自己排在队列头部，就去拿锁;如果拿不到锁，则再次自己阻塞自己。不断重复此过程，直到拿到锁。</p>
 <h3 id="锁相关"><a href="#锁相关" class="headerlink" title="锁相关"></a>锁相关</h3><ol>
 <li><p>锁（Synchronized、ReentrantLock的区别）、MarkWord</p>
 <p><em><strong>Synchronized、ReentrantLock的区别</strong></em></p>
@@ -391,19 +408,21 @@
 <li>Synchronized是非公平锁，ReentrantLock可以提供非公平锁和公平锁两种，利用fair参数可以控制；</li>
 <li>都提供了等待、通知机制；<ol>
 <li>Synchronized是利用了Obejct对象的notify和wait方法；</li>
-<li>ReentrantLock需要借助于condition、newCondition方法</li>
+<li>ReentrantLock需要借助于lock.newCondition方法，具体的是await()以及signal()。</li>
 </ol>
 </li>
 <li>ReentrantLock提供了中断等待机制；<code>lock.lockInterruptibly()</code></li>
 </ul>
-<ol start="2">
-<li>Java对象头的结构：</li>
-</ol>
+</li>
+<li><p>Java对象头的结构：</p>
 <p>MarkWord ：存储对象的hashcode、分代年龄、gc标记、同步状态、锁标志位等</p>
 <p>kClassPointer：对象的类型指针，指向类元数据（类class文件信息，metaspace空间的方法区）</p>
 <p><em><strong>Synchronized的优化&amp;Mark word 的结构</strong></em><br><img src="/Users/xiazhenyu/Desktop/typora%E6%96%87%E4%BB%B6%E9%9B%86%E5%90%88/%E6%96%87%E6%A1%A3%E5%90%88%E9%9B%86/MarkWord%E7%9A%84%E7%BB%93%E6%9E%84.png" alt="MarkWord的结构"></p>
-<p>2.1 无锁（01），所有线程均可以修改某一个资源的值，但同时只能由一个线程修改成功，其他会循环尝试；<br>2.2 偏向锁（01）：在对象头MarkWord中存放有对应的线程的id，如果发现请求线程是同一个的话，再次请求的时候，直接获取锁；<br>偏向锁的一个撤销 ：全局安全点（没有字节码在执行），暂停拥有偏向锁的线程，并判断对象是否处于被锁定的状态，如果没有的话，则把对象置为无锁状态，并撤销偏向锁，恢复到无锁或者轻量级锁状态；<br>2.3 轻量级锁（00）：如果在偏向锁的过程中，有其他的线程进行请求的话，就会转化为轻量级锁，或者是关闭偏向锁功能的时候（即2.2种描述的）。线程的栈帧中有一个Lock record的区域，拷贝一份Mark word到这个区域。线程会通过CAS操作，尝试讲Mark word 更新为这个栈帧中锁记录的指针，同时，LockRecord 中的owner指针也会指向Mark word。更新成功，线程就拥有对象的锁。如果CAS失败，判断Mark word是否指向当前线程的指针，是的话，就直接进入同步代码块继续执行。</p>
-<p>另一个线程会自旋，当自旋超过一定次数之后，会膨胀为重量级锁。（自适应自旋）；另一个升级为重量级锁的原因是这个时候有另外的线程<br>来争抢对象的锁；<br>2.4 重量级锁（10）：每一个对象都有一个ObjectMonitor锁对象。重量级锁的时候，mark word中存储的是这个monitor锁的指针，<br>另外monitor中，有一个owner指针，指向拥有锁的线程。ObjectMonitor对象内部结构：<br>entryList： 在进入或者重新进入时被阻塞的线程；<br>waitSet：在改Monitor上等待的线程；<br>owner： monitor的所有者（线程）；<br>这个monitor里面表示count（计数器），用于CAS操作。一次CAS操作成功，owner就会置换为指向对应最线程的指针；<br>利用Mutex Lock这个系统提供的来实现，来进行加锁，缺点：需要从内核态切换到用户态，比较消耗性能；</p>
+<p>2.1 无锁（01），所有线程均可以修改某一个资源的值，但同时只能由一个线程修改成功，其他会循环尝试；</p>
+<p>2.2 偏向锁（01）：在对象头MarkWord中存放有对应的线程的id，如果发现请求线程是同一个的话，再次请求的时候，直接获取锁；<br>偏向锁的一个撤销 ：全局安全点（没有字节码在执行），暂停拥有偏向锁的线程，并判断对象是否处于被锁定的状态，如果没有的话，则把对象置为无锁状态，并撤销偏向锁，恢复到无锁或者轻量级锁状态；</p>
+<p>2.3 轻量级锁（00）：如果在偏向锁的过程中，有其他的线程进行请求的话，就会转化为轻量级锁，或者是关闭偏向锁功能的时候（即2.2种描述的）。线程的栈帧中有一个Lock record的区域，拷贝一份Mark word到这个区域。线程会通过CAS操作，尝试将Mark word 更新为这个栈帧中锁记录的指针，同时，LockRecord 中的owner指针也会指向Mark word。更新成功，线程就拥有对象的锁。如果CAS失败，判断Mark word是否指向当前线程的指针，是的话，就直接进入同步代码块继续执行。</p>
+<p>另一个线程会自旋，当自旋超过一定次数之后，会膨胀为重量级锁。（自适应自旋）；另一个升级为重量级锁的原因是这个时候有另外的线程<br>来争抢对象的锁；</p>
+<p>2.4 重量级锁（10）：每一个对象都有一个ObjectMonitor锁对象。重量级锁的时候，mark word中存储的是这个monitor锁的指针，<br>另外monitor中，有一个owner指针，指向拥有锁的线程。ObjectMonitor对象内部结构：<br>entryList： 在进入或者重新进入时被阻塞的线程；<br>waitSet：在改Monitor上等待的线程；<br>owner： monitor的所有者（线程）；<br>这个monitor里面表示count（计数器），用于CAS操作。一次CAS操作成功，owner就会置换为指向对应最线程的指针；<br>利用Mutex Lock这个系统提供的来实现，来进行加锁，缺点：需要从内核态切换到用户态，比较消耗性能；</p>
 <p>同时，每一个线程都有一个monitor record列表。<br><img src="/Users/xiazhenyu/Desktop/typora%E6%96%87%E4%BB%B6%E9%9B%86%E5%90%88/%E6%96%87%E6%A1%A3%E5%90%88%E9%9B%86/ObjectMonitor%E5%8A%A0%E9%94%81%E6%B5%81%E7%A8%8B.png" alt="ObjectMonitor加锁流程"></p>
 <p>2.5 GC标记（11）</p>
 <ol start="3">
@@ -411,7 +430,7 @@
 </ol>
 <p>线程死锁的四个条件：</p>
 <ul>
-<li>互斥条件： 改资源任一时刻只能由一个线程占有；</li>
+<li>互斥条件： 该资源任一时刻只能由一个线程占有；</li>
 <li>请求与保持条件： 一个线程因请求资源而阻塞时，对已获得资源保持不放；</li>
 <li>不剥夺条件：线程已获得的资源在未使用完之前不能被其他线程强行剥夺，只有自己使用完毕之后才能释放资源；</li>
 <li>循环等待条件：若干进程之间形成一种头尾相接的循环等待资源的关系；</li>
@@ -432,39 +451,21 @@
 </code></pre>
 <ul>
 <li><p>线程池的执行流程</p>
-<p><img src="/Users/xiazhenyu/Desktop/typora%E6%96%87%E4%BB%B6%E9%9B%86%E5%90%88/%E6%96%87%E6%A1%A3%E5%90%88%E9%9B%86/%E7%BA%BF%E7%A8%8B%E6%B1%A0%E7%9A%84%E6%89%A7%E8%A1%8C%E6%B5%81%E7%A8%8B.png" alt="线程池的执行流程"></p>
+<p>![image-20220614192117559](/Users/xiazhenyu/Library/Application Support/typora-user-images/image-20220614192117559.png)</p>
 </li>
 </ul>
-<h3 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h3><h4 id="什么事OOM？如何理解？怎么排查OOM？内存泄漏和OOM的区别？"><a href="#什么事OOM？如何理解？怎么排查OOM？内存泄漏和OOM的区别？" class="headerlink" title="什么事OOM？如何理解？怎么排查OOM？内存泄漏和OOM的区别？"></a>什么事OOM？如何理解？怎么排查OOM？内存泄漏和OOM的区别？</h4><p>见JVM。</p>
-<h4 id="队列-amp-常用多线程工具"><a href="#队列-amp-常用多线程工具" class="headerlink" title="队列&amp;常用多线程工具"></a>队列&amp;常用多线程工具</h4><ol>
+<h3 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h3><h4 id="队列-amp-常用多线程工具"><a href="#队列-amp-常用多线程工具" class="headerlink" title="队列&amp;常用多线程工具"></a>队列&amp;常用多线程工具</h4><ol>
 <li>ForkJoin</li>
 <li>队列</li>
 </ol>
-<h4 id="上下文切换，"><a href="#上下文切换，" class="headerlink" title="上下文切换，"></a>上下文切换，</h4><p>Linux操作系统的上下文切换时间为什么很少？零拷贝。</p>
+<h4 id="上下文切换"><a href="#上下文切换" class="headerlink" title="上下文切换"></a>上下文切换</h4><p>Linux操作系统的上下文切换时间为什么很少？零拷贝。</p>
 <p>零拷贝技术，sendfile！只需要2次切换、2次拷贝</p>
 <p><img src="/Users/xiazhenyu/Desktop/typora%E6%96%87%E4%BB%B6%E9%9B%86%E5%90%88/%E6%96%87%E6%A1%A3%E5%90%88%E9%9B%86/%E9%9B%B6%E6%8B%B7%E8%B4%9D.png" alt="零拷贝"></p>
 <p>mmap技术： 4次切换、3次拷贝</p>
 <p><img src="/Users/xiazhenyu/Desktop/typora%E6%96%87%E4%BB%B6%E9%9B%86%E5%90%88/%E6%96%87%E6%A1%A3%E5%90%88%E9%9B%86/mmap.png" alt="mmap"></p>
-<h3 id="ThreadLocal"><a href="#ThreadLocal" class="headerlink" title="ThreadLocal"></a>ThreadLocal</h3><ol>
-<li>ThreadLocalMap是ThreadLocal的静态内部类</li>
-</ol>
-<p><img src="/Users/xiazhenyu/Desktop/typora%E6%96%87%E4%BB%B6%E9%9B%86%E5%90%88/%E6%96%87%E6%A1%A3%E5%90%88%E9%9B%86/ThreadLocal%E7%BB%93%E6%9E%84.png" alt="ThreadLocal结构"></p>
-<ol start="2">
-<li><p>内存泄漏：</p>
-<p>ThreadLocalMap中key为ThreadLocal的弱引用，而value是强引用。所以，如果ThreadLocal没有被引用的话，在gc时，key会被清理掉，而value不会。</p>
-<p>那么这个时候，就会出现key为null的entry，发生内存泄漏。<br>解决方法：手动调用remove方法，看源码可以发现，在执行set、get方法之后，顺便把路上无效的entry用线性清扫清除掉，也可以起到一定的解决内存泄漏的问题。但是get、set方法发起无效key的清理都是有触发条件的，一般都是发现key匹配不到，</p>
-<p>set方法：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">set</span><span class="params">(ThreadLocal&lt;?&gt; key, Object value)</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// We don&#x27;t use a fast path as with get() because it is at</span></span><br><span class="line">    <span class="comment">// least as common to use set() to create new entries as</span></span><br><span class="line">    <span class="comment">// it is to replace existing ones, in which case, a fast</span></span><br><span class="line">    <span class="comment">// path would fail more often than not.</span></span><br><span class="line"></span><br><span class="line">    Entry[] tab = table;</span><br><span class="line">    <span class="keyword">int</span> len = tab.length;</span><br><span class="line">    <span class="keyword">int</span> i = key.threadLocalHashCode &amp; (len-<span class="number">1</span>);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> (Entry e = tab[i];</span><br><span class="line">         e != <span class="keyword">null</span>;</span><br><span class="line">         e = tab[i = nextIndex(i, len)]) &#123;</span><br><span class="line">        ThreadLocal&lt;?&gt; k = e.get();</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (k == key) &#123;</span><br><span class="line">            e.value = value;</span><br><span class="line">            <span class="keyword">return</span>;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (k == <span class="keyword">null</span>) &#123;</span><br><span class="line">            replaceStaleEntry(key, value, i);</span><br><span class="line">            <span class="keyword">return</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    tab[i] = <span class="keyword">new</span> Entry(key, value);</span><br><span class="line">    <span class="keyword">int</span> sz = ++size;</span><br><span class="line">    <span class="keyword">if</span> (!cleanSomeSlots(i, sz) &amp;&amp; sz &gt;= threshold)</span><br><span class="line">        rehash();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="JMM-内存模型"><a href="#JMM-内存模型" class="headerlink" title="JMM 内存模型"></a>JMM 内存模型</h2><img src="/Users/xiazhenyu/Library/Application Support/typora-user-images/image-20220616104330708.png" alt="image-20220616104330708" style="zoom:50%;" />
 
-
-
-<p>get 方法：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">private</span> Entry <span class="title">getEntry</span><span class="params">(ThreadLocal&lt;?&gt; key)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> i = key.threadLocalHashCode &amp; (table.length - <span class="number">1</span>);</span><br><span class="line">    Entry e = table[i];</span><br><span class="line">    <span class="keyword">if</span> (e != <span class="keyword">null</span> &amp;&amp; e.get() == key)</span><br><span class="line">        <span class="keyword">return</span> e;</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">        <span class="keyword">return</span> getEntryAfterMiss(key, i, e);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Version of getEntry method for use when key is not found in</span></span><br><span class="line"><span class="comment"> * its direct hash slot.</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span>  key the thread local object</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span>  i the table index for key&#x27;s hash code</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span>  e the entry at table[i]</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@return</span> the entry associated with key, or null if no such</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="function"><span class="keyword">private</span> Entry <span class="title">getEntryAfterMiss</span><span class="params">(ThreadLocal&lt;?&gt; key, <span class="keyword">int</span> i, Entry e)</span> </span>&#123;</span><br><span class="line">    Entry[] tab = table;</span><br><span class="line">    <span class="keyword">int</span> len = tab.length;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">while</span> (e != <span class="keyword">null</span>) &#123;</span><br><span class="line">        ThreadLocal&lt;?&gt; k = e.get();</span><br><span class="line">        <span class="keyword">if</span> (k == key)</span><br><span class="line">            <span class="keyword">return</span> e;</span><br><span class="line">        <span class="keyword">if</span> (k == <span class="keyword">null</span>)</span><br><span class="line">            expungeStaleEntry(i);</span><br><span class="line">        <span class="keyword">else</span></span><br><span class="line">            i = nextIndex(i, len);</span><br><span class="line">        e = tab[i];</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p><a target="_blank" rel="noopener" href="https://cloud.tencent.com/developer/article/1706127">get、set方法是否确定可以解决内存泄漏问题？</a>，这个看了，感觉因该是可以的，只不过是在特定的条件下。</p>
-</li>
-</ol>
-<h2 id="JMM-内存模型"><a href="#JMM-内存模型" class="headerlink" title="JMM 内存模型"></a>JMM 内存模型</h2><h3 id="JMM与happen-before"><a href="#JMM与happen-before" class="headerlink" title="JMM与happen-before"></a>JMM与happen-before</h3><p>L1、L2、L3和主内存之间是同步的，有缓存一致性MESI协议的保证，但是Store Buffer、Load Buffer和L1之间却是异步的。内存中写入一个变量，这个变量会保存在Store Buffer中，稍后才异步的写入L1中，同时同步写入主内存中。</p>
+<h3 id="JMM与happen-before"><a href="#JMM与happen-before" class="headerlink" title="JMM与happen-before"></a>JMM与happen-before</h3><p>L1、L2、L3和主内存之间是同步的，有缓存一致性MESI协议的保证，但是Store Buffer、Load Buffer和L1之间却是异步的。内存中写入一个变量，这个变量会保存在Store Buffer中，稍后才异步的写入L1中，同时同步写入主内存中。</p>
 <h4 id="重排序与内存可见性的关系："><a href="#重排序与内存可见性的关系：" class="headerlink" title="重排序与内存可见性的关系："></a>重排序与内存可见性的关系：</h4><p>Store Buffer的延迟写入是重排序的一种，我们称之为内存重排序（Memory Ordering）。除此之外，还有编译器和CPU指令的重排序。</p>
 <p>重排序类型：</p>
 <ol>
@@ -493,7 +494,108 @@
 <li>对final变量的写，happen-before于final域对象的读，happen-before于后续对final变量的读；</li>
 </ol>
 <h4 id="volatile"><a href="#volatile" class="headerlink" title="volatile"></a>volatile</h4><p>volatile的三重功效：64位写入的原子性保障、内存可见性、禁止重排序；</p>
+<p>volatile可以保证可见性、有序性，但是不能保障原子性。</p>
+<h5 id="实现原理："><a href="#实现原理：" class="headerlink" title="实现原理："></a>实现原理：</h5><p>加入volatile的关键字时，会多出一个lock前缀指令。lock前缀指令相当于一个内存屏障。</p>
+<ol>
+<li>可见性：</li>
+</ol>
+<p>如果对声明了volatile变量进行写操作时，JVM会向处理器发送一条Lock前缀的指令，将这个变量所在缓存行的数据写会到系统内存。这一步确保了如果有其他线程对声明了volatile变量进行修改，则立即更新主内存中数据。</p>
+<p>但这时候其他处理器的缓存还是旧的，所以在多处理器环境下，为了保证各个处理器缓存一致，每个处理会通过嗅探在总线上传播的数据来检查 自己的缓存是否过期，当处理器发现自己缓存行对应的内存地址被修改了，就会将当前处理器的缓存行设置成无效状态，当处理器要对这个数据进行修改操作时，会强制重新从系统内存把数据读到处理器缓存里。 这一步确保了其他线程获得的声明了volatile变量都是从主内存中获取最新的。</p>
+<ol start="2">
+<li>有序性</li>
+</ol>
+<p>通过内存屏障实现。它确保指令重排序时不会把其后面的指令排到内存屏障之前的位置，也不会把前面的指令排到内存屏障的后面。</p>
+<h2 id="多线程技术"><a href="#多线程技术" class="headerlink" title="多线程技术"></a>多线程技术</h2><h3 id="Thread-和Runnable"><a href="#Thread-和Runnable" class="headerlink" title="Thread 和Runnable"></a>Thread 和Runnable</h3><p>Thead的常用方法：</p>
+<ul>
+<li><p>interrupt(): 中断目标线程，给目标线程发送一个<strong>中断信号</strong>，线程被打上中断标记；</p>
+</li>
+<li><p>Interrupted(): 判断目标线程是否被中断，但是讲清除线程的中断标记； 是个静态方法</p>
+</li>
+<li><p>Isinterrupted(): 判断目标线程是否被中断，不会中断标记；实例方法</p>
+</li>
+<li><p>Join(): 暂停线程的执行，直到调用该方法的线程执行结束（也就是调用join方法的thread执行结束）。可以使用该方法等待另一个Thread对象结束。</p>
+</li>
+</ul>
+<h3 id="线程之间的通知机制"><a href="#线程之间的通知机制" class="headerlink" title="线程之间的通知机制"></a>线程之间的通知机制</h3><ul>
+<li><p>wait()与notify()机制</p>
+<p>两个线程之间要通信，对 于同一个对象来说，一个线程调用该对象的wait()，另一个线程调用该对象的notify()，该对象本身就需要同步!所 以，在调用wait()、notify()之前，要先通过synchronized关键字同步给对象，也就是给该对象加锁。</p>
+<p>synchronized关键字可以加在任何对象的实例方法上面，任何对象都可能成为锁。因此，wait()和notify()只能放 在Object里面了。</p>
+<p>wait的内部机制：</p>
+<p>![image-20220618174626882](/Users/xiazhenyu/Library/Application Support/typora-user-images/image-20220618174626882.png)</p>
+</li>
+<li><p>condition机制。</p>
+</li>
+</ul>
+<ul>
+<li><p>线程的状态流转</p>
+<p>![image-20220618174906886](/Users/xiazhenyu/Library/Application Support/typora-user-images/image-20220618174906886.png)</p>
+</li>
+</ul>
+<ul>
+<li> 守护线程和非守护线</li>
+</ul>
+<p>  当所有的非守护线程退出以后，整个JVM进程就会退出。<strong>守护线程不算做数</strong>，</p>
+<p>  例如，垃圾回收线程就是守护线程，他们在后台默默的工作。</p>
+<h3 id="并发容器"><a href="#并发容器" class="headerlink" title="并发容器"></a>并发容器</h3><ul>
+<li><p>LinkedBlockingQueue和ArrayBlockingQueue的差异</p>
+<ol>
+<li>为了提高并发度，用2把锁。分别用于控制队头、队尾的操作。意味着在put(…)和put(…)之间、take()与take()之 间是互斥的，put(…)和take()之间并不互斥。但对于count变量，双方都需要操作，所以必须是原子类型。</li>
+<li>因为各自拿了一把锁，所以当需要调用对方的condition的signal时，还必须再加上对方的锁，就是 signalNotEmpty()和signalNotFull()方法。</li>
+</ol>
+</li>
+<li><p>PriorityBlockingQueue</p>
+<p>队列通常是先进先出的，而PriorityQueue是按照元素的优先级从小到大出队列的。正因为如此，PriorityQueue 中的2个元素之间需要可以比较大小，并实现Comparable接口。</p>
+</li>
+<li><p>DelayQueue</p>
+<p>DelayQueue即延迟队列，也就是一个按延迟时间从小到大出队的PriorityQueue。所谓延迟时间，就是“未来将要 执行的时间”减去“当前时间”。为此，放入DelayQueue中的元素，必须实现Delayed接口，如下所示</p>
+</li>
+<li><p>SynchronousQueue</p>
+<p>SynchronousQueue是一种特殊的BlockingQueue，它本身没有容量。先调put(…)，线程会阻塞;直到另外一个 线程调用了take()，两个线程才同时解锁，反之亦然。</p>
+</li>
+<li><p>CopyOnWrite</p>
+<p>在写的时候，不是直接写源数据，而是把数据拷贝一份进行修改，再通过悲观锁或者乐观锁方式写会。</p>
+<p>原因：为了在读的时候不加锁。</p>
+</li>
+<li><p>Semaphore</p>
+<p>Semaphore也就是信号量，提供了资源数量的并发访问控制。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">// 一开始有5份共享资源。第二个参数表示是否是公平</span><br><span class="line">Semaphore myResources = new Semaphore(5, true);</span><br></pre></td></tr></table></figure></li>
+<li><p>CountDownLatch</p>
+<p>假设一个主线程要等待5个 Worker 线程执行完才能退出，可以使用CountDownLatch来实现:</p>
+<p>基本用法就是声明一个CountDownLatch latch = new CountDownLatch(5);</p>
+<p>然后在Thread中执行latch.countDown();外层的话就需要执行latch.watit()方法。</p>
+</li>
+<li><p>**CyclicBarrier<br>**</p>
+</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">CyclicBarrierbarrier=newCyclicBarrier(5);</span><br><span class="line">barrier.await();</span><br></pre></td></tr></table></figure>
+
+<p>  该类用于协调多个线程同步执行操作的场合。</p>
+<h3 id="Lock与condition"><a href="#Lock与condition" class="headerlink" title="Lock与condition"></a>Lock与condition</h3><ul>
+<li>Lock</li>
+</ul>
+<p>锁实现的几个核心要素：</p>
+<ol>
+<li><p>需要一个state变量，标记该锁的状态。state变量至少有两个值:0、1。对state变量的操作，使用CAS保证 线程安全。</p>
+</li>
+<li><p>需要记录当前是哪个线程持有锁</p>
+</li>
+<li><p>需要底层支持对一个线程进行阻塞或唤醒操作。（park/unpark）</p>
+</li>
+<li><p>需要有一个队列维护所有阻塞的线程。这个队列也必须是线程安全的无锁队列，也需要使用CAS。（双向链表+CAS）</p>
+</li>
+</ol>
+<p>在当前线程中调用**park()<strong>，该线程就会被阻塞;在另外一个线程中，调用</strong>unpark(Thread thread)<strong>，传入一个被 阻塞的线程，就可以唤醒阻塞在</strong>park()**地方的线程。</p>
+<p>unpark(Thread thread)，它实现了一个线程对另外一个线程的“精准唤醒”。notify也只是唤醒某一个线程，但无 法指定具体唤醒哪个线程。</p>
+<p>读写锁： ReentrantReadWriteLock（读线程和读线程之间不互斥）。</p>
+<ul>
+<li>condition</li>
+</ul>
+<p>wait()/notify()必须和synchronized一起使用，Condition也必须和Lock一起使用。因此，在Lock的接口中，有一 个与Condition相关的接口。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">Lock</span> </span>&#123;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">lock</span><span class="params">()</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">lockInterruptibly</span><span class="params">()</span> <span class="keyword">throws</span> InterruptedException</span>; <span class="comment">// 所有的Condition都是从Lock中构造出来的</span></span><br><span class="line"><span class="function">Condition <span class="title">newCondition</span><span class="params">()</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">boolean</span> <span class="title">tryLock</span><span class="params">()</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">boolean</span> <span class="title">tryLock</span><span class="params">(<span class="keyword">long</span> time, TimeUnit unit)</span> <span class="keyword">throws</span> InterruptedException</span>;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">unlock</span><span class="params">()</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
 <p>实现原理：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="class"><span class="keyword">class</span> <span class="title">AbstractQueuedSynchronizer</span> <span class="keyword">extends</span> <span class="title">AbstractOwnableSynchronizer</span></span></span><br><span class="line"><span class="class">    <span class="keyword">implements</span> <span class="title">java</span>.<span class="title">io</span>.<span class="title">Serializable</span> </span>&#123;</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ConditionObject</span> <span class="keyword">implements</span> <span class="title">Condition</span>, <span class="title">java</span>.<span class="title">io</span>.<span class="title">Serializable</span> </span>&#123; <span class="comment">// Condition的所有实现，都在ConditionObject类中</span></span><br><span class="line">	&#125; </span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">abstract</span> <span class="keyword">static</span> <span class="class"><span class="keyword">class</span> <span class="title">Sync</span> <span class="keyword">extends</span> <span class="title">AbstractQueuedSynchronizer</span> </span>&#123;</span><br><span class="line">   <span class="function"><span class="keyword">final</span> ConditionObject <span class="title">newCondition</span><span class="params">()</span> </span>&#123;</span><br><span class="line">       <span class="keyword">return</span> <span class="keyword">new</span> ConditionObject();</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
 
       
     </div>
@@ -550,7 +652,7 @@
   <ul class="pager pull-left">
     
     <li class="prev">
-      <a href="/2021/10/02/%E5%A4%9A%E7%BA%BF%E7%A8%8B/" title="(no title)"><i class="icon icon-angle-left" aria-hidden="true"></i><span>&nbsp;&nbsp;上一篇</span></a>
+      <a href="/2021/10/02/typora%E6%96%87%E4%BB%B6%E9%9B%86%E5%90%88/%E6%8B%89%E9%92%A9/%E5%81%87%E6%9C%9F%E4%BD%9C%E4%B8%9A/" title="(no title)"><i class="icon icon-angle-left" aria-hidden="true"></i><span>&nbsp;&nbsp;上一篇</span></a>
     </li>
     
     

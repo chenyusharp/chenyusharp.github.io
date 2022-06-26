@@ -27,13 +27,22 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="http://example.com/Users/xiazhenyu/Desktop/typora%E6%96%87%E4%BB%B6%E9%9B%86%E5%90%88/%E6%96%87%E6%A1%A3%E5%90%88%E9%9B%86/Redis%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E6%80%BB%E4%BD%93.png">
 <meta property="og:image" content="http://example.com/Users/xiazhenyu/Desktop/typora%E6%96%87%E4%BB%B6%E9%9B%86%E5%90%88/%E6%96%87%E6%A1%A3%E5%90%88%E9%9B%86/%E8%B7%B3%E8%A1%A8%E7%9A%84%E7%BB%93%E6%9E%84%E7%A4%BA%E4%BE%8B.png">
-<meta property="og:image" content="http://example.com/Users/xiazhenyu/Desktop/typora%E6%96%87%E4%BB%B6%E9%9B%86%E5%90%88/%E6%96%87%E6%A1%A3%E5%90%88%E9%9B%86/Redis%E7%9A%84%E5%AD%97%E5%85%B8%E6%89%A9%E5%AE%B9%E6%B5%81%E7%A8%8B.png">
+<meta property="og:image" content="https://xiazhenyu.oss-cn-hangzhou.aliyuncs.com/common/image-20220611153436986.png">
+<meta property="og:image" content="http://example.com/Users/xiazhenyu/Desktop/typora文件集合/文档合集/Redis的字典扩容流程.png">
+<meta property="og:image" content="https://xiazhenyu.oss-cn-hangzhou.aliyuncs.com/common/image-20220611154657807.png">
+<meta property="og:image" content="https://xiazhenyu.oss-cn-hangzhou.aliyuncs.com/common/image-20220611160457475.png">
 <meta property="og:image" content="http://example.com/Users/xiazhenyu/Desktop/typora%E6%96%87%E4%BB%B6%E9%9B%86%E5%90%88/%E6%96%87%E6%A1%A3%E5%90%88%E9%9B%86/redis%E5%92%8Cmemcache%E7%9A%84%E5%8C%BA%E5%88%AB.png">
+<meta property="og:image" content="https://xiazhenyu.oss-cn-hangzhou.aliyuncs.com/common/image-20220611173811015.png">
 <meta property="og:image" content="http://example.com/Users/xiazhenyu/Desktop/typora%E6%96%87%E4%BB%B6%E9%9B%86%E5%90%88/%E6%96%87%E6%A1%A3%E5%90%88%E9%9B%86/RDB%E5%A4%8D%E5%88%B6%E6%B5%81%E7%A8%8B%E5%9B%BE.png">
+<meta property="og:image" content="https://xiazhenyu.oss-cn-hangzhou.aliyuncs.com/common/image-20220611175451536.png">
+<meta property="og:image" content="http://example.com/Users/xiazhenyu/Library/Application%20Support/typora-user-images/image-20220611175726025.png">
+<meta property="og:image" content="http://example.com/Users/xiazhenyu/Library/Application%20Support/typora-user-images/image-20220611183131348.png">
+<meta property="og:image" content="https://xiazhenyu.oss-cn-hangzhou.aliyuncs.com/common/image-20220611183223533.png">
+<meta property="og:image" content="https://xiazhenyu.oss-cn-hangzhou.aliyuncs.com/common/image-20220611183446441.png">
 <meta property="og:image" content="http://example.com/Users/xiazhenyu/Desktop/typora%E6%96%87%E4%BB%B6%E9%9B%86%E5%90%88/%E6%96%87%E6%A1%A3%E5%90%88%E9%9B%86/redis%E7%BC%93%E5%AD%98%E9%9B%AA%E5%B4%A9%E7%9A%84%E5%A4%84%E7%90%86%E6%96%B9%E5%BC%8F.png">
 <meta property="og:image" content="http://example.com/Users/xiazhenyu/Desktop/typora%E6%96%87%E4%BB%B6%E9%9B%86%E5%90%88/%E6%96%87%E6%A1%A3%E5%90%88%E9%9B%86/Redisson%E7%BB%AD%E7%A7%9F%E6%9C%BA%E5%88%B6.png">
 <meta property="article:published_time" content="2022-02-24T01:54:19.369Z">
-<meta property="article:modified_time" content="2022-02-24T01:54:19.369Z">
+<meta property="article:modified_time" content="2022-06-11T14:48:26.344Z">
 <meta property="article:author" content="chenyusharp">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="http://example.com/Users/xiazhenyu/Desktop/typora%E6%96%87%E4%BB%B6%E9%9B%86%E5%90%88/%E6%96%87%E6%A1%A3%E5%90%88%E9%9B%86/Redis%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E6%80%BB%E4%BD%93.png">
@@ -219,7 +228,7 @@
     <h3 class="widget-title">分类</h3>
     <div class="widget-body">
     <div class="widget">
-      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/DDD/">DDD</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/JVM/">JVM</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Linux/">Linux</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Redis/">Redis</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/git/">git</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/linux/">linux</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/redis/">redis</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/typora/">typora</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/wholee/">wholee</a><span class="category-list-count">11</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E4%B8%9A%E5%8A%A1%E6%A8%A1%E5%BC%8F/">业务模式</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E4%BA%A7%E5%93%81/">产品</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%8A%80%E6%9C%AF/">技术</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%8A%80%E8%83%BD/">技能</a><span class="category-list-count">1</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%8A%80%E8%83%BD/%E5%B7%A5%E4%BD%9C/">工作</a><span class="category-list-count">1</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%8B%89%E9%92%A9/">拉钩</a><span class="category-list-count">1</span></li></ul>
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/JVM/">JVM</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Linux/">Linux</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/MQ/">MQ</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Redis/">Redis</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/algorithms/">algorithms</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/git/">git</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/linux/">linux</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/lombok/">lombok</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/maven/">maven</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/redis/">redis</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/s3/">s3</a><span class="category-list-count">1</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/s3/%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0/">文件上传</a><span class="category-list-count">1</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/typora/">typora</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/wholee/">wholee</a><span class="category-list-count">13</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E4%B8%9A%E5%8A%A1%E6%A8%A1%E5%BC%8F/">业务模式</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E4%BA%A7%E5%93%81/">产品</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%8A%80%E6%9C%AF/">技术</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%8B%89%E9%92%A9/">拉钩</a><span class="category-list-count">1</span></li></ul>
     </div>
   </div>
 
@@ -229,7 +238,7 @@
   <div class="widget">
     <h3 class="widget-title">标签</h3>
     <div class="widget-body">
-      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/DDD/" rel="tag">DDD</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux/" rel="tag">Linux</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/git/" rel="tag">git</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/linux/" rel="tag">linux</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/redis/" rel="tag">redis</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/wholee/" rel="tag">wholee</a><span class="tag-list-count">13</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%B7%A5%E4%BD%9C%E5%AE%89%E6%8E%92/" rel="tag">工作安排</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%8A%80%E8%83%BD/" rel="tag">技能</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%8B%89%E9%92%A9/" rel="tag">拉钩</a><span class="tag-list-count">3</span></li></ul>
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux/" rel="tag">Linux</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/algorithms/" rel="tag">algorithms</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/algorithms-task/" rel="tag">algorithms  task</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/clubFactory/" rel="tag">clubFactory</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/git/" rel="tag">git</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/kafka/" rel="tag">kafka</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/linux/" rel="tag">linux</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/lombok/" rel="tag">lombok</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/maven/" rel="tag">maven</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/maven-version/" rel="tag">maven version</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/redis/" rel="tag">redis</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/wholee/" rel="tag">wholee</a><span class="tag-list-count">13</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%B7%A5%E4%BD%9C%E5%AE%89%E6%8E%92/" rel="tag">工作安排</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%8B%89%E9%92%A9/" rel="tag">拉钩</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E9%83%A8%E7%BD%B2-%E8%BF%90%E7%BB%B4%E7%B3%BB%E7%BB%9F/" rel="tag">部署/运维系统</a><span class="tag-list-count">2</span></li></ul>
     </div>
   </div>
 
@@ -239,7 +248,7 @@
   <div class="widget">
     <h3 class="widget-title">标签云</h3>
     <div class="widget-body tagcloud">
-      <a href="/tags/DDD/" style="font-size: 13px;">DDD</a> <a href="/tags/Linux/" style="font-size: 13px;">Linux</a> <a href="/tags/git/" style="font-size: 13px;">git</a> <a href="/tags/linux/" style="font-size: 13.25px;">linux</a> <a href="/tags/redis/" style="font-size: 13px;">redis</a> <a href="/tags/wholee/" style="font-size: 14px;">wholee</a> <a href="/tags/%E5%B7%A5%E4%BD%9C%E5%AE%89%E6%8E%92/" style="font-size: 13.75px;">工作安排</a> <a href="/tags/%E6%8A%80%E8%83%BD/" style="font-size: 13px;">技能</a> <a href="/tags/%E6%8B%89%E9%92%A9/" style="font-size: 13.5px;">拉钩</a>
+      <a href="/tags/Linux/" style="font-size: 13px;">Linux</a> <a href="/tags/algorithms/" style="font-size: 13px;">algorithms</a> <a href="/tags/algorithms-task/" style="font-size: 13px;">algorithms  task</a> <a href="/tags/clubFactory/" style="font-size: 13px;">clubFactory</a> <a href="/tags/git/" style="font-size: 13px;">git</a> <a href="/tags/kafka/" style="font-size: 13px;">kafka</a> <a href="/tags/linux/" style="font-size: 13.4px;">linux</a> <a href="/tags/lombok/" style="font-size: 13px;">lombok</a> <a href="/tags/maven/" style="font-size: 13px;">maven</a> <a href="/tags/maven-version/" style="font-size: 13px;">maven version</a> <a href="/tags/redis/" style="font-size: 13px;">redis</a> <a href="/tags/wholee/" style="font-size: 14px;">wholee</a> <a href="/tags/%E5%B7%A5%E4%BD%9C%E5%AE%89%E6%8E%92/" style="font-size: 13.8px;">工作安排</a> <a href="/tags/%E6%8B%89%E9%92%A9/" style="font-size: 13.6px;">拉钩</a> <a href="/tags/%E9%83%A8%E7%BD%B2-%E8%BF%90%E7%BB%B4%E7%B3%BB%E7%BB%9F/" style="font-size: 13.2px;">部署/运维系统</a>
     </div>
   </div>
 
@@ -248,7 +257,7 @@
   <div class="widget">
     <h3 class="widget-title">归档</h3>
     <div class="widget-body">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/03/">三月 2022</a><span class="archive-list-count">20</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/02/">二月 2022</a><span class="archive-list-count">21</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/01/">一月 2022</a><span class="archive-list-count">30</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/12/">十二月 2021</a><span class="archive-list-count">8</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/11/">十一月 2021</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/10/">十月 2021</a><span class="archive-list-count">38</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/09/">九月 2021</a><span class="archive-list-count">10</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/08/">八月 2021</a><span class="archive-list-count">21</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/07/">七月 2021</a><span class="archive-list-count">18</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/06/">六月 2021</a><span class="archive-list-count">11</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/05/">五月 2021</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/03/">三月 2021</a><span class="archive-list-count">1</span></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/06/">六月 2022</a><span class="archive-list-count">14</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/05/">五月 2022</a><span class="archive-list-count">10</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/04/">四月 2022</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/03/">三月 2022</a><span class="archive-list-count">20</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/02/">二月 2022</a><span class="archive-list-count">22</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/01/">一月 2022</a><span class="archive-list-count">27</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/12/">十二月 2021</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/11/">十一月 2021</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/10/">十月 2021</a><span class="archive-list-count">29</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/09/">九月 2021</a><span class="archive-list-count">10</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/08/">八月 2021</a><span class="archive-list-count">21</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/07/">七月 2021</a><span class="archive-list-count">18</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/06/">六月 2021</a><span class="archive-list-count">11</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/05/">五月 2021</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/03/">三月 2021</a><span class="archive-list-count">1</span></li></ul>
     </div>
   </div>
 
@@ -264,28 +273,13 @@
             
             <div class="item-inner">
               <p class="item-category">
-                <a class="category-link" href="/categories/%E4%B8%9A%E5%8A%A1%E6%A8%A1%E5%BC%8F/">业务模式</a>
+                
               </p>
               <p class="item-title">
-                <a href="/2022/03/28/typora%E6%96%87%E4%BB%B6%E9%9B%86%E5%90%88/%E4%BA%A7%E5%93%81/wholee/%E9%98%BF%E7%B1%B3%E5%B7%B4%E6%A8%A1%E5%BC%8F/" class="title">阿米巴</a>
+                <a href="/2022/06/24/typora%E6%96%87%E4%BB%B6%E9%9B%86%E5%90%88/%E4%B8%AA%E4%BA%BA/%E6%B8%B8%E6%88%8F/%E6%B8%B8%E6%88%8F%E5%A4%A7%E5%85%A8/" class="title">(no title)</a>
               </p>
               <p class="item-date">
-                <time datetime="2022-03-28T11:12:59.061Z" itemprop="datePublished">2022-03-28</time>
-              </p>
-            </div>
-          </li>
-          
-          <li>
-            
-            <div class="item-inner">
-              <p class="item-category">
-                <a class="category-link" href="/categories/%E4%BA%A7%E5%93%81/">产品</a>
-              </p>
-              <p class="item-title">
-                <a href="/2022/03/28/typora%E6%96%87%E4%BB%B6%E9%9B%86%E5%90%88/%E4%BA%A7%E5%93%81/wholee/%E8%B4%A2%E5%8A%A1%E7%9B%B8%E5%85%B3/" class="title">财务相关产品文档</a>
-              </p>
-              <p class="item-date">
-                <time datetime="2022-03-28T11:09:10.242Z" itemprop="datePublished">2022-03-28</time>
+                <time datetime="2022-06-24T15:55:52.120Z" itemprop="datePublished">2022-06-24</time>
               </p>
             </div>
           </li>
@@ -297,10 +291,10 @@
                 
               </p>
               <p class="item-title">
-                <a href="/2022/03/28/typora%E6%96%87%E4%BB%B6%E9%9B%86%E5%90%88/%E4%BA%A7%E5%93%81/wholee/%E8%B4%A7%E5%93%81%E7%9B%B8%E5%85%B3/" class="title">(no title)</a>
+                <a href="/2022/06/22/typora%E6%96%87%E4%BB%B6%E9%9B%86%E5%90%88/%E6%8A%80%E6%9C%AF/%E6%8A%80%E6%9C%AF%E7%AC%94%E8%AE%B0/%E6%BA%90%E7%A0%81/Atomic%E7%B1%BB/" class="title">(no title)</a>
               </p>
               <p class="item-date">
-                <time datetime="2022-03-28T11:08:55.123Z" itemprop="datePublished">2022-03-28</time>
+                <time datetime="2022-06-22T08:12:04.951Z" itemprop="datePublished">2022-06-22</time>
               </p>
             </div>
           </li>
@@ -309,13 +303,13 @@
             
             <div class="item-inner">
               <p class="item-category">
-                <a class="category-link" href="/categories/JVM/">JVM</a>
+                
               </p>
               <p class="item-title">
-                <a href="/2022/03/28/typora%E6%96%87%E4%BB%B6%E9%9B%86%E5%90%88/%E6%8B%89%E9%92%A9/JVM/JVM%E5%AD%A6%E4%B9%A0%E6%80%BB%E7%BB%93/" class="title">JVM学习总结</a>
+                <a href="/2022/06/18/typora%E6%96%87%E4%BB%B6%E9%9B%86%E5%90%88/%E6%8B%89%E9%92%A9/%E9%A1%B9%E7%9B%AE%E5%AE%9E%E6%88%98/%E8%BF%9B%E5%BA%A6/" class="title">(no title)</a>
               </p>
               <p class="item-date">
-                <time datetime="2022-03-27T22:09:01.164Z" itemprop="datePublished">2022-03-28</time>
+                <time datetime="2022-06-18T13:54:20.914Z" itemprop="datePublished">2022-06-18</time>
               </p>
             </div>
           </li>
@@ -324,13 +318,28 @@
             
             <div class="item-inner">
               <p class="item-category">
-                <a class="category-link" href="/categories/Redis/">Redis</a>
+                
               </p>
               <p class="item-title">
-                <a href="/2022/03/27/typora%E6%96%87%E4%BB%B6%E9%9B%86%E5%90%88/%E6%8B%89%E9%92%A9/%E4%B8%AD%E9%97%B4%E4%BB%B6/Redis/Redis%E9%A2%84%E4%B9%A0/" class="title">Reids预习</a>
+                <a href="/2022/06/18/typora%E6%96%87%E4%BB%B6%E9%9B%86%E5%90%88/%E6%8B%89%E9%92%A9/%E9%A1%B9%E7%9B%AE%E5%AE%9E%E6%88%98/%E9%A1%B9%E7%9B%AE%E6%9E%B6%E6%9E%84/" class="title">(no title)</a>
               </p>
               <p class="item-date">
-                <time datetime="2022-03-26T16:53:06.754Z" itemprop="datePublished">2022-03-27</time>
+                <time datetime="2022-06-18T13:54:08.755Z" itemprop="datePublished">2022-06-18</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                
+              </p>
+              <p class="item-title">
+                <a href="/2022/06/18/typora%E6%96%87%E4%BB%B6%E9%9B%86%E5%90%88/%E6%8B%89%E9%92%A9/%E9%A1%B9%E7%9B%AE%E5%AE%9E%E6%88%98/%E7%B4%A0%E6%9D%90/" class="title">(no title)</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2022-06-18T13:53:58.126Z" itemprop="datePublished">2022-06-18</time>
               </p>
             </div>
           </li>
@@ -375,21 +384,20 @@
 <li>Hash、Set 、Sorted Set、List、Geo、String等数据类型</li>
 </ol>
 <p><img src="/Users/xiazhenyu/Desktop/typora%E6%96%87%E4%BB%B6%E9%9B%86%E5%90%88/%E6%96%87%E6%A1%A3%E5%90%88%E9%9B%86/Redis%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E6%80%BB%E4%BD%93.png" alt="Redis数据结构总体"></p>
-<p>数据库由redis.h中的RedisDb定义，初始化的时候，会预先分配16个数据库；<br>所有的数据库保存到结构RedisServer的一个成员RedisServer.db 数组中。<br>redisClient中存在一个名叫db的指针指向当前使用的数据库。</p>
+<p>数据库由redis.h中的RedisDb定义，初始化的时候，会预先分配<strong>16个数据库</strong>；<br>所有的数据库保存到结构RedisServer的一个成员RedisServer.db 数组中。<br>redisClient中存在一个名叫db的指针指向当前使用的数据库。</p>
 <p>RedisObject结构：<br>value是一个对象，包含字符串、列表、哈希对象、集合对象和有序集合对象；</p>
-<h3 id="字符串："><a href="#字符串：" class="headerlink" title="字符串："></a>字符串：</h3><p>Redis使用SDS（Simple Dynamic String）用于存储字符串和整型数据； 优势：</p>
+<h3 id="简单动态字符串："><a href="#简单动态字符串：" class="headerlink" title="简单动态字符串："></a>简单动态字符串：</h3><p>Redis使用SDS（Simple Dynamic String）用于存储字符串和整型数据； 优势：</p>
 <ol>
-<li>SDS在C语言字符串的基础上加入了free和len字段，获取字符串长度的时间复杂度是O(1)，C是O(n);</li>
+<li>SDS在C语言字符串的基础上加入了free和len字段，获取字符串长度的时间复杂度是O(1)，C语言的是O(n);</li>
 <li>SDS由于记录了长度，在可能造成缓冲区溢出时会自动重新分配内存，杜绝了缓冲区的溢出；</li>
-<li>可以存取二进制数据，以字符串长度len来作为结束标识；</li>
+<li>可以存取二进制数据，通过len识别是否结束；</li>
 </ol>
 <p>使用场景：存储字符串和整型数据、存储key、AOF缓冲区和用户输入缓冲；</p>
-<h3 id="有序集合"><a href="#有序集合" class="headerlink" title="有序集合"></a>有序集合</h3><p><em><strong>跳表</strong></em> ：</p>
-<p>将有序链表中的部分节点分层，每一层都是一个有序链表；</p>
+<h3 id="跳表："><a href="#跳表：" class="headerlink" title="跳表："></a>跳表：</h3><p>将有序链表中的部分节点分层，每一层都是一个有序链表；</p>
 <ol>
 <li>查找过程：在查找时优先从最高层开始向后查找，当达到某个节点时，如果next节点值大于要查找的值或next指针指向null，则从==当前节点==下降一层继续向后查找。<br><img src="/Users/xiazhenyu/Desktop/typora%E6%96%87%E4%BB%B6%E9%9B%86%E5%90%88/%E6%96%87%E6%A1%A3%E5%90%88%E9%9B%86/%E8%B7%B3%E8%A1%A8%E7%9A%84%E7%BB%93%E6%9E%84%E7%A4%BA%E4%BE%8B.png" alt="跳表的结构示例"></li>
-<li>插入：通过抛硬币（概率1/2）的方式来决定新插入结点跨越的层数；<br>正面：插入上层；<br>背面：不插入</li>
-<li>删除：找到指定元素并删除每层的该元素即可；</li>
+<li>插入：每次创建一个新跳跃表节点的时候，程序根据幂次定律（越大的数出现的概率越小）随机生成一个介于1和32之间的值作为层数。</li>
+<li>删除：找到指定元素并删除每层的该元素即可，同时需要将前一个元素的每一层的forward指针指向当前元素的forward指针；</li>
 <li>特点：<ol>
 <li>每层都是一个有序链表；</li>
 <li>查找的次数近似等于层数（1/2）；</li>
@@ -397,73 +405,206 @@
 <li>空间复杂度O(n)扩充了一倍；</li>
 </ol>
 </li>
-<li>实现：<br>利用zskiplist实现；</li>
+<li>实现：<br>利用zskiplist实现；<br><img src="https://xiazhenyu.oss-cn-hangzhou.aliyuncs.com/common/image-20220611153436986.png" alt="image-20220611153436986">****</li>
 <li>优势：<ol>
 <li>可以快速查找需要的节点O(logn);</li>
 <li>可以在O(1)的时间复杂度下，快速获得跳跃表的头节点、尾节点、长度和高度；（zskiplist存储了这些信息）；</li>
 </ol>
 </li>
 </ol>
-<h3 id="字典（hash散列表）"><a href="#字典（hash散列表）" class="headerlink" title="字典（hash散列表）"></a>字典（hash散列表）</h3><p>hash冲突：采用单链表在相同的下标位置存储原始的key和value；</p>
+<h3 id="字典"><a href="#字典" class="headerlink" title="字典"></a>字典</h3><p>hash冲突：采用单链表在相同的下标位置存储原始的key和value；</p>
 <ul>
 <li>实现：<br>包括：字典（dict）、Hash表（dictht）、Hash表节点（dictEntry）；</li>
-<li>用途：出了可以存储K-V数据以外，还可以用于：散列表对象、哨兵模式中的主从节点管理；</li>
+<li>用途：出了可以存储K-V数据以外，还可以用于：散列表对象、哨兵模式中的主从节点管理；数据库的底层实现，另外也是哈希键的底层实现之一。</li>
 <li>扩容：存储上限：阀值0.75，需要rehash（扩容）</li>
 </ul>
-<p><img src="/Users/xiazhenyu/Desktop/typora%E6%96%87%E4%BB%B6%E9%9B%86%E5%90%88/%E6%96%87%E6%A1%A3%E5%90%88%E9%9B%86/Redis%E7%9A%84%E5%AD%97%E5%85%B8%E6%89%A9%E5%AE%B9%E6%B5%81%E7%A8%8B.png" alt="Redis的字典扩容流程"></p>
+<img src="/Users/xiazhenyu/Desktop/typora文件集合/文档合集/Redis的字典扩容流程.png" alt="Redis的字典扩容流程" style="zoom: 25%;" />
+
 <p>说明：</p>
 <ol>
 <li>初次申请默认容量为4个dictEntry，非初次申请为当前hash表容量的一倍；</li>
-<li>rehashidx，rehash标识。=0表示要进行rehash操作；</li>
+<li>rehashidx，rehash标识。当开始rehash时，将rehashidx状态位+1，ht[0]全部移动到ht[1]后，rehashidx回到‐1；</li>
 <li>新增加的数据在新的hash表h[1]；</li>
 <li>修改、删除、查询都在老的hash表h[0]、新hash表h[1]中（reshash中）；</li>
 <li>将老的hash表h[0]的数据重新计算索引值后全部迁移到新的hash表h[1]中，这个过程称为rehash。</li>
 </ol>
 <p>渐进式hash：服务器忙的时候，则只对一个节点进rehash，服务器闲，可批量rehash（100节点）； </p>
-<h3 id="压缩列表（ziplist）"><a href="#压缩列表（ziplist）" class="headerlink" title="压缩列表（ziplist）"></a>压缩列表（ziplist）</h3><p>压缩列表(ziplist)是由一系列特殊编码的连续内存块组成的顺序型数据结构</p>
-<h3 id="快速列表"><a href="#快速列表" class="headerlink" title="快速列表"></a>快速列表</h3><p>快速列表（quicklist）是Redis底层重要的数据结构，是<em><strong>列表</strong></em>的底层实现；<br>快速列表是一个双向链表，链表中的每个节点是一个ziplist结构。quicklist中的每个节点ziplist都能够存储多个数据元素；<br>双向链表的优势:</p>
+<p>进行扩容的条件：</p>
+<ul>
+<li>服务器目前没有在执行BGSAVE命令或者BGREWRITEAOF命令，并且哈希表的负载因子大于1；</li>
+<li>服务器目前在执行BGSAVE命令或者BGREWRITEAOF命令，并且负载因子大于5；</li>
+<li>当哈希表的负载因子小于0.1时，程序自动开始对哈希表执行收缩操作；</li>
+</ul>
+<p>如何计算索引位：</p>
 <ol>
-<li>双向:链表具有前置节点和后置节点的引用，获取这两个节点时间复杂度都为O(1)。</li>
-<li>普通链表(单链表):节点类保留下一节点的引用。链表类只保留头节点的引用，只能从头节点插 入删除；</li>
-<li>无环:表头节点的 prev 指针和表尾节点的 next 指针都指向 NULL,对链表的访问都是以 NULL 结 束。<br>环状:头的前一个节点指向尾节点</li>
-<li>带链表长度计数器:通过 len 属性获取链表长度的时间复杂度为 O(1)。</li>
-<li>多态:链表节点使用 void* 指针来保存节点值，可以保存各种不同类型的值。</li>
+<li>计算key的哈希值；</li>
+<li>使用哈希表的sizemask（等于哈希表数组table的size-1）+哈希值，计算出索引位；</li>
+<li>如果出现Hash冲突，Redis使用拉链法来解决，新的值会成为链表的头节点；</li>
+<li>计算hash值的算法: MurmuHash2。特点：随机分布均匀，速度快。</li>
 </ol>
-<h3 id="10中encoding"><a href="#10中encoding" class="headerlink" title="10中encoding"></a>10中encoding</h3><p>encoding 表示对象的内部编码，占 4 位。<br>Redis通过 encoding 属性为对象设置不同的编码。</p>
-<p>String的有三个：int（int类型的整数）、embstr（编码的简单动态字符串，长度小于44字节）、raw（简单动态字符串，长度大于44字节）；</p>
-<p>list的是quicklist（快速列表）；</p>
-<p>hash的是字典和压缩列表；dict（字典，散列表元素个数比较多或元素不是小整数或短字符串时），ziplist（当散列表的元素个数比较少，且元素都是小整型或短字符串时）</p>
-<p>set的是整型集合（intSet 都是整数并且在64位有符号整数范围内）和字典（非整数或在64位有符号整数范围以外）；</p>
-<p>zset的是：压缩列表和跳表+字典；</p>
+<h3 id="压缩列表（ziplist）"><a href="#压缩列表（ziplist）" class="headerlink" title="压缩列表（ziplist）"></a>压缩列表（ziplist）</h3><p>压缩列表(ziplist)是由一系列特殊编码的连续内存块组成的顺序型数据结构。是哈希键的底层实现之一，与字典的使用场景区别是，压缩列表使用在数据量比较小的时候。同时也可以用在有序集合、列表中。</p>
+<img src="https://xiazhenyu.oss-cn-hangzhou.aliyuncs.com/common/image-20220611154657807.png" alt="image-20220611154657807" style="zoom: 50%;" />
+
+<h3 id="快速列表"><a href="#快速列表" class="headerlink" title="快速列表"></a>快速列表</h3><p>快速列表（quicklist）是Redis底层重要的数据结构，是<em><strong>列表</strong></em>的底层实现；<br>快速列表是一个双向链表，链表中的每个节点是一个ziplist结构。quicklist中的每个节点ziplist都能够存储多个数据元素；<br>双向链表的优势:</p>
+<ul>
+<li><p>双端:链表节点带有prev和next指针，获取某个节点的前置节点和后置节点的复杂度都是O(1);</p>
+</li>
+<li><p>无环:表头节点的prev指针和表尾节点的next指针都指向NULL，对链表的访问以NULL为终点;</p>
+</li>
+<li><p>带表头指针和表尾指针:通过list结构的head指针和tail指针，程序获取链表的表头节点和表尾节点的复杂度为O(1)；</p>
+</li>
+<li><p>带链表长度计数器:程序使用list结构的len属性来对list持有的链表节点进行计数，程序获取链表中节点数量的复杂</p>
+<p>度为O(1);</p>
+</li>
+<li><p>多态:链表节点使用void*指针来保存节点值，并且可以通过list结构的dup、free、match三个属性为节点值设置类型特定函数，所以链表可以用于保存各种不同类型的值。</p>
+</li>
+</ul>
+<h3 id="10种encoding"><a href="#10种encoding" class="headerlink" title="10种encoding"></a>10种encoding</h3><p>encoding 表示对象的内部编码，占 4 位。<br>Redis通过 encoding 属性为对象设置不同的编码。</p>
+<p><img src="https://xiazhenyu.oss-cn-hangzhou.aliyuncs.com/common/image-20220611160457475.png" alt="image-20220611160457475"></p>
+<p>当Redis初始化服务器时，创建0-9999整数值的一万个字符串对象，后面要用到的时候直接共享这些对象。</p>
 <h2 id="和memcache的区别："><a href="#和memcache的区别：" class="headerlink" title="和memcache的区别："></a>和memcache的区别：</h2><p><img src="/Users/xiazhenyu/Desktop/typora%E6%96%87%E4%BB%B6%E9%9B%86%E5%90%88/%E6%96%87%E6%A1%A3%E5%90%88%E9%9B%86/redis%E5%92%8Cmemcache%E7%9A%84%E5%8C%BA%E5%88%AB.png" alt="redis和memcache的区别"></p>
-<h2 id="Redis的淘汰策略"><a href="#Redis的淘汰策略" class="headerlink" title="Redis的淘汰策略"></a>Redis的淘汰策略</h2><p>LRU：最近最少使用方式；</p>
-<p>LFU：最不经常使用方式；</p>
-<p>LEU:当内存满的时候，直接丢弃新的key值的写入；</p>
-<p>Redis的过期策略：<br>主动过期+惰性过期两种；<br>主动过期：redis默认每隔100ms就随机抽取一些设置了过期的key，检查是否过期，如果过期了就删除。<br>惰性过期：过期的key，没有及时删除，那么在查询的时候，redis才会删除。</p>
+<h2 id="Redis的淘汰策略"><a href="#Redis的淘汰策略" class="headerlink" title="Redis的淘汰策略"></a>Redis的淘汰策略</h2><p>全局的键空间选择性移除：</p>
+<ul>
+<li>noeviction：在键空间中，当内存中不足以容纳新写入的数据的时候，新写入会报错；</li>
+<li>allkeys-lru：在键空间中，移除最近最少使用的key；</li>
+<li>allkeys-random：在键空间中，随机移除某个key。</li>
+</ul>
+<p>设置过期时间的键空间选择性移除：</p>
+<ul>
+<li>volatile-lru：在设置了过期时间的键空间中，移除最近最少使用的key；</li>
+<li>volatile-random：在设置了过期时间的键空间中，随机移除某个key；</li>
+<li>volatile-ttl：在设置了过期时间的键空间中，有更早过期时间的key优先被删除。</li>
+</ul>
+<p>Redis的过期策略：</p>
+<table>
+<thead>
+<tr>
+<th>策略</th>
+<th>说明</th>
+<th>优劣</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>定时删除</td>
+<td>在设置键的过期时间的同时，创建一个定时器，让定时器在键的过期时间来临时，立即执行键的删除操作。</td>
+<td>优点：对内存友好；<br />缺点：对CPU不友好</td>
+</tr>
+<tr>
+<td>惰性删除</td>
+<td>放任键的过期不管，但是每次从键空间获取键时，都会检查键是否过期，过期删除，不过期返回改建。</td>
+<td>优点：节约CPU；<br />缺点：可能出现CPU资源浪费</td>
+</tr>
+<tr>
+<td>定期删除</td>
+<td>每隔一段时间，程序就对数据库进行一次检查，删除过期键。至于要删除多少过期键，以及要检查多少数据库，则有算法决定。</td>
+<td>优点：相对折中的设计；<br />缺点：需要人为把控单次的时长、执行频率。</td>
+</tr>
+</tbody></table>
 <h2 id="Redis的高可用性"><a href="#Redis的高可用性" class="headerlink" title="Redis的高可用性"></a>Redis的高可用性</h2><h3 id="为什么是高性能的？"><a href="#为什么是高性能的？" class="headerlink" title="为什么是高性能的？"></a>为什么是高性能的？</h3><p>redis内部使用文件事件处理器 file event handler，这个文件事件处理器是单线程的，所以redis是单线程模型。它采用IO多路复用机制同时监听多个socket，<br>根据socket上的事件来选择对应的事件处理器进行处理。<br>文件事件处理器包含4个部分：</p>
 <ol>
-<li>多个socket；</li>
-<li>IO多路复用程序；</li>
-<li>文件事件派发器；</li>
-<li>事件处理器（连接应答处理器、命令请求处理器、命令回复处理器）</li>
+<li><p>多个socket；</p>
+</li>
+<li><p>IO多路复用程序；</p>
+</li>
+<li><p>文件事件派发器；</p>
+</li>
+<li><p>事件处理器（连接应答处理器、命令请求处理器、命令回复处理器）</p>
+<p><img src="https://xiazhenyu.oss-cn-hangzhou.aliyuncs.com/common/image-20220611173811015.png" alt="image-20220611173811015"></p>
+</li>
 </ol>
 <p>多个socket会产生不同的操作，每个操作对应不同的文件事件。但是IO多路复用程序会监听多个socket，并将这些事件放到一个队列中去。文件事件派发器会从队列中取出一个事件，派发给对应的事件处理器进行处理。</p>
 <h3 id="持久化方式"><a href="#持久化方式" class="headerlink" title="持久化方式"></a>持久化方式</h3><p>RDB复制和AOF复制</p>
+<h4 id="RDB复制"><a href="#RDB复制" class="headerlink" title="RDB复制"></a>RDB复制</h4><p>全量复制。<br><img src="/Users/xiazhenyu/Desktop/typora%E6%96%87%E4%BB%B6%E9%9B%86%E5%90%88/%E6%96%87%E6%A1%A3%E5%90%88%E9%9B%86/RDB%E5%A4%8D%E5%88%B6%E6%B5%81%E7%A8%8B%E5%9B%BE.png" alt="RDB复制流程图"></p>
+<h4 id="AOF复制"><a href="#AOF复制" class="headerlink" title="AOF复制"></a>AOF复制</h4><p>增量同步复制。</p>
+<p>原理：</p>
+<p>AOF文件中存储的是redis的命令，同步命令到 AOF 文件的整个过程可以分为三个阶段:</p>
+<ul>
+<li>命令传播: Redis 将执行完的命令、命令的参数、命令的参数个数等信息发送到 AOF 程序中。</li>
+<li> 缓存追加: AOF 程序根据接收到的命令数据，将命令转换为网络通讯协议的格式，然后将协议内容追加 到服务器的 AOF 缓存：aof_buf缓冲区的末尾</li>
+<li> 文件写入和保存: AOF 缓存中的内容被写入到 AOF 文件末尾，如果设定的 AOF 保存条件被满足的话， fsync 函数或者 fdatasync 函数会被调用，将写入的内容真正地保存到磁盘中。</li>
+</ul>
+<p>AOF的3种刷盘机制：</p>
+<ul>
+<li>![image-20220611173001549](/Users/xiazhenyu/Library/Application Support/typora-user-images/image-20220611173001549.png)</li>
+</ul>
+<h4 id="AOF重写"><a href="#AOF重写" class="headerlink" title="AOF重写"></a>AOF重写</h4><p>AOF重写：Redis服务器创建一个新的AOF文件来代替现有的AOF文件，新旧两个AOF文件所保存的数据库状态相同，但新AOF文件不会包含任何冗余的命令，新AOF文件会比旧AOF文件小很多。</p>
+<p>AOF重写是在子进程中进行的，原因：</p>
 <ol>
-<li>RDB复制<br>全量复制。<br><img src="/Users/xiazhenyu/Desktop/typora%E6%96%87%E4%BB%B6%E9%9B%86%E5%90%88/%E6%96%87%E6%A1%A3%E5%90%88%E9%9B%86/RDB%E5%A4%8D%E5%88%B6%E6%B5%81%E7%A8%8B%E5%9B%BE.png" alt="RDB复制流程图"></li>
-<li>AOF复制<br>增量同步复制。<br>原理：AOF文件中存储的是redis的命令，同步命令到 AOF 文件的整个过程可以分为三个阶段:<ul>
-<li>命令传播:Redis 将执行完的命令、命令的参数、命令的参数个数等信息发送到 AOF 程序中。</li>
-<li> 缓存追加:AOF 程序根据接收到的命令数据，将命令转换为网络通讯协议的格式，然后将协议内容追加 到服务器的 AOF 缓存中。*</li>
-<li> 文件写入和保存:AOF 缓存中的内容被写入到 AOF 文件末尾，如果设定的 AOF 保存条件被满足的话， fsync 函数或者 fdatasync 函数会被调用，将写入的内容真正地保存到磁盘中。</li>
+<li>子进程进行AOF重写期间，服务器进程可以继续处理命令请求；</li>
+<li>子进程带有服务器进程的数据副本，使用子进程而不是线程，可以在避免使用锁的情况下，保证数据的安全性。</li>
+</ol>
+<h3 id="性能指标"><a href="#性能指标" class="headerlink" title="性能指标"></a>性能指标</h3><h2 id="多机数据库"><a href="#多机数据库" class="headerlink" title="多机数据库"></a>多机数据库</h2><h3 id="主从复制"><a href="#主从复制" class="headerlink" title="主从复制"></a>主从复制</h3><p>SLAVEOF命令：让一个服务器去复制另一个服务器。</p>
+<p>Redis的复制分为同步（Sync）和命令传播（command propagate）两个操作：</p>
+<ul>
+<li>同步操作用于将从服务器的数据库状态更新至主服务器当前所处的数据库状态（全量同步）；</li>
 </ul>
-AOF的3种刷盘机制：<ul>
-<li>Appendfsync always:每次写入磁盘都刷盘，对性能影响最大，占用IO比较高，数据安全型最高；</li>
-<li>appendfsync everysec：1秒刷一次盘，对性能影响最小，数据安全性低，节点宕机时最多丢失1秒数据；</li>
-<li>appendfsync no：按照操作系统机制刷盘，对性能影响最小，但是数据安全性低；</li>
+<img src="https://xiazhenyu.oss-cn-hangzhou.aliyuncs.com/common/image-20220611175451536.png" alt="image-20220611175451536" style="zoom:50%;" />
+
+<ul>
+<li><p>命令传播操作则用于在主服务器的数据库状态被修改，导致主从服务器的数据库状态出现不一致的时候，让主从服务器的数据库重新回到一致状态（增量同步）。</p>
+<p> 旧版的实现（2.8以前）：命令传播阶段中间断了，就会重新触发一次RDB全量复制？</p>
+<img src="/Users/xiazhenyu/Library/Application Support/typora-user-images/image-20220611175726025.png" alt="image-20220611175726025" style="zoom:50%;" /></li>
 </ul>
+<p>新版的实现（2.8以后）</p>
+<p>总体：</p>
+<img src="/Users/xiazhenyu/Library/Application Support/typora-user-images/image-20220611183131348.png" alt="image-20220611183131348" style="zoom:50%;" />
+
+<p>全量：</p>
+<img src="https://xiazhenyu.oss-cn-hangzhou.aliyuncs.com/common/image-20220611183223533.png" alt="image-20220611183223533" style="zoom:50%;" />
+
+<p>增量：</p>
+<img src="https://xiazhenyu.oss-cn-hangzhou.aliyuncs.com/common/image-20220611183446441.png" alt="image-20220611183446441" style="zoom:50%;" />
+
+
+
+<h3 id="哨兵模式"><a href="#哨兵模式" class="headerlink" title="哨兵模式"></a>哨兵模式</h3><ul>
+<li>工作过程：</li>
+</ul>
+<p>在发现主服务器进入客观下线的sentinel我们成为源sentinel。</p>
+<ol>
+<li>源sentinel向目标sentinel发送请求，请求目标sentinel将自己设置为局部的leader。命令：SENTINEL  is-master-down-by-addr其中</li>
+</ol>
+<p>的run id时自己的运行id；</p>
+<ol start="2">
+<li><p>目标sentinel收到源sentinel的请求以后，会返回自己的局部leader sentinel的run id和配置纪元。</p>
+</li>
+<li><p>源sentinel接收到目标sentinel的恢复以后，会判断配置纪元与run id是否都与自己的相同。相同则说明目标sentinel将自己设置成了局部leader sentinel。目标sentinel设置自己的局部领头sentinel采用先先得的原则；</p>
+</li>
+<li><p>得到超多半数以上的sentinel支持，那么这个sentinel就会成为领头的sentinel；</p>
+</li>
+<li><p>给定的时间内没有sentinel被选举为领头sentinel，那么各个sentinel将在一段时间以后重新开始进行选举。</p>
 </li>
 </ol>
-<h3 id="主从同步"><a href="#主从同步" class="headerlink" title="主从同步"></a>主从同步</h3><h3 id="性能指标"><a href="#性能指标" class="headerlink" title="性能指标"></a>性能指标</h3><h2 id="Redis的常用问题"><a href="#Redis的常用问题" class="headerlink" title="Redis的常用问题"></a>Redis的常用问题</h2><h3 id="DB和缓存数据的不一致性"><a href="#DB和缓存数据的不一致性" class="headerlink" title="DB和缓存数据的不一致性"></a>DB和缓存数据的不一致性</h3><p>不一致一方面有可能是更新db和redis的时候失败了，导致不一致，还有一种情况就是两者更新的中间某一时刻，其他线程进行请求，这个时候就会请求到老的数据，造成数据的不一致。</p>
+<ul>
+<li> 故障转移</li>
+</ul>
+<ol>
+<li>在已下线的主服务器属下的所有从服务器中，挑选一个从服务器，并将其转换为主服务器；</li>
+<li>让已下线的主服务器属下的所有从服务器改为复制新的主服务器；</li>
+<li>将已下线的主服务器设置为新的主服务器的从服务器。这个旧的主服务器重新上线以后，它就正式成为了新的主服务器的从服务器。</li>
+</ol>
+<h3 id="Redis集群"><a href="#Redis集群" class="headerlink" title="Redis集群"></a>Redis集群</h3><ul>
+<li>什么是Redis的集群？</li>
+</ul>
+<p>Redis集群是Redis提供的分布式数据库方案，集群通过分片（sharding）来进行数据共享，并提供复制和故障转移的功能。</p>
+<ul>
+<li><p>集群与主从的区别？</p>
+<p>主从复制解决的是读写分离，主从的数据还是相同的，单机存储很快就会达到瓶颈，而且存储浪费。集群中每个节点中的数据是不同的，各个节点内部自己再用主从模式保证可用性。每个节点的数据不同，让Redis具备集群扩容的能力。</p>
+</li>
+<li><p>槽指派</p>
+<p>Redis通过分片的方式来保存数据库中的键值对：集群的整个数据库被分为16384个槽（slot），数据库中的每个键值对都属于这18384个槽中的一个，集群中的每个节点可以处理0个或最多16384个槽。当数据库中的16384个槽都有节点在处理时（有对应的槽指派信息），集群才能成功上线，反之则为下线状态。</p>
+</li>
+<li><p>故障转移</p>
+<ol>
+<li>复制下线主节点的所有从节点里面，会有一个从节点被选中。</li>
+<li>被选中的从节点会执行SLAVEOF no one命令，成为新的主节点；</li>
+<li>新的主节点会撤销所有对已经下线主节点的槽指派，并将这些槽全部指派给自己（新的主节点会处理老节点负责的slot）；</li>
+<li>新的主节点向集群广播一条PONG消息，这条消息可以让集群中的其他节点立即知道这个节点已经由从节点变成了主节点，并且这个主节点已经接管了原本由已下线节点负责处理的槽；</li>
+<li>新的主节点开始接收和自己负责处理的槽相关的命令请求，故障转移完成。</li>
+</ol>
+</li>
+</ul>
+<h2 id="Redis的常用问题"><a href="#Redis的常用问题" class="headerlink" title="Redis的常用问题"></a>Redis的常用问题</h2><h3 id="DB和缓存数据的不一致性"><a href="#DB和缓存数据的不一致性" class="headerlink" title="DB和缓存数据的不一致性"></a>DB和缓存数据的不一致性</h3><p>不一致一方面有可能是更新db和redis的时候失败了，导致不一致，还有一种情况就是两者更新的中间某一时刻，其他线程进行请求，这个时候就会请求到老的数据，造成数据的不一致。</p>
 <p>优先采用：先更新数据库、再删除缓存的策略。</p>
 <p>怎么解决不一致问题？延迟删除？<br>答：强一致性很难，追求最终一致性（需要时间）；</p>
 <ol>
@@ -518,7 +659,11 @@ AOF的3种刷盘机制：<ul>
 <li>单个简单的key存储的value很大，可以尝试将对象拆分成几个key-value，使用mget的方式获取值，这样的话，分拆单次操作的压力，将整个压力平摊到多次操作中，降低对redis的IO影响。</li>
 <li>hash、</li>
 </ul>
-
+<h3 id="Redis服务器系统告警，原因？"><a href="#Redis服务器系统告警，原因？" class="headerlink" title="Redis服务器系统告警，原因？"></a>Redis服务器系统告警，原因？</h3><ol>
+<li> 内存告警：Redis的内存使用飙高，会触发逐出，影响业务。所以需要对key进行监控；</li>
+<li>CPU、磁盘IO告警：主从间的网络，频繁不稳定。是不是主从不在一个机房。如果不是，再看复制积压缓冲区是不是设置得太小。导致无法触发部分同步；</li>
+</ol>
+<h3 id="复制积压缓冲区多大的弊端是什么？为什么缓冲区不设计类似aof的重写压缩的功能；"><a href="#复制积压缓冲区多大的弊端是什么？为什么缓冲区不设计类似aof的重写压缩的功能；" class="headerlink" title="复制积压缓冲区多大的弊端是什么？为什么缓冲区不设计类似aof的重写压缩的功能；"></a>复制积压缓冲区多大的弊端是什么？为什么缓冲区不设计类似aof的重写压缩的功能；</h3>
       
     </div>
     <div class="article-footer">
@@ -574,7 +719,7 @@ AOF的3种刷盘机制：<ul>
   <ul class="pager pull-left">
     
     <li class="prev">
-      <a href="/2022/02/24/typora%E6%96%87%E4%BB%B6%E9%9B%86%E5%90%88/%E6%8B%89%E9%92%A9/%E4%B8%AD%E9%97%B4%E4%BB%B6/RPC/RPC/" title="(no title)"><i class="icon icon-angle-left" aria-hidden="true"></i><span>&nbsp;&nbsp;上一篇</span></a>
+      <a href="/2022/02/24/typora%E6%96%87%E4%BB%B6%E9%9B%86%E5%90%88/%E6%8B%89%E9%92%A9/Redis/" title="(no title)"><i class="icon icon-angle-left" aria-hidden="true"></i><span>&nbsp;&nbsp;上一篇</span></a>
     </li>
     
     

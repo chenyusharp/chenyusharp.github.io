@@ -26,7 +26,7 @@
 <meta property="og:description" content="[TOC] DDD与微服务的关系各种域领域：限定业务边界和范围，然后在这个边界内解决业务问题； 子域：领域可以进一步划分为子领域，多个子领域称为子域，每个子域对应一个更小的问题域或更小的业务范围； 核心域：决定产品和公司核心竞争力的子域是核心域； 通用域：没有太多个性化诉求，同时被多个子域使用的通用功能子域是通用域（权限、认证）； 支撑域：不包含决定产品和公司核心竞争力的功能，也不包含通用功能的子">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2021-10-18T07:39:20.093Z">
-<meta property="article:modified_time" content="2022-02-14T08:52:05.958Z">
+<meta property="article:modified_time" content="2022-06-24T09:28:33.562Z">
 <meta property="article:author" content="chenyusharp">
 <meta name="twitter:card" content="summary">
   <!-- Canonical links -->
@@ -211,7 +211,7 @@
     <h3 class="widget-title">分类</h3>
     <div class="widget-body">
     <div class="widget">
-      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/DDD/">DDD</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/JVM/">JVM</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Linux/">Linux</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Redis/">Redis</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/git/">git</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/linux/">linux</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/redis/">redis</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/typora/">typora</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/wholee/">wholee</a><span class="category-list-count">11</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E4%B8%9A%E5%8A%A1%E6%A8%A1%E5%BC%8F/">业务模式</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E4%BA%A7%E5%93%81/">产品</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%8A%80%E6%9C%AF/">技术</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%8A%80%E8%83%BD/">技能</a><span class="category-list-count">1</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%8A%80%E8%83%BD/%E5%B7%A5%E4%BD%9C/">工作</a><span class="category-list-count">1</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%8B%89%E9%92%A9/">拉钩</a><span class="category-list-count">1</span></li></ul>
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/JVM/">JVM</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Linux/">Linux</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/MQ/">MQ</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Redis/">Redis</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/algorithms/">algorithms</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/git/">git</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/linux/">linux</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/lombok/">lombok</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/maven/">maven</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/redis/">redis</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/s3/">s3</a><span class="category-list-count">1</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/s3/%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0/">文件上传</a><span class="category-list-count">1</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/typora/">typora</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/wholee/">wholee</a><span class="category-list-count">13</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E4%B8%9A%E5%8A%A1%E6%A8%A1%E5%BC%8F/">业务模式</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E4%BA%A7%E5%93%81/">产品</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%8A%80%E6%9C%AF/">技术</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%8B%89%E9%92%A9/">拉钩</a><span class="category-list-count">1</span></li></ul>
     </div>
   </div>
 
@@ -221,7 +221,7 @@
   <div class="widget">
     <h3 class="widget-title">标签</h3>
     <div class="widget-body">
-      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/DDD/" rel="tag">DDD</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux/" rel="tag">Linux</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/git/" rel="tag">git</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/linux/" rel="tag">linux</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/redis/" rel="tag">redis</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/wholee/" rel="tag">wholee</a><span class="tag-list-count">13</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%B7%A5%E4%BD%9C%E5%AE%89%E6%8E%92/" rel="tag">工作安排</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%8A%80%E8%83%BD/" rel="tag">技能</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%8B%89%E9%92%A9/" rel="tag">拉钩</a><span class="tag-list-count">3</span></li></ul>
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux/" rel="tag">Linux</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/algorithms/" rel="tag">algorithms</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/algorithms-task/" rel="tag">algorithms  task</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/clubFactory/" rel="tag">clubFactory</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/git/" rel="tag">git</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/kafka/" rel="tag">kafka</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/linux/" rel="tag">linux</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/lombok/" rel="tag">lombok</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/maven/" rel="tag">maven</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/maven-version/" rel="tag">maven version</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/redis/" rel="tag">redis</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/wholee/" rel="tag">wholee</a><span class="tag-list-count">13</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%B7%A5%E4%BD%9C%E5%AE%89%E6%8E%92/" rel="tag">工作安排</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%8B%89%E9%92%A9/" rel="tag">拉钩</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E9%83%A8%E7%BD%B2-%E8%BF%90%E7%BB%B4%E7%B3%BB%E7%BB%9F/" rel="tag">部署/运维系统</a><span class="tag-list-count">2</span></li></ul>
     </div>
   </div>
 
@@ -231,7 +231,7 @@
   <div class="widget">
     <h3 class="widget-title">标签云</h3>
     <div class="widget-body tagcloud">
-      <a href="/tags/DDD/" style="font-size: 13px;">DDD</a> <a href="/tags/Linux/" style="font-size: 13px;">Linux</a> <a href="/tags/git/" style="font-size: 13px;">git</a> <a href="/tags/linux/" style="font-size: 13.25px;">linux</a> <a href="/tags/redis/" style="font-size: 13px;">redis</a> <a href="/tags/wholee/" style="font-size: 14px;">wholee</a> <a href="/tags/%E5%B7%A5%E4%BD%9C%E5%AE%89%E6%8E%92/" style="font-size: 13.75px;">工作安排</a> <a href="/tags/%E6%8A%80%E8%83%BD/" style="font-size: 13px;">技能</a> <a href="/tags/%E6%8B%89%E9%92%A9/" style="font-size: 13.5px;">拉钩</a>
+      <a href="/tags/Linux/" style="font-size: 13px;">Linux</a> <a href="/tags/algorithms/" style="font-size: 13px;">algorithms</a> <a href="/tags/algorithms-task/" style="font-size: 13px;">algorithms  task</a> <a href="/tags/clubFactory/" style="font-size: 13px;">clubFactory</a> <a href="/tags/git/" style="font-size: 13px;">git</a> <a href="/tags/kafka/" style="font-size: 13px;">kafka</a> <a href="/tags/linux/" style="font-size: 13.4px;">linux</a> <a href="/tags/lombok/" style="font-size: 13px;">lombok</a> <a href="/tags/maven/" style="font-size: 13px;">maven</a> <a href="/tags/maven-version/" style="font-size: 13px;">maven version</a> <a href="/tags/redis/" style="font-size: 13px;">redis</a> <a href="/tags/wholee/" style="font-size: 14px;">wholee</a> <a href="/tags/%E5%B7%A5%E4%BD%9C%E5%AE%89%E6%8E%92/" style="font-size: 13.8px;">工作安排</a> <a href="/tags/%E6%8B%89%E9%92%A9/" style="font-size: 13.6px;">拉钩</a> <a href="/tags/%E9%83%A8%E7%BD%B2-%E8%BF%90%E7%BB%B4%E7%B3%BB%E7%BB%9F/" style="font-size: 13.2px;">部署/运维系统</a>
     </div>
   </div>
 
@@ -240,7 +240,7 @@
   <div class="widget">
     <h3 class="widget-title">归档</h3>
     <div class="widget-body">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/03/">三月 2022</a><span class="archive-list-count">20</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/02/">二月 2022</a><span class="archive-list-count">21</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/01/">一月 2022</a><span class="archive-list-count">30</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/12/">十二月 2021</a><span class="archive-list-count">8</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/11/">十一月 2021</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/10/">十月 2021</a><span class="archive-list-count">38</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/09/">九月 2021</a><span class="archive-list-count">10</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/08/">八月 2021</a><span class="archive-list-count">21</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/07/">七月 2021</a><span class="archive-list-count">18</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/06/">六月 2021</a><span class="archive-list-count">11</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/05/">五月 2021</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/03/">三月 2021</a><span class="archive-list-count">1</span></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/06/">六月 2022</a><span class="archive-list-count">14</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/05/">五月 2022</a><span class="archive-list-count">10</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/04/">四月 2022</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/03/">三月 2022</a><span class="archive-list-count">20</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/02/">二月 2022</a><span class="archive-list-count">22</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/01/">一月 2022</a><span class="archive-list-count">27</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/12/">十二月 2021</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/11/">十一月 2021</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/10/">十月 2021</a><span class="archive-list-count">29</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/09/">九月 2021</a><span class="archive-list-count">10</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/08/">八月 2021</a><span class="archive-list-count">21</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/07/">七月 2021</a><span class="archive-list-count">18</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/06/">六月 2021</a><span class="archive-list-count">11</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/05/">五月 2021</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/03/">三月 2021</a><span class="archive-list-count">1</span></li></ul>
     </div>
   </div>
 
@@ -256,28 +256,13 @@
             
             <div class="item-inner">
               <p class="item-category">
-                <a class="category-link" href="/categories/%E4%B8%9A%E5%8A%A1%E6%A8%A1%E5%BC%8F/">业务模式</a>
+                
               </p>
               <p class="item-title">
-                <a href="/2022/03/28/typora%E6%96%87%E4%BB%B6%E9%9B%86%E5%90%88/%E4%BA%A7%E5%93%81/wholee/%E9%98%BF%E7%B1%B3%E5%B7%B4%E6%A8%A1%E5%BC%8F/" class="title">阿米巴</a>
+                <a href="/2022/06/24/typora%E6%96%87%E4%BB%B6%E9%9B%86%E5%90%88/%E4%B8%AA%E4%BA%BA/%E6%B8%B8%E6%88%8F/%E6%B8%B8%E6%88%8F%E5%A4%A7%E5%85%A8/" class="title">(no title)</a>
               </p>
               <p class="item-date">
-                <time datetime="2022-03-28T11:12:59.061Z" itemprop="datePublished">2022-03-28</time>
-              </p>
-            </div>
-          </li>
-          
-          <li>
-            
-            <div class="item-inner">
-              <p class="item-category">
-                <a class="category-link" href="/categories/%E4%BA%A7%E5%93%81/">产品</a>
-              </p>
-              <p class="item-title">
-                <a href="/2022/03/28/typora%E6%96%87%E4%BB%B6%E9%9B%86%E5%90%88/%E4%BA%A7%E5%93%81/wholee/%E8%B4%A2%E5%8A%A1%E7%9B%B8%E5%85%B3/" class="title">财务相关产品文档</a>
-              </p>
-              <p class="item-date">
-                <time datetime="2022-03-28T11:09:10.242Z" itemprop="datePublished">2022-03-28</time>
+                <time datetime="2022-06-24T15:55:52.120Z" itemprop="datePublished">2022-06-24</time>
               </p>
             </div>
           </li>
@@ -289,10 +274,10 @@
                 
               </p>
               <p class="item-title">
-                <a href="/2022/03/28/typora%E6%96%87%E4%BB%B6%E9%9B%86%E5%90%88/%E4%BA%A7%E5%93%81/wholee/%E8%B4%A7%E5%93%81%E7%9B%B8%E5%85%B3/" class="title">(no title)</a>
+                <a href="/2022/06/22/typora%E6%96%87%E4%BB%B6%E9%9B%86%E5%90%88/%E6%8A%80%E6%9C%AF/%E6%8A%80%E6%9C%AF%E7%AC%94%E8%AE%B0/%E6%BA%90%E7%A0%81/Atomic%E7%B1%BB/" class="title">(no title)</a>
               </p>
               <p class="item-date">
-                <time datetime="2022-03-28T11:08:55.123Z" itemprop="datePublished">2022-03-28</time>
+                <time datetime="2022-06-22T08:12:04.951Z" itemprop="datePublished">2022-06-22</time>
               </p>
             </div>
           </li>
@@ -301,13 +286,13 @@
             
             <div class="item-inner">
               <p class="item-category">
-                <a class="category-link" href="/categories/JVM/">JVM</a>
+                
               </p>
               <p class="item-title">
-                <a href="/2022/03/28/typora%E6%96%87%E4%BB%B6%E9%9B%86%E5%90%88/%E6%8B%89%E9%92%A9/JVM/JVM%E5%AD%A6%E4%B9%A0%E6%80%BB%E7%BB%93/" class="title">JVM学习总结</a>
+                <a href="/2022/06/18/typora%E6%96%87%E4%BB%B6%E9%9B%86%E5%90%88/%E6%8B%89%E9%92%A9/%E9%A1%B9%E7%9B%AE%E5%AE%9E%E6%88%98/%E8%BF%9B%E5%BA%A6/" class="title">(no title)</a>
               </p>
               <p class="item-date">
-                <time datetime="2022-03-27T22:09:01.164Z" itemprop="datePublished">2022-03-28</time>
+                <time datetime="2022-06-18T13:54:20.914Z" itemprop="datePublished">2022-06-18</time>
               </p>
             </div>
           </li>
@@ -316,13 +301,28 @@
             
             <div class="item-inner">
               <p class="item-category">
-                <a class="category-link" href="/categories/Redis/">Redis</a>
+                
               </p>
               <p class="item-title">
-                <a href="/2022/03/27/typora%E6%96%87%E4%BB%B6%E9%9B%86%E5%90%88/%E6%8B%89%E9%92%A9/%E4%B8%AD%E9%97%B4%E4%BB%B6/Redis/Redis%E9%A2%84%E4%B9%A0/" class="title">Reids预习</a>
+                <a href="/2022/06/18/typora%E6%96%87%E4%BB%B6%E9%9B%86%E5%90%88/%E6%8B%89%E9%92%A9/%E9%A1%B9%E7%9B%AE%E5%AE%9E%E6%88%98/%E9%A1%B9%E7%9B%AE%E6%9E%B6%E6%9E%84/" class="title">(no title)</a>
               </p>
               <p class="item-date">
-                <time datetime="2022-03-26T16:53:06.754Z" itemprop="datePublished">2022-03-27</time>
+                <time datetime="2022-06-18T13:54:08.755Z" itemprop="datePublished">2022-06-18</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                
+              </p>
+              <p class="item-title">
+                <a href="/2022/06/18/typora%E6%96%87%E4%BB%B6%E9%9B%86%E5%90%88/%E6%8B%89%E9%92%A9/%E9%A1%B9%E7%9B%AE%E5%AE%9E%E6%88%98/%E7%B4%A0%E6%9D%90/" class="title">(no title)</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2022-06-18T13:53:58.126Z" itemprop="datePublished">2022-06-18</time>
               </p>
             </div>
           </li>
@@ -391,7 +391,7 @@
 <p>代码处理逻辑：在DDD中，这些实体类通常采用充血模型，与这个实体类相关的所有业务逻辑都在这个实体类中实现，跨多个实体类的领域逻辑在==领域服务==中实现。</p>
 <p>Q：实体是怎么映射到数据库中的表的？都有哪些方式？</p>
 <p>A：领域模型映射到数据模型，大多数情况下是一对一的，但是也会存在一对多、多对一等场景。举例：<br>一对一：商家商品基础信息、sku信息等；<br>一对多：权限实体对应用户user、角色role两个持久化对象；<br>多对一：客户和账户两个实体对象有可能对应同一个数据持久化对象；</p>
-<h3 id="什么是值对象？"><a href="#什么是值对象？" class="headerlink" title="什么是值对象？"></a>什么是值对象？</h3><p>这个是一个更为抽象的东西。<br>通过对象属性值来识别的对象，它将多个相关属性组合为一个概念整体。在DDD中用来描述领域的特定方面，并且是一个没有标识符的对象，叫做值对象。<br>值对象本质上就是一个集。是若干个用于描述目的、具有整体概念和不可修改的属性。在领域建模的过程中，值对象可以保证属性归类的清晰和概念的完整性，避免属性零碎。<br>（就是一些列具有特殊语义的属性的集合，这些属性各自分开有可能比较的零碎，组合起来可能具有更为完整的概念。）<br>值对象与实体一样，同样是从事件风暴中构建出来的。与实体对象的区别：值对象只有==数据初始化操作和有限的不涉及修改数据的行为==，基本不包含业务逻辑。<br>（从业务实际上看，实体中的每一个属性都可以理解为是一个单一的属性值对象。只有多个属性集值对象的集合，我们可以把它们单独出来作为一个class来创建。这个可以类比商品图文实体中的图文描述字段–description，我们就可以把Description作为一个值对象来看待。对于一个description值对象而言，它是有几个属性的集合组成的，而且这个值对象是不需要用唯一的Id进行标识的）。</p>
+<h3 id="什么是值对象？"><a href="#什么是值对象？" class="headerlink" title="什么是值对象？"></a>什么是值对象？</h3><p>这个是一个更为抽象的东西。<br>通过对象属性值来识别的对象，它将多个相关属性组合为一个概念整体。在DDD中用来描述领域的特定方面，并且是一个没有标识符的对象，叫做值对象。<br>值对象本质上就是一个集。是若干个用于描述目的、具有整体概念和不可修改的属性。在领域建模的过程中，值对象可以保证属性归类的清晰和概念的完整性，避免属性零碎。<br>（就是一些列具有特殊语义的属性的集合，这些属性各自分开有可能比较的零碎，组合起来可能具有更为完整的概念。）<br>值对象与实体一样，同样是从事件风暴中构建出来的。与实体对象的区别：值对象只有==数据初始化操作和有限的不涉及修改数据的行为==，基本不包含业务逻辑。<br>（从业务实际上看，实体中的每一个属性都可以理解为是一个单一的属性值对象。只有多个属性集值对象的集合，我们可以把它们单独出来作为一个class来创建。这个可以类比商品图文实体中的图文描述字段–description，我们就可以把Description作为一个值对象来看待。对于一个description值对象而言，它是有几个属性的集合组成的，而且这个值对象是<strong>不需要用唯一的Id</strong>进行标识的）。</p>
 <h4 id="数据持久化设计？"><a href="#数据持久化设计？" class="headerlink" title="数据持久化设计？"></a>数据持久化设计？</h4><p>在领域建模的时候，我们可以将对象设计为值对象，保留对象的业务涵义，同时又减少了实体的数量；在数据建模时，我们可以将值对象嵌入实体，减少实体表的数量，简化数据库设计。<br>（说白了就是作为领域对象，实体要和值对象分来，但是值对象是要有一个属性保存在实体中的，在数据库中，值对象是序列化为一个字段保存在实体对应的一个表中的）。</p>
 <h4 id="实体和值对象之间的关系？"><a href="#实体和值对象之间的关系？" class="headerlink" title="实体和值对象之间的关系？"></a>实体和值对象之间的关系？</h4><p>实体和值值对象是微服务底层的最基础的对象。实现了最核心的领域逻辑。</p>
 <p>（具体的关系，可以参考前面的描述，简而言之，就是实体是有业务操作行为与逻辑的，而值对象只是一系列属性的集合，操作而言也大多是数据初始化与展示，没有复杂的修改）。</p>
@@ -405,26 +405,27 @@
 <li>在边界之外适用最终一致性；<br>在一次事务中，只能修改一个聚合的状态。如果一次业务操作涉及多个聚合状态的修改，应该采用==领域事件==的方式异步修改相关的聚合，实现聚合之间的解耦（异步线程？MQ？）。</li>
 <li>通过应用层实现跨聚合的服务调用。（在业务服务中调用各个聚合服务，也即领域服务）；</li>
 </ol>
-<h2 id="领域事件"><a href="#领域事件" class="headerlink" title="领域事件"></a>领域事件</h2><h3 id="什么是领域事件？"><a href="#什么是领域事件？" class="headerlink" title="什么是领域事件？"></a>什么是领域事件？</h3><p>是一种架构风格或者是编程范式。解决了不同的聚合根之间的耦合的问题。在集合根完成更新操作以后会产生一个新的事件并广播出去，由其他订阅该事件的订阅者完成其他的聚合根的对应的操作。这样就实现了不同的聚合根之间的解耦。</p>
+<h2 id="领域事件"><a href="#领域事件" class="headerlink" title="领域事件"></a>领域事件</h2><h3 id="什么是领域事件？"><a href="#什么是领域事件？" class="headerlink" title="什么是领域事件？"></a>什么是领域事件？</h3><p>是一种架构风格或者是编程范式。解决了不同的聚合根之间的耦合的问题。在聚合根完成更新操作以后会产生一个新的事件并广播出去，由其他订阅该事件的订阅者完成其他的聚合根的对应的操作。这样就实现了不同的聚合根之间的解耦。</p>
 <h3 id="领域事件怎么实现？"><a href="#领域事件怎么实现？" class="headerlink" title="领域事件怎么实现？"></a>领域事件怎么实现？</h3><ol>
 <li>建模。领域事件是一个对象，同样需要建模，定义它的数据结构。领域事件的名称的格式一般为产生这个事件的聚合根的名字+产生事件的动词的过去式。比如说MerchantItemCreated。</li>
 <li>内部的数据结构。一般与产生它的聚合根的很相似。除此之外，还会多两个属性：事件的发生日期、事件的唯一编号。</li>
 </ol>
 <p>处理时需要注意的几点：</p>
 <ol>
-<li>领域事件是领域逻辑的一部分，所以在领域层不应该依赖某些底层的框架或是中间件，</li>
-<li>事件的发送应该是异步非阻塞的，不应该阻塞当前处理的线程；</li>
-<li>设计上避免事件链的产生，即一个事件被处理后又产生了另一个事件；</li>
-<li>考虑最终一致性的解决方案，记录好日志，以及事件丢失的处理与排查方案；</li>
-</ol>
-<ol start="3">
-<li>框架的选择：<br>可以选择使用Spring中的事件、订阅功能，或者是Guava中的EventBus；</li>
-</ol>
-<h2 id="Q-amp-A"><a href="#Q-amp-A" class="headerlink" title="Q&amp;A"></a>Q&amp;A</h2><ol>
-<li><p>DDD对微服务的改变？使用DDD以后，有什么好处呢？</p>
-<p>一方面是我们的开发由面向数据库设计改为面向领域驱动设计，这部分的好处可以参考上面的领域事件的实现；另一方面，由于领域模型的引入，导致我们出现了Facade-防腐层的出现，调用外域的接口会统一先转化为微服务内部的领域模型，然后再在内部进行流程处理。</p>
+<li><p>领域事件是领域逻辑的一部分，所以在领域层不应该依赖某些底层的框架或是中间件，</p>
+</li>
+<li><p>事件的发送应该是异步非阻塞的，不应该阻塞当前处理的线程；</p>
+</li>
+<li><p>设计上避免事件链的产生，即一个事件被处理后又产生了另一个事件；</p>
+</li>
+<li><p>考虑最终一致性的解决方案，记录好日志，以及事件丢失的处理与排查方案；</p>
+</li>
+<li><p>框架的选择：<br>可以选择使用Spring中的事件、订阅功能，或者是Guava中的EventBus；</p>
 </li>
 </ol>
+<h2 id="常见面试问题"><a href="#常见面试问题" class="headerlink" title="常见面试问题"></a>常见面试问题</h2><h3 id="1-DDD对微服务的改变？使用DDD以后，有什么好处呢？"><a href="#1-DDD对微服务的改变？使用DDD以后，有什么好处呢？" class="headerlink" title="1. DDD对微服务的改变？使用DDD以后，有什么好处呢？"></a>1. DDD对微服务的改变？使用DDD以后，有什么好处呢？</h3><p>一方面是我们的开发由面向数据库设计改为面向领域驱动设计，这部分的好处可以参考上面的领域事件的实现；</p>
+<p>另一方面，由于领域模型的引入，导致我们出现了Facade-防腐层的出现，调用外域的接口会统一先转化为微服务内部的领域模型，然后再在内部进行流程处理。</p>
+<h3 id="2-DDD与Spring-MVC的区别？"><a href="#2-DDD与Spring-MVC的区别？" class="headerlink" title="2. DDD与Spring MVC的区别？"></a>2. DDD与Spring MVC的区别？</h3><p>DDD是宏观上，是从业务的角度去划分领域界限。MVC还是在微观代码层面在，去做研发模型划分。如果领域划分合理，你会发现后续的协同研发越来越顺畅。比如说，有些不应该商品做的事情，商品来做了，后面这块逻辑你还得维护。</p>
 
       
     </div>

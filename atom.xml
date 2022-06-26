@@ -6,7 +6,7 @@
   <link href="http://example.com/atom.xml" rel="self"/>
   
   <link href="http://example.com/"/>
-  <updated>2022-03-28T11:38:50.943Z</updated>
+  <updated>2022-06-24T16:12:56.094Z</updated>
   <id>http://example.com/</id>
   
   <author>
@@ -17,471 +17,207 @@
   <generator uri="https://hexo.io/">Hexo</generator>
   
   <entry>
-    <title>阿米巴</title>
-    <link href="http://example.com/2022/03/28/typora%E6%96%87%E4%BB%B6%E9%9B%86%E5%90%88/%E4%BA%A7%E5%93%81/wholee/%E9%98%BF%E7%B1%B3%E5%B7%B4%E6%A8%A1%E5%BC%8F/"/>
-    <id>http://example.com/2022/03/28/typora%E6%96%87%E4%BB%B6%E9%9B%86%E5%90%88/%E4%BA%A7%E5%93%81/wholee/%E9%98%BF%E7%B1%B3%E5%B7%B4%E6%A8%A1%E5%BC%8F/</id>
-    <published>2022-03-28T11:12:59.061Z</published>
-    <updated>2022-03-28T11:38:50.943Z</updated>
-    
-    <content type="html"><![CDATA[<p><em><strong>什么是阿米巴？</strong></em></p><p>阿米巴，原意是指一种原生体，在商业上代表了一种经营模式，该模式是由日本的稻盛和夫创立的吗，我们称之为阿米巴经营模式。阿米巴经营模式就是以各个阿米巴的领导为核心，让其自行制定各自的计划，并依靠全体的成员的智慧和努力来完成目标。</p><p><em><strong>核心目的：</strong></em></p><p>让第一线的每一个员工都能成为主角，主动参与经营，进而实现“全员参与经营”。我们常说的”三人组“也属于阿米巴经营模式的一种。</p><p><img src="https://xiazhenyu.oss-cn-hangzhou.aliyuncs.com/common/format,f_auto.jpeg" alt="img"></p><ul><li>确立各个与市场有直接联系的部门的核算制度；</li><li>培养具有经营意识的人才；</li><li>实现全员参与的经营；</li></ul><p>*** 模式的本质***： 量化分权</p><p>本质是一种==量化的赋权==管理模式。与“经营哲学”、“经营会计”一起相互支撑，是一种完善的经营管理模式，是企业系统竞争力的体现。</p><p>*** 优势***</p><ol><li>提高员工参与经营的积极性，增强员工的动力，为企业快速培养人才；</li><li>小集体是一种使效率得到彻底检验的系统，能够贯彻”销售额最大化、经费最小化“；</li><li>企业领导人能够时刻掌握企业经营的实际状况，即时做出正确的决策，降低企业的经营的风险；</li><li>把大企业化小经营，能够让企业保持大企业规模优势的同时，具备小企业得到灵活性；</li><li>组织能够灵活应对市场环境的变化而迅速做出调整，帮助企业在竞争中立于不败之地。</li></ol><p>参考文献：</p><p><a href="!https://www.kyocera.com.cn/inamori/management/amoeba/">稻盛和夫的官方网站</a></p><p><a href="!https://baike.baidu.com/item/%E9%98%BF%E7%B1%B3%E5%B7%B4%E7%BB%8F%E8%90%A5%E7%AE%A1%E7%90%86%E6%A8%A1%E5%BC%8F/6390730">百度百科</a></p>]]></content>
-    
-    
-      
-      
-    <summary type="html">&lt;p&gt;&lt;em&gt;&lt;strong&gt;什么是阿米巴？&lt;/strong&gt;&lt;/em&gt;&lt;/p&gt;
-&lt;p&gt;阿米巴，原意是指一种原生体，在商业上代表了一种经营模式，该模式是由日本的稻盛和夫创立的吗，我们称之为阿米巴经营模式。阿米巴经营模式就是以各个阿米巴的领导为核心，让其自行制定各自的计划，并依靠全</summary>
-      
-    
-    
-    
-    <category term="业务模式" scheme="http://example.com/categories/%E4%B8%9A%E5%8A%A1%E6%A8%A1%E5%BC%8F/"/>
-    
-    
-    <category term="wholee" scheme="http://example.com/tags/wholee/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>财务相关产品文档</title>
-    <link href="http://example.com/2022/03/28/typora%E6%96%87%E4%BB%B6%E9%9B%86%E5%90%88/%E4%BA%A7%E5%93%81/wholee/%E8%B4%A2%E5%8A%A1%E7%9B%B8%E5%85%B3/"/>
-    <id>http://example.com/2022/03/28/typora%E6%96%87%E4%BB%B6%E9%9B%86%E5%90%88/%E4%BA%A7%E5%93%81/wholee/%E8%B4%A2%E5%8A%A1%E7%9B%B8%E5%85%B3/</id>
-    <published>2022-03-28T11:09:10.242Z</published>
-    <updated>2022-03-28T11:13:06.906Z</updated>
-    
-    
-    
-    
-    <category term="产品" scheme="http://example.com/categories/%E4%BA%A7%E5%93%81/"/>
-    
-    
-    <category term="wholee" scheme="http://example.com/tags/wholee/"/>
-    
-  </entry>
-  
-  <entry>
     <title></title>
-    <link href="http://example.com/2022/03/28/typora%E6%96%87%E4%BB%B6%E9%9B%86%E5%90%88/%E4%BA%A7%E5%93%81/wholee/%E8%B4%A7%E5%93%81%E7%9B%B8%E5%85%B3/"/>
-    <id>http://example.com/2022/03/28/typora%E6%96%87%E4%BB%B6%E9%9B%86%E5%90%88/%E4%BA%A7%E5%93%81/wholee/%E8%B4%A7%E5%93%81%E7%9B%B8%E5%85%B3/</id>
-    <published>2022-03-28T11:08:55.123Z</published>
-    <updated>2022-03-28T11:09:03.013Z</updated>
+    <link href="http://example.com/2022/06/24/typora%E6%96%87%E4%BB%B6%E9%9B%86%E5%90%88/%E4%B8%AA%E4%BA%BA/%E6%B8%B8%E6%88%8F/%E6%B8%B8%E6%88%8F%E5%A4%A7%E5%85%A8/"/>
+    <id>http://example.com/2022/06/24/typora%E6%96%87%E4%BB%B6%E9%9B%86%E5%90%88/%E4%B8%AA%E4%BA%BA/%E6%B8%B8%E6%88%8F/%E6%B8%B8%E6%88%8F%E5%A4%A7%E5%85%A8/</id>
+    <published>2022-06-24T15:55:52.120Z</published>
+    <updated>2022-06-24T16:12:56.094Z</updated>
     
-    
-    
-    
-    
-  </entry>
-  
-  <entry>
-    <title>JVM学习总结</title>
-    <link href="http://example.com/2022/03/28/typora%E6%96%87%E4%BB%B6%E9%9B%86%E5%90%88/%E6%8B%89%E9%92%A9/JVM/JVM%E5%AD%A6%E4%B9%A0%E6%80%BB%E7%BB%93/"/>
-    <id>http://example.com/2022/03/28/typora%E6%96%87%E4%BB%B6%E9%9B%86%E5%90%88/%E6%8B%89%E9%92%A9/JVM/JVM%E5%AD%A6%E4%B9%A0%E6%80%BB%E7%BB%93/</id>
-    <published>2022-03-27T22:09:01.164Z</published>
-    <updated>2022-03-27T22:39:32.486Z</updated>
-    
-    <content type="html"><![CDATA[<h2 id="第一部分：自动内存管理"><a href="#第一部分：自动内存管理" class="headerlink" title="第一部分：自动内存管理"></a>第一部分：自动内存管理</h2><h3 id="1-1-Java内存区域"><a href="#1-1-Java内存区域" class="headerlink" title="1.1 Java内存区域"></a>1.1 Java内存区域</h3><h3 id="1-2-垃圾收集器与内存分配策略"><a href="#1-2-垃圾收集器与内存分配策略" class="headerlink" title="1.2 垃圾收集器与内存分配策略"></a>1.2 垃圾收集器与内存分配策略</h3><h3 id="1-3-性能监控工具"><a href="#1-3-性能监控工具" class="headerlink" title="1.3 性能监控工具"></a>1.3 性能监控工具</h3><h2 id="第二部分：-虚拟机执行子系统"><a href="#第二部分：-虚拟机执行子系统" class="headerlink" title="第二部分： 虚拟机执行子系统"></a>第二部分： 虚拟机执行子系统</h2><h3 id="2-1-类文件结构"><a href="#2-1-类文件结构" class="headerlink" title="2.1 类文件结构"></a>2.1 类文件结构</h3><h3 id="2-2-虚拟机类加载机制"><a href="#2-2-虚拟机类加载机制" class="headerlink" title="2.2 虚拟机类加载机制"></a>2.2 虚拟机类加载机制</h3><h3 id="2-3-虚拟机字节码执行引擎"><a href="#2-3-虚拟机字节码执行引擎" class="headerlink" title="2.3 虚拟机字节码执行引擎"></a>2.3 虚拟机字节码执行引擎</h3><h2 id="第三部分：-程序编译与代码优化"><a href="#第三部分：-程序编译与代码优化" class="headerlink" title="第三部分： 程序编译与代码优化"></a>第三部分： 程序编译与代码优化</h2><h3 id="3-1-前端编译与优化"><a href="#3-1-前端编译与优化" class="headerlink" title="3.1 前端编译与优化"></a>3.1 前端编译与优化</h3><h3 id="3-2-后端编译与优化"><a href="#3-2-后端编译与优化" class="headerlink" title="3.2 后端编译与优化"></a>3.2 后端编译与优化</h3><h2 id="第四部分：高效并发"><a href="#第四部分：高效并发" class="headerlink" title="第四部分：高效并发"></a>第四部分：高效并发</h2><h3 id="4-1-Java内存模型与线程"><a href="#4-1-Java内存模型与线程" class="headerlink" title="4.1 Java内存模型与线程"></a>4.1 Java内存模型与线程</h3><h3 id="4-2-线程安全与锁优化"><a href="#4-2-线程安全与锁优化" class="headerlink" title="4.2 线程安全与锁优化"></a>4.2 线程安全与锁优化</h3>]]></content>
+    <content type="html"><![CDATA[<h2 id="播棋的玩法"><a href="#播棋的玩法" class="headerlink" title="播棋的玩法"></a>播棋的玩法</h2><p>目标：终点棋子多的获胜。</p><p>规则： </p><ol><li><p>分配到中途有棋子进入了自己的终点的话得1分；</p></li><li><p>有一方的袋子里全部空掉就结束游戏；</p></li><li><p>如果最后一个棋子分配到自己的终点，就可以再分配1次。</p></li><li><p>如果最后一个棋子进入空袋子里，就可以获得对面袋子里的所有棋子。</p></li><li><p>如果对手袋子先全部变为空的话，剩余的棋子就全部归自己所有。</p></li></ol><p>技巧：</p><ol><li>时刻留意对方的空袋子的情况；</li><li>在终点边上放置一个棋子。</li></ol>]]></content>
     
     
       
       
-    <summary type="html">&lt;h2 id=&quot;第一部分：自动内存管理&quot;&gt;&lt;a href=&quot;#第一部分：自动内存管理&quot; class=&quot;headerlink&quot; title=&quot;第一部分：自动内存管理&quot;&gt;&lt;/a&gt;第一部分：自动内存管理&lt;/h2&gt;&lt;h3 id=&quot;1-1-Java内存区域&quot;&gt;&lt;a href=&quot;#1-1-J</summary>
-      
-    
-    
-    
-    <category term="JVM" scheme="http://example.com/categories/JVM/"/>
-    
-    
-    <category term="拉钩" scheme="http://example.com/tags/%E6%8B%89%E9%92%A9/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Reids预习</title>
-    <link href="http://example.com/2022/03/27/typora%E6%96%87%E4%BB%B6%E9%9B%86%E5%90%88/%E6%8B%89%E9%92%A9/%E4%B8%AD%E9%97%B4%E4%BB%B6/Redis/Redis%E9%A2%84%E4%B9%A0/"/>
-    <id>http://example.com/2022/03/27/typora%E6%96%87%E4%BB%B6%E9%9B%86%E5%90%88/%E6%8B%89%E9%92%A9/%E4%B8%AD%E9%97%B4%E4%BB%B6/Redis/Redis%E9%A2%84%E4%B9%A0/</id>
-    <published>2022-03-26T16:53:06.754Z</published>
-    <updated>2022-03-26T16:54:02.397Z</updated>
-    
-    <content type="html"><![CDATA[<h2 id="事件"><a href="#事件" class="headerlink" title="事件"></a>事件</h2>]]></content>
-    
-    
-      
-      
-    <summary type="html">&lt;h2 id=&quot;事件&quot;&gt;&lt;a href=&quot;#事件&quot; class=&quot;headerlink&quot; title=&quot;事件&quot;&gt;&lt;/a&gt;事件&lt;/h2&gt;</summary>
-      
-    
-    
-    
-    <category term="Redis" scheme="http://example.com/categories/Redis/"/>
-    
-    
-    <category term="拉钩" scheme="http://example.com/tags/%E6%8B%89%E9%92%A9/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>利用Linux命令行工具排查线上问题</title>
-    <link href="http://example.com/2022/03/25/typora%E6%96%87%E4%BB%B6%E9%9B%86%E5%90%88/%E6%8A%80%E6%9C%AF/%E5%B8%B8%E8%A7%81%E7%9A%84%E9%9D%A2%E8%AF%95%E6%8A%80%E6%9C%AF%E9%97%AE%E9%A2%98/%E5%88%A9%E7%94%A8Linux%E5%91%BD%E4%BB%A4%E6%8E%92%E6%9F%A5%E7%BA%BF%E4%B8%8A%E9%97%AE%E9%A2%98/"/>
-    <id>http://example.com/2022/03/25/typora%E6%96%87%E4%BB%B6%E9%9B%86%E5%90%88/%E6%8A%80%E6%9C%AF/%E5%B8%B8%E8%A7%81%E7%9A%84%E9%9D%A2%E8%AF%95%E6%8A%80%E6%9C%AF%E9%97%AE%E9%A2%98/%E5%88%A9%E7%94%A8Linux%E5%91%BD%E4%BB%A4%E6%8E%92%E6%9F%A5%E7%BA%BF%E4%B8%8A%E9%97%AE%E9%A2%98/</id>
-    <published>2022-03-25T14:53:02.433Z</published>
-    <updated>2022-03-25T17:30:13.334Z</updated>
-    
-    <content type="html"><![CDATA[<h2 id="系统负载"><a href="#系统负载" class="headerlink" title="系统负载"></a>系统负载</h2><p>查看系统的负载情况：uptime或者是top命令；</p><p><code>uptime</code></p><p><img src="https://xiazhenyu.oss-cn-hangzhou.aliyuncs.com/common/image-20220325234247304.png" alt="image-20220325234247304"></p><p>平均负载：单位时间内，系统处于可运行状态和不可中断状态的平均进程数。</p><ul><li>可运行状态： 正在使用CPU或者等待CPU的进程，即处于Running或Runnable状态；</li><li>不可中断状态：进程不能被中断，例如进程向磁盘读写数据时，为了维护数据的一致性，在得到磁盘回复之前，它是不能被打断的（会释放cpu，但是不会响应kill命令等</li><li>）。</li></ul><p>获取CPU个数的命令</p><p><code>grep &#39;model name&#39; /proc/cpuinfo | wc -l</code> </p><p><img src="https://xiazhenyu.oss-cn-hangzhou.aliyuncs.com/common/image-20220325234437786.png" alt="image-20220325234437786"></p><p><strong>一般情况下当平均负载高于 CPU 数量 70% 的时候，你就应该分析排查负载高的问题了</strong></p><p>==上下文切换== </p><p>上下文有以下几种：</p><ol><li><p>进程上下文切换；</p><p>进程上下文切换触发的场景：</p><ul><li>分给进程的时间片被耗尽；</li><li>进程在资源不足（比如内存），或者等待io完成；</li><li>当有优先级更高的进程运行时，为了保证高优先级的进程运行，当前进程被挂起；</li><li>发生硬件中断时，CPU上的进程会被挂起，转而执行内核中的中断服务程序。</li></ul></li><li><p>线程上下文切换；</p><p>线程是调度的基本单位，而进程则是资源拥有的基本单位；</p><ul><li>当进程只有一个线程时，可以认为进程等于线程；</li><li>当进程拥有多个线程时，会共享相同的虚拟内存和全局变量等资源，这些资源在上下文切换时不需要被更改。因此相同进程内的线程切换，比多进程间的切换消耗更少的资源；</li><li>线程的私有数据，如栈和寄存器，在进行上下文切换时是需要保存的。</li></ul></li><li><p>中断上下文切换。</p><p>为了快速响应硬件的事件，中断处理会打断进程的正常调度和执行。对同一个CPU来说，中断处理比进程拥有更高的优先级；</p><p>针对频繁上下文切换的问题，我们可以使用vmstat命令来查看，</p><p> <img src="https://xiazhenyu.oss-cn-hangzhou.aliyuncs.com/common/image-20220326000812455.png" alt="image-20220326000812455"></p></li></ol><table><thead><tr><th>System</th><th>含义</th><th></th></tr></thead><tbody><tr><td>in</td><td>每秒中断的次数</td><td></td></tr><tr><td>cs</td><td>每秒上下文切换的次数</td><td></td></tr></tbody></table><p><img src="https://xiazhenyu.oss-cn-hangzhou.aliyuncs.com/common/image-20220326001258530.png" alt="image-20220326001258530"></p><p>cswch 、nvcswch</p><p>cswch（自愿上下文切换）:进程无法获取所需要的资源，导致的上下文切换。例如IO、内存等系统资源不足时；</p><p>nvcswch（非自愿上下文切换）：进程由于时间片已到等原因，被系统强制调度，进而发生的上下文切换。比如，当大量进程都在争抢CPU时；</p><h2 id="线上CPU飙高如何排查"><a href="#线上CPU飙高如何排查" class="headerlink" title="线上CPU飙高如何排查"></a>线上CPU飙高如何排查</h2><ol><li>先执行top命令，找到CPU占用比较高的进程；</li><li>jstack 进程id &gt; show.txt；</li><li>找到进程中CPU占用比较高的线程，获取到线程id（执行top -p 高进程pid -H），线程id转为16进制(printf “%x” 高进程pid)</li><li>到show.txt文件中根据线程id查看线程的具体状态即可。</li></ol><h3 id="CPU-使用率低但是负载高"><a href="#CPU-使用率低但是负载高" class="headerlink" title="CPU 使用率低但是负载高"></a>CPU 使用率低但是负载高</h3><p>系统负载高时，</p>]]></content>
-    
-    
-      
-      
-    <summary type="html">&lt;h2 id=&quot;系统负载&quot;&gt;&lt;a href=&quot;#系统负载&quot; class=&quot;headerlink&quot; title=&quot;系统负载&quot;&gt;&lt;/a&gt;系统负载&lt;/h2&gt;&lt;p&gt;查看系统的负载情况：uptime或者是top命令；&lt;/p&gt;
-&lt;p&gt;&lt;code&gt;uptime&lt;/code&gt;&lt;/p&gt;
-&lt;p&gt;&lt;i</summary>
-      
-    
-    
-    
-    <category term="Linux" scheme="http://example.com/categories/Linux/"/>
-    
-    
-    <category term="Linux" scheme="http://example.com/tags/Linux/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>财务核算项目</title>
-    <link href="http://example.com/2022/03/21/wholee/%E8%B4%A2%E5%8A%A1%E6%A0%B8%E7%AE%97%E9%A1%B9%E7%9B%AE/"/>
-    <id>http://example.com/2022/03/21/wholee/%E8%B4%A2%E5%8A%A1%E6%A0%B8%E7%AE%97%E9%A1%B9%E7%9B%AE/</id>
-    <published>2022-03-21T08:32:35.466Z</published>
-    <updated>2022-03-25T09:32:40.124Z</updated>
-    
-    <content type="html"><![CDATA[<p>需求PRD地址：</p><p><a href="http://wiki.huoli101.com/pages/viewpage.action?pageId=60388365">http://wiki.huoli101.com/pages/viewpage.action?pageId=60388365</a></p><p><a href="http://wiki.huoli101.com/pages/viewpage.action?pageId=60388224">http://wiki.huoli101.com/pages/viewpage.action?pageId=60388224</a></p><p>产品原型：<a href="https://15d977.axshare.com/">https://15d977.axshare.com</a></p><p>数仓数据处理：<a href="http://wiki.huoli101.com/pages/viewpage.action?pageId=60390557">http://wiki.huoli101.com/pages/viewpage.action?pageId=60390557</a></p><h2 id="业务点"><a href="#业务点" class="headerlink" title="业务点"></a>业务点</h2><ul><li><p>一个完整的凭证是会对应好几个凭证规则的，不同的凭证规则映射了不同的科目编码+借贷方向，</p></li><li><p>一个完整的凭证总是包含借方金额和贷方金额的，并且借方金额总和总是等于贷方金额总和。 借方金额和贷方金额会有不同的明细组成。</p></li><li><p>需要一个记录校验失败的表，用以记录凭证校验失败的信息，对应于凭证失败列表；</p></li><li><p> 辅助核算：只是校验辅助核算中的项在数仓推过来的数据中是不是含有，特殊的，excel中的存货类别给默认值；</p></li><li><p>凭证中字段需要和excel中保持一致，而不是凭证的列表页；</p></li><li><p>汇总明细中的单号由核算系统生成，并且需要把这个值和生成的凭证数据、凭证失败数据关联起来；</p></li><li><p>金额的校验需要有技术上的校验，是否数字、大小范围限定等；</p></li><li><p>凭证规则的唯一性约束：业务码 + 账薄 + 科目编码；</p></li><li><p>借贷不平的校验，是在一条汇总数据的所有匹配的凭证规则的最后进行的，会统计对应的所有凭证规则对应的明细数据的借方金额总和是不是和贷方金额总和是否一致；</p></li><li><p>外币核算：一方面需要校验汇总数据中的币别是不是和匹配的凭证规则中的外币核算的值一致；另方面，如果外币核算配置的不是RMB，则需要根据汇率换算成RMB；</p></li><li><p>校验汇率：我理解就是查询汇率的换算规则存不存在；</p></li><li><p>供应商维护的配置中，唯一性约束是供应商名称；</p></li><li><p>凭证是可以物理删除的；</p></li></ul><p>excel部分</p><ul><li><img src="https://xiazhenyu.oss-cn-hangzhou.aliyuncs.com/common/image-20220322103352489.png" alt="image-20220322103352489" style="zoom:50%;" /></li></ul><p>这两个日期取的是数仓推过来的日期；</p><img src="https://xiazhenyu.oss-cn-hangzhou.aliyuncs.com/common/image-20220322110930947.png" alt="image-20220322110930947" style="zoom:50%;" /><p>==待确认的项：==</p><ul><li>凭证列表页的展示；</li><li>数仓推过来的汇总明细中的单号的校验逻辑；</li></ul><h2 id="表结构设计"><a href="#表结构设计" class="headerlink" title="表结构设计"></a>表结构设计</h2><p>主要分为三大类：</p><ol><li><p>汇总数据类表：</p></li><li><p>凭证表、凭证失败表（记录校验失败信息）（可以考虑通用的记录表设计）：</p></li></ol><p>凭证表设计：</p><table><thead><tr><th>no</th><th>类型</th><th>字段名</th><th>是否可为空</th><th>解释</th></tr></thead><tbody><tr><td>1</td><td>表头</td><td>id</td><td></td><td>20210313001</td></tr><tr><td></td><td></td><td>number</td><td></td><td>单号(以天为纬度，每天从1自增)</td></tr><tr><td></td><td></td><td></td><td></td><td></td></tr><tr><td>2</td><td></td><td>date</td><td></td><td>日期（数仓推送时间）</td></tr><tr><td>3</td><td></td><td>account_year</td><td></td><td>会计期间-年</td></tr><tr><td>4</td><td></td><td>account_month</td><td></td><td>会计期间-月</td></tr><tr><td></td><td></td><td>certificate_code</td><td></td><td>凭证编码，固定值: PRE001</td></tr><tr><td>5</td><td></td><td>certificate_name</td><td></td><td>凭证字，固定值：记</td></tr><tr><td>6</td><td></td><td>certificate_number</td><td></td><td>凭证号 ==（excel导出的时候，字段为空）==</td></tr><tr><td>7</td><td>表体</td><td>summary</td><td>N</td><td>摘要</td></tr><tr><td>8</td><td></td><td>subject_code</td><td>N</td><td>科目编码</td></tr><tr><td>9</td><td></td><td>subject_full_name</td><td>N</td><td>科目全称</td></tr><tr><td></td><td></td><td>assist_account</td><td>Y</td><td>辅助核算</td></tr><tr><td></td><td></td><td>currency_number</td><td>N</td><td>货币代码</td></tr><tr><td>10</td><td></td><td>currency_code</td><td>N</td><td>货币编码</td></tr><tr><td></td><td></td><td>currency_name</td><td>N</td><td>货币名称</td></tr><tr><td>11</td><td></td><td>original_amount</td><td>N</td><td>原币金额</td></tr><tr><td>12</td><td></td><td>debit_amount</td><td>N</td><td>借方金额</td></tr><tr><td>13</td><td></td><td>credit amount</td><td>N</td><td>贷方金额</td></tr><tr><td>14</td><td></td><td>account_book_code</td><td>N</td><td>账薄编码</td></tr><tr><td>15</td><td></td><td>account_book_name</td><td>N</td><td>账薄名称</td></tr><tr><td>16</td><td></td><td>gmt_created</td><td></td><td></td></tr><tr><td>17</td><td></td><td>gmt_modified</td><td></td><td></td></tr><tr><td>18</td><td></td><td>version</td><td></td><td></td></tr><tr><td>19</td><td></td><td>is_deleted</td><td></td><td></td></tr></tbody></table><p>唯一键：年月+业务码+业务类型+平台+国别</p><ol><li>配置表：部分配置表可以通过Apolo配置实现：</li></ol><p>​    3.1  单据类型；</p><p>​    3.2  平台配置；</p><p>Q:</p><ol><li>辅助核算的存储？</li></ol><p>资源信息：</p><p>财务线上实例：Nx- finance-nx-ops；</p><p>测试环境（不区分schema）：jdbc:mysql://traefik1.nx-test.huoli101.com:10036</p><p>账号信息：</p><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="operator">-</span> <span class="keyword">CREATE</span> <span class="keyword">USER</span> <span class="string">&#x27;ops_read&#x27;</span>@<span class="string">&#x27;%&#x27;</span> IDENTIFIED <span class="keyword">BY</span> <span class="string">&#x27;82e36ff3-0b95-43&#x27;</span></span><br><span class="line"> <span class="operator">-</span> <span class="keyword">GRANT</span> <span class="keyword">Select</span>,<span class="keyword">Show</span> <span class="keyword">view</span> <span class="keyword">ON</span> <span class="operator">*</span>.<span class="operator">*</span> <span class="keyword">TO</span> ops_read@<span class="string">&#x27;%&#x27;</span></span><br><span class="line"> <span class="operator">-</span> <span class="keyword">CREATE</span> <span class="keyword">USER</span> <span class="string">&#x27;ops_write&#x27;</span>@<span class="string">&#x27;%&#x27;</span> IDENTIFIED <span class="keyword">BY</span> <span class="string">&#x27;dc7fe3dc-abd0-4f&#x27;</span></span><br><span class="line"> <span class="operator">-</span> <span class="keyword">GRANT</span> <span class="keyword">Delete</span>,<span class="keyword">Insert</span>,<span class="keyword">Select</span>,<span class="keyword">References</span>,<span class="keyword">Show</span> <span class="keyword">view</span>,Update <span class="keyword">ON</span> <span class="operator">*</span>.<span class="operator">*</span> <span class="keyword">TO</span> ops_write@<span class="string">&#x27;%&#x27;</span></span><br><span class="line"> <span class="operator">-</span> <span class="keyword">CREATE</span> <span class="keyword">USER</span> <span class="string">&#x27;public_write&#x27;</span>@<span class="string">&#x27;%&#x27;</span> IDENTIFIED <span class="keyword">BY</span> <span class="string">&#x27;2873b92b-dd39-4b&#x27;</span></span><br><span class="line"> <span class="operator">-</span> <span class="keyword">GRANT</span> <span class="keyword">Delete</span>,<span class="keyword">Insert</span>,<span class="keyword">Select</span>,<span class="keyword">References</span>,<span class="keyword">Show</span> <span class="keyword">view</span>,Update <span class="keyword">ON</span> <span class="operator">*</span>.<span class="operator">*</span> <span class="keyword">TO</span> public_write@<span class="string">&#x27;%&#x27;</span></span><br><span class="line"> <span class="operator">-</span> <span class="keyword">CREATE</span> <span class="keyword">USER</span> <span class="string">&#x27;public_read&#x27;</span>@<span class="string">&#x27;%&#x27;</span> IDENTIFIED <span class="keyword">BY</span> <span class="string">&#x27;fb772a0d-411e-46&#x27;</span></span><br><span class="line"> <span class="operator">-</span> <span class="keyword">GRANT</span> <span class="keyword">Select</span>,<span class="keyword">Show</span> <span class="keyword">view</span> <span class="keyword">ON</span> <span class="operator">*</span>.<span class="operator">*</span> <span class="keyword">TO</span> public_read@<span class="string">&#x27;%&#x27;</span></span><br><span class="line"> <span class="operator">-</span> <span class="keyword">CREATE</span> <span class="keyword">USER</span> <span class="string">&#x27;sync&#x27;</span>@<span class="string">&#x27;%&#x27;</span> IDENTIFIED <span class="keyword">BY</span> <span class="string">&#x27;7830159d-64e8-45&#x27;</span></span><br><span class="line"> <span class="operator">-</span> <span class="keyword">GRANT</span> <span class="keyword">SELECT</span>,REPLICATION SLAVE,REPLICATION CLIENT,<span class="keyword">INSERT</span>,UPDATE, <span class="keyword">DELETE</span>,<span class="keyword">EXECUTE</span></span><br><span class="line">   <span class="keyword">ON</span> <span class="operator">*</span>.<span class="operator">*</span> <span class="keyword">TO</span> sync@<span class="string">&#x27;%&#x27;</span></span><br><span class="line"> <span class="operator">-</span> <span class="keyword">CREATE</span> <span class="keyword">USER</span> <span class="string">&#x27;public_admin&#x27;</span>@<span class="string">&#x27;%&#x27;</span> IDENTIFIED <span class="keyword">BY</span> <span class="string">&#x27;acad92b7-a309-46&#x27;</span></span><br><span class="line"> <span class="operator">-</span> <span class="keyword">GRANT</span> <span class="keyword">drop</span>,<span class="keyword">create</span>,<span class="keyword">alter</span>,REPLICATION SLAVE,REPLICATION CLIENT,<span class="keyword">delete</span>,<span class="keyword">insert</span>,<span class="keyword">select</span>,<span class="keyword">references</span>,<span class="keyword">show</span></span><br><span class="line">   <span class="keyword">view</span>,update,index <span class="keyword">ON</span> <span class="operator">*</span>.<span class="operator">*</span> <span class="keyword">TO</span> public_admin@<span class="string">&#x27;%&#x27;</span></span><br><span class="line"> <span class="operator">-</span> <span class="keyword">CREATE</span> <span class="keyword">USER</span> <span class="string">&#x27;public_drop&#x27;</span>@<span class="string">&#x27;%&#x27;</span> IDENTIFIED <span class="keyword">BY</span> <span class="string">&#x27;f213075e-ad77-44&#x27;</span></span><br><span class="line"> <span class="operator">-</span> <span class="keyword">GRANT</span> <span class="keyword">drop</span>,<span class="keyword">create</span>,<span class="keyword">Delete</span>,<span class="keyword">Insert</span>,<span class="keyword">Select</span>,<span class="keyword">References</span>,<span class="keyword">Show</span> <span class="keyword">view</span>,Update <span class="keyword">ON</span> <span class="operator">*</span>.<span class="operator">*</span> <span class="keyword">TO</span> public_drop@<span class="string">&#x27;%&#x27;</span></span><br></pre></td></tr></table></figure><p>sql准备</p><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">create</span> database account_finance;</span><br></pre></td></tr></table></figure><p>配置（apollo）、系统回滚方案、版本号、脚本（相关）、</p>]]></content>
-    
-    
-      
-      
-    <summary type="html">&lt;p&gt;需求PRD地址：&lt;/p&gt;
-&lt;p&gt;&lt;a href=&quot;http://wiki.huoli101.com/pages/viewpage.action?pageId=60388365&quot;&gt;http://wiki.huoli101.com/pages/viewpage.action?p</summary>
-      
-    
-    
-    
-    <category term="wholee" scheme="http://example.com/categories/wholee/"/>
-    
-    
-    <category term="wholee" scheme="http://example.com/tags/wholee/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>3月20号直播</title>
-    <link href="http://example.com/2022/03/20/typora%E6%96%87%E4%BB%B6%E9%9B%86%E5%90%88/%E6%8B%89%E9%92%A9/%E4%B8%AD%E9%97%B4%E4%BB%B6/Redis/3%E6%9C%8820%E5%8F%B7%E7%9B%B4%E6%92%AD/"/>
-    <id>http://example.com/2022/03/20/typora%E6%96%87%E4%BB%B6%E9%9B%86%E5%90%88/%E6%8B%89%E9%92%A9/%E4%B8%AD%E9%97%B4%E4%BB%B6/Redis/3%E6%9C%8820%E5%8F%B7%E7%9B%B4%E6%92%AD/</id>
-    <published>2022-03-20T12:11:52.641Z</published>
-    <updated>2022-03-26T16:53:01.117Z</updated>
-    
-    <content type="html"><![CDATA[<h3 id="RDB回顾"><a href="#RDB回顾" class="headerlink" title="RDB回顾"></a>RDB回顾</h3><p>redis的判断RDB启动的条件？</p><h3 id="AOF持久化"><a href="#AOF持久化" class="headerlink" title="AOF持久化"></a>AOF持久化</h3><p>aof_buf  AOF缓冲区</p><p>ServerCorn函数</p><p>主要作用：</p><ol><li><p>更新服务器的各项数据；</p></li><li><p>清理过期的键值对；</p></li><li><p>关闭和清理连接失效的客户端；</p></li><li><p>尝试进行AOF和RDB持久化更新；</p></li></ol><p>作业：</p><p>线上有100w条商品数据（存在于根据商家id分库分表的数据库中），分别属于1000多个商家之下。这些商家被删除，要求同步删除其商品数据。请你设计一个系统，来删除这100w条商品数据。要求如下：</p><p>1.不影响线上服务；<br>2.保证一定的删除速率；<br>3.可以统计删除时效；<br>4.可以动态调整删除速率。</p><p>异步，子线程；</p><p>计数器？</p><p>参数设置</p>]]></content>
-    
-    
-      
-      
-    <summary type="html">&lt;h3 id=&quot;RDB回顾&quot;&gt;&lt;a href=&quot;#RDB回顾&quot; class=&quot;headerlink&quot; title=&quot;RDB回顾&quot;&gt;&lt;/a&gt;RDB回顾&lt;/h3&gt;&lt;p&gt;redis的判断RDB启动的条件？&lt;/p&gt;
-&lt;h3 id=&quot;AOF持久化&quot;&gt;&lt;a href=&quot;#AOF持久化&quot; cl</summary>
-      
-    
-    
-    
-    <category term="拉钩" scheme="http://example.com/categories/%E6%8B%89%E9%92%A9/"/>
-    
-    
-    <category term="拉钩" scheme="http://example.com/tags/%E6%8B%89%E9%92%A9/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>利用JVM命令行工具排查线上问题</title>
-    <link href="http://example.com/2022/03/20/typora%E6%96%87%E4%BB%B6%E9%9B%86%E5%90%88/%E6%8A%80%E6%9C%AF/%E5%B8%B8%E8%A7%81%E7%9A%84%E9%9D%A2%E8%AF%95%E6%8A%80%E6%9C%AF%E9%97%AE%E9%A2%98/%E5%88%A9%E7%94%A8JVM%E5%91%BD%E4%BB%A4%E8%A1%8C%E5%B7%A5%E5%85%B7%E6%8E%92%E6%9F%A5%E7%BA%BF%E4%B8%8A%E9%97%AE%E9%A2%98/"/>
-    <id>http://example.com/2022/03/20/typora%E6%96%87%E4%BB%B6%E9%9B%86%E5%90%88/%E6%8A%80%E6%9C%AF/%E5%B8%B8%E8%A7%81%E7%9A%84%E9%9D%A2%E8%AF%95%E6%8A%80%E6%9C%AF%E9%97%AE%E9%A2%98/%E5%88%A9%E7%94%A8JVM%E5%91%BD%E4%BB%A4%E8%A1%8C%E5%B7%A5%E5%85%B7%E6%8E%92%E6%9F%A5%E7%BA%BF%E4%B8%8A%E9%97%AE%E9%A2%98/</id>
-    <published>2022-03-20T05:19:39.297Z</published>
-    <updated>2022-03-25T14:53:24.420Z</updated>
-    
-    <content type="html"><![CDATA[<table><thead><tr><th>名称</th><th>主要作用</th></tr></thead><tbody><tr><td>jps</td><td>查看正在运行的java进程</td></tr><tr><td>jstack</td><td>打印线程快照</td></tr><tr><td>jmap</td><td>导出堆内存映射文件</td></tr><tr><td>jstat</td><td>查看jvm统计信息</td></tr><tr><td>jinfo</td><td>实时查看和修改jvm配置参数</td></tr><tr><td>jhat</td><td>用于分析heapdump文件</td></tr></tbody></table><h3 id="jps：查看正在运行的java进程"><a href="#jps：查看正在运行的java进程" class="headerlink" title="jps：查看正在运行的java进程"></a>jps：查看正在运行的java进程</h3><table><thead><tr><th>选项</th><th>作用</th></tr></thead><tbody><tr><td>-q</td><td>只输出进程id</td></tr><tr><td>-m</td><td>输出传递给主类main函数的参数</td></tr><tr><td>-l</td><td>输出主类全类名，如果进程执行的是jar包，输出jar包的名字。</td></tr><tr><td>-v</td><td>程序启动时制定的jvm参数</td></tr></tbody></table><p>ex：</p><img src="https://xiazhenyu.oss-cn-hangzhou.aliyuncs.com/common/image-20220320134743825.png" alt="image-20220320134743825" style="zoom:50%;" /><h3 id="jstack-打印线程快照"><a href="#jstack-打印线程快照" class="headerlink" title="jstack :打印线程快照"></a>jstack :打印线程快照</h3><p>查看某个java进程中所有线程的状态。一般用来定位线程出现长时间停顿的原因，如发生死循环、死锁、请求外部资源长时间等待等。</p><p>执行jstack的效果：</p><img src="https://xiazhenyu.oss-cn-hangzhou.aliyuncs.com/common/image-20220320135157763.png" alt="image-20220320135157763" style="zoom:50%;" /><h3 id="jmap：导出堆内存映射文件"><a href="#jmap：导出堆内存映射文件" class="headerlink" title="jmap：导出堆内存映射文件"></a>jmap：导出堆内存映射文件</h3><p>jmap主要用来导出堆内存映射文件，看是否发生内存泄漏等；</p><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">jmap -dump:file=文件名.dump 进程id</span><br></pre></td></tr></table></figure><img src="https://xiazhenyu.oss-cn-hangzhou.aliyuncs.com/common/image-20220320135611486.png" alt="image-20220320135611486" style="zoom:50%;" /><h3 id="jstat-查看jvm统计信息"><a href="#jstat-查看jvm统计信息" class="headerlink" title="jstat:查看jvm统计信息"></a>jstat:查看jvm统计信息</h3><p>jstat可以显示本地或者远程虚拟机进程中的类装载、内存、垃圾收集、JIT编译等运行数据。</p><p><img src="https://xiazhenyu.oss-cn-hangzhou.aliyuncs.com/common/image-20220320141238863.png" alt="image-20220320141238863"></p><table><thead><tr><th>Loaded</th><th>解释</th></tr></thead><tbody><tr><td>Loaded</td><td>加载类的个数</td></tr><tr><td>Bytes</td><td>加载类的字节数</td></tr><tr><td>Unloaded</td><td>卸载类的个数</td></tr><tr><td>Bytes</td><td>卸载类的字节数</td></tr><tr><td>Time</td><td>花费的时间</td></tr></tbody></table><h3 id="jinfo：实时查看和修改jvm参数"><a href="#jinfo：实时查看和修改jvm参数" class="headerlink" title="jinfo：实时查看和修改jvm参数"></a>jinfo：实时查看和修改jvm参数</h3><p><img src="https://xiazhenyu.oss-cn-hangzhou.aliyuncs.com/common/2021070716373839.jpg" alt="在这里插入图片描述"></p><p>ex：</p><img src="https://xiazhenyu.oss-cn-hangzhou.aliyuncs.com/common/image-20220320134304798.png" alt="image-20220320134304798" style="zoom:50%;" />]]></content>
-    
-    
-      
-      
-    <summary type="html">&lt;table&gt;
-&lt;thead&gt;
-&lt;tr&gt;
-&lt;th&gt;名称&lt;/th&gt;
-&lt;th&gt;主要作用&lt;/th&gt;
-&lt;/tr&gt;
-&lt;/thead&gt;
-&lt;tbody&gt;&lt;tr&gt;
-&lt;td&gt;jps&lt;/td&gt;
-&lt;td&gt;查看正在运行的java进程&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;jstack&lt;/td&gt;
-&lt;td</summary>
-      
-    
-    
-    
-    <category term="技术" scheme="http://example.com/categories/%E6%8A%80%E6%9C%AF/"/>
-    
-    
-    <category term="工作安排" scheme="http://example.com/tags/%E5%B7%A5%E4%BD%9C%E5%AE%89%E6%8E%92/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>如何实现一个RPC框架</title>
-    <link href="http://example.com/2022/03/20/typora%E6%96%87%E4%BB%B6%E9%9B%86%E5%90%88/%E6%8A%80%E6%9C%AF/%E5%B8%B8%E8%A7%81%E7%9A%84%E9%9D%A2%E8%AF%95%E6%8A%80%E6%9C%AF%E9%97%AE%E9%A2%98/%E5%A6%82%E4%BD%95%E5%AE%9E%E7%8E%B0%E4%B8%80%E4%B8%AARPC%E6%A1%86%E6%9E%B6/"/>
-    <id>http://example.com/2022/03/20/typora%E6%96%87%E4%BB%B6%E9%9B%86%E5%90%88/%E6%8A%80%E6%9C%AF/%E5%B8%B8%E8%A7%81%E7%9A%84%E9%9D%A2%E8%AF%95%E6%8A%80%E6%9C%AF%E9%97%AE%E9%A2%98/%E5%A6%82%E4%BD%95%E5%AE%9E%E7%8E%B0%E4%B8%80%E4%B8%AARPC%E6%A1%86%E6%9E%B6/</id>
-    <published>2022-03-19T18:29:15.439Z</published>
-    <updated>2022-03-20T05:20:22.016Z</updated>
-    
-    <content type="html"><![CDATA[<h2 id="一个RPC调用的过程如下"><a href="#一个RPC调用的过程如下" class="headerlink" title="一个RPC调用的过程如下"></a>一个RPC调用的过程如下</h2><ol><li>调用方发送请求后由代理类将调用的方法，参数组装成能进行网络传输的消息体</li><li>调用方将消息体发送到提供方</li><li>提供方将消息进行解码，得到调用的参数</li><li>提供方反射执行相应的方法，并将结果返回</li></ol><h2 id="生成代理类"><a href="#生成代理类" class="headerlink" title="生成代理类"></a>生成代理类</h2><p>fb的Thrift和Google的gRPC都是定义一个schema文件，然后执行程序，帮你生成客户端代理类以及接口。调用方直接用生成的代理类来请求，提供方继承生成的接口即可。</p><p>优点：支持多语言通信。</p><p>在Java中生成代理类的方式：</p><p>1.JDK动态代理；</p><p>2.字节码操作类库（cglib，Javassist）。</p><h2 id="协议"><a href="#协议" class="headerlink" title="协议"></a>协议</h2><p>为什么需要协议？</p><p>数据在网络中是以二进制的形式在网络中传播的，RPC的请求数据不是以一个整体发送到提供方的，而是可能被拆分成多个数据包发送出去。定义协议，可以有效的保证通信的双方进行交流。</p><p>都有哪些种类的协议呢？</p><ul><li>定长协议：协议内容固定；</li><li>特殊结束符：定义一个消息结束的分割符，如读\n，表示一个数据读取完毕了，没有就一直读；</li><li>变长协议（协议头+协议体）：用一个定长表示消息体的长度，剩下的内容表示消息体。？</li></ul><p>我们以dubbo的协议来进行说明，dubbo采用的协议被称为dubbo协议。协议的头格式如下：</p><p><img src="https://xiazhenyu.oss-cn-hangzhou.aliyuncs.com/common/image-20220320030901386.png" alt="image-20220320030901386"></p><p>解释：</p><p><img src="https://xiazhenyu.oss-cn-hangzhou.aliyuncs.com/common/202010301351057.png" alt="在这里插入图片描述"></p><p>为什么要自定义协议？ 关键字：高性能</p><ol><li>Http协议的请求包比较大，有很多无用的内容，自定义协议可以精简很多的内容；</li><li>Http协议是无状态的，每次都要重新建立链接，响应完毕以后链接关闭。</li></ol><h2 id="序列化"><a href="#序列化" class="headerlink" title="序列化"></a>序列化</h2><p>常用的序列化方式：</p><ol><li>JDK原生序列化；</li><li>JSON；</li><li>Protobuf；</li><li>Kryo；</li><li>Hessian2；</li><li>MessagePack；</li></ol><p>选择序列化时，需要考虑的因素：</p><ol><li>效率；</li><li>空间开销；</li><li>通用性和兼容性；</li><li>安全性。</li></ol><h2 id="通讯"><a href="#通讯" class="headerlink" title="通讯"></a>通讯</h2><p>这个主要指的是IO模型；</p><ol><li>BIO</li><li>NIO</li><li>IO多路复用；（Netty）</li><li>异步IO</li></ol><h2 id="注册中心"><a href="#注册中心" class="headerlink" title="注册中心"></a>注册中心</h2><p>我们可以使用ZK、Redis、Nacos等多种方式实现；</p><h2 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h2><p>路由策略、异常重试、监控、异步调用</p>]]></content>
-    
-    
-      
-      
-    <summary type="html">&lt;h2 id=&quot;一个RPC调用的过程如下&quot;&gt;&lt;a href=&quot;#一个RPC调用的过程如下&quot; class=&quot;headerlink&quot; title=&quot;一个RPC调用的过程如下&quot;&gt;&lt;/a&gt;一个RPC调用的过程如下&lt;/h2&gt;&lt;ol&gt;
-&lt;li&gt;调用方发送请求后由代理类将调用的方法，参数组装成</summary>
-      
-    
-    
-    
-    <category term="技术" scheme="http://example.com/categories/%E6%8A%80%E6%9C%AF/"/>
-    
-    
-    <category term="工作安排" scheme="http://example.com/tags/%E5%B7%A5%E4%BD%9C%E5%AE%89%E6%8E%92/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>常用的linux命令</title>
-    <link href="http://example.com/2022/03/20/typora%E6%96%87%E4%BB%B6%E9%9B%86%E5%90%88/%E6%8A%80%E6%9C%AF/%E6%8A%80%E6%9C%AF%E7%AC%94%E8%AE%B0/%E6%9C%8D%E5%8A%A1%E5%99%A8/%E5%B8%B8%E7%94%A8%E7%9A%84linux%E5%91%BD%E4%BB%A4/"/>
-    <id>http://example.com/2022/03/20/typora%E6%96%87%E4%BB%B6%E9%9B%86%E5%90%88/%E6%8A%80%E6%9C%AF/%E6%8A%80%E6%9C%AF%E7%AC%94%E8%AE%B0/%E6%9C%8D%E5%8A%A1%E5%99%A8/%E5%B8%B8%E7%94%A8%E7%9A%84linux%E5%91%BD%E4%BB%A4/</id>
-    <published>2022-03-19T18:23:26.102Z</published>
-    <updated>2022-03-19T18:27:30.427Z</updated>
-    
-    <content type="html"><![CDATA[<table><thead><tr><th>编号</th><th>命令</th><th>释义</th></tr></thead><tbody><tr><td>1</td><td>ps  aux | grep redis-server</td><td>查看某个服务是否启动</td></tr><tr><td>2</td><td></td><td></td></tr><tr><td>3</td><td></td><td></td></tr></tbody></table><p><img src="https://xiazhenyu.oss-cn-hangzhou.aliyuncs.com/common/image-20220320022723660.png" alt="image-20220320022723660"></p>]]></content>
-    
-    
-      
-      
-    <summary type="html">&lt;table&gt;
-&lt;thead&gt;
-&lt;tr&gt;
-&lt;th&gt;编号&lt;/th&gt;
-&lt;th&gt;命令&lt;/th&gt;
-&lt;th&gt;释义&lt;/th&gt;
-&lt;/tr&gt;
-&lt;/thead&gt;
-&lt;tbody&gt;&lt;tr&gt;
-&lt;td&gt;1&lt;/td&gt;
-&lt;td&gt;ps  aux | grep redis-server&lt;/td&gt;
-&lt;td&gt;查看某个</summary>
-      
-    
-    
-    
-    <category term="linux" scheme="http://example.com/categories/linux/"/>
-    
-    
-    <category term="linux" scheme="http://example.com/tags/linux/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>redis源码环境搭建</title>
-    <link href="http://example.com/2022/03/20/typora%E6%96%87%E4%BB%B6%E9%9B%86%E5%90%88/%E6%8A%80%E6%9C%AF/redis/redis%E6%BA%90%E7%A0%81%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/"/>
-    <id>http://example.com/2022/03/20/typora%E6%96%87%E4%BB%B6%E9%9B%86%E5%90%88/%E6%8A%80%E6%9C%AF/redis/redis%E6%BA%90%E7%A0%81%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/</id>
-    <published>2022-03-19T16:29:16.300Z</published>
-    <updated>2022-03-19T18:19:49.413Z</updated>
-    
-    <content type="html"><![CDATA[<ul><li><p>make和cmake 的区别</p><p>make，是一个自动化编译工具，使用一条命令实现完全编译。</p><p>makefile，是一个文件，里面定义了make需要使用到的规则，make依据makefile文件中的规则来进行编译。</p><p>cmakefile，用来自动生成makefile文件的工具。它能够输出各种各样的makefile或者是project文件。</p><p>参考博文：<a href="https://blog.csdn.net/weixin_42491857/article/details/80741060">https://blog.csdn.net/weixin_42491857/article/details/80741060</a></p><p><img src="https://xiazhenyu.oss-cn-hangzhou.aliyuncs.com/common/70.png" alt="img"></p></li></ul><p>进行编译：</p><img src="/Users/xiazhenyu/Library/Application Support/typora-user-images/image-20220320021758778.png" alt="image-20220320021758778" style="zoom:25%;" /><p>配置execute：</p><img src="/Users/xiazhenyu/Library/Application Support/typora-user-images/image-20220320021452228.png" alt="image-20220320021452228" style="zoom:25%;" /><p>参考博文：<a href="https://cxybb.com/article/u011225266/116017675">https://cxybb.com/article/u011225266/116017675</a></p>]]></content>
-    
-    
-      
-      
-    <summary type="html">&lt;ul&gt;
-&lt;li&gt;&lt;p&gt;make和cmake 的区别&lt;/p&gt;
-&lt;p&gt;make，是一个自动化编译工具，使用一条命令实现完全编译。&lt;/p&gt;
-&lt;p&gt;makefile，是一个文件，里面定义了make需要使用到的规则，make依据makefile文件中的规则来进行编译。&lt;/p&gt;
-&lt;p&gt;cm</summary>
-      
-    
-    
-    
-    <category term="redis" scheme="http://example.com/categories/redis/"/>
-    
-    
-    <category term="redis" scheme="http://example.com/tags/redis/"/>
-    
-  </entry>
-  
-  <entry>
-    <title></title>
-    <link href="http://example.com/2022/03/19/typora%E6%96%87%E4%BB%B6%E9%9B%86%E5%90%88/%E6%8A%80%E6%9C%AF/%E5%B8%B8%E8%A7%81%E7%9A%84%E9%9D%A2%E8%AF%95%E6%8A%80%E6%9C%AF%E9%97%AE%E9%A2%98/Spring%20AOP%E6%98%AF%E6%80%8E%E4%B9%88%E5%AE%9E%E7%8E%B0%E7%9A%84/"/>
-    <id>http://example.com/2022/03/19/typora%E6%96%87%E4%BB%B6%E9%9B%86%E5%90%88/%E6%8A%80%E6%9C%AF/%E5%B8%B8%E8%A7%81%E7%9A%84%E9%9D%A2%E8%AF%95%E6%8A%80%E6%9C%AF%E9%97%AE%E9%A2%98/Spring%20AOP%E6%98%AF%E6%80%8E%E4%B9%88%E5%AE%9E%E7%8E%B0%E7%9A%84/</id>
-    <published>2022-03-18T17:03:12.253Z</published>
-    <updated>2022-03-18T17:03:23.832Z</updated>
-    
-    
-    
-    
-    
-  </entry>
-  
-  <entry>
-    <title>http报文的常见的错误码</title>
-    <link href="http://example.com/2022/03/18/typora%E6%96%87%E4%BB%B6%E9%9B%86%E5%90%88/%E6%8A%80%E6%9C%AF/%E5%B8%B8%E8%A7%81%E7%9A%84%E9%9D%A2%E8%AF%95%E6%8A%80%E6%9C%AF%E9%97%AE%E9%A2%98/http%E6%8A%A5%E6%96%87%E7%9A%84%E5%B8%B8%E8%A7%81%E7%9A%84%E9%94%99%E8%AF%AF%E7%A0%81/"/>
-    <id>http://example.com/2022/03/18/typora%E6%96%87%E4%BB%B6%E9%9B%86%E5%90%88/%E6%8A%80%E6%9C%AF/%E5%B8%B8%E8%A7%81%E7%9A%84%E9%9D%A2%E8%AF%95%E6%8A%80%E6%9C%AF%E9%97%AE%E9%A2%98/http%E6%8A%A5%E6%96%87%E7%9A%84%E5%B8%B8%E8%A7%81%E7%9A%84%E9%94%99%E8%AF%AF%E7%A0%81/</id>
-    <published>2022-03-18T15:59:18.287Z</published>
-    <updated>2022-03-19T18:53:28.785Z</updated>
-    
-    <content type="html"><![CDATA[<p>Http请求报文和响应报文的格式</p><p><img src="https://xiazhenyu.oss-cn-hangzhou.aliyuncs.com/common/20190822223354538.PNG" alt="在这里插入图片描述"></p><p><img src="https://xiazhenyu.oss-cn-hangzhou.aliyuncs.com/common/20190822223707561.PNG" alt="在这里插入图片描述"></p><p>常见的首部如下：</p><p><strong>通用首部字段（请求报文与响应报文都会使用的首部字段）</strong></p><p>Date：创建报文时间 </p><p>Connection：连接的管理 </p><p>Cache-Control：缓存的控制 </p><p>Transfer-Encoding：报文主体的传输编码方式</p><p><strong>请求首部字段（请求报文会使用的首部字段）</strong></p><p>Host：请求资源所在服务器 </p><p>Accept：可处理的媒体类型 </p><p>Accept-Charset：可接收的字符集 </p><p>Accept-Encoding：可接受的内容编码 </p><p>Accept-Language：可接受的自然语言</p><p><strong>响应首部字段（响应报文会使用的首部字段）</strong></p><p>Accept-Ranges：可接受的字节范围 </p><p>Location：令客户端重新定向到的URI </p><p>Server：HTTP服务器的安装信息</p><p><strong>实体首部字段（请求报文与响应报文的的实体部分使用的首部字段）</strong></p><p>Allow：资源可支持的HTTP方法 </p><p>Content-Type：实体主类的类型 </p><p>Content-Encoding：实体主体适用的编码方式 </p><p>Content-Language：实体主体的自然语言 </p><p>Content-Length：实体主体的的字节数 </p><p>Content-Range：实体主体的位置范围，一般用于发出部分请求时使用。</p><p>==状态码的识别==</p><table><thead><tr><th></th><th>类别</th><th>原因短语</th></tr></thead><tbody><tr><td>1xx</td><td>信息性状态码</td><td>收到的请求正在处理</td></tr><tr><td>2xx</td><td>成功状态码</td><td>请求正常处理完毕</td></tr><tr><td>3xx</td><td>重定向状态码</td><td>需要进行附加操作以完成请求</td></tr><tr><td>4xx</td><td>客户端错误状态码</td><td>服务器无法处理请求</td></tr><tr><td>5xx</td><td>服务端错误状态码</td><td>服务器处理请求出错</td></tr><tr><td></td><td></td><td></td></tr></tbody></table><p>2xx成功：</p><table><thead><tr><th>状态码</th><th>英文</th><th>解释</th></tr></thead><tbody><tr><td>200</td><td>OK</td><td>表示从客户端发来的请求在服务端被正确处理</td></tr><tr><td>204</td><td>No content</td><td>表示请求成功，但响应报文不含实体的主体部分</td></tr><tr><td>206</td><td>Partial Content</td><td>进行范围请求</td></tr></tbody></table><p>3xx 重定向</p><table><thead><tr><th>状态码</th><th>英文</th><th>解释</th></tr></thead><tbody><tr><td>301</td><td>moved permanently</td><td>永久性重定向，表示资源已被分配了新的URL</td></tr><tr><td>302</td><td>found</td><td>临时性重定向，表示资源临时被分配了新的URL</td></tr><tr><td>303</td><td>see other</td><td>表示资源存在着另一个URL，应使用GET方法定向获取资源</td></tr><tr><td>304</td><td>not modified</td><td>表示服务器允许访问资源，但发生请求未满足条件的情况</td></tr><tr><td>307</td><td>temporary redirect</td><td>临时重定向，和302含义相同</td></tr></tbody></table><p>4xx客户端错误</p><table><thead><tr><th>状态码</th><th>英文</th><th>解释</th></tr></thead><tbody><tr><td>400</td><td>bad request</td><td>请求报文存在语法错误</td></tr><tr><td>401</td><td>unauthorized</td><td>表示发送的请求需要有通过HTTP认证的信息</td></tr><tr><td>403</td><td>Forbidden</td><td>表示对请求资源的访问被服务器拒绝</td></tr><tr><td>404</td><td>not found</td><td>表示在服务器上没有找到请求的资源</td></tr></tbody></table><p>5xx 服务器错误</p><table><thead><tr><th>状态码</th><th>英文</th><th>解释</th></tr></thead><tbody><tr><td>500</td><td>internal server error</td><td>表示服务器在执行请求时发生了错误</td></tr><tr><td>503</td><td>service unavalibale</td><td>表示服务器暂时处于超负荷或正在停机维护，无法处理请求。</td></tr></tbody></table>]]></content>
-    
-    
-      
-      
-    <summary type="html">&lt;p&gt;Http请求报文和响应报文的格式&lt;/p&gt;
-&lt;p&gt;&lt;img src=&quot;https://xiazhenyu.oss-cn-hangzhou.aliyuncs.com/common/20190822223354538.PNG&quot; alt=&quot;在这里插入图片描述&quot;&gt;&lt;/p&gt;
-&lt;p&gt;&lt;i</summary>
-      
-    
-    
-    
-    <category term="技术" scheme="http://example.com/categories/%E6%8A%80%E6%9C%AF/"/>
-    
-    
-    <category term="工作安排" scheme="http://example.com/tags/%E5%B7%A5%E4%BD%9C%E5%AE%89%E6%8E%92/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>如何排查CPU飙高的问题</title>
-    <link href="http://example.com/2022/03/18/typora%E6%96%87%E4%BB%B6%E9%9B%86%E5%90%88/%E6%8A%80%E6%9C%AF/%E5%B8%B8%E8%A7%81%E7%9A%84%E9%9D%A2%E8%AF%95%E6%8A%80%E6%9C%AF%E9%97%AE%E9%A2%98/%E5%A6%82%E4%BD%95%E6%8E%92%E6%9F%A5CPU%E9%A3%99%E9%AB%98%E7%9A%84%E9%97%AE%E9%A2%98/"/>
-    <id>http://example.com/2022/03/18/typora%E6%96%87%E4%BB%B6%E9%9B%86%E5%90%88/%E6%8A%80%E6%9C%AF/%E5%B8%B8%E8%A7%81%E7%9A%84%E9%9D%A2%E8%AF%95%E6%8A%80%E6%9C%AF%E9%97%AE%E9%A2%98/%E5%A6%82%E4%BD%95%E6%8E%92%E6%9F%A5CPU%E9%A3%99%E9%AB%98%E7%9A%84%E9%97%AE%E9%A2%98/</id>
-    <published>2022-03-18T15:20:20.450Z</published>
-    <updated>2022-03-19T18:54:02.518Z</updated>
-    
-    <content type="html"><![CDATA[<p>如何排查CPU飙高的问题？</p><ol><li>先执行top命令，找到CPU占用比较高的进程；</li><li>jstak 进程id &gt; loop.txt（文件名可以自定义）；</li><li>找到进程中CPU占用比较高的线程，线程id转为16进制；</li><li>到show.txt文件中根据线程id查看线程的具体状态即可；</li></ol><p>Top 命令运行图：</p><img src="/Users/xiazhenyu/Library/Application Support/typora-user-images/image-20220318233143850.png" alt="image-20220318233143850" style="zoom:25%;" /><p>参数介绍：</p><p>第一行：基本信息：</p><p><img src="https://xiazhenyu.oss-cn-hangzhou.aliyuncs.com/common/20200901231648401.png" alt="在这里插入图片描述"></p><p>第二行：任务信息</p><p><img src="https://xiazhenyu.oss-cn-hangzhou.aliyuncs.com/common/20200901231702290.png" alt="在这里插入图片描述"></p><p>第三行：CPU使用情况</p><p><img src="https://xiazhenyu.oss-cn-hangzhou.aliyuncs.com/common/20200901231715782.png" alt="在这里插入图片描述"></p><p>第四行：物理内存使用情况</p><p><img src="https://xiazhenyu.oss-cn-hangzhou.aliyuncs.com/common/20200901231739883.png" alt="在这里插入图片描述"></p><p>buffer/cache</p><p>buffer 和 cache都是内存中存放的数据，不同的是，buffer存放的是准备写入磁盘的数据，而cache存放的是从磁盘中读取的数据。</p><p>在linux中，有一个守护进程（daemon）会定期把buffers中的数据写入磁盘，也可以使用sync命令手动把buffer中的数据写入磁盘。使用buffer可以把分散的I/O操作集中起来，减少了磁盘寻道的时间和磁盘碎片。</p><p>cache是linux把读取频率高的数据，放到内存中，减少I/O。linux中cache没有固定大小，根据使用情况自动增加或删除。</p><p>top中使用的参数：</p><table><thead><tr><th align="center">参数选项名称</th><th align="center">含义</th></tr></thead><tbody><tr><td align="center">p</td><td align="center">通过指定进程ID（PID）来仅仅监控某个进程的状态。可以指定多个，-pN1 -pN2 … （-p N1 -p N2…也可）或者 -pN1,N2,N3 …（-p N1,N2…也可）</td></tr><tr><td align="center">H</td><td align="center">显示所有线程的运行状态指标。如果没有该参数，会显示一个进程中所有线程的总和。在运行过程中，可以通过H命令进行交互控制</td></tr></tbody></table><p>第一步：执行top命令。</p><p><img src="https://xiazhenyu.oss-cn-hangzhou.aliyuncs.com/common/2019010317460292.PNG" alt="在这里插入图片描述"></p><p>第二步：看到pid为23757的进程CPU占用较高，执行如下命令：</p><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">jstack 23757 &gt; loop.txt</span><br></pre></td></tr></table></figure><p>第三步：查看线程的具体执行情况；</p><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">top -p 23757 -H</span><br></pre></td></tr></table></figure><p><img src="https://xiazhenyu.oss-cn-hangzhou.aliyuncs.com/common/20190103174921118.PNG" alt="在这里插入图片描述"></p><p>可以看到PID为23772,23773和23774的线程占用CPU较高。这里注意，PID不是特指进程的ID，线程的ID也可以叫做PID；</p><p>第四步：将10进制23772转为16进制，因为jstack中PID使用的是16进制：</p><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">printf &quot;%x&quot; 23772</span><br><span class="line">输出5cdc</span><br></pre></td></tr></table></figure><p>第五步：打开loop.txt文件，搜5cdc。</p><p><img src="https://xiazhenyu.oss-cn-hangzhou.aliyuncs.com/common/20190103175859431.png" alt="在这里插入图片描述"></p><p>即可以定位到有问题的代码。</p>]]></content>
-    
-    
-      
-      
-    <summary type="html">&lt;p&gt;如何排查CPU飙高的问题？&lt;/p&gt;
+    <summary type="html">&lt;h2 id=&quot;播棋的玩法&quot;&gt;&lt;a href=&quot;#播棋的玩法&quot; class=&quot;headerlink&quot; title=&quot;播棋的玩法&quot;&gt;&lt;/a&gt;播棋的玩法&lt;/h2&gt;&lt;p&gt;目标：终点棋子多的获胜。&lt;/p&gt;
+&lt;p&gt;规则： &lt;/p&gt;
 &lt;ol&gt;
-&lt;li&gt;先执行top命令，找到CPU占用比较高的进程；&lt;/li&gt;
-&lt;li&gt;jstak 进程id &amp;gt; loop.txt（文件名可以自定义）；&lt;/li&gt;
-&lt;li&gt;找到进程中CPU占用比较高的线程，线程id转为16进制；&lt;/li</summary>
+&lt;li&gt;&lt;p&gt;分配到中途有棋子进入了自己的终点的</summary>
       
     
     
     
-    <category term="技术" scheme="http://example.com/categories/%E6%8A%80%E6%9C%AF/"/>
-    
-    
-    <category term="工作安排" scheme="http://example.com/tags/%E5%B7%A5%E4%BD%9C%E5%AE%89%E6%8E%92/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>系统监控与告警</title>
-    <link href="http://example.com/2022/03/17/wholee/%E7%B3%BB%E7%BB%9F%E7%9B%91%E6%8E%A7%E4%B8%8E%E5%91%8A%E8%AD%A6/"/>
-    <id>http://example.com/2022/03/17/wholee/%E7%B3%BB%E7%BB%9F%E7%9B%91%E6%8E%A7%E4%B8%8E%E5%91%8A%E8%AD%A6/</id>
-    <published>2022-03-17T09:29:56.686Z</published>
-    <updated>2022-03-19T13:58:29.564Z</updated>
-    
-    <content type="html"><![CDATA[<h2 id="Grafana监控大盘地址：https-monitor-huoli101-com-orgId-1"><a href="#Grafana监控大盘地址：https-monitor-huoli101-com-orgId-1" class="headerlink" title="Grafana监控大盘地址：https://monitor.huoli101.com/?orgId=1"></a>Grafana监控大盘地址：<a href="https://monitor.huoli101.com/?orgId=1">https://monitor.huoli101.com/?orgId=1</a></h2><p>应用机器监控：</p><img src="https://xiazhenyu.oss-cn-hangzhou.aliyuncs.com/common/image-20220317173810783.png" alt="image-20220317173810783" style="zoom: 25%;" /><p>例如：product-center的线上机器监控：</p><img src="https://xiazhenyu.oss-cn-hangzhou.aliyuncs.com/common/image-20220317173854433.png" alt="image-20220317173854433" style="zoom: 25%;" /><p>中间件Redis的监控，在Redis Overview中：</p><img src="https://xiazhenyu.oss-cn-hangzhou.aliyuncs.com/common/image-20220317174058037.png" alt="image-20220317174058037" style="zoom:25%;" /><p>中间件MySQL的监控，地址：<a href="https://monitor.huoli101.com/d/MQWgroiiz/mysql-overview?orgId=1&amp;var-dataSource=%E7%BE%8E%E8%A5%BF&amp;var-interval=$__auto_interval_interval&amp;var-nodeName=product-odoo-new-mysql&amp;var-resource=product-odoo-new&amp;var-service=product-center&amp;var-jumpNode=%E5%95%86%E5%93%81%E4%B8%AD%E5%BF%83&amp;var-dataCenter=&amp;from=now-7d&amp;to=now%E3%80%82">https://monitor.huoli101.com/d/MQWgroiiz/mysql-overview?orgId=1&amp;var-dataSource=%E7%BE%8E%E8%A5%BF&amp;var-interval=$__auto_interval_interval&amp;var-nodeName=product-odoo-new-mysql&amp;var-resource=product-odoo-new&amp;var-service=product-center&amp;var-jumpNode=%E5%95%86%E5%93%81%E4%B8%AD%E5%BF%83&amp;var-dataCenter=&amp;from=now-7d&amp;to=now。</a></p><img src="https://xiazhenyu.oss-cn-hangzhou.aliyuncs.com/common/image-20220317175040266.png" alt="image-20220317175040266" style="zoom:25%;" /><p>PS：MySQL监控中需要关注的指标：</p><ul><li>内存使用率；</li><li>QPS：</li><li>满查询sql：</li><li>客户端连接进程数；</li><li>CPU使用率：</li></ul>]]></content>
-    
-    
-      
-      
-    <summary type="html">&lt;h2 id=&quot;Grafana监控大盘地址：https-monitor-huoli101-com-orgId-1&quot;&gt;&lt;a href=&quot;#Grafana监控大盘地址：https-monitor-huoli101-com-orgId-1&quot; class=&quot;headerlink&quot; tit</summary>
-      
-    
-    
-    
-    <category term="wholee" scheme="http://example.com/categories/wholee/"/>
-    
-    
-    <category term="wholee" scheme="http://example.com/tags/wholee/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>dubbo接口调用</title>
-    <link href="http://example.com/2022/03/17/wholee/dubbo%E6%8E%A5%E5%8F%A3%E8%B0%83%E7%94%A8/"/>
-    <id>http://example.com/2022/03/17/wholee/dubbo%E6%8E%A5%E5%8F%A3%E8%B0%83%E7%94%A8/</id>
-    <published>2022-03-17T08:54:48.561Z</published>
-    <updated>2022-03-19T13:53:29.949Z</updated>
-    
-    <content type="html"><![CDATA[<p>第一步：通过跳板机登录到test或者是预发、线上的机器上；</p><p>第二步：telnet+IP地址 +20988端口，访问dubbo服务，例如：</p><p><img src="https://xiazhenyu.oss-cn-hangzhou.aliyuncs.com/common/image-20220317165739124.png" alt="image-20220317165739124"></p><p>然后通过ls命令可以查看有那些已经注册的服务，如下图所示：</p><img src="/Users/xiazhenyu/Library/Application Support/typora-user-images/image-20220317165830962.png" alt="image-20220317165830962" style="zoom:50%;" /><p>第三步：通过invoke 命令调用dubbo服务</p><p>例如：</p><p><code>invoke com.clubfactory.product.center.client.service.product.readonly.IProductReadOnlyAPI.getByIds([20440305])，</code></p><p>会得到如下的结果：</p><p><img src="https://xiazhenyu.oss-cn-hangzhou.aliyuncs.com/common/image-20220317170105865.png" alt="image-20220317170105865"></p><p>最下面会有一个耗时的统计。</p><p>PS:</p><p>可用的开源工具：<a href="https://www.cxybb.com/article/qq_31091589/98056271%EF%BC%9B">https://www.cxybb.com/article/qq_31091589/98056271；</a></p>]]></content>
-    
-    
-      
-      
-    <summary type="html">&lt;p&gt;第一步：通过跳板机登录到test或者是预发、线上的机器上；&lt;/p&gt;
-&lt;p&gt;第二步：telnet+IP地址 +20988端口，访问dubbo服务，例如：&lt;/p&gt;
-&lt;p&gt;&lt;img src=&quot;https://xiazhenyu.oss-cn-hangzhou.aliyuncs.c</summary>
-      
-    
-    
-    
-    <category term="wholee" scheme="http://example.com/categories/wholee/"/>
-    
-    
-    <category term="wholee" scheme="http://example.com/tags/wholee/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>宝塔相关知识</title>
-    <link href="http://example.com/2022/03/12/typora%E6%96%87%E4%BB%B6%E9%9B%86%E5%90%88/%E6%8A%80%E6%9C%AF/%E6%8A%80%E6%9C%AF%E7%AC%94%E8%AE%B0/%E6%9C%8D%E5%8A%A1%E5%99%A8/%E5%AE%9D%E5%A1%94%E7%9B%B8%E5%85%B3%E7%9F%A5%E8%AF%86/"/>
-    <id>http://example.com/2022/03/12/typora%E6%96%87%E4%BB%B6%E9%9B%86%E5%90%88/%E6%8A%80%E6%9C%AF/%E6%8A%80%E6%9C%AF%E7%AC%94%E8%AE%B0/%E6%9C%8D%E5%8A%A1%E5%99%A8/%E5%AE%9D%E5%A1%94%E7%9B%B8%E5%85%B3%E7%9F%A5%E8%AF%86/</id>
-    <published>2022-03-12T14:38:16.285Z</published>
-    <updated>2022-03-19T18:24:54.279Z</updated>
-    
-    <content type="html"><![CDATA[<p>1.查看面板入口：/etc/init.d/bt default</p><p>2.关闭安全入口：rm -f /www/server/panel/data/admin_path.pl</p><p>输入命令后，会得到对应的登录信息：</p><p><img src="https://xiazhenyu.oss-cn-hangzhou.aliyuncs.com/common/image-20220312223939647.png" alt="image-20220312223939647"></p>]]></content>
-    
-    
-      
-      
-    <summary type="html">&lt;p&gt;1.查看面板入口：/etc/init.d/bt default&lt;/p&gt;
-&lt;p&gt;2.关闭安全入口：rm -f /www/server/panel/data/admin_path.pl&lt;/p&gt;
-&lt;p&gt;输入命令后，会得到对应的登录信息：&lt;/p&gt;
-&lt;p&gt;&lt;img src=&quot;http</summary>
-      
-    
-    
-    
-    <category term="linux" scheme="http://example.com/categories/linux/"/>
-    
-    
-    <category term="linux" scheme="http://example.com/tags/linux/"/>
     
   </entry>
   
   <entry>
     <title></title>
-    <link href="http://example.com/2022/03/12/typora%E6%96%87%E4%BB%B6%E9%9B%86%E5%90%88/%E6%80%9D%E7%BB%B4/%E5%A6%82%E4%BD%95%E6%8F%90%E9%AB%98%E8%AE%B0%E5%BF%86%E5%8A%9B/"/>
-    <id>http://example.com/2022/03/12/typora%E6%96%87%E4%BB%B6%E9%9B%86%E5%90%88/%E6%80%9D%E7%BB%B4/%E5%A6%82%E4%BD%95%E6%8F%90%E9%AB%98%E8%AE%B0%E5%BF%86%E5%8A%9B/</id>
-    <published>2022-03-12T08:24:12.484Z</published>
-    <updated>2022-03-18T17:07:13.843Z</updated>
+    <link href="http://example.com/2022/06/22/typora%E6%96%87%E4%BB%B6%E9%9B%86%E5%90%88/%E6%8A%80%E6%9C%AF/%E6%8A%80%E6%9C%AF%E7%AC%94%E8%AE%B0/%E6%BA%90%E7%A0%81/Atomic%E7%B1%BB/"/>
+    <id>http://example.com/2022/06/22/typora%E6%96%87%E4%BB%B6%E9%9B%86%E5%90%88/%E6%8A%80%E6%9C%AF/%E6%8A%80%E6%9C%AF%E7%AC%94%E8%AE%B0/%E6%BA%90%E7%A0%81/Atomic%E7%B1%BB/</id>
+    <published>2022-06-22T08:12:04.951Z</published>
+    <updated>2022-06-22T14:23:44.067Z</updated>
     
-    <content type="html"><![CDATA[<ol><li>保持充足的睡眠。思维按摩：用拇指和食指从上到下轻轻地按摩整个耳朵，用两只手的手指触摸位于发际和眉毛之间的两个穴位。促进血液流动，消除记忆障碍和增强记忆力。</li><li>经常咀嚼。</li><li>合理饮食：<ul><li>多吃大豆和豆制品。</li><li>多吃鱼；</li><li>多吃桔子和香蕉；</li><li>多吃猪脑和鸡；</li><li>多吃蔬菜、胡萝卜、菠菜。</li></ul></li></ol>]]></content>
+    <content type="html"><![CDATA[<h3 id="AtomicLong"><a href="#AtomicLong" class="headerlink" title="AtomicLong"></a>AtomicLong</h3><p>核心方法：</p><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">final</span> <span class="keyword">long</span> <span class="title">getAndIncrement</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> unsafe.getAndAddLong(<span class="keyword">this</span>, valueOffset, <span class="number">1L</span>);</span><br><span class="line"></span><br></pre></td></tr></table></figure><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">final</span> <span class="keyword">long</span> <span class="title">addAndGet</span><span class="params">(<span class="keyword">long</span> delta)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> unsafe.getAndAddLong(<span class="keyword">this</span>, valueOffset, delta) + delta;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p>AtomicLong的 getAndIncrement() 方法和 addAndGet() 方法都调用了一个方法: U.getAndAddInt(…) 方法，该方法基于CAS实现:</p><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">final</span> <span class="keyword">long</span> <span class="title">getAndAddLong</span><span class="params">(Object var1, <span class="keyword">long</span> var2, <span class="keyword">long</span> var4)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">long</span> var6;</span><br><span class="line">    <span class="keyword">do</span> &#123;</span><br><span class="line">        var6 = <span class="keyword">this</span>.getLongVolatile(var1, var2);</span><br><span class="line">    &#125; <span class="keyword">while</span>(!<span class="keyword">this</span>.compareAndSwapLong(var1, var2, var6, var6 + var4));</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> var6;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p>getLongVolatile方法具有volatile的语义，也就是对所有线程都是同时可⻅的。</p><p>对compareAndSwapLong方法的语义的解释：</p><ul><li>第一个参数表示要修改那个额对象的属性值；</li><li>第二个参数是该对象属性在内存的偏移量；</li><li>第三个参数表示期望值；</li><li>第四个参数表示要设置的目标值；</li></ul>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;h3 id=&quot;AtomicLong&quot;&gt;&lt;a href=&quot;#AtomicLong&quot; class=&quot;headerlink&quot; title=&quot;AtomicLong&quot;&gt;&lt;/a&gt;AtomicLong&lt;/h3&gt;&lt;p&gt;核心方法：&lt;/p&gt;
+&lt;figure class=&quot;highlight jav</summary>
+      
+    
+    
+    
+    
+  </entry>
+  
+  <entry>
+    <title></title>
+    <link href="http://example.com/2022/06/18/typora%E6%96%87%E4%BB%B6%E9%9B%86%E5%90%88/%E6%8B%89%E9%92%A9/%E9%A1%B9%E7%9B%AE%E5%AE%9E%E6%88%98/%E8%BF%9B%E5%BA%A6/"/>
+    <id>http://example.com/2022/06/18/typora%E6%96%87%E4%BB%B6%E9%9B%86%E5%90%88/%E6%8B%89%E9%92%A9/%E9%A1%B9%E7%9B%AE%E5%AE%9E%E6%88%98/%E8%BF%9B%E5%BA%A6/</id>
+    <published>2022-06-18T13:54:20.914Z</published>
+    <updated>2022-06-18T13:54:23.495Z</updated>
+    
+    
+    
+    
+    
+  </entry>
+  
+  <entry>
+    <title></title>
+    <link href="http://example.com/2022/06/18/typora%E6%96%87%E4%BB%B6%E9%9B%86%E5%90%88/%E6%8B%89%E9%92%A9/%E9%A1%B9%E7%9B%AE%E5%AE%9E%E6%88%98/%E9%A1%B9%E7%9B%AE%E6%9E%B6%E6%9E%84/"/>
+    <id>http://example.com/2022/06/18/typora%E6%96%87%E4%BB%B6%E9%9B%86%E5%90%88/%E6%8B%89%E9%92%A9/%E9%A1%B9%E7%9B%AE%E5%AE%9E%E6%88%98/%E9%A1%B9%E7%9B%AE%E6%9E%B6%E6%9E%84/</id>
+    <published>2022-06-18T13:54:08.755Z</published>
+    <updated>2022-06-19T14:31:45.884Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="业务背景以及目标"><a href="#业务背景以及目标" class="headerlink" title="业务背景以及目标"></a>业务背景以及目标</h2><h4 id="类目属性体系"><a href="#类目属性体系" class="headerlink" title="类目属性体系"></a>类目属性体系</h4><h5 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h5><p>规范商品的类目、属性信息，提供静态数据，快速的检索、创建商品；</p><h5 id="目标"><a href="#目标" class="headerlink" title="目标"></a>目标</h5><ul><li> 属性模版</li></ul><p>对于大平台来说，商品信息既要按照平台要求来维护，同时也需要为个性化设置留有操作空间，通常采用构建模板的方式来完成。</p><ol><li>在后端品类上先创建一套基础属性模板，模板中规定当前品类的所有的属性，同时设置好的各种操作功能，如属性组、属性名、是否必填、是否参与搜索、维护方式、可选属性值等</li><li>当商户在维护商品时，根据需要先对基础品类模板做出部分调整，如对属性组和属性进行位置调整、删除部分非必填的属性、添加个性化属性等，之后保存成个性化模板</li><li>商户维护商品时，先设置商品对应品类，通过品类ID获取新模板的属性配置，之后再进行数据维护。</li></ol><ul><li><p>类目</p><p>​     电商平台的类目一般是设置成三层，一级类目、二级类目和三级类目。</p><p><strong>前台类目</strong>：前台类目必须关联至少一个后台类目，其对应关系可以是一对一、一对多、多对多，支持商家根据自己的需要而灵活配置。前台类目映射可以按照商品属性、店铺ID、商品ID等维度映射。</p><p><strong>后台类目</strong>：多对一映射：多个具有相同属性的后台类目通过聚合的方式映射到一个前台类目上，比如后台类目的各种牛仔裤，短裤 映射到前台类目上只是叫裤子。</p></li><li><p>属性</p><p>属性，就是某个商品的特性，属性值即属性的具体内容。对于电商平台来说，属性主要是商品的品牌、尺寸、大小、颜色等，对于品牌属性而言，其属性值可以为阿迪达斯、耐克、马自达等等。</p><p><strong>公共属性</strong>：公共属性指的是其他类目可以共用的属性。对于衣服而言，其属性有很多，比如品牌、颜色、尺寸、性别等等，而性别这个属性，就是公共属性，因为无论什么品牌的衣服，都具有这个属性，其属性值只有三个：男、女、中性；</p><p><strong>销售属性</strong>：也称为规格属性，该属性是组成SKU的特殊属性，直接影响到买家的购买和商家的库存管理，例如衣服的颜色、尺寸等都是销售属性，设计销售属性，其实是考虑了用户购买的场景需求，当用户要购买一件衣服时，会想到要买什么颜色，自己穿什么尺寸（尺码），什么季节的衣服等等；</p><p><strong>关键属性</strong>：关键属性指的是能唯一确定商品的属性。关键属性可以是一个属性，也可以是一群属性的集合。比如笔记本电脑，其关键属性就是品牌（苹果）、型号（Macbookpro），设计关键属性的目的也是为了让用户更好地找到想要的商品。</p><p><strong>枚举可能性</strong>：枚举可能性指的是该属性的属性值能否完全枚举。对于品牌、重量、体积等属性，其值非常多，不可能由运营人员或产品经理来进行完全枚举，这个需要商家的协助，即系统预置一部分属性和属性值，由商家自行进行填充扩展，后续系统根据该属性及属性值的使用次数，将其系统化，减少商家的操作复杂度。</p><p><strong>属性和类目关系</strong></p><p>商品会挂载到子类目上（类目层级一般3-4级），由于商品数量远大于类目数量，所以我们不可能单独为每个商品绑定属性，所以一般是把属性绑定到类目上，发布商品的时候，根据分类选择对应的属性，这样将商品再挂载到子类目上的时候，这个商品就具有了这个类目树下的所有属性了。</p></li></ul><h4 id="商品管理体系"><a href="#商品管理体系" class="headerlink" title="商品管理体系"></a>商品管理体系</h4><h5 id="背景-1"><a href="#背景-1" class="headerlink" title="背景"></a>背景</h5><p>商品管理系统属于电商产品中最基础的系统，是支撑整个电商产品的核心，基本上所有的系统都离不开商品数据，商品贯穿整个电商平台。</p><p>从商品的采购、商品上架、前台的展示、整个流程都离不开商品。</p><h5 id="目标-1"><a href="#目标-1" class="headerlink" title="目标"></a>目标</h5><p>提供统一的商品发品流程，以及底层的商品的增删改查的功能。商品管理的初步功能目标为：</p><p>  商家：商品新增，修改，删除，采购管理（是否必须）。</p><p>​          店内商品分类管理（增删改查）。</p><p>  卖家/运营：店内商品浏览，分类浏览。</p><ol><li>与其他系统交互保证数据不丢失，系统稳定，卖家查询商店内商品的响应时间控制在1s内；</li><li>保证建品的质量；</li></ol><h4 id="商品浏览体系"><a href="#商品浏览体系" class="headerlink" title="商品浏览体系"></a>商品浏览体系</h4><h5 id="背景-2"><a href="#背景-2" class="headerlink" title="背景"></a>背景</h5><p>一个电商系统的使命就是帮助大家选择自己喜欢的商品进行购买。所以首页的商品展示和商品搜索都是十分重要的模块，每天服务于千万用户，不用让用户用户觉得<strong>响应时间</strong>太久。良好的浏览体验，可以增加用户对平台的依赖性，增加购买的欲望。</p><h5 id="目标-2"><a href="#目标-2" class="headerlink" title="目标"></a>目标</h5><ul><li><p>高性能：商品信息数据比较多，要保证商详页在1秒内以内打开；800ms</p></li><li><p>灵活性：可以快速响应页面变更需求。如库存变更，限时优惠； </p><p><strong>不同场景下，数据差异的问题。不同的场景对应不同的属性数据。</strong></p></li><li><p>扩展性：当访问量增加的时候可以随时进行水平扩展； 运维层面支持；</p></li></ul><h4 id="库存体系"><a href="#库存体系" class="headerlink" title="库存体系"></a>库存体系</h4><h5 id="背景-3"><a href="#背景-3" class="headerlink" title="背景"></a>背景</h5><p>提供商品的库存管理。</p><p>库存管理体系分层为销售层、调度层、仓库层</p><img src="https://xiazhenyu.oss-cn-hangzhou.aliyuncs.com/common/image-20220619195145532.png" alt="image-20220619195145532"  /><p>由于触发库存发生变动的点不一样，库存的变动有两种流向，自上而下（销售层 → 调度层 → 仓库层）、自下而上（仓库层 → 调度层 → 销售层）两种。</p><p>自上而下：用户下单后，首先会生成订单，扣减销售层的库存；然后流转到调度层进行调度，生成发货通知单，调整调度层的库存；然后推送至仓库，WMS系统同步响应，扣减库存进行出库。 </p><p>自下而上：仓库的实物入库可以算是从下到上引起的库存变动。主要有三种单据：采购入库单、退货入库单、调拨入库单的实物入库，会连锁引起仓库层 、调度层、销售层的可用库存逐步增加。</p><p>由于各层业务复杂、高度耦合、且销售层访问量大，很可能出现各层数据不一致、超售的情况。</p><h5 id="目标-3"><a href="#目标-3" class="headerlink" title="目标"></a>目标</h5><ul><li>防止超卖</li><li>一致性</li></ul><p>参考地址：<a href="https://juejin.cn/post/7054450547654393870#heading-10">https://juejin.cn/post/7054450547654393870#heading-10</a></p>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;h2 id=&quot;业务背景以及目标&quot;&gt;&lt;a href=&quot;#业务背景以及目标&quot; class=&quot;headerlink&quot; title=&quot;业务背景以及目标&quot;&gt;&lt;/a&gt;业务背景以及目标&lt;/h2&gt;&lt;h4 id=&quot;类目属性体系&quot;&gt;&lt;a href=&quot;#类目属性体系&quot; class=&quot;headerli</summary>
+      
+    
+    
+    
+    
+  </entry>
+  
+  <entry>
+    <title></title>
+    <link href="http://example.com/2022/06/18/typora%E6%96%87%E4%BB%B6%E9%9B%86%E5%90%88/%E6%8B%89%E9%92%A9/%E9%A1%B9%E7%9B%AE%E5%AE%9E%E6%88%98/%E7%B4%A0%E6%9D%90/"/>
+    <id>http://example.com/2022/06/18/typora%E6%96%87%E4%BB%B6%E9%9B%86%E5%90%88/%E6%8B%89%E9%92%A9/%E9%A1%B9%E7%9B%AE%E5%AE%9E%E6%88%98/%E7%B4%A0%E6%9D%90/</id>
+    <published>2022-06-18T13:53:58.126Z</published>
+    <updated>2022-06-18T13:55:43.326Z</updated>
+    
+    <content type="html"><![CDATA[<p>业务流程：</p><img src="/Users/xiazhenyu/Library/Application Support/typora-user-images/image-20220618215532758.png" alt="image-20220618215532758" style="zoom:50%;" />]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;p&gt;业务流程：&lt;/p&gt;
+&lt;img src=&quot;/Users/xiazhenyu/Library/Application Support/typora-user-images/image-20220618215532758.png&quot; alt=&quot;image-2022061821553</summary>
+      
+    
+    
+    
+    
+  </entry>
+  
+  <entry>
+    <title></title>
+    <link href="http://example.com/2022/06/17/typora%E6%96%87%E4%BB%B6%E9%9B%86%E5%90%88/%E6%8B%89%E9%92%A9/spring/"/>
+    <id>http://example.com/2022/06/17/typora%E6%96%87%E4%BB%B6%E9%9B%86%E5%90%88/%E6%8B%89%E9%92%A9/spring/</id>
+    <published>2022-06-17T13:14:03.117Z</published>
+    <updated>2022-06-18T05:36:50.676Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="IOC-基础"><a href="#IOC-基础" class="headerlink" title="IOC 基础"></a>IOC 基础</h2><h3 id="高级特性："><a href="#高级特性：" class="headerlink" title="高级特性："></a>高级特性：</h3><h4 id="lazy-init-延迟加载："><a href="#lazy-init-延迟加载：" class="headerlink" title="lazy-init 延迟加载："></a>lazy-init 延迟加载：</h4><p>应用场景：</p><ol><li>开启延迟加载一定程度能提高容器启动和运转性能；</li><li>对不不常使用的Bean设置延迟加载，这样偶尔使用的时候再加载，不必要从一开始该Bean就占用资源；</li></ol><h4 id="BeanFactory和FactoryBean"><a href="#BeanFactory和FactoryBean" class="headerlink" title="BeanFactory和FactoryBean"></a>BeanFactory和FactoryBean</h4><p>BeanFactory 接口是容器的<strong>顶级接口</strong>，定义了容器的一些<strong>基础行为</strong>，负责生产和管理Bean的一个工厂，具体使用它下面的子接口类型，比如ApplicationContext。</p><p>FactoryBean可以生成某一个类型的Bean实例，可以自定义Bean的创建过程；</p><h4 id="后置处理器"><a href="#后置处理器" class="headerlink" title="后置处理器"></a>后置处理器</h4><ul><li><p>BeanPostProcessor</p><p>在Bean对象实例化之后可以使用BeanPostProcessor进行后置处理一些事情。是针对Bean级别的处理，可以针对某个具体的Bean，需要通过方法参数进行判断。</p></li><li><p>BeanFactoryPostProcessor</p><p>BeanFactory级别的处理，是针对整个Bean的工厂进行处理。</p></li></ul><h2 id="IOC源码深度剖析"><a href="#IOC源码深度剖析" class="headerlink" title="IOC源码深度剖析"></a>IOC源码深度剖析</h2><p>ApplicationContext的是三个是实现类：</p><ol><li>ClassPathXmlApplicationContext: 把上下文文件当成类路径资源</li><li>FileSystemXmlApplicationContext: 从文件系统中的XML文件载入上下文定义信息</li><li>XmlWebApplicationContext: 从web系统中的XML文件载入上下文定义信息</li></ol><p>ContextRefreshedEvent 事件类</p>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;h2 id=&quot;IOC-基础&quot;&gt;&lt;a href=&quot;#IOC-基础&quot; class=&quot;headerlink&quot; title=&quot;IOC 基础&quot;&gt;&lt;/a&gt;IOC 基础&lt;/h2&gt;&lt;h3 id=&quot;高级特性：&quot;&gt;&lt;a href=&quot;#高级特性：&quot; class=&quot;headerlink&quot; title=</summary>
+      
+    
+    
+    
+    
+  </entry>
+  
+  <entry>
+    <title></title>
+    <link href="http://example.com/2022/06/14/typora%E6%96%87%E4%BB%B6%E9%9B%86%E5%90%88/%E6%8B%89%E9%92%A9/Java%E5%9F%BA%E7%A1%80/"/>
+    <id>http://example.com/2022/06/14/typora%E6%96%87%E4%BB%B6%E9%9B%86%E5%90%88/%E6%8B%89%E9%92%A9/Java%E5%9F%BA%E7%A1%80/</id>
+    <published>2022-06-14T12:44:40.376Z</published>
+    <updated>2022-06-16T07:10:52.339Z</updated>
+    
+    <content type="html"><![CDATA[<h3 id="Java-范型"><a href="#Java-范型" class="headerlink" title="Java 范型"></a>Java 范型</h3><h4 id="什么是泛型？"><a href="#什么是泛型？" class="headerlink" title="什么是泛型？"></a>什么是泛型？</h4><p>泛型的本质是为了参数化类型（在不创建新的类型的情况下，通过泛型指定不同的类型来控制形参具体限制的类型）。也就是说在泛型使用的过程中，操作的数据类型被指定为一个参数，这种参数类型可以用在类、接口或者方法中，分别被称为泛型类、范型接口、范型方法。把类型明确的工作推迟到创建对象或者调用方法的时候才去明确的特殊的类型。</p><h4 id="泛型的作用"><a href="#泛型的作用" class="headerlink" title="泛型的作用"></a>泛型的作用</h4><ol><li>泛型可以解决强制转换的问题，一个例子是向集合中仍对象，在get的时候，返回的是一个Object，如果不使用泛型，就需要强制转换；</li><li>add方法。Collection、Map集合对元素的类型是没有任何的限制的。把不同的类型放到集合中不会有编译器的错误提示。使用泛型可以解决这个问题；</li></ol><h4 id="通配符和泛型方法如何选择？"><a href="#通配符和泛型方法如何选择？" class="headerlink" title="通配符和泛型方法如何选择？"></a>通配符和泛型方法如何选择？</h4><ul><li>如果参数之间的类型有依赖关系，或者返回值是与参数之间有依赖关系。那么就使用泛型方法；</li><li>如果没有依赖关系的，就使用通配符，通配符会更灵活些。</li></ul><h4 id="泛型擦出"><a href="#泛型擦出" class="headerlink" title="泛型擦出"></a>泛型擦出</h4><p>泛型是提供给javac编译器使用的，它用于限定集合的输入类型，让编译器在源代码级别上，即挡住向集合中插入非法的数据。但编译器编译完带有泛型的程序后，生成的class文件中将不再带有泛型的信息，以此使程序运行不受影响，这个过程我们称之为“擦除”。</p><h4 id="注意事项"><a href="#注意事项" class="headerlink" title="注意事项"></a>注意事项</h4><ul><li>不能使用基本类型实例化类型参数；</li><li>不能抛出也不能捕获泛型类型实例；</li><li>参数化类型的数组不合法；</li><li>不能实例化类型变量；</li><li>泛型类的静态上下文中不能使用类型变量。</li></ul><h3 id="序列化与反序列化"><a href="#序列化与反序列化" class="headerlink" title="序列化与反序列化"></a>序列化与反序列化</h3><h4 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h4><ul><li>序列化：将对象写入到IO流中；</li><li>反序列化：从IO流中恢复对象；</li></ul><h4 id="作用"><a href="#作用" class="headerlink" title="作用"></a>作用</h4><p>序列化机制允许将实现序列化的Java对象转换为字节序列，这些字节序列可以保存在磁盘上，或通过网络传输，以达到以后恢复原来的对象。序列化机制使得对象可以脱离程序的运行而存在。</p><h4 id="方式"><a href="#方式" class="headerlink" title="方式"></a>方式</h4><p>实现Serializable或者Externalizable接口之一。</p><h4 id="算法"><a href="#算法" class="headerlink" title="算法"></a>算法</h4><ol><li>所有保存到磁盘的对象都有一个序列化编号；</li><li>当程序试图序列化一个对象时，会先检查此对象是否已经序列化过，只有此对象从未被序列化过，才回将此对象序列化为字节序列输出。如果此对象已经序列化过，则直接输出编号。</li></ol><h4 id="如何保证class文件升级，保证序列化的前后的兼容性呢？"><a href="#如何保证class文件升级，保证序列化的前后的兼容性呢？" class="headerlink" title="如何保证class文件升级，保证序列化的前后的兼容性呢？"></a>如何保证class文件升级，保证序列化的前后的兼容性呢？</h4><p>增加一个serialVersionUID的序列化版本号。</p><img src="/Users/xiazhenyu/Library/Application Support/typora-user-images/image-20220614215354659.png" alt="image-20220614215354659" style="zoom:50%;" /><h3 id="异常"><a href="#异常" class="headerlink" title="异常"></a>异常</h3><h4 id="Exception-、Error与Throwable的关系"><a href="#Exception-、Error与Throwable的关系" class="headerlink" title="Exception 、Error与Throwable的关系"></a>Exception 、Error与Throwable的关系</h4><ul><li>Throwable</li></ul><p>Throwable是Java语言中所有异常、错误超类；</p><p>Throwable包含两个子类：Error和Exception，他们通常用于指示发生了异常的情况。</p><p>Throwable包含了其线程创建时执行堆栈的快照，它提供了printStackTrace（）等接口用于获取堆栈跟踪数据等信息。</p><ul><li>Error</li></ul><p>程序中<strong>无法处理</strong>的错误，表示运行程序中出现了严重的错误。此类错误一般是代码运行时JVM出现问题。此类错误发生时，JVM将终止线程。</p><p><strong>Error不是检查异常</strong>，非代码性错误。比较常见的有stackOverflowError、OutofMemoryError等。因此，当此类错误发生时，应用程序不应该去处理此类错误。</p><ul><li>  Exception</li></ul><p>  程序本身可以捕获并且可以处理的异常。又可以分为运行时异常和编译时异常。</p><ol><li><strong>运行时异常</strong>（RuntimeException）。<strong>不是检查异常</strong>。常见的有NullPointerException、ClassCastException、IllegalArgumentException、IndexOutOfBoundsException等。这类异常一般是逻辑错误导致的，需要我们修改代码来规避。</li><li>编译时异常。<strong>检查异常</strong>。比如ClassNotFoundException、IOException等，要么通过throws抛出，要么通过try catch进行捕获处理，否则不能编译通过。</li></ol><h4 id="注意事项-1"><a href="#注意事项-1" class="headerlink" title="注意事项"></a>注意事项</h4><ol><li>当子类重写父类的带有throws声明的函数时，其throws声明的异常必须在父类声明的异常的可控范围内。这个是为了支持多态。</li><li>Java中的异常是线程独立的，线程的异常问题应该由线程自己来解决，而不要委托到外部。</li><li>try catch finally中。finally中的return会覆盖try或者catch中的返回值，finally中的return会抑制（消灭）try或者catch中的异常，finally中的异常会覆盖（消灭）try或catch中的异常。所以说finally中不要使用return，finally中仅仅适用释放资源的操作。</li></ol><h3 id="IO"><a href="#IO" class="headerlink" title="IO"></a>IO</h3><h4 id="几个模型"><a href="#几个模型" class="headerlink" title="几个模型"></a>几个模型</h4><h5 id="同步阻塞IO（BIO）："><a href="#同步阻塞IO（BIO）：" class="headerlink" title="同步阻塞IO（BIO）："></a>同步阻塞IO（BIO）：</h5><img src="/Users/xiazhenyu/Library/Application Support/typora-user-images/image-20220616143141912.png" alt="image-20220616143141912"  /><ol><li>用户发出请求以后，一直等待数据是否准备好，没有准备好的话就一直等待；</li><li>数据准备好以后，返回给用户（用户和内核空间都会阻塞）；</li><li>用户再去发送下一个请求。</li></ol><h5 id="同步非阻塞IO（NIO）"><a href="#同步非阻塞IO（NIO）" class="headerlink" title="同步非阻塞IO（NIO）"></a>同步非阻塞IO（NIO）</h5><p>![image-20220616143341607](/Users/xiazhenyu/Library/Application Support/typora-user-images/image-20220616143341607.png)</p><ol><li>用户发出请求后，一直等待返回结果，如果返回结果没有，则继续发送同样的请求，继续等待返回结果，直到请求数据成功为止；</li><li>上一个请求经过多次的请求以后，收到数据结果后，才会再次发送另一个请求；</li></ol><h5 id="异步阻塞IO（IO多路复用程序）"><a href="#异步阻塞IO（IO多路复用程序）" class="headerlink" title="异步阻塞IO（IO多路复用程序）"></a>异步阻塞IO（IO多路复用程序）</h5><p>![image-20220616143847354](/Users/xiazhenyu/Library/Application Support/typora-user-images/image-20220616143847354.png)</p><ol><li>用户在一个进程/线程中，发送一个请求以后，此时用户可以发送其他多个请求，因为一时收不到响应数据，就会阻塞在那里；</li><li>此时用户会有一个监听，监听数据；</li><li>如果请求的数据准备好了，会通知用户，然后用户再次发送请求，来获取该数据。</li></ol><h5 id="异步非阻塞IO（AIO）"><a href="#异步非阻塞IO（AIO）" class="headerlink" title="异步非阻塞IO（AIO）"></a>异步非阻塞IO（AIO）</h5><p>![image-20220616144405042](/Users/xiazhenyu/Library/Application Support/typora-user-images/image-20220616144405042.png)</p><ol><li>用户在一个进程/线程中，发出一个请求以后，不管数据是否准备好，用户都会收到一个返回结果（此时用户可以发送其他请求）。</li><li>此时用户会有一个监听，监听数据；</li><li>如果请求的数据准备好了，会通知用户，然后用户再次发送请求，来获取数据。</li></ol><h4 id="NIO介绍"><a href="#NIO介绍" class="headerlink" title="NIO介绍"></a>NIO介绍</h4><ul><li>核心内容： Channel、Buffer、Selector；</li><li>NIO是面向缓冲区编程的。数据读取到一个文件中，需要时可在缓冲区中前后移动，这就增加了处理过程中的灵活性，使用它可以提供非阻塞式的高伸缩性网络；</li><li>![image-20220616150624903](/Users/xiazhenyu/Library/Application Support/typora-user-images/image-20220616150624903.png)</li></ul><h5 id="NIO和BIO的比较"><a href="#NIO和BIO的比较" class="headerlink" title="NIO和BIO的比较"></a>NIO和BIO的比较</h5><ol><li>BIO是以流的方式处理数据，而NIO以缓冲区的方式处理数据，缓冲区IO效率比流IO高很多；</li><li>BIO是阻塞的，NIO则是非阻塞的；</li><li>BIO基于字节流和字符流进行操作，而NIO基于Channel和Buffer进行操作。数据总是从通道读取到缓冲区中，或者从缓冲区中写入到通道中。</li></ol><h5 id="netty的优点"><a href="#netty的优点" class="headerlink" title="netty的优点"></a>netty的优点</h5><ol><li>设计优雅，提供阻塞和非阻塞的socket，提供灵活可拓展的事件模型；提供高度可定制的线程模型；</li><li>具备更高的性能和更大的吞吐量，使用零拷贝技术最小化不必要的内存复制，减少资源的消耗。</li><li>提供安全传输特性；</li><li>支持多种主流协议；预置多种编解码功能，支持用户开发私有协议。</li></ol>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;h3 id=&quot;Java-范型&quot;&gt;&lt;a href=&quot;#Java-范型&quot; class=&quot;headerlink&quot; title=&quot;Java 范型&quot;&gt;&lt;/a&gt;Java 范型&lt;/h3&gt;&lt;h4 id=&quot;什么是泛型？&quot;&gt;&lt;a href=&quot;#什么是泛型？&quot; class=&quot;headerlink&quot; </summary>
+      
+    
+    
+    
+    
+  </entry>
+  
+  <entry>
+    <title></title>
+    <link href="http://example.com/2022/06/12/typora%E6%96%87%E4%BB%B6%E9%9B%86%E5%90%88/%E6%8B%89%E9%92%A9/JVM/%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98/"/>
+    <id>http://example.com/2022/06/12/typora%E6%96%87%E4%BB%B6%E9%9B%86%E5%90%88/%E6%8B%89%E9%92%A9/JVM/%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98/</id>
+    <published>2022-06-12T03:40:14.136Z</published>
+    <updated>2022-06-12T03:45:02.238Z</updated>
+    
+    <content type="html"><![CDATA[<p>JVM常见问题汇总</p><h3 id="哪些是线程共享的？哪些是线程隔离的？"><a href="#哪些是线程共享的？哪些是线程隔离的？" class="headerlink" title="哪些是线程共享的？哪些是线程隔离的？"></a>哪些是线程共享的？哪些是线程隔离的？</h3><p>Q：是否会存在对对象的成员变量进行引用、处理、计算， 线程之间需要隔离、通信；</p><h3 id="StackOverFlowError-异常的原因？"><a href="#StackOverFlowError-异常的原因？" class="headerlink" title="StackOverFlowError 异常的原因？"></a>StackOverFlowError 异常的原因？</h3><p>存在无限递归调用，栈的分配的空间不够使用； 循环调用；有一个参数可以控制栈的深度；</p><p>当线程请求的栈深度大于虚拟机所允许的最大深度，将抛出 StackOverflowError，一般是递归调用或循环调用没有结束。</p><p>JVM 提供了参数来设置虚拟机栈的大小【Xss 和 ThreadStackSize】，同样的虚拟机栈大小，栈深度取决于调用的方法需要分配多少内存。</p><p>如果方法的本地变量很多，那每个栈帧需要的内存就越多，那么最大栈深度就越小。</p><p>另外，如果虚拟机栈的容量可以动态扩展（HotSpot不允许），当扩展的时候无法申请到足够的内存就会抛出 OutOfMemoryError 异常。</p>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;p&gt;JVM常见问题汇总&lt;/p&gt;
+&lt;h3 id=&quot;哪些是线程共享的？哪些是线程隔离的？&quot;&gt;&lt;a href=&quot;#哪些是线程共享的？哪些是线程隔离的？&quot; class=&quot;headerlink&quot; title=&quot;哪些是线程共享的？哪些是线程隔离的？&quot;&gt;&lt;/a&gt;哪些是线程共享的？哪些是线程隔</summary>
+      
+    
+    
+    
+    
+  </entry>
+  
+  <entry>
+    <title></title>
+    <link href="http://example.com/2022/06/11/typora%E6%96%87%E4%BB%B6%E9%9B%86%E5%90%88/%E6%8B%89%E9%92%A9/%E9%9D%A2%E8%AF%95%E5%AE%89%E6%8E%92/"/>
+    <id>http://example.com/2022/06/11/typora%E6%96%87%E4%BB%B6%E9%9B%86%E5%90%88/%E6%8B%89%E9%92%A9/%E9%9D%A2%E8%AF%95%E5%AE%89%E6%8E%92/</id>
+    <published>2022-06-11T02:35:37.916Z</published>
+    <updated>2022-06-23T07:14:31.047Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="下周的面试跟进："><a href="#下周的面试跟进：" class="headerlink" title="下周的面试跟进："></a>下周的面试跟进：</h2><p>6月23号</p><p>晚上7点半： 政采云面试；</p><p>6月24号：</p><p>上午 10点 ：分叉智能</p><p>下午 3点：数列科技</p><p>下午3点 ： 古茗。</p><p>和立洋老师的沟通的结果</p><p>项目怎么介绍？业务背景+职责+所用的技术+解决的问题</p><p>及时的复盘：</p><p>要结合公司的JD以及自己的简历来准备；</p><p>不缺面试，调整好心态，加油！！！</p><p>薪资怎么说：结合公司的JD上面的，给一个自己的期望值，然后再和hr聊，不要一开始就降低自己的要求；</p><p>一般找到工作要1个月，心态要调整好，加油！⛽️ 加油！！！</p>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;h2 id=&quot;下周的面试跟进：&quot;&gt;&lt;a href=&quot;#下周的面试跟进：&quot; class=&quot;headerlink&quot; title=&quot;下周的面试跟进：&quot;&gt;&lt;/a&gt;下周的面试跟进：&lt;/h2&gt;&lt;p&gt;6月23号&lt;/p&gt;
+&lt;p&gt;晚上7点半： 政采云面试；&lt;/p&gt;
+&lt;p&gt;6月24号：&lt;/p&gt;
+&lt;</summary>
+      
+    
+    
+    
+    
+  </entry>
+  
+  <entry>
+    <title></title>
+    <link href="http://example.com/2022/06/10/typora%E6%96%87%E4%BB%B6%E9%9B%86%E5%90%88/%E6%8B%89%E9%92%A9/%E7%96%91%E9%97%AE%E7%82%B9/"/>
+    <id>http://example.com/2022/06/10/typora%E6%96%87%E4%BB%B6%E9%9B%86%E5%90%88/%E6%8B%89%E9%92%A9/%E7%96%91%E9%97%AE%E7%82%B9/</id>
+    <published>2022-06-10T13:54:08.510Z</published>
+    <updated>2022-06-16T06:29:43.341Z</updated>
+    
+    <content type="html"><![CDATA[<ol><li><p>mysql是如何保证ACID的？</p><p>A 原子性 事务 undolog保证 MVCC</p><p>C 一致性 锁</p><p>I 隔离性  锁实现（可重复读）</p><p>D 持久化 </p></li><li><p>事务隔离级别？</p><p>UC读未提交  会导致脏读</p><p>RC读已提交  解决了脏读的问题</p><p>RR可重复读  解决了不可重复读的问题？什么是不可重复读？对同一条记录，前后两次读取的结果不一致。但是会出现幻读？什么是幻读？ 按照一定的条件进行查询，发现前后两次查询的结果条数不一样。如何实现的呢？GAP锁。</p><p>Record Lock ：行锁。只锁当前的记录。</p><p>GAP锁：MySQL会在当前记录的左右两个相邻的记录范围内加锁，</p><p>临界锁：锁的范围是当前记录+记录的左右两个相邻的范围。</p><p>SR串行化读 </p></li></ol><p>架构：</p><p>Serve层</p><p>连接层 负责连接 服务端和客户端</p><p>语法分析层 分析Sql的语法格式正不正确</p><p>优化器层：生成执行计划、索引选择；</p><p>执行层： 调用存储引擎执行查询</p><p>InnoDB和MyISAM的区别：</p><p>InnoDB支持事务，MyISAM不支持；</p><p>InnoDB支持行级锁+表级锁，而MyISAM只支持表级锁；</p><p>myIASM支持查询密集性；</p><p>MyISAM采用的是B-树，而InnoDB采用的是B+树。</p><p>MyISAM不支持外键，而InnoDB支持；</p><p>MyISAM不支持MVCC；</p><p>B-树和B+数的区别？</p><p>最左匹配原则：</p><p>（a,b,c）</p><p>✅(a,b)</p><p>✅(a,b,c)</p><p>❌(b,c)</p><p>1.不在索引列上做任何操作（计算、函数、（自动or手动）类型转换），会导致索引失效而转向全表扫描</p><p>2.存储引擎不能使用索引范围条件右边的列（例如 只用到b ， c）</p><p>3.尽量使用覆盖索引（只访问索引的查询（索引列和查询列一致）），减少select ***<br>**</p><p>4.mysql在使用不等于（！=或者&lt;&gt;）的时候**无法使用索引会导致全表扫描</p><p>5.is null,is not null也无法使用索引</p><p>6.like以通配符开头（’%abc…’） %在左边。</p><p>索引：</p><p>主键索引（聚簇索引）</p><p>二级（非聚簇索引）</p><p>覆盖索引</p><p>binlog</p><p>redolog</p><p>undolog</p><p>relaylog 中转日志，主库会在备库第一次链接的时候，生成一个relaylog传递给备库，io thread</p><p>常见的数据库调优方式？</p><p>redis需要看的（可以翻下教练的ppt）</p><p>redis集群</p><p>redis的哨兵机智</p><p>标记清除算法、</p><p>标记内部是否可回收</p><p>优：简单、易于理解、是后续其他算法的基础</p><p>缺：当对象的数量比较多的时候，效率低；回收后内存碎片多</p><p>回收效率低；</p><p>标记复制算法</p><p>开辟一般的内存，提供复制移动回收后的对象；</p><p>优：消除了内存碎片化的问题；</p><p>缺点：浪费了50%的内存</p><p>Appel式回收，涉及的知识点：分代担保机制</p><p>有eden区gc后进入 survivor from区，survivor from区放不下以后，</p><p>则把from区以及enen区中存活的对象都移动到to区。</p><p>标记整理算法：gc后，把存活的对象移动到一起；</p><p>优点：不浪费空间，效率低但是适用于不经常出现GC的老年代；</p><p>缺点：</p><p>触发STW，所以在实际的生产中，要尽量避免出现Full GC或者个Old GC</p><p>也可以尝试在业务地缝期的时候主动发起一次Full GC或者是Old GC。</p><p>卡表是记忆集的实现。利用写屏障更新卡表中的引用。</p><p>GC Root可达性分析是需要暂停用户线程的，以保证没有新的对象依赖产生；</p><p>三色标记法；</p><p>白色：未被收集器访问过；</p><p>灰色：本身被访问过，至少存在一个引用未被访问过；</p><p>黑色：本身与其 引用都被访问过；</p><p>解决的问题：</p><ol><li>本应被回收的对象没有被回收；</li><li>不应回收的对象被回收；（对象消失；）</li></ol><p>对象消失出现的两个充分必要条件：</p><ol><li>赋值器插入了一条或多条从黑色对象到白色对象的新引用（扫描之后加入的）；</li><li>赋值器删除了全部从灰色对象到该白色对象的直接或者间接引用（扫描未结束就退出的）；</li></ol><p>解决方案：</p><p>增量更新（CMS使用）：破坏条件1。标记中如果某对象新加了新对象的引用，则将对象记录下来，并发扫描结束以后，重新扫描这些对象；</p><p>原始快照（T1收集器适用）：破坏条件2。标记中如果存在被删除的引用，则将引用记录下来，并发扫描结束以后重新扫描这些引用关联的灰色对象。</p><table><thead><tr><th>收集器</th><th>算法</th><th>工作时间</th><th>备注</th></tr></thead><tbody><tr><td>Serial</td><td>复制算法</td><td>新生代</td><td>单线程，会暂停用户线程</td></tr><tr><td>Serial Old</td><td>复制整理算法</td><td>老年代</td><td>单线程，会暂停用户线程</td></tr><tr><td>ParNew</td><td>新生代：复制算法<br />老年代：标记-整理算法</td><td>新生代+老年代</td><td>Serial 的多线程版本，适用于多核CPU。<br />GC的时候都会暂停用户线程</td></tr><tr><td>Parallel Scavenge<br />Parallel Old</td><td>同ParNew</td><td>同上</td><td>有比较好的吞吐量</td></tr><tr><td>CMS</td><td>新生代：标记清除<br /></td><td>初始标记：标记GC Roots直接关联的对象，耗时较短。<strong>需要STW</strong><br />并发标记：从GC Roots直接关联的对象开始遍历整个对象图，耗时比较长，但是不需要停顿用户线程。<strong>不会STW</strong>。<br />重新标记：修正并发标记期间，因用户线程运作而导致标记产生变动的那一部分标记记录。<strong>需要STW</strong><br />并发清除：清楚掉被标记死亡的对象。<strong>不会STW</strong></td><td>优点：做到了并发收集（在并发标记阶段）；<br />缺点：<br />1. 对资源敏感；<br />2. 无法处理浮动垃圾；<br />3. 碎片化较多；</td></tr><tr><td>G1</td><td>标记-整理算法</td><td>初始标记：标记GC Roots直接关联的对象。<strong>STW</strong><br />并发标记：从GC Root直接关联的对象开始遍历整个对象图，耗时较长，但是不需要停顿用户线程。<strong>不需要STW</strong><br />最终标记：遍历原始快照中的对象引用。<strong>需要STW</strong><br />筛选回收：筛选出回收效率比较高的Region，时间上限为JVM设定的预期耗时。<strong>STW</strong></td><td>G1中，仍然存在老年代与年轻代的概念，但是内部布局不是固定的，都是一系列的Region的动态集合。在收回时，G1收集器会评估每个Region的回收价值，结合JVM的设定的期望值，框定出本次需要回收的Region。</td></tr><tr><td></td><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td><td></td></tr></tbody></table><p>常量：字面量：文本字符串、final修饰的字符串；</p><p>​            静态变量：</p><p>运行时常量池：</p><p>加载：类文件、压缩包、动态代理、数据库读取、加密文件；</p><p>验证：文件格式、元数据、字节码、符号引用;</p><p>准备：划分内存、初始化数据、初始化符号；</p><p>解析：实际赋值、替换引用、类/字段/方法/接口方法解析</p><p>初始化：调用类的clinit。</p><ul><li>JAVA 基础扎实，对IO、多线程、集合、JVM原理较为熟悉;</li><li>掌握常用的关系型数据库，如Mysql，并有一定的数据库调优/优化能力;</li><li>掌握常见的分布式、缓存、消息等技术;</li><li>掌握常用的中间件，如Kafka、ShardingJDBC、Elasticsearch等;</li></ul>]]></content>
     
     
       
       
     <summary type="html">&lt;ol&gt;
-&lt;li&gt;保持充足的睡眠。思维按摩：用拇指和食指从上到下轻轻地按摩整个耳朵，用两只手的手指触摸位于发际和眉毛之间的两个穴位。促进血液流动，消除记忆障碍和增强记忆力。&lt;/li&gt;
-&lt;li&gt;经常咀嚼。&lt;/li&gt;
-&lt;li&gt;合理饮食：&lt;ul&gt;
-&lt;li&gt;多吃大豆和豆制品。&lt;/li&gt;
-</summary>
+&lt;li&gt;&lt;p&gt;mysql是如何保证ACID的？&lt;/p&gt;
+&lt;p&gt;A 原子性 事务 undolog保证 MVCC&lt;/p&gt;
+&lt;p&gt;C 一致性 锁&lt;/p&gt;
+&lt;p&gt;I 隔离性  锁实现（可重复读）&lt;/p&gt;
+&lt;p&gt;D 持久化 &lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;事务隔离级别？&lt;/p</summary>
       
     
     
@@ -490,28 +226,234 @@
   </entry>
   
   <entry>
-    <title>日志查看规范</title>
-    <link href="http://example.com/2022/03/11/wholee/%E6%97%A5%E5%BF%97%E6%9F%A5%E7%9C%8B%E8%A7%84%E8%8C%83/"/>
-    <id>http://example.com/2022/03/11/wholee/%E6%97%A5%E5%BF%97%E6%9F%A5%E7%9C%8B%E8%A7%84%E8%8C%83/</id>
-    <published>2022-03-11T02:09:44.082Z</published>
-    <updated>2022-03-19T13:54:58.184Z</updated>
+    <title></title>
+    <link href="http://example.com/2022/06/09/typora%E6%96%87%E4%BB%B6%E9%9B%86%E5%90%88/%E6%8B%89%E9%92%A9/%E4%B8%AD%E9%97%B4%E4%BB%B6/%E7%AD%94%E7%96%910609/"/>
+    <id>http://example.com/2022/06/09/typora%E6%96%87%E4%BB%B6%E9%9B%86%E5%90%88/%E6%8B%89%E9%92%A9/%E4%B8%AD%E9%97%B4%E4%BB%B6/%E7%AD%94%E7%96%910609/</id>
+    <published>2022-06-09T13:21:36.347Z</published>
+    <updated>2022-06-11T12:34:14.750Z</updated>
     
-    <content type="html"><![CDATA[<p>product-message-consumer：</p><p>日志目录：/root/logs/product-message-consumer;</p><p>发送的消息日志在kafka_producer.log中，消费的消息日志在kafka_consumer.log中；</p><p>日志的查找：</p><p>日志上报：</p><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Cat.logEvent(MESSAGE_COUNT_FOR_GROUP, chatId, Message.SUCCESS, msg);</span><br></pre></td></tr></table></figure>]]></content>
+    <content type="html"><![CDATA[<p>说一下对 MySQL 死锁的理解，如何解决死锁问题？</p><p>什么是死锁？</p><p>【发生死锁的 4 个必要条件】</p><ul><li>互斥条件：竞争资源的排他性，即在一段时间内只能被一个线程占用</li><li>不剥夺条件：资源只能由线程释放，不能被抢夺</li><li>请求和保持条件：线程已经保持了至少一个资源，又请求了新的资源（已被其他线程占有），只能等待，而其他线程也在等待该线程保持的资源</li><li>循环等待条件：存在一种循环等待链，链中每一个线程已获得的资源同时被下一个线程所请求</li></ul><p>死锁的出现的场景：</p><p>select where id=1 for update</p><p>update where id=2</p><p>select where id=2 for update</p><p>update where id=1</p><p>死锁 事务</p><p>那并发写的时候没有锁 MySQL 如何保证数据的正确性呢？</p><p>数据库的ACID是如何实现的？</p><p>行锁、间隙锁、临界锁</p><p>其实我的建议是研究一下锁这个概念</p><p>如何用redis实现分布式锁？然后需要注意哪些问题？</p><p>字符串 ： int整形、embr编码的SDS、SDS；</p><p>列表： zipList、LinkedList；</p><p>哈希表： 字典、zipList；</p><p>集合： 字典、intSet</p><p>有序集合： zipList、skipList；</p><p>清理失效的键值对；</p><p>更新各类统计信息；</p><p>执行RDB、AOF操作；</p><p>主从的同步；</p><p>在发现主服务器进入客观下线的sentinel我们成为源sentinel。</p><ol><li>源sentinel向目标sentinel发送请求，请求目标sentinel将自己设置为局部的leader。命令：SENTINEL  is-master-down-by-addr其中</li></ol><p>的run id时自己的运行id；</p><ol start="2"><li><p>目标sentinel收到源sentinel的请求以后，会返回自己的局部leader sentinel的run id和配置纪元。</p></li><li><p>源sentinel接收到目标sentinel的恢复以后，会判断配置纪元与run id是否都与自己的相同。相同则说明目标sentinel将自己设置成了局部leader sentinel。目标sentinel设置自己的局部领头sentinel采用先先得的原则；</p></li><li><p>得到超多半数以上的sentinel支持，那么这个sentinel就会成为领头的sentinel；</p></li><li><p>给定的时间内没有sentinel被选举为领头sentinel，那么各个sentinel将在一段时间以后重新开始进行选举。</p></li></ol><p>什么是Redis中的跳表</p><p>将有序链表进行分层，每一层都是一个有序链表；</p><p>查找：在查找时优先从最高层开始查找，当达到某个节点时，如果next节点是nul或者大于要查找的值时。则从当前节点下降一层，继续开始向后查找；O(logn)</p><p>删除：</p><p>使用 redis 分布式锁有什么要注意的？</p>]]></content>
     
     
       
       
-    <summary type="html">&lt;p&gt;product-message-consumer：&lt;/p&gt;
-&lt;p&gt;日志目录：/root/logs/product-message-consumer;&lt;/p&gt;
-&lt;p&gt;发送的消息日志在kafka_producer.log中，消费的消息日志在kafka_consumer.log中</summary>
+    <summary type="html">&lt;p&gt;说一下对 MySQL 死锁的理解，如何解决死锁问题？&lt;/p&gt;
+&lt;p&gt;什么是死锁？&lt;/p&gt;
+&lt;p&gt;【发生死锁的 4 个必要条件】&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;互斥条件：竞争资源的排他性，即在一段时间内只能被一个线程占用&lt;/li&gt;
+&lt;li&gt;不剥夺条件：资源只能由线程释放，不能被抢</summary>
       
     
     
     
-    <category term="wholee" scheme="http://example.com/categories/wholee/"/>
+    
+  </entry>
+  
+  <entry>
+    <title></title>
+    <link href="http://example.com/2022/06/09/wholee/%E9%A1%B9%E7%9B%AE/"/>
+    <id>http://example.com/2022/06/09/wholee/%E9%A1%B9%E7%9B%AE/</id>
+    <published>2022-06-09T04:40:31.593Z</published>
+    <updated>2022-06-10T03:57:22.650Z</updated>
+    
+    <content type="html"><![CDATA[<p>货品商品中心</p><p>项目背景：该项目是公司货品中台管理系统，包含货品的创建、编辑、查询、治理以及基础信息如类目、品牌、属性等的管理。用以支持整个公司的所有类型的货品的创建，同时发送消息创建C端商品。</p><p>负责的内容：主要负责商品的发布。利用爬虫技术创建完货品以后，对货品的信息进行再编辑。包括货品的标签、属性、批量工具等功能。同时还负责基础信息中属性、品牌、类目、上货模版的管理维护。</p><p>项目的架构及技术栈:：</p><ol><li>模型上商货分离，对CPV、价格、Log日志、货品管理等单独提供独立的微服务实例，彼此之间通过RPC接口进行调用；</li><li>利用DDD编程思想，把复杂的货品模型进行的重新的梳理，变成由CPV+货品spu/sku+基础信息（标签+品牌）组成；</li><li>利用kafka的高吞吐能力保证商品变动、价格变动的时效性；</li><li>利用Apollo实现配置的集群化管理，实现配置共享，项目启动的时候主动拉取Apollo配置；</li></ol><p><img src="https://xiazhenyu.oss-cn-hangzhou.aliyuncs.com/common/wecom-temp-32598ed72b04528f2cd86d43a49f7a57.png" alt="wecom-temp-32598ed72b04528f2cd86d43a49f7a57"></p><p><img src="https://xiazhenyu.oss-cn-hangzhou.aliyuncs.com/common/%E4%BC%81%E4%B8%9A%E5%BE%AE%E4%BF%A1%E6%88%AA%E5%9B%BE_16510225773215.png" alt="企业微信截图_16510225773215"></p><p><img src="https://xiazhenyu.oss-cn-hangzhou.aliyuncs.com/common/wecom-temp-33dec0467cb5566257ce7ef088056036.png" alt="wecom-temp-33dec0467cb5566257ce7ef088056036"></p><p>kafka集群</p><p><img src="https://xiazhenyu.oss-cn-hangzhou.aliyuncs.com/common/image-20220610114537853.png" alt="image-20220610114537853"></p><p>总共有767个topic，</p><h3 id="auto-product-id-sync-prod的消息分区情况："><a href="#auto-product-id-sync-prod的消息分区情况：" class="headerlink" title="auto-product-id-sync-prod的消息分区情况："></a>auto-product-id-sync-prod的消息分区情况：</h3><p><img src="https://xiazhenyu.oss-cn-hangzhou.aliyuncs.com/common/image-20220610115709083.png" alt="image-20220610115709083"></p><p>吞吐量在1w左右</p>]]></content>
     
     
-    <category term="wholee" scheme="http://example.com/tags/wholee/"/>
+      
+      
+    <summary type="html">&lt;p&gt;货品商品中心&lt;/p&gt;
+&lt;p&gt;项目背景：该项目是公司货品中台管理系统，包含货品的创建、编辑、查询、治理以及基础信息如类目、品牌、属性等的管理。用以支持整个公司的所有类型的货品的创建，同时发送消息创建C端商品。&lt;/p&gt;
+&lt;p&gt;负责的内容：主要负责商品的发布。利用爬虫技术创建完货</summary>
+      
+    
+    
+    
+    
+  </entry>
+  
+  <entry>
+    <title>Kafka高吞吐的原理</title>
+    <link href="http://example.com/2022/06/04/typora%E6%96%87%E4%BB%B6%E9%9B%86%E5%90%88/%E6%8B%89%E9%92%A9/%E4%B8%AD%E9%97%B4%E4%BB%B6/MQ/kafka/Kafka%E9%AB%98%E5%90%9E%E5%90%90%E7%9A%84%E5%8E%9F%E5%9B%A0/"/>
+    <id>http://example.com/2022/06/04/typora%E6%96%87%E4%BB%B6%E9%9B%86%E5%90%88/%E6%8B%89%E9%92%A9/%E4%B8%AD%E9%97%B4%E4%BB%B6/MQ/kafka/Kafka%E9%AB%98%E5%90%9E%E5%90%90%E7%9A%84%E5%8E%9F%E5%9B%A0/</id>
+    <published>2022-06-03T17:26:10.263Z</published>
+    <updated>2022-06-09T09:59:06.119Z</updated>
+    
+    <content type="html"><![CDATA[<p>自己理解的为什么kafka是高吞吐的？</p><ol><li><p>消息的发送： 同一个topic可以有多个分区，不同的分区存储的消息是不同的；</p><p>消息的发送是分批发送的，即多条记录达到一定的字节大小的时候才会发送，有参数batch.size进行控制。默认值大小？</p><p>同时会有一个参数：linger.ms 控制等待消息达到batch.size的超时时间。</p></li><li><p>消息的消费： kafka中的消费者都是单线程的。每一个topic的partition都只能有一个消费者消费。增加消费者的实例数，可以水平扩展topic的消费能力；</p></li><li><p> kafka是如何保证消息的顺序性的：kafka是单分区严格有序的。内部原理：消息的分区器。</p></li></ol><p>高可用：</p><ol><li>每一个分区可以设置副本；</li><li>日志的磁盘持久化。会持久化消息在单分区的offset。kafka重启的时候，会读取这个offset，然后从这个offset开始消费。</li></ol>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;p&gt;自己理解的为什么kafka是高吞吐的？&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;p&gt;消息的发送： 同一个topic可以有多个分区，不同的分区存储的消息是不同的；&lt;/p&gt;
+&lt;p&gt;消息的发送是分批发送的，即多条记录达到一定的字节大小的时候才会发送，有参数batch.size进行控制。默认值</summary>
+      
+    
+    
+    
+    <category term="MQ" scheme="http://example.com/categories/MQ/"/>
+    
+    
+    <category term="kafka" scheme="http://example.com/tags/kafka/"/>
+    
+  </entry>
+  
+  <entry>
+    <title></title>
+    <link href="http://example.com/2022/06/03/typora%E6%96%87%E4%BB%B6%E9%9B%86%E5%90%88/%E6%8B%89%E9%92%A9/%E4%B8%AD%E9%97%B4%E4%BB%B6/MQ/%E6%80%9D%E8%80%83/"/>
+    <id>http://example.com/2022/06/03/typora%E6%96%87%E4%BB%B6%E9%9B%86%E5%90%88/%E6%8B%89%E9%92%A9/%E4%B8%AD%E9%97%B4%E4%BB%B6/MQ/%E6%80%9D%E8%80%83/</id>
+    <published>2022-06-03T15:48:17.700Z</published>
+    <updated>2022-06-12T13:57:39.016Z</updated>
+    
+    <content type="html"><![CDATA[<p>商品表</p><p>​    商品id、商品名称、条码、单位、规格、图片、属性、商家id.</p><p>商品DTO： ItemDTO</p><p> 商品名称、商品条码、商品条码、商品单位、商品规格、商品图片、商品属性，商品类目id；</p><p>商家信息 1w个商家</p><p>技术考察点：异步执行，MQ，多线程。</p><p>大致流程：先存储task任务表记录。然后发送一个消息-》 taskProducer。topic：task-creator；</p><p>然后有一个消息的订阅这订阅这个消息：taskConsumer；</p><p>在taskConsumer中，采用easyExcel去解析excel，解析每100行数据（可以弄成一个配置的）再次发送一个消息-》topic：item-creator。</p><p>该topic总共有100个分区（是不是有点多。）</p><p>其他的参数的设置：</p><p>//副本因子</p><p>default.replication.factor=2；</p><p>//ISR集合因子</p><p>min.insync.replicas = 2</p><p>// topic 的分区数</p><p>num.partitions    =10</p><p>API springCtroller项目会在启动的时候，把10000个商家的id存储在本地的缓存中（这里也可以直接查询redis）。</p><p>并事先计算好商家id对100取模以后的值，然后放到一个Map中key-取模以后的值，value是一个商家id的集合</p><p>Map&lt;Integer,List&lt;Long&gt;  merchantMap;</p><p>itemCreatorConsumer（所在的机器和taskConsumer是在一个项目中的）中，循环merchantMap，可以遇见的是需要循环100次，这里可以引入线程池，以加速商品的创建速度，但是要根据底层RPC服务的QPS能力，控制线程池的最大线程池的大小。每一次的循环中，去调用RPC服务，RPC请求体为：</p><p>List&lt;Long&gt; merchantIdList;</p><p>List&lt;ItemDTO&gt;  itemDTOList;</p><p>//对100取模以后的值</p><p>int index;</p><p>其中，itemDTOList为每一批次拉取的消息的，merchantIdList为merchantMap的entry中的value，index为merchantMap的entry中的key。</p><p>底层的RPC服务可以根据index的值，找到需要插入的表。</p><p>RPC接口规范：</p><p>int itemCreator（LIst&lt;Long&gt; merchantIdList,List&lt;ItemDTO&gt; itemDTOLIst,int partition);</p><p>同时，需要增大RPC服务的节点数，提供服务的QPS能力；内部的也采用多线程的方式增加处理能力；</p><p>返回值，成功写入的商品的数量，注意是对应与excel中的数量。</p><p>task表。</p><p>id,</p><p>taskFileUrl;</p><p>totalCount;</p><p>successCount;</p><p>Status;</p><p>resultFileUrl;</p><p>Creator;</p><p>Operator;</p><p><img src="https://xiazhenyu.oss-cn-hangzhou.aliyuncs.com/common/image-20220605220543754.png" alt="image-20220605220543754"></p><hr><p>6月12号私教课笔记</p><p>商品库存体系</p><p>商品管理体系</p><p>商品浏览体系</p><p>类目、属性、标签、类目体系</p><p>货架商品</p><p>秒杀系统： 配置项：配置需要秒杀的库存，</p><p>平台体系、组件：</p><p>日志系统；</p><p>业务身份系统：不同的业务流程不同，比如虚拟商品不需要发货；根据业务身份，做业务链路的动态调控；</p><p>商品敏感信息监控系统；</p><p>异常数据处理系统：</p><p>商品属性订阅系统（kafka）</p>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;p&gt;商品表&lt;/p&gt;
+&lt;p&gt;​    商品id、商品名称、条码、单位、规格、图片、属性、商家id.&lt;/p&gt;
+&lt;p&gt;商品DTO： ItemDTO&lt;/p&gt;
+&lt;p&gt; 商品名称、商品条码、商品条码、商品单位、商品规格、商品图片、商品属性，商品类目id；&lt;/p&gt;
+&lt;p&gt;商家信息 1w个商家</summary>
+      
+    
+    
+    
+    
+  </entry>
+  
+  <entry>
+    <title>s3文件上传</title>
+    <link href="http://example.com/2022/05/30/wholee/S3%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0/"/>
+    <id>http://example.com/2022/05/30/wholee/S3%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0/</id>
+    <published>2022-05-30T11:44:17.093Z</published>
+    <updated>2022-05-31T02:07:18.525Z</updated>
+    
+    <content type="html"><![CDATA[<h3 id="Demo"><a href="#Demo" class="headerlink" title="Demo"></a>Demo</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Autowired</span></span><br><span class="line"><span class="keyword">private</span>` `S3Proxy s3Proxy;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">// 注意：如果s3Proxy封装的方法不满足要求，业务方可以自行注入s3原生client，调用它的方法自行上传</span></span><br><span class="line"><span class="meta">@Autowired</span></span><br><span class="line"><span class="keyword">private</span>` `AmazonS3 s3Client;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 通用上传接口(上传到配置文件指定的bucketName)</span></span><br><span class="line">String key = s3Proxy.uploadFileToS3(``<span class="keyword">new</span>` `InputStreamWrapper(inputStream),() -&gt; dir+fileName);</span><br><span class="line">String donwloadUrl = s3Proxy.getDownloadUrl(key);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 通用上传接口(上传到指定的bucket,需要保证该ec2所属角色拥有访问该bucketName的权限，详情咨询运维学长)</span></span><br><span class="line">String fileName = ``<span class="string">&quot;http-content-test.txt&quot;</span>``;</span><br><span class="line">InputStream inputStream = ``<span class="keyword">new</span>` `ByteArrayInputStream(``<span class="string">&quot;hello world&quot;</span>``.getBytes(StandardCharsets.UTF_8));</span><br><span class="line">String uniqueKey = s3Proxy.uploadFileToS3(``<span class="string">&quot;yourBucketName&quot;</span>``,``<span class="keyword">new</span>` `InputStreamWrapper(inputStream), () -&gt; fileName);</span><br><span class="line">System.out.println(``<span class="string">&quot;donwloadUrl=&quot;</span>``+s3Proxy.getDownloadUrl(uniqueKey));</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">// 使用默认bucket 上传文件，使用 applicationName/yyyy-MM-dd/hash+fileNameExtension 作为文件名，主要是方便原来使用aliyun-oss的业务方迁移使用</span></span><br><span class="line">InputStream inputStream3 = Thread.currentThread().getContextClassLoader().getResourceAsStream(``<span class="string">&quot;amazing-tiger.jpg&quot;</span>``);</span><br><span class="line">String downloadUrl2 = s3Proxy.uploadToDefaultBucketWithHash(``<span class="string">&quot;xxxApp&quot;</span>``,inputStream3,``<span class="string">&quot;amazing-tiger.jpg&quot;</span>``);</span><br><span class="line">System.out.println(``<span class="string">&quot;downloadUrl2=&quot;</span>``+downloadUrl2);</span><br><span class="line"></span><br><span class="line">System.out.println(``<span class="string">&quot;===== download s3 files =====&quot;</span>``);</span><br><span class="line"></span><br><span class="line">InputStream downloadFile1 = s3Proxy.download(uniqueKey);</span><br><span class="line"><span class="keyword">byte</span>``[] buffer = ``<span class="keyword">new</span>` `<span class="keyword">byte</span>``[``<span class="number">100</span>``];</span><br><span class="line">downloadFile1.read(buffer);</span><br><span class="line">System.out.println(``<span class="keyword">new</span>` `String(buffer));</span><br><span class="line"></span><br></pre></td></tr></table></figure><p>访问存储桶的方法：</p><h3 id="第一种：虚拟托管式访问（公司使用的方式）"><a href="#第一种：虚拟托管式访问（公司使用的方式）" class="headerlink" title="第一种：虚拟托管式访问（公司使用的方式）"></a>第一种：虚拟托管式访问（公司使用的方式）</h3><p>在虚拟托管类型请求中，存储桶名称是 URL 中域名的一部分。</p><p>Amazon S3 虚拟托管类型 URL 使用以下格式：</p><p>  <code>https://bucket-name.s3.Region.amazonaws.com/key-name</code></p><p>在此示例中，<code>my-bucket</code> 为存储桶名称，美国西部（俄勒冈）为区域，<code>puppy.png</code> 为密钥名称：</p><p><code>https://my-bucket.s3.us-west-2.amazonaws.com/puppy.png</code></p><h3 id="第二种：路径类型访问"><a href="#第二种：路径类型访问" class="headerlink" title="第二种：路径类型访问"></a>第二种：路径类型访问</h3><p>在 Amazon S3 中，路径样式的 URL 使用以下格式。</p><p><code>https://s3.Region.amazonaws.com/bucket-name/key-name</code></p><p>例如，如果您在美国西部（俄勒冈）区域中创建一个名为 <code>mybucket</code> 的存储桶，并希望访问该存储桶中的 <code>puppy.jpg</code> 对象，则可使用以下路径类型 URL：</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">https://s3.us-west-2.amazonaws.com/mybucket/puppy.jpg</span><br></pre></td></tr></table></figure><h3 id="第三种：通过-IPv6-访问-S3-存储桶"><a href="#第三种：通过-IPv6-访问-S3-存储桶" class="headerlink" title="第三种：通过 IPv6 访问 S3 存储桶"></a>第三种：通过 IPv6 访问 S3 存储桶</h3><p>Amazon S3 有一组双堆栈终端节点，它们支持通过 Internet 协议版本 6 (IPv6) 和 IPv4 向 S3 存储桶发出请求。有关更多信息，请参阅 <a href="https://docs.aws.amazon.com/zh_cn/zh_cn/AmazonS3/latest/userguide/ipv6-access.html">通过 IPv6 发出请求</a>。</p><h3 id="第四种：通过-S3-访问点访问存储桶"><a href="#第四种：通过-S3-访问点访问存储桶" class="headerlink" title="第四种：通过 S3 访问点访问存储桶"></a>第四种：通过 S3 访问点访问存储桶</h3><p>除了直接访问存储桶之外，您还可以通过访问点访问存储桶。有关 S3 访问点功能的更多信息，请参阅<a href="https://docs.aws.amazon.com/zh_cn/zh_cn/AmazonS3/latest/userguide/access-points.html">使用 Amazon S3 访问点管理数据访问</a>。</p><p>S3 访问点仅支持虚拟主机式寻址。要通过访问点对存储桶进行寻址，请使用以下格式。</p><p><code>https://AccessPointName-AccountId.s3-accesspoint.region.amazonaws.com.</code></p><h3 id="第五种：使用-S3-访问存储桶"><a href="#第五种：使用-S3-访问存储桶" class="headerlink" title="第五种：使用 S3:// 访问存储桶"></a>第五种：使用 S3:// 访问存储桶</h3><p>某些 AWS 服务需要使用 <code>S3://bucket</code> 指定 Amazon S3 存储桶。以下示例显示了正确的格式。请注意，使用此格式时，存储桶名称不包含 AWS 区域。</p><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">S3:<span class="comment">//bucket-name/key-name</span></span><br></pre></td></tr></table></figure><p>请注意：默认情况下，一个桶中的资源的路径是唯一的，是不会被覆盖的。</p><p><img src="https://xiazhenyu.oss-cn-hangzhou.aliyuncs.com/common/image-20220531001337320.png" alt="image-20220531001337320"></p><p>AWS s3教程：</p><p><a href="https://docs.aws.amazon.com/zh_cn/AmazonS3/latest/userguide/Welcome.html">https://docs.aws.amazon.com/zh_cn/AmazonS3/latest/userguide/Welcome.html</a></p>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;h3 id=&quot;Demo&quot;&gt;&lt;a href=&quot;#Demo&quot; class=&quot;headerlink&quot; title=&quot;Demo&quot;&gt;&lt;/a&gt;Demo&lt;/h3&gt;&lt;figure class=&quot;highlight java&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre</summary>
+      
+    
+    
+    
+    <category term="s3" scheme="http://example.com/categories/s3/"/>
+    
+    <category term="文件上传" scheme="http://example.com/categories/s3/%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0/"/>
+    
+    
+    <category term="部署/运维系统" scheme="http://example.com/tags/%E9%83%A8%E7%BD%B2-%E8%BF%90%E7%BB%B4%E7%B3%BB%E7%BB%9F/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>maven中的版本号</title>
+    <link href="http://example.com/2022/05/26/typora%E6%96%87%E4%BB%B6%E9%9B%86%E5%90%88/%E6%8A%80%E6%9C%AF/Maven%E7%9B%B8%E5%85%B3%E6%8A%80%E6%9C%AF%E6%96%87%E4%BB%B6/Maven%E4%B8%AD%E7%9A%84%E7%89%88%E6%9C%AC%E5%8F%B7%E7%9A%84%E5%90%AB%E4%B9%89/"/>
+    <id>http://example.com/2022/05/26/typora%E6%96%87%E4%BB%B6%E9%9B%86%E5%90%88/%E6%8A%80%E6%9C%AF/Maven%E7%9B%B8%E5%85%B3%E6%8A%80%E6%9C%AF%E6%96%87%E4%BB%B6/Maven%E4%B8%AD%E7%9A%84%E7%89%88%E6%9C%AC%E5%8F%B7%E7%9A%84%E5%90%AB%E4%B9%89/</id>
+    <published>2022-05-26T03:04:34.371Z</published>
+    <updated>2022-05-26T03:05:32.018Z</updated>
+    
+    <content type="html"><![CDATA[<p>参考文章：<a href="https://blog.csdn.net/loongshawn/article/details/90310974">https://blog.csdn.net/loongshawn/article/details/90310974</a></p>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;p&gt;参考文章：&lt;a href=&quot;https://blog.csdn.net/loongshawn/article/details/90310974&quot;&gt;https://blog.csdn.net/loongshawn/article/details/90310974&lt;/a&gt;&lt;/p</summary>
+      
+    
+    
+    
+    <category term="maven" scheme="http://example.com/categories/maven/"/>
+    
+    
+    <category term="maven version" scheme="http://example.com/tags/maven-version/"/>
+    
+  </entry>
+  
+  <entry>
+    <title></title>
+    <link href="http://example.com/2022/05/26/typora%E6%96%87%E4%BB%B6%E9%9B%86%E5%90%88/%E6%8B%89%E9%92%A9/%E4%B8%AD%E9%97%B4%E4%BB%B6/%E6%8A%80%E6%9C%AF%E6%96%B9%E6%A1%88%E6%A8%A1%E7%89%88/"/>
+    <id>http://example.com/2022/05/26/typora%E6%96%87%E4%BB%B6%E9%9B%86%E5%90%88/%E6%8B%89%E9%92%A9/%E4%B8%AD%E9%97%B4%E4%BB%B6/%E6%8A%80%E6%9C%AF%E6%96%B9%E6%A1%88%E6%A8%A1%E7%89%88/</id>
+    <published>2022-05-25T16:32:48.137Z</published>
+    <updated>2022-06-03T15:48:24.983Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h1><h1 id="目标"><a href="#目标" class="headerlink" title="目标"></a>目标</h1><h1 id="模型设计"><a href="#模型设计" class="headerlink" title="模型设计"></a>模型设计</h1><table><thead><tr><th><strong>中文说明</strong> <strong>类名</strong></th><th></th><th></th></tr></thead><tbody><tr><td><strong>字段</strong></td><td><strong>类型</strong></td><td><strong>说明</strong></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr></tbody></table><h1 id="架构设计"><a href="#架构设计" class="headerlink" title="架构设计"></a>架构设计</h1><h1 id="详细设计"><a href="#详细设计" class="headerlink" title="详细设计"></a>详细设计</h1><table><thead><tr><th><strong>RPC XXXService</strong></th><th></th></tr></thead><tbody><tr><td><strong>接口定义</strong></td><td></td></tr><tr><td><strong>说明</strong></td><td></td></tr><tr><td><strong>参数</strong></td><td></td></tr><tr><td><strong>异常</strong></td><td></td></tr><tr><td><strong>流程</strong></td><td></td></tr></tbody></table><h1 id="自测方案"><a href="#自测方案" class="headerlink" title="自测方案"></a>自测方案</h1><blockquote><p>自测的单元测试代码方案；</p></blockquote><blockquote><p>压测方案。</p></blockquote><h1 id="外部资源依赖"><a href="#外部资源依赖" class="headerlink" title="外部资源依赖"></a>外部资源依赖</h1><blockquote><p>影响本次迭代上线的外部资源依赖包括：</p></blockquote><blockquote><p>测试、前端、外部团队的研发人力；</p></blockquote><blockquote><p>中间件、服务器等资源。</p></blockquote><h1 id="排期"><a href="#排期" class="headerlink" title="排期"></a>排期</h1><blockquote><p>本次需求的排期。要求但不限于下述5个事项。</p></blockquote><table><thead><tr><th><strong>事项</strong></th><th><strong>耗时（pd）</strong></th><th><strong>完成时间</strong></th><th><strong>备注</strong></th></tr></thead><tbody><tr><td>技术方案设计</td><td></td><td></td><td></td></tr><tr><td>开发</td><td></td><td></td><td></td></tr><tr><td>自测</td><td></td><td></td><td></td></tr><tr><td>跟进测试</td><td></td><td></td><td></td></tr><tr><td>上线</td><td></td><td></td><td></td></tr></tbody></table><h1 id="后续规划"><a href="#后续规划" class="headerlink" title="后续规划"></a>后续规划</h1><blockquote><p>本次迭代过程中的遗留问题、待解决问题、待优化方案、后续想法等。</p></blockquote><table><thead><tr><th><strong>事项</strong></th><th><strong>状态</strong></th><th><strong>完成时间</strong></th><th><strong>备注</strong></th></tr></thead><tbody><tr><td></td><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td><td></td></tr></tbody></table><h1 id=""><a href="#" class="headerlink" title=""></a></h1>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;h1 id=&quot;背景&quot;&gt;&lt;a href=&quot;#背景&quot; class=&quot;headerlink&quot; title=&quot;背景&quot;&gt;&lt;/a&gt;背景&lt;/h1&gt;&lt;h1 id=&quot;目标&quot;&gt;&lt;a href=&quot;#目标&quot; class=&quot;headerlink&quot; title=&quot;目标&quot;&gt;&lt;/a&gt;目标&lt;/h1&gt;&lt;h1 id</summary>
+      
+    
+    
+    
+    
+  </entry>
+  
+  <entry>
+    <title></title>
+    <link href="http://example.com/2022/05/26/typora%E6%96%87%E4%BB%B6%E9%9B%86%E5%90%88/%E6%8B%89%E9%92%A9/%E4%B8%AD%E9%97%B4%E4%BB%B6/MQ/6%E6%9C%882%E5%8F%B7%E6%8A%80%E6%9C%AF%E6%96%B9%E6%A1%88%E4%BD%9C%E4%B8%9A/"/>
+    <id>http://example.com/2022/05/26/typora%E6%96%87%E4%BB%B6%E9%9B%86%E5%90%88/%E6%8B%89%E9%92%A9/%E4%B8%AD%E9%97%B4%E4%BB%B6/MQ/6%E6%9C%882%E5%8F%B7%E6%8A%80%E6%9C%AF%E6%96%B9%E6%A1%88%E4%BD%9C%E4%B8%9A/</id>
+    <published>2022-05-25T16:32:48.137Z</published>
+    <updated>2022-06-05T14:06:01.706Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h1><ul><li>业务背景：有一个连锁大型超市商家（比如家乐福），在外卖平台上有10000家门店。</li><li>技术背景： 商品数据库采用了分表设计，根据商品所属的门店id，与100取模分表（即商品所属的商家id为12345，则写入表item_45中）</li></ul><h1 id="目标"><a href="#目标" class="headerlink" title="目标"></a>目标</h1><p>提供一个Excel上传的功能，单次文件支持2w个商品的上传，2w个商品需要下发到1w个门店下面；</p><p>单次执行时间不能超过5分钟。</p><p>页面需要感知到百分比。</p><h1 id="模型设计"><a href="#模型设计" class="headerlink" title="模型设计"></a>模型设计</h1><p>UML设计</p><img src="/Users/xiazhenyu/Desktop/task 任务表.jpg" alt="task 任务表" style="zoom: 150%;" /><p>task表</p><table><thead><tr><th><strong>中文说明</strong> <strong>类名</strong></th><th></th><th></th></tr></thead><tbody><tr><td><strong>字段</strong></td><td><strong>类型</strong></td><td><strong>说明</strong></td></tr><tr><td>id</td><td>Long</td><td>主键id</td></tr><tr><td>taskFileUrl</td><td>String</td><td>导入的excel文件url</td></tr><tr><td>resultFileUrl</td><td>String</td><td>执行结果生成的url（有些场景有可能没有此值）</td></tr><tr><td>totalCount</td><td>Integer</td><td>excel中总的条数</td></tr><tr><td>successCount</td><td>Integer</td><td>执行成功的条数</td></tr><tr><td>status</td><td>Integer</td><td>任务的执行状态 0-代开始1-进行中2-成功3-失败</td></tr><tr><td>creator</td><td>String</td><td>创建者</td></tr><tr><td>operator</td><td>String</td><td>操作者</td></tr></tbody></table><h1 id="架构设计"><a href="#架构设计" class="headerlink" title="架构设计"></a>架构设计</h1><blockquote><img src="/Users/xiazhenyu/Desktop/批量提交exce创建商品时序图.jpg" alt="批量提交exce创建商品时序图" style="zoom:150%;" /></blockquote><h1 id="详细设计"><a href="#详细设计" class="headerlink" title="详细设计"></a>详细设计</h1><h2 id="kafka-topic"><a href="#kafka-topic" class="headerlink" title="kafka topic"></a>kafka topic</h2><table><thead><tr><th>编号</th><th>Topic name</th><th>主要参数</th><th>场景</th></tr></thead><tbody><tr><td>1</td><td>task-create</td><td>1. enbale.auto.commit=true <br />2.  default.replication.factor=2；<br />3. min.insync.replicas = 2<br />4.num.partitions    =2</td><td>用于查询执行状态为0的task，解析excel中的数据，并转发到item-create topic中</td></tr><tr><td>2</td><td>item-create</td><td>1.  enbale.auto.commit=false<br />2.  default.replication.factor=3<br />3. min.insync.replicas = 2<br />4.num.partitions    =10</td><td>task-create的消费者中，解析得到excel，然后再分批投放到这个Topic中。</td></tr><tr><td></td><td></td><td></td><td></td></tr></tbody></table><h2 id="Redis-key"><a href="#Redis-key" class="headerlink" title="Redis key"></a>Redis key</h2><p>key task_${taskId}，是一个hash  set的结构，用于存放每一批次成功执行的条数，然后前端轮训的时候，会从这个key中取数据，算出进度百分比。（<em><strong>这里会有set对重复值的过滤，需要考虑这点</strong></em>）</p><h2 id="详细描述"><a href="#详细描述" class="headerlink" title="详细描述"></a>详细描述</h2><p>前端导入的时候，在API controller中会先创建一个任务记录。然后同步发送一个task-create的消息。消息发送成功以后，向前端返回这个taskId，用于后续的执行进度查询。</p><p>在task-create消息的消费者中，采用EasyExcel组件解析excel，为了避免OOM以及快速的完成任务，这里会再转发一个消息：item-create。消息的参数见上面的列表。每100行数据（可以弄成一个配置的）发送一个消息。</p><p>API springCtroller项目会在启动的时候，把10000个商家的id存储在本地的缓存中（这里也可以直接查询redis）。并事先计算好商家id对100取模以后的值，然后放到一个Map中key-取模以后的值，value是一个商家id的集合Map&lt;Integer,List&lt;Long&gt;  merchantMap;</p><p>API项目在自发自收到item-create消息以后，循环merchantMap，可以遇见的是需要循环100次，这里可以引入线程池，以加速商品的创建速度，但是要根据底层RPC服务的QPS能力，控制线程池的最大线程池的大小。每一次的循环中，去调用RPC服务，RPC请求体为：</p><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">List&lt;Long&gt; merchantIdList;</span><br><span class="line"></span><br><span class="line">List&lt;ItemDTO&gt;  itemDTOList;</span><br><span class="line"></span><br><span class="line"><span class="comment">//对100取模以后的值</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">int</span> index;</span><br></pre></td></tr></table></figure><p>其中，itemDTOList为每一批次拉取的消息内容，merchantIdList为merchantMap的entry中的value，index为merchantMap的entry中的key。</p><p>底层的RPC服务可以根据index的值，找到需要插入的表。</p><p>另外需要增加底层RPC服务集群</p><h2 id="需要解决的问题"><a href="#需要解决的问题" class="headerlink" title="需要解决的问题"></a>需要解决的问题</h2><ol><li>RPC服务的幂等性；</li><li>item-create的重复消费-禁用自动提交位移；</li><li>怎么更新task的状态-弄一个已经执行；</li></ol><h1 id="自测方案"><a href="#自测方案" class="headerlink" title="自测方案"></a>自测方案</h1><h1 id="外部资源依赖"><a href="#外部资源依赖" class="headerlink" title="外部资源依赖"></a>外部资源依赖</h1><h1 id="排期"><a href="#排期" class="headerlink" title="排期"></a>排期</h1>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;h1 id=&quot;背景&quot;&gt;&lt;a href=&quot;#背景&quot; class=&quot;headerlink&quot; title=&quot;背景&quot;&gt;&lt;/a&gt;背景&lt;/h1&gt;&lt;ul&gt;
+&lt;li&gt;业务背景：有一个连锁大型超市商家（比如家乐福），在外卖平台上有10000家门店。&lt;/li&gt;
+&lt;li&gt;技术背景： 商品数据库采用了</summary>
+      
+    
+    
+    
+    
+  </entry>
+  
+  <entry>
+    <title>grep sed awk</title>
+    <link href="http://example.com/2022/05/26/typora%E6%96%87%E4%BB%B6%E9%9B%86%E5%90%88/%E6%8A%80%E6%9C%AF/%E6%8A%80%E6%9C%AF%E7%AC%94%E8%AE%B0/%E6%9C%8D%E5%8A%A1%E5%99%A8/Linux%E5%91%BD%E4%BB%A4%E4%B8%89%E5%89%91%E5%AE%A2grep%E3%80%81sed%E3%80%81awk/"/>
+    <id>http://example.com/2022/05/26/typora%E6%96%87%E4%BB%B6%E9%9B%86%E5%90%88/%E6%8A%80%E6%9C%AF/%E6%8A%80%E6%9C%AF%E7%AC%94%E8%AE%B0/%E6%9C%8D%E5%8A%A1%E5%99%A8/Linux%E5%91%BD%E4%BB%A4%E4%B8%89%E5%89%91%E5%AE%A2grep%E3%80%81sed%E3%80%81awk/</id>
+    <published>2022-05-25T16:29:07.702Z</published>
+    <updated>2022-05-25T16:30:02.682Z</updated>
+    
+    
+    
+    
+    <category term="linux" scheme="http://example.com/categories/linux/"/>
+    
+    
+    <category term="linux" scheme="http://example.com/tags/linux/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>记一次maven deploy踩坑经历</title>
+    <link href="http://example.com/2022/05/23/typora%E6%96%87%E4%BB%B6%E9%9B%86%E5%90%88/%E6%8A%80%E6%9C%AF/Maven%E7%9B%B8%E5%85%B3%E6%8A%80%E6%9C%AF%E6%96%87%E4%BB%B6/maven%20deploy%E8%B8%A9%E5%9D%91/"/>
+    <id>http://example.com/2022/05/23/typora%E6%96%87%E4%BB%B6%E9%9B%86%E5%90%88/%E6%8A%80%E6%9C%AF/Maven%E7%9B%B8%E5%85%B3%E6%8A%80%E6%9C%AF%E6%96%87%E4%BB%B6/maven%20deploy%E8%B8%A9%E5%9D%91/</id>
+    <published>2022-05-23T11:15:35.892Z</published>
+    <updated>2022-05-23T15:46:58.151Z</updated>
+    
+    <content type="html"><![CDATA[<p>maven 的setting.xml文件配置：</p><img src="/Users/xiazhenyu/Library/Application Support/typora-user-images/image-20220523191830507.png" alt="image-20220523191830507" style="zoom:25%;" /><p>但是本地deploy的时候，却提示：</p><p><img src="https://xiazhenyu.oss-cn-hangzhou.aliyuncs.com/common/image-20220523191913032.png" alt="image-20220523191913032"></p><p>为什么呢？</p><p>maven会根据模版的版本号（pom文件中的version）中是否带有***-SNAPSHOT***来判断是快照版本还是正式版本。</p><p>参考博客：<a href="https://blog.csdn.net/chenrushui/article/details/96909578">https://blog.csdn.net/chenrushui/article/details/96909578</a></p>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;p&gt;maven 的setting.xml文件配置：&lt;/p&gt;
+&lt;img src=&quot;/Users/xiazhenyu/Library/Application Support/typora-user-images/image-20220523191830507.png&quot; alt=&quot;i</summary>
+      
+    
+    
+    
+    <category term="maven" scheme="http://example.com/categories/maven/"/>
+    
+    
+    <category term="maven" scheme="http://example.com/tags/maven/"/>
     
   </entry>
   

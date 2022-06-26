@@ -18,17 +18,26 @@
   
   
   <title>Hexo</title>
-  <meta name="description" content="主要复习内容他好像比较喜欢问Redis，kafka，数据库索引什么的什么Redis数据结构，分布式锁，穿透、击穿，二级缓存什么的 Redis的数据结构：分布式锁、穿透、击穿、二级缓存 见Redis部分 乐其电商的面试复盘：乐观锁和悲观锁的区别以及使用场景； hashmap的插入过程； CMS以及G1的区别； logback与slf4j的关系：slf4j是一系列的日志接口，而logback是具体实现">
+  <meta name="description" content="乐其电商的面试复盘： 乐观锁和悲观锁的区别以及使用场景； 悲观锁：每次获取数据的时候，都会进行加锁，确保自己使用的过程中数据不会被别人修改，使用完进行解锁。由于数据进行加锁，期间对数据的读写的其他线程都会进行等待；所以我们说，乐观锁适合写比较多的场景。如果读的操作比较多，每次的读取都进行加锁的话，就会增加大量的系统开销，降低系统的吞吐量。 乐观锁：每次获取数据的时候都不会进行加锁，但是在更新的数据">
 <meta property="og:type" content="article">
 <meta property="og:title" content="技术、生活、思考">
 <meta property="og:url" content="http://example.com/2021/10/21/typora%E6%96%87%E4%BB%B6%E9%9B%86%E5%90%88/%E6%8B%89%E9%92%A9/%E5%A4%8D%E7%9B%98/%E9%9D%A2%E8%AF%95%E5%A4%8D%E7%9B%98/index.html">
 <meta property="og:site_name" content="技术、生活、思考">
-<meta property="og:description" content="主要复习内容他好像比较喜欢问Redis，kafka，数据库索引什么的什么Redis数据结构，分布式锁，穿透、击穿，二级缓存什么的 Redis的数据结构：分布式锁、穿透、击穿、二级缓存 见Redis部分 乐其电商的面试复盘：乐观锁和悲观锁的区别以及使用场景； hashmap的插入过程； CMS以及G1的区别； logback与slf4j的关系：slf4j是一系列的日志接口，而logback是具体实现">
+<meta property="og:description" content="乐其电商的面试复盘： 乐观锁和悲观锁的区别以及使用场景； 悲观锁：每次获取数据的时候，都会进行加锁，确保自己使用的过程中数据不会被别人修改，使用完进行解锁。由于数据进行加锁，期间对数据的读写的其他线程都会进行等待；所以我们说，乐观锁适合写比较多的场景。如果读的操作比较多，每次的读取都进行加锁的话，就会增加大量的系统开销，降低系统的吞吐量。 乐观锁：每次获取数据的时候都不会进行加锁，但是在更新的数据">
 <meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://xiazhenyu.oss-cn-hangzhou.aliyuncs.com/common/1460000037486491-20220620105440992.png">
+<meta property="og:image" content="https://xiazhenyu.oss-cn-hangzhou.aliyuncs.com/common/1460000037486493.png">
+<meta property="og:image" content="https://xiazhenyu.oss-cn-hangzhou.aliyuncs.com/common/JAVA%E5%86%85%E5%AD%98%E6%A8%A1%E5%9E%8B.png">
+<meta property="og:image" content="https://xiazhenyu.oss-cn-hangzhou.aliyuncs.com/common/image-20220618135550981.png">
+<meta property="og:image" content="https://xiazhenyu.oss-cn-hangzhou.aliyuncs.com/common/20200901231648401.png">
+<meta property="og:image" content="https://xiazhenyu.oss-cn-hangzhou.aliyuncs.com/common/20200901231702290.png">
+<meta property="og:image" content="https://xiazhenyu.oss-cn-hangzhou.aliyuncs.com/common/20200901231715782.png">
+<meta property="og:image" content="https://xiazhenyu.oss-cn-hangzhou.aliyuncs.com/common/20200901231739883.png">
 <meta property="article:published_time" content="2021-10-21T02:34:14.301Z">
-<meta property="article:modified_time" content="2022-02-24T01:39:33.619Z">
+<meta property="article:modified_time" content="2022-06-24T09:42:30.580Z">
 <meta property="article:author" content="chenyusharp">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://xiazhenyu.oss-cn-hangzhou.aliyuncs.com/common/1460000037486491-20220620105440992.png">
   <!-- Canonical links -->
   <link rel="canonical" href="http://example.com/2021/10/21/typora%E6%96%87%E4%BB%B6%E9%9B%86%E5%90%88/%E6%8B%89%E9%92%A9/%E5%A4%8D%E7%9B%98/%E9%9D%A2%E8%AF%95%E5%A4%8D%E7%9B%98/index.html">
   
@@ -211,7 +220,7 @@
     <h3 class="widget-title">分类</h3>
     <div class="widget-body">
     <div class="widget">
-      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/DDD/">DDD</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/JVM/">JVM</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Linux/">Linux</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Redis/">Redis</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/git/">git</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/linux/">linux</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/redis/">redis</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/typora/">typora</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/wholee/">wholee</a><span class="category-list-count">11</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E4%B8%9A%E5%8A%A1%E6%A8%A1%E5%BC%8F/">业务模式</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E4%BA%A7%E5%93%81/">产品</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%8A%80%E6%9C%AF/">技术</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%8A%80%E8%83%BD/">技能</a><span class="category-list-count">1</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%8A%80%E8%83%BD/%E5%B7%A5%E4%BD%9C/">工作</a><span class="category-list-count">1</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%8B%89%E9%92%A9/">拉钩</a><span class="category-list-count">1</span></li></ul>
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/JVM/">JVM</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Linux/">Linux</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/MQ/">MQ</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Redis/">Redis</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/algorithms/">algorithms</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/git/">git</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/linux/">linux</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/lombok/">lombok</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/maven/">maven</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/redis/">redis</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/s3/">s3</a><span class="category-list-count">1</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/s3/%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0/">文件上传</a><span class="category-list-count">1</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/typora/">typora</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/wholee/">wholee</a><span class="category-list-count">13</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E4%B8%9A%E5%8A%A1%E6%A8%A1%E5%BC%8F/">业务模式</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E4%BA%A7%E5%93%81/">产品</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%8A%80%E6%9C%AF/">技术</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%8B%89%E9%92%A9/">拉钩</a><span class="category-list-count">1</span></li></ul>
     </div>
   </div>
 
@@ -221,7 +230,7 @@
   <div class="widget">
     <h3 class="widget-title">标签</h3>
     <div class="widget-body">
-      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/DDD/" rel="tag">DDD</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux/" rel="tag">Linux</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/git/" rel="tag">git</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/linux/" rel="tag">linux</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/redis/" rel="tag">redis</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/wholee/" rel="tag">wholee</a><span class="tag-list-count">13</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%B7%A5%E4%BD%9C%E5%AE%89%E6%8E%92/" rel="tag">工作安排</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%8A%80%E8%83%BD/" rel="tag">技能</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%8B%89%E9%92%A9/" rel="tag">拉钩</a><span class="tag-list-count">3</span></li></ul>
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux/" rel="tag">Linux</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/algorithms/" rel="tag">algorithms</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/algorithms-task/" rel="tag">algorithms  task</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/clubFactory/" rel="tag">clubFactory</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/git/" rel="tag">git</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/kafka/" rel="tag">kafka</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/linux/" rel="tag">linux</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/lombok/" rel="tag">lombok</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/maven/" rel="tag">maven</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/maven-version/" rel="tag">maven version</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/redis/" rel="tag">redis</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/wholee/" rel="tag">wholee</a><span class="tag-list-count">13</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%B7%A5%E4%BD%9C%E5%AE%89%E6%8E%92/" rel="tag">工作安排</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%8B%89%E9%92%A9/" rel="tag">拉钩</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E9%83%A8%E7%BD%B2-%E8%BF%90%E7%BB%B4%E7%B3%BB%E7%BB%9F/" rel="tag">部署/运维系统</a><span class="tag-list-count">2</span></li></ul>
     </div>
   </div>
 
@@ -231,7 +240,7 @@
   <div class="widget">
     <h3 class="widget-title">标签云</h3>
     <div class="widget-body tagcloud">
-      <a href="/tags/DDD/" style="font-size: 13px;">DDD</a> <a href="/tags/Linux/" style="font-size: 13px;">Linux</a> <a href="/tags/git/" style="font-size: 13px;">git</a> <a href="/tags/linux/" style="font-size: 13.25px;">linux</a> <a href="/tags/redis/" style="font-size: 13px;">redis</a> <a href="/tags/wholee/" style="font-size: 14px;">wholee</a> <a href="/tags/%E5%B7%A5%E4%BD%9C%E5%AE%89%E6%8E%92/" style="font-size: 13.75px;">工作安排</a> <a href="/tags/%E6%8A%80%E8%83%BD/" style="font-size: 13px;">技能</a> <a href="/tags/%E6%8B%89%E9%92%A9/" style="font-size: 13.5px;">拉钩</a>
+      <a href="/tags/Linux/" style="font-size: 13px;">Linux</a> <a href="/tags/algorithms/" style="font-size: 13px;">algorithms</a> <a href="/tags/algorithms-task/" style="font-size: 13px;">algorithms  task</a> <a href="/tags/clubFactory/" style="font-size: 13px;">clubFactory</a> <a href="/tags/git/" style="font-size: 13px;">git</a> <a href="/tags/kafka/" style="font-size: 13px;">kafka</a> <a href="/tags/linux/" style="font-size: 13.4px;">linux</a> <a href="/tags/lombok/" style="font-size: 13px;">lombok</a> <a href="/tags/maven/" style="font-size: 13px;">maven</a> <a href="/tags/maven-version/" style="font-size: 13px;">maven version</a> <a href="/tags/redis/" style="font-size: 13px;">redis</a> <a href="/tags/wholee/" style="font-size: 14px;">wholee</a> <a href="/tags/%E5%B7%A5%E4%BD%9C%E5%AE%89%E6%8E%92/" style="font-size: 13.8px;">工作安排</a> <a href="/tags/%E6%8B%89%E9%92%A9/" style="font-size: 13.6px;">拉钩</a> <a href="/tags/%E9%83%A8%E7%BD%B2-%E8%BF%90%E7%BB%B4%E7%B3%BB%E7%BB%9F/" style="font-size: 13.2px;">部署/运维系统</a>
     </div>
   </div>
 
@@ -240,7 +249,7 @@
   <div class="widget">
     <h3 class="widget-title">归档</h3>
     <div class="widget-body">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/03/">三月 2022</a><span class="archive-list-count">20</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/02/">二月 2022</a><span class="archive-list-count">21</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/01/">一月 2022</a><span class="archive-list-count">30</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/12/">十二月 2021</a><span class="archive-list-count">8</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/11/">十一月 2021</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/10/">十月 2021</a><span class="archive-list-count">38</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/09/">九月 2021</a><span class="archive-list-count">10</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/08/">八月 2021</a><span class="archive-list-count">21</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/07/">七月 2021</a><span class="archive-list-count">18</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/06/">六月 2021</a><span class="archive-list-count">11</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/05/">五月 2021</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/03/">三月 2021</a><span class="archive-list-count">1</span></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/06/">六月 2022</a><span class="archive-list-count">14</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/05/">五月 2022</a><span class="archive-list-count">10</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/04/">四月 2022</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/03/">三月 2022</a><span class="archive-list-count">20</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/02/">二月 2022</a><span class="archive-list-count">22</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/01/">一月 2022</a><span class="archive-list-count">27</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/12/">十二月 2021</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/11/">十一月 2021</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/10/">十月 2021</a><span class="archive-list-count">29</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/09/">九月 2021</a><span class="archive-list-count">10</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/08/">八月 2021</a><span class="archive-list-count">21</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/07/">七月 2021</a><span class="archive-list-count">18</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/06/">六月 2021</a><span class="archive-list-count">11</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/05/">五月 2021</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/03/">三月 2021</a><span class="archive-list-count">1</span></li></ul>
     </div>
   </div>
 
@@ -256,28 +265,13 @@
             
             <div class="item-inner">
               <p class="item-category">
-                <a class="category-link" href="/categories/%E4%B8%9A%E5%8A%A1%E6%A8%A1%E5%BC%8F/">业务模式</a>
+                
               </p>
               <p class="item-title">
-                <a href="/2022/03/28/typora%E6%96%87%E4%BB%B6%E9%9B%86%E5%90%88/%E4%BA%A7%E5%93%81/wholee/%E9%98%BF%E7%B1%B3%E5%B7%B4%E6%A8%A1%E5%BC%8F/" class="title">阿米巴</a>
+                <a href="/2022/06/24/typora%E6%96%87%E4%BB%B6%E9%9B%86%E5%90%88/%E4%B8%AA%E4%BA%BA/%E6%B8%B8%E6%88%8F/%E6%B8%B8%E6%88%8F%E5%A4%A7%E5%85%A8/" class="title">(no title)</a>
               </p>
               <p class="item-date">
-                <time datetime="2022-03-28T11:12:59.061Z" itemprop="datePublished">2022-03-28</time>
-              </p>
-            </div>
-          </li>
-          
-          <li>
-            
-            <div class="item-inner">
-              <p class="item-category">
-                <a class="category-link" href="/categories/%E4%BA%A7%E5%93%81/">产品</a>
-              </p>
-              <p class="item-title">
-                <a href="/2022/03/28/typora%E6%96%87%E4%BB%B6%E9%9B%86%E5%90%88/%E4%BA%A7%E5%93%81/wholee/%E8%B4%A2%E5%8A%A1%E7%9B%B8%E5%85%B3/" class="title">财务相关产品文档</a>
-              </p>
-              <p class="item-date">
-                <time datetime="2022-03-28T11:09:10.242Z" itemprop="datePublished">2022-03-28</time>
+                <time datetime="2022-06-24T15:55:52.120Z" itemprop="datePublished">2022-06-24</time>
               </p>
             </div>
           </li>
@@ -289,10 +283,10 @@
                 
               </p>
               <p class="item-title">
-                <a href="/2022/03/28/typora%E6%96%87%E4%BB%B6%E9%9B%86%E5%90%88/%E4%BA%A7%E5%93%81/wholee/%E8%B4%A7%E5%93%81%E7%9B%B8%E5%85%B3/" class="title">(no title)</a>
+                <a href="/2022/06/22/typora%E6%96%87%E4%BB%B6%E9%9B%86%E5%90%88/%E6%8A%80%E6%9C%AF/%E6%8A%80%E6%9C%AF%E7%AC%94%E8%AE%B0/%E6%BA%90%E7%A0%81/Atomic%E7%B1%BB/" class="title">(no title)</a>
               </p>
               <p class="item-date">
-                <time datetime="2022-03-28T11:08:55.123Z" itemprop="datePublished">2022-03-28</time>
+                <time datetime="2022-06-22T08:12:04.951Z" itemprop="datePublished">2022-06-22</time>
               </p>
             </div>
           </li>
@@ -301,13 +295,13 @@
             
             <div class="item-inner">
               <p class="item-category">
-                <a class="category-link" href="/categories/JVM/">JVM</a>
+                
               </p>
               <p class="item-title">
-                <a href="/2022/03/28/typora%E6%96%87%E4%BB%B6%E9%9B%86%E5%90%88/%E6%8B%89%E9%92%A9/JVM/JVM%E5%AD%A6%E4%B9%A0%E6%80%BB%E7%BB%93/" class="title">JVM学习总结</a>
+                <a href="/2022/06/18/typora%E6%96%87%E4%BB%B6%E9%9B%86%E5%90%88/%E6%8B%89%E9%92%A9/%E9%A1%B9%E7%9B%AE%E5%AE%9E%E6%88%98/%E8%BF%9B%E5%BA%A6/" class="title">(no title)</a>
               </p>
               <p class="item-date">
-                <time datetime="2022-03-27T22:09:01.164Z" itemprop="datePublished">2022-03-28</time>
+                <time datetime="2022-06-18T13:54:20.914Z" itemprop="datePublished">2022-06-18</time>
               </p>
             </div>
           </li>
@@ -316,13 +310,28 @@
             
             <div class="item-inner">
               <p class="item-category">
-                <a class="category-link" href="/categories/Redis/">Redis</a>
+                
               </p>
               <p class="item-title">
-                <a href="/2022/03/27/typora%E6%96%87%E4%BB%B6%E9%9B%86%E5%90%88/%E6%8B%89%E9%92%A9/%E4%B8%AD%E9%97%B4%E4%BB%B6/Redis/Redis%E9%A2%84%E4%B9%A0/" class="title">Reids预习</a>
+                <a href="/2022/06/18/typora%E6%96%87%E4%BB%B6%E9%9B%86%E5%90%88/%E6%8B%89%E9%92%A9/%E9%A1%B9%E7%9B%AE%E5%AE%9E%E6%88%98/%E9%A1%B9%E7%9B%AE%E6%9E%B6%E6%9E%84/" class="title">(no title)</a>
               </p>
               <p class="item-date">
-                <time datetime="2022-03-26T16:53:06.754Z" itemprop="datePublished">2022-03-27</time>
+                <time datetime="2022-06-18T13:54:08.755Z" itemprop="datePublished">2022-06-18</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                
+              </p>
+              <p class="item-title">
+                <a href="/2022/06/18/typora%E6%96%87%E4%BB%B6%E9%9B%86%E5%90%88/%E6%8B%89%E9%92%A9/%E9%A1%B9%E7%9B%AE%E5%AE%9E%E6%88%98/%E7%B4%A0%E6%9D%90/" class="title">(no title)</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2022-06-18T13:53:58.126Z" itemprop="datePublished">2022-06-18</time>
               </p>
             </div>
           </li>
@@ -362,10 +371,12 @@
     </div>
     <div class="article-entry marked-body" itemprop="articleBody">
       
-        <h2 id="主要复习内容"><a href="#主要复习内容" class="headerlink" title="主要复习内容"></a>主要复习内容</h2><p>他好像比较喜欢问Redis，kafka，数据库索引什么的<br>什么Redis数据结构，分布式锁，穿透、击穿，二级缓存什么的</p>
-<h3 id="Redis的数据结构："><a href="#Redis的数据结构：" class="headerlink" title="Redis的数据结构："></a>Redis的数据结构：</h3><p>分布式锁、穿透、击穿、二级缓存</p>
-<p><a href="/Users/xiazhenyu/Desktop/typora%E6%96%87%E4%BB%B6%E9%9B%86%E5%90%88/%E6%8B%89%E9%92%A9/Redis.md">见Redis部分</a></p>
-<h2 id="乐其电商的面试复盘："><a href="#乐其电商的面试复盘：" class="headerlink" title="乐其电商的面试复盘："></a>乐其电商的面试复盘：</h2><p>乐观锁和悲观锁的区别以及使用场景；</p>
+        <p>乐其电商的面试复盘：</p>
+<p>乐观锁和悲观锁的区别以及使用场景；</p>
+<p>悲观锁：每次获取数据的时候，都会进行加锁，确保自己使用的过程中数据不会被别人修改，使用完进行解锁。由于数据进行加锁，期间对数据的读写的其他线程都会进行等待；所以我们说，乐观锁适合<strong>写比较多</strong>的场景。如果读的操作比较多，每次的读取都进行加锁的话，就会增加大量的系统开销，降低系统的吞吐量。</p>
+<p>乐观锁：每次获取数据的时候都不会进行加锁，但是在更新的数据的时候需要判断该数据是否被别人修改过。如果被修改过，则不进行更新，否则进行更新。所以我们说，乐观锁适合<strong>读取操作比较多</strong>的场景。如果写的操作比较大，那么数据发生冲突的可能性就会增大，为了保证数据的一致性，应用层需要不断的重新获取数据，这样会降低系统的吞吐量。</p>
+<p>总结：</p>
+<p>悲观锁比较适合强一致性的场景，但是效率比较低，特别是读的并发性低。乐观锁则适用于读多写少，并发冲突少的场景。</p>
 <p>hashmap的插入过程；</p>
 <p>CMS以及G1的区别；</p>
 <p>logback与slf4j的关系：<br>slf4j是一系列的日志接口，而logback是具体实现了的日志框架，和log4j一样，都是具体的实现层；</p>
@@ -383,6 +394,24 @@
 <li>优雅地从I/O错误中恢复；</li>
 <li>自动清除旧的日志归档文件；</li>
 <li>自动压缩归档日志文件；</li>
+</ol>
+<h2 id="阿里"><a href="#阿里" class="headerlink" title="阿里"></a>阿里</h2><ol>
+<li><p>类加载器理解的不是很深？<br>JVM是否会存在两个全限定名一样的类？是可以的，但是是有不同的类加载器加载的；</p>
+<p>参考的博客：</p>
+</li>
+<li><p>怎么解决线程的隔离问题；</p>
+</li>
+</ol>
+<h2 id="得物"><a href="#得物" class="headerlink" title="得物"></a>得物</h2><ol>
+<li><p>二级缓存怎么设计？怎么保证一级缓存和二级缓存的一致性；</p>
+</li>
+<li><p>消息表怎么处理？</p>
+</li>
+</ol>
+<h2 id="微盟"><a href="#微盟" class="headerlink" title="微盟"></a>微盟</h2><ol>
+<li><p>怎么解决分库分表导致的数据倾斜的问题？</p>
+<p><a href="!https://toutiao.io/posts/b958yqd/preview">数据倾斜问题</a></p>
+</li>
 </ol>
 <h2 id="滴滴面试复盘"><a href="#滴滴面试复盘" class="headerlink" title="滴滴面试复盘"></a>滴滴面试复盘</h2><p>最近项目</p>
 <p>QPS</p>
@@ -411,8 +440,7 @@
 <li>Wait 和 notifyall</li>
 <li>AQS 实现自己的锁</li>
 </ul>
-<p>1月12号面试复盘：</p>
-<ol>
+<h2 id="1月12号面试复盘："><a href="#1月12号面试复盘：" class="headerlink" title="1月12号面试复盘："></a>1月12号面试复盘：</h2><ol>
 <li><p>redis中list查询很慢，可能是什么原因？</p>
 <ul>
 <li>一方面有可能是大key导致的，写入的key比较大，redis在分配内存时就会比较耗时；</li>
@@ -430,17 +458,354 @@
 <li><p>Spring中AOP用到了哪些设计模式？</p>
 <p>代理模式、AOP的增强或通知使用到了适配器模式；</p>
 </li>
-<li><p>IOC容器中的存放context的名称是什么？</p>
+<li><p>IOC容器中BeanFactory和ApplicationContext的区别？</p>
+<ul>
+<li>BeanFactory：是Spring里面最底层的接口，它只提供了IOC容器最基本的功能，给具体的IOC容器的实现提供了规范。包含了各种Bean的定义，读取bean配置文档，管理bean的加载、实例化，控制bean的生命周期，维护bean之间的依赖关系等；</li>
+<li>ApplicationContext：它作为BeanFactory的子接口，除了提供BeanFactory所具有的功能外，还提供了更完整的框架功能。<ul>
+<li>支持国际化；</li>
+<li>统一的资源文件访问方式；</li>
+<li>提供在监听器中注册Bean的事件（观察者模式）；</li>
+<li>同时加载多个配置文件</li>
+<li>载入多个上下文</li>
+</ul>
+</li>
+</ul>
 </li>
 <li><p>beanfactory和factorybean有什么不同？</p>
-</li>
-<li><p>设计一个程序，统计一千万数据量的前10条记录，内存只有1G；</p>
-</li>
-<li><p>mybatis中的#和$有什么区别？</p>
+<ul>
+<li>BeanFactory是IOC中的一个顶级接口，定义了容器的一些基础行为：getBean()、containsBean()、getType()等。</li>
+</ul>
+<p>负责生产和管理Bean的一个工厂（从名字也可以看出来）。但是我们具体使用的是它一些实现类，比如ApplicationContext。</p>
+<ul>
+<li>FactoryBean，也是一种Bean，但是不是普通一般意义的bean，这个是个工厂Bean。FactoryBean可以生成某一个类型的Bean实例，</li>
+</ul>
 </li>
 </ol>
-<p>shopLine面试复盘</p>
+<p>​        也就是说我们可以借助它自定义Bean的创建过程。</p>
+<ol start="5">
+<li>设计一个程序，统计一千万数据量的前10条记录，内存只有1G；</li>
+</ol>
+<p>优先队列</p>
+<ol start="6">
+<li>mybatis中的#和$有什么区别？</li>
+</ol>
+<p>​    #{}表示一个占位符号，相当于jdbc中的？。#{}将传入的数据都当成一个字符串，会自动在传入的数据上加双引号。可以防止SQL注入；</p>
+<p>​    ${}会将参数直接替换到SQL语句中，不能防止SQL注入。</p>
+<ol start="7">
+<li>分库分表中的数据倾斜问题怎么解决？</li>
+</ol>
+<h2 id="杭州小电"><a href="#杭州小电" class="headerlink" title="杭州小电"></a>杭州小电</h2><ol>
+<li>数据库的主键索引为什么采用数据库的自增呢？</li>
+</ol>
+<ul>
+<li>业务上</li>
+</ul>
+<p>业务主键只是理论上唯一的，实际上有可能重复。所以说设置一个与业务无关的自增Id作为主键。</p>
+<ul>
+<li>技术上</li>
+</ul>
+<p>如果表使用自增主键，那么每次插入新的记录，记录就会顺序添加到当前索引节点的后续位置，当一页写满以后，就会自动开辟一个新的页。总的来说，可以提高查询和插入的性能。</p>
+<ul>
+<li>为什么？</li>
+</ul>
+<p>主键索引中既存储索引值，又在叶子节点存储行的数据，数据文件和索引文件是在同一个文件中；</p>
+<p>1⃣️如果没有定义主键，则会使用非空的UNIQUE键做主键；如果没有非空的UNIQUE键，则系统生成一个6字节的rowId做主键；</p>
+<p>2⃣️聚簇索引中，N行形成一页（16K）。如果碰到不规则数据插入时，为了保持B+树的平衡，会造成频繁的页分裂和页旋转，插入速度比较慢。所以说主键索引的值应尽量是连续增长的值，而不是随机的值。</p>
+<ol start="2">
+<li>netty和传统的IO有什么区别？</li>
+</ol>
+<p>键Java基础中的IO模块；</p>
+<ol start="3">
+<li>DDD和传统的MVC的区别？</li>
+</ol>
+<p>DDD是宏观上，是从业务的角度去划分领域界限。MVC还是在微观代码层面在，去做研发模型划分。如果领域划分合理，你会发现后续的协同研发越来越顺畅。比如说，有些不应该商品做的事情，商品来做了，后面这块逻辑你还得维护</p>
+<ol start="4">
+<li>IO密集型和CPU密集性的线程怎么设置？</li>
+</ol>
+<p>​    CPU密集的意思是该任务需要大量的运算，而没有阻塞，CPU一直全速运行。CPU密集型任务配置尽可能少的线程数量：一般公式：<strong>CPU核数+1个线程的线程池</strong>。为什么？减少上下文的切换。</p>
+<p>   由于IO密集型任务线程并不是一直在执行任务，则应配置尽可能多的线程，如<strong>CPU核数*2</strong>。为什么？IO密集型，即该任务需要大量的IO，即大量的阻塞。配置多线程的话，其他的线程可以执行其他的任务。</p>
+<h2 id="砥石网络一面"><a href="#砥石网络一面" class="headerlink" title="砥石网络一面"></a>砥石网络一面</h2><ol>
+<li><p>Es索引为什么不设计成父子关系的？</p>
+<p>在同样的条件下，这个性能肯定不如普通内部对象的方案。在实际的业务应用中要根据实际情况决定是否选择这种方案；</p>
+<p>另外，父子文档必须在同一个分片上；</p>
+</li>
+<li><p>职业规划</p>
+</li>
+</ol>
+<h2 id="恒生云赢网络"><a href="#恒生云赢网络" class="headerlink" title="恒生云赢网络"></a>恒生云赢网络</h2><ol>
+<li><p>java中的error与exception的区别？</p>
+<p>见Java基础中的异常模块；</p>
+</li>
+<li><p>mysql中的聚集索引（其实和聚簇索引是一个东西）</p>
+</li>
+<li><p>IO</p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/u011578734/article/details/108346469">https://blog.csdn.net/u011578734/article/details/108346469</a></p>
+</li>
+<li><p>什么是序列化和发反序列化？</p>
+<p>见Java基础中的序列化模块；</p>
+</li>
+<li><p>字符串流和字节流的区别？</p>
+</li>
+<li><p>反射</p>
+</li>
+<li><p>泛型</p>
+<p>键Java基础中的泛型的模块；</p>
+</li>
+</ol>
+<h2 id="杭州星辰"><a href="#杭州星辰" class="headerlink" title="杭州星辰"></a>杭州星辰</h2><ol>
+<li><p>什么是伪共享；</p>
+<p>缓存系统中是以缓存行（cache line）为单位存储的。缓存行是2的整数幂个连续的字节，一般是32～256个字节。最常见的缓存行大小是64个字节。当多线程修改相互独立的变量时。如果这些变量共享同一个缓存行，就会无意中影响彼此的性能，这就是伪共享。</p>
+</li>
+<li><p>redis的keys查询为什么危害大？</p>
+</li>
+<li><p>spring都用到了哪些设计模式？分别用在了哪些场景下？</p>
+</li>
+<li><p>volatile的底层实现机制？</p>
+<p>对于volatile的写操作，在其前后分别加上 <strong>StoreStore 和 StoreLoad指令</strong></p>
+<img src="https://xiazhenyu.oss-cn-hangzhou.aliyuncs.com/common/1460000037486491-20220620105440992.png" alt="天天在用volatile，你知道它的底层原理吗？" style="zoom:50%;" />
 
+<p>对于volatile的读操作，在其后加上 <strong>LoadLoad 和 LoadStore指令</strong></p>
+<img src="https://xiazhenyu.oss-cn-hangzhou.aliyuncs.com/common/1460000037486493.png" alt="天天在用volatile，你知道它的底层原理吗？" style="zoom:50%;" />
+
+<p>由上图可以看到，内存屏障是可以保证volatile变量前后读写顺序的。</p>
+</li>
+<li><p>concurrentHashMap的jdk 7与jdk 8的区别？</p>
+<p>1.7 </p>
+<p>首先将数据分为一段一段的存储，然后给每一段数据分配一把锁，当一个线程占用锁访问其中的一段数据时，其他段的数据也能被其他线程访问；</p>
+<p>concurrentHashMap是有segment数组结构和HashEntry数组结构组成的。</p>
+<p>segment实现了ReentrantLock，所以segment是一种可重入锁，扮演锁的角色。HashEntry用于存储键值对数据。</p>
+<p>一个consurrentHashMap里面包含了一个segment数组。segment的结构和HashMap类似，是一个数组加链表的结构。一个segment包含一个HashEntry数组，每个HashEntry是一个链表结构的元素，每个segment守护着一个HashEntry数组里面的元素，当对HashEntry数组中的数据进行修改时，必须首先获得对应的segment的锁。</p>
+<p>1.8</p>
+<p>ConcurrentHashMap取消了segment分段锁，采用CAS和synchronized来保证并发安全。数据结构跟HashMap 1.8的结构类似，是一个数组+链表/红黑树的结构。</p>
+<p>synchronized只锁定当前链表或红黑树的首节点，这样只要hash不冲突，就不会产生并发。另外，1.6以后，jvm对synchronized的性能进行了优化，所以1.8中的concurrentHashMap的性能比1.7的要高。</p>
+</li>
+<li><p>说下你看过的框架的原理，是在spring的什么阶段配置的？</p>
+</li>
+<li><p>MESI 协议的保证？</p>
+<p><img src="https://xiazhenyu.oss-cn-hangzhou.aliyuncs.com/common/JAVA%E5%86%85%E5%AD%98%E6%A8%A1%E5%9E%8B.png" alt="JAVA内存模型"></p>
+</li>
+<li><p>JMM内存模型？</p>
+</li>
+<li><p>mysql是如何保证ACID的？</p>
+<p>原子性：</p>
+<blockquote>
+<p> <strong>利用InnoDB的undo log（回滚日志）记录需要回滚的日志信息，是实现原子性的关键，当事务回滚时能够撤销所有已经成功执行的sql语句</strong></p>
+</blockquote>
+</li>
+</ol>
+<p>​        持久性： </p>
+<p>​            利用Innodb的redo log</p>
+<p>​        隔离性：</p>
+<p>​        利用锁和MVCC机制</p>
+<p>​        一致性</p>
+<p>​        数据库通过原子性（A）、隔离性（I）、持久性（D）来保证一致性（C）。其中一致性是目的，原子性、隔离性、持久性是手段。因此数据库必须实现        AID三大特性才有可能实现一致性。</p>
+<h2 id="全尚科技"><a href="#全尚科技" class="headerlink" title="全尚科技"></a>全尚科技</h2><ol>
+<li><p>怎么阅读spring的源码？</p>
+<ul>
+<li>原则<ul>
+<li>抓主线</li>
+<li>关注源码结构和业务流程</li>
+</ul>
+</li>
+<li>方法<ul>
+<li>断点</li>
+<li>反调</li>
+<li>经验</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>spring都用到了哪些设计模式？</p>
+<ul>
+<li><p>工厂模式</p>
+<p>Spring使用工厂模式可以通过 <code>BeanFactory</code> 或 <code>ApplicationContext</code> 创建 bean 对象。两者的区别：BeanFactory是延迟注入的。而ApplicationContext是容器启动的时候，一次性创建所有的Bean。</p>
+<p>ApplicationContext的是三个是实现类：</p>
+<ol>
+<li>ClassPathXmlApplicationContext: 把上下文文件当成类路径资源</li>
+<li>FileSystemXmlApplicationContext: 从文件系统中的XML文件载入上下文定义信息</li>
+<li>XmlWebApplicationContext: 从web系统中的XML文件载入上下文定义信息</li>
+</ol>
+</li>
+<li><p>单例模式</p>
+<p>一个类只有一个对象。</p>
+<p>优势：</p>
+<ul>
+<li>对于频繁使用的对象，可以省略创建对象所花费的时间，这对于那些重量级对象而言，是非常可观的一笔系统开销；</li>
+<li>由于 new 操作的次减少，因而对系统内存的使用频率也会降低，这将减轻 GC 压力，缩短 GC 停顿时间。</li>
+</ul>
+<p>spring中的bean的作用域有哪些：singleton、prototype、request、session、global-session。</p>
+<p><strong>Spring 通过 <code>ConcurrentHashMap</code> 实现单例注册表的特殊方式实现单例模式。Spring 实现单例的核心代码如下</strong></p>
+</li>
+<li><p>代理模式</p>
+<p>具体的应用AOP。AOP是基于动态代理实现的。如果代理的对象实现了某个接口，那么spring采用JDK Proxy去创建代理对象，如果没有实现接口，那么采用Cglib。</p>
+<p><strong>Spring AOP 和AspectJ AOP有什么区别？</strong></p>
+<p>Spring AOP属于运行时增强，而AspectJ AOP是编译时增强。Spring AOP基于代理（动态代理），而AspectJ 基于字节码操作。性能方面，Aspect J 要比Spring AOP要快。</p>
+</li>
+<li><p>模版方法</p>
+<p>Spring中的JdbTemplate、hibernateTemplate等以Template结尾的对数据库操作的累，使用的是模版模式。</p>
+</li>
+<li><p>观察者模式</p>
+<p>具体的应用场景：Spring中的事件驱动模型。事件驱动模型中的三个角色：</p>
+<ul>
+<li>事件角色：ApplicationContextEvent充当事件的角色。也就是事件的类型。</li>
+</ul>
+<p>Spring中常见的事件：</p>
+<ol>
+<li>ContextStartedEvent： ApplicationContext启动后触发的事件；</li>
+<li>ContextStoppedEvent:  ApplicationContext停止后触发的事件；</li>
+<li>ContextRefreshedEvent: ApplicationContext 初始化或刷新后完成后触发的事件；</li>
+<li>ContextClosedEvent： ApplicationContext 关闭后触发的事件。</li>
+</ol>
+<ul>
+<li><p>事件的监听者角色：ApplicationListener。</p>
+<p>ApplicationListener是一个接口。里面只定义了一个 <code>onApplicationEvent（）</code>方法来处理<code>ApplicationEvent</code>。我们的实现类中只需要实现这个方法就可以了。titan中的ConsumerHandlerBuilder就是这个逻辑。</p>
+<p><img src="https://xiazhenyu.oss-cn-hangzhou.aliyuncs.com/common/image-20220618135550981.png" alt="image-20220618135550981"></p>
+</li>
+<li><p>时间的发布者： ApplicationEventpublisher</p>
+<p>实际上是通过接口中的publishEvent这个方法实现的。</p>
+</li>
+</ul>
+<p>总结：</p>
+<ol>
+<li><p>定义一个事件：实现一个继承自ApplicationEvent，并且写相应的构造函数；</p>
+</li>
+<li><p>定义一个事件监听者：实现ApplicationListener，重写里面的onApplicationEvent()</p>
+<p>方法；</p>
+</li>
+<li><p>使用事件发布者发布消息：可以通过ApplicationEventPublish的publishEvent（）方法实现。</p>
+</li>
+</ol>
+</li>
+<li><p>适配器模式</p>
+<p>spring Aop中的增强或者通知（Advice）使用到了适配器模式，与之相关的接口是AdvisorAdapter。Spring预定义的通知要通过对应的适配器，适配成MethodInterceptor接口类型的对象，然后有MethodInterceptor负责适配Advice。</p>
+<p>spring MVC 中的适配器模式。mvc中，DispatcherServlet根据请求信息调用HandlerMapping，根据请求解析到对应的Handler（Controller控制器），然后由HandlerAdapter适配器处理。找到具体的适配器类用于对目标类进行适配。</p>
+</li>
+<li><p>装饰者模式</p>
+<p>Spring 中用到的包装器模式在类名上含有 <code>Wrapper</code>或者 <code>Decorator</code>。这些类基本上都是动态地给一个对象添加一些额外的职责。一个应用场景就是动态的修改数据库的数据源。</p>
+</li>
+</ul>
+<p>参考<a target="_blank" rel="noopener" href="https://juejin.cn/post/6844903849849962509#heading-13">https://juejin.cn/post/6844903849849962509#heading-13</a></p>
+</li>
+<li><p>平时自己开发的过程中都用到了哪些设计模式？</p>
+</li>
+<li><p>mysql表、字段设计的过程中遵循的原则？</p>
+</li>
+<li><p>索引添加的原则？</p>
+<ol>
+<li><p>选择唯一索引</p>
+<p>唯一的值</p>
+</li>
+<li><p>为常作为查询条件的字段建立索引</p>
+</li>
+<li><p>为经常需要排序、分组和联合操作的字段建立索引</p>
+</li>
+<li><p>限制索引的条目</p>
+</li>
+<li><p>尽量使用数据量少的索引</p>
+</li>
+<li><p>尽量使用前缀索引</p>
+</li>
+<li><p>删除不再使用或很少使用的索引</p>
+</li>
+<li><p>最左前缀匹配；</p>
+</li>
+<li><p>= 和in可以乱序；</p>
+</li>
+<li><p>尽量使用区分度高的列作为索引，公式：count(distinct col)/count(*)</p>
+</li>
+<li><p>索引列不能参与计算；</p>
+</li>
+<li><p>尽量的扩展索引，不要重建索引；</p>
+</li>
+</ol>
+</li>
+<li><p>怎么强制走某个索引？</p>
+<p>force index（）</p>
+</li>
+<li><p>涉及到了线程的几个状态.</p>
+<ul>
+<li>NEW: Thread对象已经创建，但是还没有开始执行；</li>
+<li>RUNNABLE: Thread对象正在java虚拟机中运行；</li>
+<li>BLOCKED: Thread对象正在锁定；</li>
+<li>WAITING: Thread对象正在等待另一个线程的动作；</li>
+<li>TIME_WAITING: Thread对象正在等待另一个线程的动作；</li>
+<li>TERMINATED: Thread对象已经完成执行。</li>
+</ul>
+</li>
+<li><p>notify和notify all的区别？</p>
+</li>
+<li><p>top中的几个参数的含义？ </p>
+<p><img src="https://xiazhenyu.oss-cn-hangzhou.aliyuncs.com/common/20200901231648401.png" alt="在这里插入图片描述"></p>
+<p><img src="https://xiazhenyu.oss-cn-hangzhou.aliyuncs.com/common/20200901231702290.png" alt="在这里插入图片描述"></p>
+<p><img src="https://xiazhenyu.oss-cn-hangzhou.aliyuncs.com/common/20200901231715782.png" alt="在这里插入图片描述"></p>
+<p><img src="https://xiazhenyu.oss-cn-hangzhou.aliyuncs.com/common/20200901231739883.png" alt="在这里插入图片描述"></p>
+</li>
+<li><p>hashMap使用红黑树的用以？</p>
+<p>红黑树的查询性能只比相同内容的AVL树最多多一次比较。但是红黑树在插入和删除操作上的性能要优于AVL树，AVL树每次插入和删除操作都会进行大量的平衡度计算，而红黑树为了维持红黑树的性质所做的着色和旋转的开销，相对于AVL为了维持严格的平衡性的开销要小的多。</p>
+</li>
+<li><p>线程加锁的几个方式？</p>
+<p>synchronized、  ReentrantLock、</p>
+</li>
+</ol>
+<h2 id="政采云"><a href="#政采云" class="headerlink" title="政采云"></a>政采云</h2><h3 id="elasticsearch中的版本号怎么处理的？"><a href="#elasticsearch中的版本号怎么处理的？" class="headerlink" title="elasticsearch中的版本号怎么处理的？"></a>elasticsearch中的版本号怎么处理的？</h3><p>es中每一个文档都有一个版本号(_version)，当文档被修改时版本号递增。es使用这个版本号来确保变更以正确的得到执行。如果旧版本在新版本之后到达，它可以被简单的忽略。</p>
+<p>我们可以利用_version号来确保应用中相互冲突的变更不会导致数据丢失。我们通过指定想要修改文档的version号来达到这个目的。如果该版本不是当前版本号，我们的请求将会失败。</p>
+<p>在titan中，我们采用了Painless 的脚本，这个脚本的功能有：</p>
+<ul>
+<li>快速的性能：Painless脚本的运行速度比其他脚本快几倍；</li>
+<li>语法：扩展Java语法以提供Groovy风格的脚本语言功能，是脚本更易于编写；</li>
+<li>安全性：具有方法调用/字段粒度的细粒度的白名单。</li>
+<li>可选类型：变量和参数可以使用显示类型或动态def类型；</li>
+<li>优化：转为Elasticsearch脚本设计。</li>
+</ul>
+<p>titan中，采用painless脚本中判断对应的doc中相应部分的文档的lastVer是否小于params中的lastVer的大小，小于的话则更新。同时由于每一个update都是更新整个doc的一部分，如果同时有多个操作更改整个doc的不同部分，这就会导致整个文档的_version版本号出现冲突。（自己的理解，每一次的update的时候，es先是读取对应的文档信息，包括版本号，然后进行值替换，最后进行update。那么这个时候并发的时候就会出现之前获取到的_version版本号被其他的修改给改掉了，就会出现version_conflict_engine_exception这样的异常提示。）所以，在最外部会去捕获这个异常信息，进行一定次数的重试，这样可以最大限度的保证，其他部分的更新也能成功（因为重试的过程中，会重新获取先前递增的版本号）。</p>
+<h3 id="动态扩容表并且不影响线上的服务？"><a href="#动态扩容表并且不影响线上的服务？" class="headerlink" title="动态扩容表并且不影响线上的服务？"></a>动态扩容表并且不影响线上的服务？</h3><p><strong>平滑扩容</strong>：将数据库数量扩容成原来的2倍。</p>
+<p>步骤：</p>
+<ol>
+<li><p>数据库成倍扩容，比如有2个库扩容到4个库；</p>
+</li>
+<li><p>配置双主进行数据同步（先测试，后上线）；</p>
+</li>
+<li><p>![image-20220622143811444](/Users/xiazhenyu/Library/Application Support/typora-user-images/image-20220622143811444.png)</p>
+</li>
+<li><p>数据同步完成以后，配置双主双写（因为同步有延迟，如果时时刻刻都有写和更新操作，会存在不准确的问题）。</p>
+</li>
+</ol>
+<p>![image-20220622143847841](/Users/xiazhenyu/Library/Application Support/typora-user-images/image-20220622143847841.png)</p>
+<ol start="4">
+<li>数据同步完成以后，删除双主同步，修改数据库配置，并重启；</li>
+</ol>
+<p>![image-20220622143910092](/Users/xiazhenyu/Library/Application Support/typora-user-images/image-20220622143910092.png)</p>
+<ol start="5">
+<li><p>此时已经扩容完成，但此时的数据并没有减少，新增的数据库跟旧的数据库一样多的数据，此时还需要写一个程序，清空数据库中多余的数据，如：</p>
+<p>User1去除 uid % 4 = 2的数据; </p>
+<p>User3去除 uid % 4 = 0的数据; </p>
+<p>User2去除 uid % 4 = 3的数据; </p>
+<p>User4去除 uid % 4 = 1的数据;</p>
+</li>
+</ol>
+<p>​                    平滑扩容方案能实现n库扩2n库的平滑扩容，增加数据库服务能力，降低单库一半的数据量。其                    核心原理是：成倍扩容，避免数据迁移。</p>
+<p>​        优点：</p>
+<ul>
+<li><p>扩容期间，服务正常进行，保证高可用；</p>
+</li>
+<li><p>相对停机扩容，时间长，项目组压力没有那么大，出错率低；</p>
+</li>
+<li><p>扩容期间遇到问题，随时解决，不怕影响线上服务；</p>
+</li>
+<li><p>可以将每个数据库数据量减少一半。</p>
+<p>缺点：</p>
+<ul>
+<li>程序复杂、配置双主同步、双主双写、检测数据同步等；</li>
+<li>后期数据库扩容，比如成千上万，代价比较高。</li>
+</ul>
+<p>适用场景：</p>
+<ul>
+<li>大型网站</li>
+<li>对高可靠性要求高的服务</li>
+</ul>
+</li>
+</ul>
+<h3 id="rater-limiter的实现机制以及使用场景"><a href="#rater-limiter的实现机制以及使用场景" class="headerlink" title="rater limiter的实现机制以及使用场景"></a>rater limiter的实现机制以及使用场景</h3><h3 id="Mysql的缓存机制"><a href="#Mysql的缓存机制" class="headerlink" title="Mysql的缓存机制"></a>Mysql的缓存机制</h3><h2 id="分叉智能"><a href="#分叉智能" class="headerlink" title="分叉智能"></a>分叉智能</h2><h3 id="AOP的时机"><a href="#AOP的时机" class="headerlink" title="AOP的时机"></a>AOP的时机</h3><h3 id="shardingJdbc的一个应用的思想"><a href="#shardingJdbc的一个应用的思想" class="headerlink" title="shardingJdbc的一个应用的思想"></a>shardingJdbc的一个应用的思想</h3><h3 id="锁的唤醒的机制是什么样子的？"><a href="#锁的唤醒的机制是什么样子的？" class="headerlink" title="锁的唤醒的机制是什么样子的？"></a>锁的唤醒的机制是什么样子的？</h3><h3 id="kafka是如何保证消息不丢失的？"><a href="#kafka是如何保证消息不丢失的？" class="headerlink" title="kafka是如何保证消息不丢失的？"></a>kafka是如何保证消息不丢失的？</h3>
       
     </div>
     <div class="article-footer">

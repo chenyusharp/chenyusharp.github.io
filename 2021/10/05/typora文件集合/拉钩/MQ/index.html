@@ -26,8 +26,11 @@
 <meta property="og:description" content="[TOC] MQ什么是MQmq的作用？ 系统解耦 流量削峰填谷 异步处理 最终一致性 开启事务； 业务操作，比如说订单进行持久化等等操作； 生成消息，并存储，这个和业务操作在同一个事务中； 提交事务； 发送消息，发送成功则将消息表中的消息删除，发送失败则不删除。同时写一个定时任务查询消息表，查询没有被删除的消息并发送。    mq的幂等性保证消息表，什么是消息表 pulsar的架构？为什么使用pu">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="http://example.com/Users/xiazhenyu/Desktop/typora%E6%96%87%E4%BB%B6%E9%9B%86%E5%90%88/%E6%96%87%E6%A1%A3%E5%90%88%E9%9B%86/pulsar%E6%9E%B6%E6%9E%84%E5%9B%BE.png">
+<meta property="og:image" content="https://xiazhenyu.oss-cn-hangzhou.aliyuncs.com/common/image-20220611110241689.png">
+<meta property="og:image" content="https://xiazhenyu.oss-cn-hangzhou.aliyuncs.com/common/image-20220611113501685.png">
+<meta property="og:image" content="http://example.com/Users/xiazhenyu/Desktop/typora%E6%96%87%E4%BB%B6%E9%9B%86%E5%90%88/%E6%96%87%E6%A1%A3%E5%90%88%E9%9B%86/1238257-20220301101440474-547014552.png">
 <meta property="article:published_time" content="2021-10-05T07:03:25.419Z">
-<meta property="article:modified_time" content="2021-11-04T11:54:49.875Z">
+<meta property="article:modified_time" content="2022-06-13T01:55:41.883Z">
 <meta property="article:author" content="chenyusharp">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="http://example.com/Users/xiazhenyu/Desktop/typora%E6%96%87%E4%BB%B6%E9%9B%86%E5%90%88/%E6%96%87%E6%A1%A3%E5%90%88%E9%9B%86/pulsar%E6%9E%B6%E6%9E%84%E5%9B%BE.png">
@@ -213,7 +216,7 @@
     <h3 class="widget-title">分类</h3>
     <div class="widget-body">
     <div class="widget">
-      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/DDD/">DDD</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/JVM/">JVM</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Linux/">Linux</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Redis/">Redis</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/git/">git</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/linux/">linux</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/redis/">redis</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/typora/">typora</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/wholee/">wholee</a><span class="category-list-count">11</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E4%B8%9A%E5%8A%A1%E6%A8%A1%E5%BC%8F/">业务模式</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E4%BA%A7%E5%93%81/">产品</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%8A%80%E6%9C%AF/">技术</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%8A%80%E8%83%BD/">技能</a><span class="category-list-count">1</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%8A%80%E8%83%BD/%E5%B7%A5%E4%BD%9C/">工作</a><span class="category-list-count">1</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%8B%89%E9%92%A9/">拉钩</a><span class="category-list-count">1</span></li></ul>
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/JVM/">JVM</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Linux/">Linux</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/MQ/">MQ</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Redis/">Redis</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/algorithms/">algorithms</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/git/">git</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/linux/">linux</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/lombok/">lombok</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/maven/">maven</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/redis/">redis</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/s3/">s3</a><span class="category-list-count">1</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/s3/%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0/">文件上传</a><span class="category-list-count">1</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/typora/">typora</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/wholee/">wholee</a><span class="category-list-count">13</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E4%B8%9A%E5%8A%A1%E6%A8%A1%E5%BC%8F/">业务模式</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E4%BA%A7%E5%93%81/">产品</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%8A%80%E6%9C%AF/">技术</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%8B%89%E9%92%A9/">拉钩</a><span class="category-list-count">1</span></li></ul>
     </div>
   </div>
 
@@ -223,7 +226,7 @@
   <div class="widget">
     <h3 class="widget-title">标签</h3>
     <div class="widget-body">
-      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/DDD/" rel="tag">DDD</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux/" rel="tag">Linux</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/git/" rel="tag">git</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/linux/" rel="tag">linux</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/redis/" rel="tag">redis</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/wholee/" rel="tag">wholee</a><span class="tag-list-count">13</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%B7%A5%E4%BD%9C%E5%AE%89%E6%8E%92/" rel="tag">工作安排</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%8A%80%E8%83%BD/" rel="tag">技能</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%8B%89%E9%92%A9/" rel="tag">拉钩</a><span class="tag-list-count">3</span></li></ul>
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux/" rel="tag">Linux</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/algorithms/" rel="tag">algorithms</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/algorithms-task/" rel="tag">algorithms  task</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/clubFactory/" rel="tag">clubFactory</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/git/" rel="tag">git</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/kafka/" rel="tag">kafka</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/linux/" rel="tag">linux</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/lombok/" rel="tag">lombok</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/maven/" rel="tag">maven</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/maven-version/" rel="tag">maven version</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/redis/" rel="tag">redis</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/wholee/" rel="tag">wholee</a><span class="tag-list-count">13</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%B7%A5%E4%BD%9C%E5%AE%89%E6%8E%92/" rel="tag">工作安排</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%8B%89%E9%92%A9/" rel="tag">拉钩</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E9%83%A8%E7%BD%B2-%E8%BF%90%E7%BB%B4%E7%B3%BB%E7%BB%9F/" rel="tag">部署/运维系统</a><span class="tag-list-count">2</span></li></ul>
     </div>
   </div>
 
@@ -233,7 +236,7 @@
   <div class="widget">
     <h3 class="widget-title">标签云</h3>
     <div class="widget-body tagcloud">
-      <a href="/tags/DDD/" style="font-size: 13px;">DDD</a> <a href="/tags/Linux/" style="font-size: 13px;">Linux</a> <a href="/tags/git/" style="font-size: 13px;">git</a> <a href="/tags/linux/" style="font-size: 13.25px;">linux</a> <a href="/tags/redis/" style="font-size: 13px;">redis</a> <a href="/tags/wholee/" style="font-size: 14px;">wholee</a> <a href="/tags/%E5%B7%A5%E4%BD%9C%E5%AE%89%E6%8E%92/" style="font-size: 13.75px;">工作安排</a> <a href="/tags/%E6%8A%80%E8%83%BD/" style="font-size: 13px;">技能</a> <a href="/tags/%E6%8B%89%E9%92%A9/" style="font-size: 13.5px;">拉钩</a>
+      <a href="/tags/Linux/" style="font-size: 13px;">Linux</a> <a href="/tags/algorithms/" style="font-size: 13px;">algorithms</a> <a href="/tags/algorithms-task/" style="font-size: 13px;">algorithms  task</a> <a href="/tags/clubFactory/" style="font-size: 13px;">clubFactory</a> <a href="/tags/git/" style="font-size: 13px;">git</a> <a href="/tags/kafka/" style="font-size: 13px;">kafka</a> <a href="/tags/linux/" style="font-size: 13.4px;">linux</a> <a href="/tags/lombok/" style="font-size: 13px;">lombok</a> <a href="/tags/maven/" style="font-size: 13px;">maven</a> <a href="/tags/maven-version/" style="font-size: 13px;">maven version</a> <a href="/tags/redis/" style="font-size: 13px;">redis</a> <a href="/tags/wholee/" style="font-size: 14px;">wholee</a> <a href="/tags/%E5%B7%A5%E4%BD%9C%E5%AE%89%E6%8E%92/" style="font-size: 13.8px;">工作安排</a> <a href="/tags/%E6%8B%89%E9%92%A9/" style="font-size: 13.6px;">拉钩</a> <a href="/tags/%E9%83%A8%E7%BD%B2-%E8%BF%90%E7%BB%B4%E7%B3%BB%E7%BB%9F/" style="font-size: 13.2px;">部署/运维系统</a>
     </div>
   </div>
 
@@ -242,7 +245,7 @@
   <div class="widget">
     <h3 class="widget-title">归档</h3>
     <div class="widget-body">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/03/">三月 2022</a><span class="archive-list-count">20</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/02/">二月 2022</a><span class="archive-list-count">21</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/01/">一月 2022</a><span class="archive-list-count">30</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/12/">十二月 2021</a><span class="archive-list-count">8</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/11/">十一月 2021</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/10/">十月 2021</a><span class="archive-list-count">38</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/09/">九月 2021</a><span class="archive-list-count">10</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/08/">八月 2021</a><span class="archive-list-count">21</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/07/">七月 2021</a><span class="archive-list-count">18</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/06/">六月 2021</a><span class="archive-list-count">11</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/05/">五月 2021</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/03/">三月 2021</a><span class="archive-list-count">1</span></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/06/">六月 2022</a><span class="archive-list-count">14</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/05/">五月 2022</a><span class="archive-list-count">10</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/04/">四月 2022</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/03/">三月 2022</a><span class="archive-list-count">20</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/02/">二月 2022</a><span class="archive-list-count">22</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/01/">一月 2022</a><span class="archive-list-count">27</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/12/">十二月 2021</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/11/">十一月 2021</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/10/">十月 2021</a><span class="archive-list-count">29</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/09/">九月 2021</a><span class="archive-list-count">10</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/08/">八月 2021</a><span class="archive-list-count">21</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/07/">七月 2021</a><span class="archive-list-count">18</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/06/">六月 2021</a><span class="archive-list-count">11</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/05/">五月 2021</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/03/">三月 2021</a><span class="archive-list-count">1</span></li></ul>
     </div>
   </div>
 
@@ -258,28 +261,13 @@
             
             <div class="item-inner">
               <p class="item-category">
-                <a class="category-link" href="/categories/%E4%B8%9A%E5%8A%A1%E6%A8%A1%E5%BC%8F/">业务模式</a>
+                
               </p>
               <p class="item-title">
-                <a href="/2022/03/28/typora%E6%96%87%E4%BB%B6%E9%9B%86%E5%90%88/%E4%BA%A7%E5%93%81/wholee/%E9%98%BF%E7%B1%B3%E5%B7%B4%E6%A8%A1%E5%BC%8F/" class="title">阿米巴</a>
+                <a href="/2022/06/24/typora%E6%96%87%E4%BB%B6%E9%9B%86%E5%90%88/%E4%B8%AA%E4%BA%BA/%E6%B8%B8%E6%88%8F/%E6%B8%B8%E6%88%8F%E5%A4%A7%E5%85%A8/" class="title">(no title)</a>
               </p>
               <p class="item-date">
-                <time datetime="2022-03-28T11:12:59.061Z" itemprop="datePublished">2022-03-28</time>
-              </p>
-            </div>
-          </li>
-          
-          <li>
-            
-            <div class="item-inner">
-              <p class="item-category">
-                <a class="category-link" href="/categories/%E4%BA%A7%E5%93%81/">产品</a>
-              </p>
-              <p class="item-title">
-                <a href="/2022/03/28/typora%E6%96%87%E4%BB%B6%E9%9B%86%E5%90%88/%E4%BA%A7%E5%93%81/wholee/%E8%B4%A2%E5%8A%A1%E7%9B%B8%E5%85%B3/" class="title">财务相关产品文档</a>
-              </p>
-              <p class="item-date">
-                <time datetime="2022-03-28T11:09:10.242Z" itemprop="datePublished">2022-03-28</time>
+                <time datetime="2022-06-24T15:55:52.120Z" itemprop="datePublished">2022-06-24</time>
               </p>
             </div>
           </li>
@@ -291,10 +279,10 @@
                 
               </p>
               <p class="item-title">
-                <a href="/2022/03/28/typora%E6%96%87%E4%BB%B6%E9%9B%86%E5%90%88/%E4%BA%A7%E5%93%81/wholee/%E8%B4%A7%E5%93%81%E7%9B%B8%E5%85%B3/" class="title">(no title)</a>
+                <a href="/2022/06/22/typora%E6%96%87%E4%BB%B6%E9%9B%86%E5%90%88/%E6%8A%80%E6%9C%AF/%E6%8A%80%E6%9C%AF%E7%AC%94%E8%AE%B0/%E6%BA%90%E7%A0%81/Atomic%E7%B1%BB/" class="title">(no title)</a>
               </p>
               <p class="item-date">
-                <time datetime="2022-03-28T11:08:55.123Z" itemprop="datePublished">2022-03-28</time>
+                <time datetime="2022-06-22T08:12:04.951Z" itemprop="datePublished">2022-06-22</time>
               </p>
             </div>
           </li>
@@ -303,13 +291,13 @@
             
             <div class="item-inner">
               <p class="item-category">
-                <a class="category-link" href="/categories/JVM/">JVM</a>
+                
               </p>
               <p class="item-title">
-                <a href="/2022/03/28/typora%E6%96%87%E4%BB%B6%E9%9B%86%E5%90%88/%E6%8B%89%E9%92%A9/JVM/JVM%E5%AD%A6%E4%B9%A0%E6%80%BB%E7%BB%93/" class="title">JVM学习总结</a>
+                <a href="/2022/06/18/typora%E6%96%87%E4%BB%B6%E9%9B%86%E5%90%88/%E6%8B%89%E9%92%A9/%E9%A1%B9%E7%9B%AE%E5%AE%9E%E6%88%98/%E8%BF%9B%E5%BA%A6/" class="title">(no title)</a>
               </p>
               <p class="item-date">
-                <time datetime="2022-03-27T22:09:01.164Z" itemprop="datePublished">2022-03-28</time>
+                <time datetime="2022-06-18T13:54:20.914Z" itemprop="datePublished">2022-06-18</time>
               </p>
             </div>
           </li>
@@ -318,13 +306,28 @@
             
             <div class="item-inner">
               <p class="item-category">
-                <a class="category-link" href="/categories/Redis/">Redis</a>
+                
               </p>
               <p class="item-title">
-                <a href="/2022/03/27/typora%E6%96%87%E4%BB%B6%E9%9B%86%E5%90%88/%E6%8B%89%E9%92%A9/%E4%B8%AD%E9%97%B4%E4%BB%B6/Redis/Redis%E9%A2%84%E4%B9%A0/" class="title">Reids预习</a>
+                <a href="/2022/06/18/typora%E6%96%87%E4%BB%B6%E9%9B%86%E5%90%88/%E6%8B%89%E9%92%A9/%E9%A1%B9%E7%9B%AE%E5%AE%9E%E6%88%98/%E9%A1%B9%E7%9B%AE%E6%9E%B6%E6%9E%84/" class="title">(no title)</a>
               </p>
               <p class="item-date">
-                <time datetime="2022-03-26T16:53:06.754Z" itemprop="datePublished">2022-03-27</time>
+                <time datetime="2022-06-18T13:54:08.755Z" itemprop="datePublished">2022-06-18</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                
+              </p>
+              <p class="item-title">
+                <a href="/2022/06/18/typora%E6%96%87%E4%BB%B6%E9%9B%86%E5%90%88/%E6%8B%89%E9%92%A9/%E9%A1%B9%E7%9B%AE%E5%AE%9E%E6%88%98/%E7%B4%A0%E6%9D%90/" class="title">(no title)</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2022-06-18T13:53:58.126Z" itemprop="datePublished">2022-06-18</time>
               </p>
             </div>
           </li>
@@ -408,7 +411,85 @@
 <li>队列的选择，可以考虑使用BlockingQueue</li>
 <li>高可用选择： </li>
 </ol>
-<h3 id="队列的相关知识点"><a href="#队列的相关知识点" class="headerlink" title="队列的相关知识点"></a>队列的相关知识点</h3>
+<h3 id="Kafka"><a href="#Kafka" class="headerlink" title="Kafka"></a>Kafka</h3><h4 id="kafka的作用"><a href="#kafka的作用" class="headerlink" title="kafka的作用"></a>kafka的作用</h4><p>利用scala语言开发的一个多分区、多副本且基于Zookeeper协调的分布式消息系统。具备高吞吐、可持久化、水平扩展、支持流数据处理的特征；</p>
+<p>三大角色：</p>
+<ul>
+<li><p>消息系统：具备系统解藕、冗余存储、流量削峰、缓冲、异步通信、扩展性、可恢复性等功能。此外，</p>
+<p>kafka还提供了消息的顺序性保证以及回溯消费的功能；</p>
+</li>
+<li><p>存储系统 ：kafka把消息持久化到磁盘，相比于其他基于内存存储的系统而言，有效的降低了数据丢失的风险。也正是得益于kafka的消息持久化和多副本机制，我们可以把kafka作为长期的数据存储系统来使用，只需要把对应的数据保留策略设置为“永久”或启用主题的日志压缩功能即可；</p>
+</li>
+<li><p>流处理平台： Kafka不仅为每个流行的流式处理框架提供了可靠的数据来源，还提供了一个完整的流式处理类库，比如窗口、连接、变换和聚合等各类操作。</p>
+</li>
+</ul>
+<h4 id="kafka的组成"><a href="#kafka的组成" class="headerlink" title="kafka的组成"></a>kafka的组成</h4><p>kafka有Producer+Broker+Consumer以及一个ZK集群。ZK是用来负责集群元数据的管理、控制器的选举等操作。Producer讲消息发送到Broker，Broker负责将收到的消息存储到磁盘中，而Consumer负责从Broker中订阅消息并消费。</p>
+<p><img src="https://xiazhenyu.oss-cn-hangzhou.aliyuncs.com/common/image-20220611110241689.png" alt="image-20220611110241689"></p>
+<p>1.Producer：生产者，也就是发送消息的一方。生产者负责创建消息，然后将其投递到Kafka中。</p>
+<p>2.Consumer：消费者，也就是接收消息的一方。消费者连接到Kafka上并接收消息，进而进行相应的业务逻辑处理。</p>
+<p>3.Broker：服务代理节点。对于Kafka而言，Broker可以简单地看作一个独立的Kafka服务节点或Kafka服务实例。大多数情况下也可以将Broker看作一台Kafka服务器，前提是这台服务器上只部署了一个Kafka实例。一个或多个Broker组成了一个Kafka集群。一般而言，我们更习惯使用首字母小写的broker来表示服务代理节点。</p>
+<h5 id="主题与分区"><a href="#主题与分区" class="headerlink" title="主题与分区"></a>主题与分区</h5><p>Kafka中的消息以主题为单位进行归类、生产者负责将消息发送到特定的主题。主题是一个逻辑的概念，一个主题可以分为多个分区，一个分区只能属于一个主题。分区可以分布在不同的broker上。同一主题下的不同分区包含的消息是不一样的。分区在存储层面可以看作是一个可追加的日志文件，消息在被追加到分区日志文件的时候会被分配一个特定的偏移量（offset）。offset是消息在<strong>分区</strong>中的唯一标识，kafka通过它来保证消息在分区内部的<strong>顺序性</strong>，不过offset并不跨分区，也就是说kafka保证的是分区有序而不是主题有序。</p>
+<h5 id="副本机制"><a href="#副本机制" class="headerlink" title="副本机制"></a>副本机制</h5><p>通过增加副本数量可以提高容灾能力。同一分区不同副本保存的是相同的消息（会有滞后）。其中 <strong>leader 副本处理读写请求</strong>，follower副本只负责与leader副本的消息同步。注意：<strong>副本处于不同的Broker之中</strong>，当leader副本出现故障时，从follower副本中重新选举新的leader副本对外提供服务。Kafka通过多副本机制实现了故障的自动转移，当Kafka集群中某个broker失效时仍然能保证服务可用。</p>
+<p>AR：分区中的所有副本的集合；</p>
+<p>ISR(In-Sync-Replicas)：所有与leader副本保持一定程度同步的副本（包括leader）的集合；<strong>这个标准就是 Broker 端参数 replica.lag.time.max.ms 参数值。</strong>这个参数的含义是 Follower 副本能够落后 Leader 副本的最长时间间隔，当前默认值是 10 秒。</p>
+<p>OSR (Out-of-SyncReplicas)：与leader副本同步滞后过多的副本(不包括leader副本)组成OSR。</p>
+<p>leader副本负责维护和跟踪ISR集合中的所有follower副本的滞后状态。默认情况下，当leader副本发生故障时，只有在<strong>ISR集合</strong>中的副本才有资格被选举为新的leader，而在OSR集合中的副本则没有任何机会(不过这个原则也可以通过修改相应的参数配置来改变)。</p>
+<p>kafka使用pull的模式从服务端拉取消息，并且保存消息的位置。当消费者看集群恢复上线时可以根据之前保存的消费位置重新拉取需要的消息进行消费，这样就不会造成消息丢失。</p>
+<h6 id="HW与LEO"><a href="#HW与LEO" class="headerlink" title="HW与LEO"></a>HW与LEO</h6><p>HW：HW是HighWatermark的缩写，俗称高水位，它标识了一个特定的消息偏移量(offset)，消费者只能拉取到这个offset之前的消息。</p>
+<p>LEO：当前将要写入的最新消息的位置。</p>
+<p>kafka的复制机制既不是完全的同步复制，也不是单纯的异步复制。事实上，同步复制要求所有能工作的follower副本都要复制完，这条消息才能被确认为已经成功提交，这种方式极大的影响了性能。而在异步方式下，follower副本异步地从leader副本中复制数据，数据只要被leader副本写入就被认为已经提交成功。这种情况下，如果follower落后于leader副本但是leader副本突然宕机，则会造成数据丢失。kafka的这种<strong>ISR方式</strong>则有效的权衡了数据可靠性和性能的关系。</p>
+<h5 id="生产者"><a href="#生产者" class="headerlink" title="生产者"></a>生产者</h5><p><img src="https://xiazhenyu.oss-cn-hangzhou.aliyuncs.com/common/image-20220611113501685.png" alt="image-20220611113501685"></p>
+<ol>
+<li><p>ProducerRecord：消息对象；</p>
+</li>
+<li><p>ProducerBatch：消息批次对象。大小有参数batch.size大小进行控制。</p>
+</li>
+<li><p>RecordAccumulator：消息累加器，内部会为每一个分区都创建一个双端队列，队列的元素为ProducerBatch。当有消息需要发送时，累加器会根据分区器的结果，将ProducerRecord追加到分区尾部的ProducerBatch中。如果容量已达到上限，则新建一个。</p>
+</li>
+<li><p>Request：Producer向kafka发送请求的对象，同时获取Response。</p>
+</li>
+</ol>
+<p>线程模型:</p>
+<p>主线程：开发用户操作的线程，在分别执行了拦截器、序列化器、分区器之后，向消息累加器追加消息，主线程结束。</p>
+<p>sender线程：负责从消息累加器中获取ProducerBatch，并封装为Request，与kafka集群进行交互。</p>
+<h6 id="常用参数"><a href="#常用参数" class="headerlink" title="常用参数"></a>常用参数</h6><p>acks : 多少个副本收到消息以后，kafka集群才回向客户端回应消息接受情况。</p>
+<p>1: 当leader 副本接受到消息以后，回应消息发送成功。可靠性和吞吐量的折中方式。</p>
+<p>0: 生产者发送消息之后不需要等待kafka作出任何响应，如果消息在发送到kafka集群过程中发生网络异常或其他情况，可能丢失数据。<strong>最大吞吐量</strong>。</p>
+<p>-1（all）：ISR集合中的副本都同步了该消息，那么kafka才回向生产者响应成功。保证了最大的可靠性。</p>
+<h3 id="常见问题"><a href="#常见问题" class="headerlink" title="常见问题"></a>常见问题</h3><h4 id="kafkfa高吞吐的原因？"><a href="#kafkfa高吞吐的原因？" class="headerlink" title="kafkfa高吞吐的原因？"></a>kafkfa高吞吐的原因？</h4><ol>
+<li><p>页缓存技术</p>
+<p>kafka时基于操作系统的页缓存page cache来实现写入的。kafka在写磁盘文件的时候，先写入os cache</p>
+<p>中，接下来有操作系统决定什么时候把数据真正的刷入磁盘文件。这样可以极大的提升性能；</p>
+<p><img src="/Users/xiazhenyu/Desktop/typora%E6%96%87%E4%BB%B6%E9%9B%86%E5%90%88/%E6%96%87%E6%A1%A3%E5%90%88%E9%9B%86/1238257-20220301101440474-547014552.png" alt="img"></p>
+</li>
+</ol>
+<ol start="2">
+<li><p>磁盘的顺序性写</p>
+<p>kafka写数据的时候，消息是不断的追加到文件的末尾的，这个可以使kafka充分利用磁盘的顺序读写性能。顺序读写不需要磁盘磁头的寻道时间，避免了随机磁盘寻址的浪费，只需要很少的扇区旋转时间。</p>
+<p>kafka的分区的日志是分为N个大小相等的segment中，这个是物理存储的文件。顺序读写就是把消息加到segment的末尾。</p>
+</li>
+<li><p>零拷贝（消费端）</p>
+<p>kafka在读取数据的时候为了避免多余的数据拷贝，使用了零拷贝技术。跳过了中间从os cache拷贝到kafka进程缓存以及再从kafka进程缓存到socket缓存中的拷贝，同时也减少了上下文的切换。实现os cache中的数据直接发送到网卡后进行传输。</p>
+<p>mmap+write（持久化数据）、sendfile发送数据。</p>
+</li>
+<li><p>分区并发</p>
+<p>kafka中的topic中的内容可以分在多个分区中存储，每个分区中又分为多个段segment，每次的操作是针对一小部分进行的，增加了并行操作的能力；</p>
+</li>
+<li><p>批量发送</p>
+<p>对标ProducerBatch知识点；</p>
+</li>
+<li><p>数据压缩</p>
+<p>kafka支持对消息集合进行压缩，通过GZIP或Snappy格式对消息集合进行压缩，减少数据量，增加网络传输能力。</p>
+</li>
+</ol>
+<p>PS: 批量发送和数据压缩一起使用比较好。</p>
+<h4 id="什么情况下会出现重复消费？"><a href="#什么情况下会出现重复消费？" class="headerlink" title="什么情况下会出现重复消费？"></a>什么情况下会出现重复消费？</h4><p>根本原因：已经消费了数据，但是offset还没有来得及提交。</p>
+<p>场景：</p>
+<p>一、自动提交。poll（）方法中完成逻辑处理。在每次真正向服务端发起拉取请求之前，会检查是否可以位移提交，如果可以，那么就会提交上一次轮询的位移。但是如果这个提交之前，消费者崩溃了，那么当消费者重新起来的时候，就会从上一次位移提交的地方开始消费。</p>
+<h4 id="什么情况下会出现消息丢失？"><a href="#什么情况下会出现消息丢失？" class="headerlink" title="什么情况下会出现消息丢失？"></a>什么情况下会出现消息丢失？</h4><p>消息拉取以后，存入本地缓存中，提交位移。然后有另外一个线程进行处理，如果这个线程处理的过程中发生了异常。那么在恢复以后，消费者就会从新的offset开始拉取消息，就会造成消息的丢失。</p>
+<h4 id="kafka的选举机制"><a href="#kafka的选举机制" class="headerlink" title="kafka的选举机制"></a>kafka的选举机制</h4><p>leader挂了就会从ISR中选一个作为leader副本。如果ISR中的副本全部挂了，kafka就会进行unclean leader 选举。但是这个会造成数据的丢失，需要监控系统及时发现宕机的kafka并进行处理。</p>
+<p>禁用unclean leader 选举；</p>
+<p>手动指定最小的ISR,比如ISR小于2就不接受消息，让业务系统自己处理。</p>
+<h3 id=""><a href="#" class="headerlink" title=""></a></h3>
       
     </div>
     <div class="article-footer">
@@ -464,7 +545,7 @@
   <ul class="pager pull-left">
     
     <li class="prev">
-      <a href="/2021/10/05/MQ/" title="(no title)"><i class="icon icon-angle-left" aria-hidden="true"></i><span>&nbsp;&nbsp;上一篇</span></a>
+      <a href="/2021/10/06/typora%E6%96%87%E4%BB%B6%E9%9B%86%E5%90%88/%E6%8B%89%E9%92%A9/%E5%88%86%E5%B8%83%E5%BC%8F/" title="(no title)"><i class="icon icon-angle-left" aria-hidden="true"></i><span>&nbsp;&nbsp;上一篇</span></a>
     </li>
     
     
